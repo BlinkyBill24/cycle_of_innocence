@@ -51,21 +51,29 @@ mkdir -p "$TARGET_DIR"
 # Using rsync for safety and --delete to truly overwrite old content in target.
 RSYNC_OPTS=(-a --delete --exclude='.godot/' --exclude='*.import.bak' --exclude='__pycache__/' --exclude='.DS_Store')
 
-# Sync the main Godot project layout
-for item in project.godot icon.svg icon.svg.import scenes scripts resources assets tools; do
-  if [[ -e "$SOURCE_DIR/$item" ]]; then
-    echo "  - syncing $item"
+# Sync the main Godot project layout (dirs)
+for item in scenes scripts resources assets tools; do
+  if [[ -d "$SOURCE_DIR/$item" ]]; then
+    echo "  - syncing $item/"
     rsync "${RSYNC_OPTS[@]}" "$SOURCE_DIR/$item/" "$TARGET_DIR/$item/" || true
   fi
 done
 
-# Sync top-level single files
-for item in GROK.md; do
+# Sync important single files at root (use cp, not rsync with trailing /)
+for item in project.godot icon.svg icon.svg.import GROK.md; do
   if [[ -f "$SOURCE_DIR/$item" ]]; then
     echo "  - syncing $item"
     cp -f "$SOURCE_DIR/$item" "$TARGET_DIR/$item"
   fi
 done
+
+# Explicitly preserve the critical publish script (even if tools/ was partially synced)
+if [[ -f "$SOURCE_DIR/tools/publish-standalone.sh" ]]; then
+  mkdir -p "$TARGET_DIR/tools"
+  cp -f "$SOURCE_DIR/tools/publish-standalone.sh" "$TARGET_DIR/tools/publish-standalone.sh"
+  chmod +x "$TARGET_DIR/tools/publish-standalone.sh"
+  echo "  - ensured publish-standalone.sh is present (critical for GitHub publish)"
+fi
 
 # Sync the local docs/ vault (game-specific memory inside the published repo)
 if [[ -d "$SOURCE_DIR/docs" ]]; then
