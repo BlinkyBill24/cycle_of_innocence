@@ -148,3 +148,30 @@ python3 ../scripts/obsidian/digest.py
 Update this file's slice table after every vertical slice ships. Re-read the full approved plan before major work.
 
 **This is the single source of truth for Grok in this project.** Read it + the plan before touching code or art.
+
+## Feature Design Work (added this session)
+While the story bible is under user review, a full set of game systems documentation was created in the local vault and synced/published:
+
+- [[docs/design/game-features.md]] — Overview of all major features with philosophy, scope guardrails, and ties to story/companions/morality.
+- [[docs/mechanics/progression.md]] — Age stages, morality system, companion bond/corruption as core progression, revelation abilities, NG+.
+- [[docs/mechanics/combat.md]] — Real-time action design with horror layers (dread, body horror via corruption, psychological threats).
+- [[docs/design/customization.md]] — Name picking (protagonist + companions), gender selection with narrative flavor, appearance driven by age + morality.
+- [[docs/mechanics/horror-and-dread.md]] — Dread meter, body horror, accessibility (horror intensity slider), atmosphere tools.
+- [[docs/mechanics/inventory.md]] — Light, purposeful inventory focused on companion care, story keys, and lore fragments.
+
+All documents are cross-linked with the story bible and approved plan. They emphasize keeping scope realistic for solo dev while making choices (especially around companions and morality) feel visible and consequential.
+
+These docs live in the published rpg-adventure/ repo after sync + publish.
+
+## Story Bible Revision (this session)
+User review feedback incorporated into docs/story/bible.md and docs/characters/companions.md:
+
+- Selection is now a random lottery or based on a "Community Harmony Score" earned (or lost) by parents through work, loyalty, volunteering, etc. No "marked families" or old blood requirement.
+- Ritual location changed from stone circle in the woods to the village playground (a place children are supposed to feel safe and happy).
+- Atmosphere elements changed: no white robes. Instead, "Playtime Guardians" — creepy clowns in bright but faded costumes, oversized stitched stuffed animals, and living toys that move wrong.
+- Villagers do **not** notice the escape. They believe the ritual was completely successful and everything is fine. The village carries on normally at first.
+- Because the Hunger was not fed, strange things begin happening (withering crops, restless dead, more monster sightings). Villagers start running the lottery more frequently and sacrificing additional children in panic, which creates even more monsters and accelerates the breakdown of the cycle.
+
+These changes make the conspiracy feel more systemic, random, and insidious. The initial "everything is okay" lie from the village's perspective heightens the horror and isolation for Rowan. Updated Act 0 description, Background, Cycle section, and relevant twists/companions rescue details.
+
+The new details will affect early zone design (playground as ritual site), art prompts (toys/clowns), and the "delayed alarm" in the story.
