@@ -154,6 +154,7 @@ func _update_soothe(delta: float) -> void:
 			or global_position.distance_to(_soothe_target.global_position) > SOOTHE_RANGE * 1.4:
 		_stop_soothe()
 		return
+	AdaptiveAudio.duck(18.0)  # held every frame: the lullaby owns the channel
 	var rate := SOOTHE_RATE
 	if DreadManager.dread > 80.0:
 		rate *= 0.5  # mercy is hardest when terrified — by design
@@ -162,6 +163,7 @@ func _update_soothe(delta: float) -> void:
 
 
 func _stop_soothe() -> void:
+	Sfx.stop(&"lullaby")
 	_soothing = false
 	_soothe_target = null
 	_action_anim_lock = false

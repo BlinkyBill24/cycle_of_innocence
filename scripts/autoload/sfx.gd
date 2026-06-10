@@ -43,3 +43,13 @@ func play(name: StringName, volume_db: float = 0.0, pitch_jitter: float = 0.06) 
 	_players[0].stream = stream
 	_players[0].volume_db = volume_db
 	_players[0].play()
+
+
+## Stop every pooled player currently playing the named sound.
+func stop(name: StringName) -> void:
+	var stream: AudioStream = STREAMS.get(name)
+	if stream == null:
+		return
+	for player in _players:
+		if player.playing and player.stream == stream:
+			player.stop()

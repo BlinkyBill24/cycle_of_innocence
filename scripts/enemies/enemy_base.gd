@@ -158,8 +158,14 @@ func _chase_update(_delta: float) -> void:
 	if player == null or stilled or distance_to_player() > lose_radius:
 		hsm.dispatch(&"lost")
 		return
-	if distance_to_player() <= attack_range and _cooldown <= 0.0 and _soothe_hold <= 0.0:
+	var dist := distance_to_player()
+	if dist <= attack_range and _cooldown <= 0.0 and _soothe_hold <= 0.0:
 		hsm.dispatch(&"in_range")
+		return
+	if dist <= attack_range * 0.85:
+		# standoff: hover just out of reach instead of pressing into the
+		# player's body (depenetration glued it to them — playtest)
+		velocity = velocity.move_toward(Vector2.ZERO, 500.0 * get_physics_process_delta_time())
 		return
 	# the lullaby reaches it: hesitates and slows instead of lunging
 	var speed := chase_speed * (SOOTHE_SLOW_FACTOR if _soothe_hold > 0.0 else 1.0)
