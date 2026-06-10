@@ -20,6 +20,7 @@ run/main_scene="res://playground.tscn"
 GameEvents="*res://scripts/autoload/game_events.gd"
 PlayerData="*res://scripts/autoload/player_data.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+DreadManager="*res://scripts/autoload/dread_manager.gd"
 
 [editor_plugins]
 

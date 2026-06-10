@@ -18,6 +18,7 @@ func _ready() -> void:
 	PlayerData.morality_changed.connect(func(_v, _d): _refresh_label())
 	PlayerData.bond_changed.connect(func(_id, _v): _refresh_label())
 	PlayerData.corruption_changed.connect(func(_id, _v): _refresh_label())
+	DreadManager.dread_changed.connect(func(_v, _d): _refresh_label())
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -41,8 +42,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			PlayerData.set_companion_corruption(PlayerData.BRIAR_ID, PlayerData.get_companion(PlayerData.BRIAR_ID).corruption + 15.0)
 		KEY_8:
 			PlayerData.unlock_revelation(&"escape_noticed")
+		KEY_9:
+			DreadManager.add_dread(20.0, &"debug")
 		KEY_0:
 			PlayerData.reset_to_defaults()
+			DreadManager.reset()
 			_refresh_label()
 
 
@@ -58,6 +62,7 @@ func _refresh_label() -> void:
 			PlayerData.get_morality_tier_name(),
 		]
 		+ "Briar bond: %.0f | corruption: %.0f\n" % [briar.get("bond", 0.0), briar.get("corruption", 0.0)]
+		+ "Dread: %.0f (%s)\n" % [DreadManager.dread, DreadManager.get_tier_name()]
 		+ "Keys: 1/2 morality ±15 | 3 teen 4 adult 5 child\n"
-		+ "6 bond+10 | 7 corruption+15 | 8 revelation | 0 reset"
+		+ "6 bond+10 | 7 corruption+15 | 8 revelation | 9 dread+20 | 0 reset"
 	)

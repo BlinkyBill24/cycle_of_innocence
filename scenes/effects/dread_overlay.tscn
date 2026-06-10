@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dreadoverlay001"]
+
+[ext_resource type="Script" path="res://scripts/horror/dread_overlay.gd" id="1_overlay_script"]
+[ext_resource type="Shader" path="res://assets/shaders/dread_vignette.gdshader" id="2_dread_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dread"]
+shader = ExtResource("2_dread_shader")
+shader_parameter/strength = 0.0
+
+[node name="DreadOverlay" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_overlay_script")
+
+[node name="VignetteRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_dread")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

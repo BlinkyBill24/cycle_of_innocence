@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://7l42g3af5hli"]
+[gd_scene load_steps=4 format=3 uid="uid://7l42g3af5hli"]
 
 [ext_resource type="PackedScene" uid="uid://cplayerrowan01" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/debug/progression_test.gd" id="2_progression_test"]
+[ext_resource type="PackedScene" uid="uid://dreadoverlay001" path="res://scenes/effects/dread_overlay.tscn" id="3_dread_overlay"]
 
 [node name="Playground" type="Node2D"]
 
@@ -9,3 +10,5 @@
 
 [node name="ProgressionTest" type="Node2D" parent="."]
 script = ExtResource("2_progression_test")
+
+[node name="DreadOverlay" parent="." instance=ExtResource("3_dread_overlay")]
