@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "godot": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "/home/seitanist/godot-mcp/build/index.js"
+      ],
+      "env": {
+        "GODOT_PATH": "/home/seitanist/.local/bin/godot"
+      }
+    }
+  }
+}
