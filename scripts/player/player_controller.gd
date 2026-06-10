@@ -80,15 +80,49 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("attack") and movement_state == MovementState.EXPLORING:
 		perform_attack()
 
+	if Input.is_action_just_pressed("interact") and movement_state == MovementState.EXPLORING:
+		_try_companion_assist()
+
 func _decelerate(delta: float) -> void:
 	velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
+
+
+const ASSIST_RANGE := 48.0
+
+func _try_companion_assist() -> void:
+	var companion := get_tree().get_first_node_in_group("companion") as CompanionBase
+	if companion == null:
+		return
+	var nearest: DiggableSpot = null
+	var best := ASSIST_RANGE
+	for node in get_tree().get_nodes_in_group("diggable"):
+		var spot := node as DiggableSpot
+		if spot and not spot.revealed:
+			var dist := global_position.distance_to(spot.global_position)
+			if dist < best:
+				best = dist
+				nearest = spot
+	if nearest:
+		companion.command_dig(nearest)
+
+## AI-generated side rows all face right — render "left" as the right row
+## mirrored. Returns [animation_name, flip_h]; pure for testability.
+static func directional_anim(action: String, facing: Vector2) -> Array:
+	var suffix := ""
+	if absf(facing.x) > absf(facing.y):
+		suffix = "right"
+	else:
+		suffix = "down" if facing.y > 0.0 else "up"
+	return ["%s_%s" % [action, suffix], absf(facing.x) > absf(facing.y) and facing.x < 0.0]
+
 
 func _update_locomotion_animation() -> void:
 	if not animated_sprite:
 		return
 	var moving := velocity.length() > 8.0
-	var anim_name := ("walk_" if moving else "idle_") + _facing_suffix()
-	_play_if_changed(anim_name)
+	var anim: Array = directional_anim("walk" if moving else "idle", _facing)
+	animated_sprite.flip_h = anim[1]
+	_play_if_changed(anim[0])
 
 func _play_if_changed(anim_name: String) -> void:
 	if animated_sprite.sprite_frames and animated_sprite.sprite_frames.has_animation(anim_name) and animated_sprite.animation != anim_name:
@@ -149,18 +183,20 @@ func _on_died() -> void:
 	set_movement_state(MovementState.EXPLORING)
 
 func play_action_animation(action: String) -> void:
-	var anim_name := "%s_%s" % [action, _facing_suffix()]
-	if not animated_sprite or not animated_sprite.sprite_frames or not animated_sprite.sprite_frames.has_animation(anim_name):
+	var anim: Array = directional_anim(action, _facing)
+	if not animated_sprite or not animated_sprite.sprite_frames or not animated_sprite.sprite_frames.has_animation(anim[0]):
 		return
 	_action_anim_lock = true
-	animated_sprite.play(anim_name)
+	animated_sprite.flip_h = anim[1]
+	animated_sprite.play(anim[0])
 
 func play_action_and_wait(action: String) -> void:
-	var anim_name := "%s_%s" % [action, _facing_suffix()]
-	if not animated_sprite or not animated_sprite.sprite_frames or not animated_sprite.sprite_frames.has_animation(anim_name):
+	var anim: Array = directional_anim(action, _facing)
+	if not animated_sprite or not animated_sprite.sprite_frames or not animated_sprite.sprite_frames.has_animation(anim[0]):
 		return
 	_action_anim_lock = true
-	animated_sprite.play(anim_name)
+	animated_sprite.flip_h = anim[1]
+	animated_sprite.play(anim[0])
 	await animated_sprite.animation_finished
 	_action_anim_lock = false
 	_update_locomotion_animation()

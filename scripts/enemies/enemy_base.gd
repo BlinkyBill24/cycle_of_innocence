@@ -193,13 +193,10 @@ func _update_animation() -> void:
 		return  # state already chose its animation
 	if velocity.length() > 4.0:
 		_facing = velocity.normalized()
-		var suffix := ""
-		if absf(_facing.x) > absf(_facing.y):
-			suffix = "right" if _facing.x > 0.0 else "left"
-		else:
-			suffix = "down" if _facing.y > 0.0 else "up"
-		var anim := "walk_" + suffix
-		if sprite.sprite_frames.has_animation(anim) and sprite.animation != anim:
-			sprite.play(anim)
+		var anim: Array = PlayerController.directional_anim("walk", _facing)
+		sprite.flip_h = anim[1]
+		if sprite.sprite_frames.has_animation(anim[0]) and sprite.animation != anim[0]:
+			sprite.play(anim[0])
 	elif sprite.sprite_frames.has_animation("idle") and sprite.animation != "idle":
+		sprite.flip_h = false  # don't leak movement mirroring into poses
 		sprite.play("idle")

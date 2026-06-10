@@ -8,6 +8,8 @@ signal revelation_unlocked(revelation_id: StringName)
 signal companion_bond_changed(companion_id: StringName, bond_value: float)
 signal companion_corrupted(companion_id: StringName, level: float)
 signal companion_lost(companion_id: StringName, permanent: bool)
+signal companion_bark(companion_id: StringName)
+signal diggable_revealed(spot_id: StringName)
 
 signal combat_hit(target_faction: StringName, amount: int)
 signal player_damaged(current_hp: int, max_hp: int)

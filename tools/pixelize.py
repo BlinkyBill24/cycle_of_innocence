@@ -79,7 +79,23 @@ def pixelize_cell(cell: Image.Image, size: int, colors: int) -> Image.Image:
     # restore hard-edged alpha from the downscaled cell
     alpha = small.getchannel("A").point(lambda a: 255 if a >= 128 else 0)
     out.putalpha(alpha)
-    return out
+    return center_frame(out, size)
+
+
+def center_frame(frame: Image.Image, size: int) -> Image.Image:
+    """Center the opaque content in its cell. AI sheets place sprites
+    inconsistently per frame, which reads as jitter in animation (top-down
+    view, so centering both axes is correct — no ground baseline)."""
+    bbox = frame.getchannel("A").getbbox()
+    if bbox is None:
+        return frame
+    dx = (size - (bbox[0] + bbox[2])) // 2
+    dy = (size - (bbox[1] + bbox[3])) // 2
+    if dx == 0 and dy == 0:
+        return frame
+    centered = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    centered.paste(frame, (dx, dy))
+    return centered
 
 
 def main() -> None:
