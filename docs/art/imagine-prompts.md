@@ -11,14 +11,14 @@ retro pixel art top-down 32x32 character reference sheet, SNES Zelda style with 
 
 Save as: `assets/reference/protagonist_child_bible.png` (revise for playground context)
 
-## First Animal Companion (Dog / Hound pup — escaped with player)
-**Bible (first)**
+## First Animal Companion (Dog / Hound pup — escaped with player, revised)
+**Bible (updated for playground "lesser offering", villager unawareness of escape, escalation creating more monsters)**
 
 ```
-retro pixel art top-down 32x32 animal companion reference sheet, SNES Zelda style horror-tinged, small terrified dog/wolf pup ~ the one that was also "wrong" for the sacrifice, big eyes, scruffy fur, one ear torn or ritual nick, loyal but scared posture, 2x2 or 4-view grid (front/side + action hints), growth note space for adult version later, limited 20-color palette (earthy browns + one warm bond glow), palette swatches, transparent bg, crisp pixels no anti-aliasing
+retro pixel art top-down 32x32 animal companion reference sheet, SNES Zelda style horror-tinged, small terrified dog/wolf pup brought as lesser offering at village playground ritual (creepy clowns/stuffed toys), big fearful eyes, scruffy fur, one ear torn, ritual nick on flank from toy "guardians", loyal but scared posture next to escaped child, 2x2 or 4-view grid (front/side + action hints like digging), growth note space for adult version (brave protector or corrupted), limited 20-color palette (earthy browns + one warm bond glow), palette swatches, transparent bg, crisp pixels no anti-aliasing
 ```
 
-Save as: `assets/reference/companion_dog_pup_bible.png`
+Save as: `assets/reference/companion_dog_pup_bible.png` (revise for playground context)
 
 ## Later variants (to generate after first slice)
 - Protagonist teen + adult versions (same character bible evolution + taller silhouette + outfit reflecting morality choices: innocent bright vs pragmatic cloak vs ruthless scars/marks).

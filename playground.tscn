@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://7l42g3af5hli"]
+
+[ext_resource type="PackedScene" uid="uid://cplayerrowan01" path="res://scenes/player/player.tscn" id="1_player"]
+[ext_resource type="Script" path="res://scripts/debug/progression_test.gd" id="2_progression_test"]
+
+[node name="Playground" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+
+[node name="ProgressionTest" type="Node2D" parent="."]
+script = ExtResource("2_progression_test")

@@ -19,7 +19,7 @@ Persistent context for **Grok Build** sessions on this Godot 4.x 2D top-down hor
 | Combat             | Real-time action (Zelda + Secret of Mana inspired) with light companion assists |
 | Companions         | Animal only (dog/hound, bird/raptor, horse/stag etc.) — rescue, raise, bond, possible corruption |
 | Progression        | Age stages (child → teen → adult) + morality/alignment + companion bond/growth/corruption |
-| Narrative          | Yarn Spinner (branching, variables for age/morality/bonds/revelations) + deep AoT-style twists |
+| Narrative          | Dialogue Manager (pure GDScript; branching with conditions/mutations on PlayerData) + deep AoT-style twists — *replaced Yarn Spinner 2026-06-10 (C#-only addon breaks Web export; see docs/decisions/2026-06-10-new-features-and-ai-setup.md)* |
 | Structure          | Semi-open zones (not strict small rooms) |
 | Difficulty         | Fair but tense; child sections feel vulnerable |
 | Platforms          | Linux (primary), Android (touch), Web/HTML5 |
@@ -49,18 +49,18 @@ Failure to sync means the GitHub rpg-adventure will be out of date.
 |-------|--------|-------|
 | 0 — Branch + local vault (docs/) + GROK.md | ✅ In progress (this session) | On `feature/cycle-of-innocence`; docs/ + templates created |
 | 1 — Core player movement + real-time attack + age stub | ⬜ | Port/adapt from rpg-adventure |
-| 2 — First animal companion (escape) + basic bond + Yarn integration | ⬜ | Phase 2 vertical slice target |
+| 2 — First animal companion (escape) + basic bond + dialogue integration | ⬜ | Phase 2 vertical slice target |
 | 3 — One semi-open zone + 1 combat + 1 puzzle + 1 horror seed + age-up teaser | ⬜ | Phase 2 exit criteria |
 | ... (see approved plan for full 0–6 phases) |
 
 ## Architecture (target, evolving from siblings)
 
 ```
-autoloads: GameEvents, PlayerData (age, morality, bonds, revelations), ZoneManager, CompanionManager, YarnGlobals, SaveManager, InputManager
+autoloads: GameEvents, PlayerData (age, morality, bonds, revelations), DialogueManager (from addon), ZoneManager, CompanionManager, SaveManager, InputManager
 main: world or zone container + persistent player + companions + UI
 player: CharacterBody2D (extended from rpg-adventure/scripts/player/player_controller.gd) with age_stage + morality visuals + real-time combat states
 companions: scenes/companions/ + scripts/companions/ (base + dog/bird/horse; follow, assists, care, corruption)
-dialogue: Yarn Spinner addon + resources/dialogue/*.yarn (variables + commands sync to PlayerData)
+dialogue: Dialogue Manager addon + resources/dialogue/*.dialogue (conditions/mutations call PlayerData directly — no sync layer)
 horror: DreadManager + shaders (vignette, grain, pulse, corruption) + dynamic audio buses
 render: pixel post-process + resolution (from godot/)
 ```
@@ -79,7 +79,7 @@ render: pixel post-process + resolution (from godot/)
 - R4 — Use Grok Imagine (via image_gen or imagine skill) for bibles/sheets first; Aseprite for cleanup/anim. Document prompts in `docs/art/imagine-prompts.md`.
 - R5 — Session journal in `docs/sessions/YYYY-MM-DD.md` (local or parent). Capture ideas to `ideas.md`.
 - R6 — At completion of any session/phase: run status, triage, commit on branch only.
-- New: Animal companions carry emotional weight — every bond/corruption choice is a potential tragedy or redemption. Track in PlayerData + Yarn.
+- New: Animal companions carry emotional weight — every bond/corruption choice is a potential tragedy or redemption. Track in PlayerData + dialogue state.
 - New: Horror is psychological + implication first. Provide intensity/accessibility options.
 
 ## Key paths (initial)
@@ -88,7 +88,7 @@ render: pixel post-process + resolution (from godot/)
 |-----------------------|--------------------------|
 | Player controller     | `scripts/player/player_controller.gd` (adapt from `../rpg-adventure/...`) |
 | Companion base        | `scripts/companions/` + `scenes/companions/` (new) |
-| Yarn / dialogue       | `resources/dialogue/` + addon |
+| Dialogue (Dialogue Manager) | `resources/dialogue/*.dialogue` + `addons/dialogue_manager/` |
 | Autoloads             | `scripts/autoload/` |
 | Shaders (horror)      | `assets/shaders/` (extend godot/ pixelate) |
 | Art bibles            | `assets/reference/` (Imagine first) |
@@ -96,7 +96,7 @@ render: pixel post-process + resolution (from godot/)
 
 ## Design locked (from approved plan + clarifications)
 - Real-time action combat (Zelda/Mana feel) with companion assists.
-- Yarn Spinner for all branching (age, morality, $bond_*, revelations, companion reactions).
+- Dialogue Manager for all branching (age, morality, bonds, revelations, companion reactions — conditions/mutations on PlayerData).
 - Age stages + visible morality + animal growth/corruption as core progression.
 - Protagonist = escaped sacrifice. First companion escapes with them.
 - 3–4 endings driven by alignment + which animals lived / were corrupted / sacrificed.

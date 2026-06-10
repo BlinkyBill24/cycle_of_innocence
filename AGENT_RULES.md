@@ -14,7 +14,7 @@
 
 **Tech Stack (locked)**:
 - Godot 4.x (latest stable, 4.4+), GDScript (typed preferred).
-- Yarn Spinner for Godot (branching dialogue with variables for $age_stage, $morality, $bond_*, $revealed_*, custom names).
+- Dialogue Manager (nathanhoad, pure GDScript, MIT) for branching dialogue — conditions/mutations read & write PlayerData directly (age_stage, morality, bond_*, revelations, custom names). *(Replaced Yarn Spinner 2026-06-10: official Godot addon is C#-only and .NET cannot export to Web in Godot 4.4 — see docs/decisions/2026-06-10-new-features-and-ai-setup.md.)*
 - Autoloads: GameEvents, PlayerData (age, morality, companions dict with bond/corruption/growth/alive, revelations, appearance_flags), ZoneManager, CompanionManager, SaveManager, InputManager, DreadManager.
 - Structure: test/ as active dev root (modular: scenes/{player,companions,zones,ui,cutscenes}, scripts/{player,companions,autoload,combat,progression,horror,puzzles}, resources, assets/{sprites,shaders,audio}, tools/{sync-to-rpg-adventure.sh, import scripts}).
 - Cross-platform: Virtual stick + touch buttons (from godot/ sibling), pixel post-process + resolution manager, export_presets for Linux/Android/Web.
@@ -31,7 +31,7 @@
 **Critical Rules (enforced for all agents/you/me)**:
 - R1: Branch before changes (feature/cycle-of-innocence). Commit on feature only.
 - R2: Read GROK.md + AGENT_RULES.md + story bible + relevant feature docs BEFORE any work.
-- R3: Incremental vertical slices — each F5-playable. Prioritize tiny playable core first (child Rowan + Briar in one small playground/fringes zone: movement, basic real-time combat, one companion-assisted puzzle, one Yarn choice with morality impact, simple horror/dread moment).
+- R3: Incremental vertical slices — each F5-playable. Prioritize tiny playable core first (child Rowan + Briar in one small playground/fringes zone: movement, basic real-time combat, one companion-assisted puzzle, one dialogue choice with morality impact, simple horror/dread moment).
 - R4: Grok Imagine first for assets (bibles before sheets). Document prompts in docs/art/imagine-prompts.md. Aseprite post-process, Godot nearest-filter import.
 - R5: Session journal + ideas capture + status.py at checkpoints.
 - R6 (new): **Publishing/Sync Always**: After any meaningful changes (even docs/code), run test/tools/sync-to-rpg-adventure.sh (or equivalent), commit monorepo, then rpg-adventure/tools/publish-standalone.sh (force to GitHub). Overwrite old prototype content is allowed/intended.
@@ -46,7 +46,7 @@
 - One small semi-open zone (playground at dusk → fringes; tilemap with collision, some decor from revised ritual).
 - Real-time movement + basic attack (facing, anim lock).
 - One simple environmental puzzle using companion (or morality choice).
-- One Yarn dialogue (revised escape ritual context + first bond/morality choice with Briar; variables synced to PlayerData).
+- One Dialogue Manager scene (revised escape ritual context + first bond/morality choice with Briar; state read/written on PlayerData directly).
 - Simple horror/dread moment (fog, wrong toy sounds, first "monster" glimpse or dread meter rise; companion fear behavior).
 - Save stub, basic UI (interact prompt), touch parity.
 - Ends with age-up teaser or first revelation hint. F5 in <10s on web export. Self-playtest: "Did the choice matter? Did dread land? Companion bond felt real?"
@@ -59,16 +59,16 @@ test/
 │   ├── player/player.tscn + AnimatedSprite2D + Collision + Camera
 │   ├── companions/briar.tscn (etc.)
 │   ├── zones/playground_fringes.tscn (or equivalent small zone)
-│   └── ui/ (minimal HUD, transition_fader, yarn_runner)
+│   └── ui/ (minimal HUD, transition_fader, dialogue balloon from Dialogue Manager)
 ├── scripts/
 │   ├── autoload/ (GameEvents.gd with signals for age/morality/bond/revelation/dread/horror_stinger; PlayerData.gd; etc.)
 │   ├── player/player_controller.gd (extend existing: age_stage enum, apply_age_visuals(), morality, real-time attack, companion calls, state machine)
 │   ├── companions/ (base_companion.gd + briar.gd: follow AI, bond/corruption state, assist methods, visual updates)
 │   ├── progression/ (age_morph.gd, morality_system.gd — branch abilities)
 │   ├── horror/ (dread_manager.gd, atmosphere.gd — shaders/lights/audio)
-│   ├── dialogue/ (yarn_integration.gd — expose PlayerData vars to Yarn, commands like <<set_morality>>, <<raise_bond "briar">>)
+│   ├── dialogue/ (.dialogue mutations call PlayerData directly: do PlayerData.change_morality(-5), do PlayerData.set_companion_bond("briar", 30.0))
 │   └── utils/ (save_manager.gd, input_manager.gd)
-├── resources/ (player_sprite_frames.tres per age/morality, companion frames, yarn_project)
+├── resources/ (player_sprite_frames.tres per age/morality, companion frames, dialogue/*.dialogue)
 ├── assets/ (sprites/{player/age_*, companions/briar_* with growth/corruption}, shaders/horror_*.gdshader, audio/)
 ├── tools/ (sync-to-rpg-adventure.sh, publish-standalone.sh, import_imagine_assets.py extended for age/variants)
 ├── docs/ (local vault — always reference story/bible.md + this file + GROK.md)
@@ -96,7 +96,7 @@ test/
 
 **Story & Systems Consistency**:
 - Living docs: story/bible.md (acts, twists, Rowan background with revised ritual, companion arcs with bond/corruption), characters/companions.md, story/choice-matrix.md + endings.md, design/game-features.md, mechanics/*.md.
-- Morality effects: Appearance (scars/glow/posture), companion states, dialogue (Yarn vars), world (NPC fear/revere, areas accessible only with high bond), abilities (empath calming vs ruthless power), endings (4 paths with companion fates).
+- Morality effects: Appearance (scars/glow/posture), companion states, dialogue (Dialogue Manager conditions on PlayerData), world (NPC fear/revere, areas accessible only with high bond), abilities (empath calming vs ruthless power), endings (4 paths with companion fates).
 - Twists: Monsters = previous sacrifices; elders = prior "successes"; Rowan = perfect vessel from bloodline; animals carry echoes (can be vessels or keys to break/transform cycle).
 - Always reference in prompts: "Per revised story bible (playground ritual, clowns/toys, villagers think successful, escalation creates more monsters) and companions.md (Briar as emotional heart)."
 
@@ -132,7 +132,7 @@ bash ~/.claude/hooks/update-memory-and-rpg-sync.sh   # Hook for reminders
 
 **Next Immediate Steps (this session, post-start)**:
 1. Asset bibles: Generate more via prompts (update for full companions + adult variants + corruption; playground as recurring corrupted location).
-2. Yarn: First nodes for revised escape (playground ritual context, villager "success" belief, first bond/morality choice with Briar over food).
+2. Dialogue: First .dialogue titles for revised escape (playground ritual context, villager "success" belief, first bond/morality choice with Briar over food).
 3. Prototype: Extend PlayerData (age/morality/companion states per features doc), basic real-time combat + 1 assist in small zone, simple dread rise.
 4. Test + iterate with agents/me.
 5. Sync/publish + journal update + status at end.

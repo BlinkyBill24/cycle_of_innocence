@@ -52,7 +52,7 @@ mkdir -p "$TARGET_DIR"
 RSYNC_OPTS=(-a --delete --exclude='.godot/' --exclude='*.import.bak' --exclude='__pycache__/' --exclude='.DS_Store')
 
 # Sync the main Godot project layout (dirs)
-for item in scenes scripts resources assets tools; do
+for item in scenes scripts resources assets tools addons tests; do
   if [[ -d "$SOURCE_DIR/$item" ]]; then
     echo "  - syncing $item/"
     rsync "${RSYNC_OPTS[@]}" "$SOURCE_DIR/$item/" "$TARGET_DIR/$item/" || true
@@ -90,7 +90,7 @@ if [[ -f "$TARGET_DIR/project.godot" ]]; then
   echo "  - updating project.godot name/description for Cycle of Innocence"
   # Use sed for simple replacement (safe for this format)
   sed -i 's/^config\/name=".*"/config\/name="Cycle of Innocence"/' "$TARGET_DIR/project.godot" || true
-  sed -i 's/^config\/description=".*"/config\/description="2D top-down horror-conspiracy action RPG with animal companions. Escaped child sacrifice. Real-time action + Yarn narrative."/' "$TARGET_DIR/project.godot" || true
+  sed -i 's/^config\/description=".*"/config\/description="2D top-down horror-conspiracy action RPG with animal companions. Escaped child sacrifice. Real-time action + branching narrative."/' "$TARGET_DIR/project.godot" || true
 fi
 
 echo "==> Sync complete. rpg-adventure/ now contains the current game (old prototype overwritten)."
