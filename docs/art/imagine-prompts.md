@@ -29,7 +29,7 @@ Save as: `assets/reference/companion_dog_pup_bible.png` (revise for playground c
 Use `image_edit` on the bibles for variations (different morality tints, specific action frames) before full sheet generation.
 
 ## Full animation sheets (after bible approval)
-Use image_edit referencing the bible + exact grid layout (document in sheet_layout.txt per rpg-adventure precedent).
+Use image_edit referencing the bible + exact grid layout (document in sheet_layout.txt).
 
 Example for child protagonist 4-dir locomotion + attack/hurt:
 ```

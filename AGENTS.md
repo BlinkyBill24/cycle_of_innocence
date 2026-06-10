@@ -32,9 +32,9 @@
 - **R3 — Vertical slices.** Every increment F5-playable. Slice definition below.
 - **R4 — Imagine-first assets.** Character/companion bibles before sprite sheets; document every prompt in `docs/art/imagine-prompts.md`; Aseprite post-process; nearest-filter import.
 - **R5 — Journal & capture.** Session journal `docs/sessions/YYYY-MM-DD.md` (newest first). Stray ideas → `docs/ideas.md` inbox, never dropped. Run `python3 ../scripts/obsidian/status.py` at checkpoints.
-- **R6 — Sync & publish always.** After meaningful changes: `bash tools/sync-to-rpg-adventure.sh` → commit monorepo on the feature branch → `../rpg-adventure/tools/publish-standalone.sh` (force-push to github.com/tchintchie/rpg-adventure is intended). Ask the user before the GitHub publish step if running autonomously.
+- **R6 — Commit & push.** After meaningful changes: commit on the feature branch and push to `origin` (github.com/tchintchie/**game** — the only repo; the rpg-adventure mirror was retired 2026-06-10, see `docs/decisions/2026-06-10-repo-consolidation-game-only.md`). The user merges to main. A public standalone repo will be split out when a demo is ready.
 
-**Completion checklist**: feature branch ✓ · docs updated ✓ · journal ✓ · ideas triaged ✓ · `tools/run-tests.sh` ✓ · `tools/check-brain.sh` ✓ · `status.py` no RED ✓ · synced ✓.
+**Completion checklist**: feature branch ✓ · docs updated ✓ · journal ✓ · ideas triaged ✓ · `tools/run-tests.sh` ✓ · `tools/check-brain.sh` ✓ · `status.py` no RED ✓ · pushed to origin ✓.
 
 ## Tool roles (who does what)
 
@@ -61,7 +61,7 @@ All tools read this AGENTS.md: natively (Codex, Cursor, Grok) or via the `@AGENT
 ## Architecture & key paths
 
 ```
-test/  (active dev root; syncs → ../rpg-adventure/ → GitHub)
+test/  (active dev root inside the tchintchie/game monorepo)
 ├── project.godot            autoloads: GameEvents, PlayerData, DialogueManager
 ├── scripts/autoload/        game_events.gd, player_data.gd (age/morality/companions/revelations — fully implemented)
 ├── scripts/player/          player_controller.gd (8-dir, states), age_morph.gd (age/morality/corruption visuals)
@@ -70,7 +70,7 @@ test/  (active dev root; syncs → ../rpg-adventure/ → GitHub)
 ├── assets/shaders/          marked_corruption.gdshader
 ├── addons/                  dialogue_manager/ · limboai/ · gut/
 ├── tests/                   GUT tests (run: bash tools/run-tests.sh)
-├── tools/                   sync-to-rpg-adventure.sh · run-tests.sh · check-brain.sh
+├── tools/                   run-tests.sh · check-brain.sh
 └── docs/                    Obsidian vault — THE KNOWLEDGE BASE:
     ├── story/bible.md · endings.md · choice-matrix.md · characters/companions.md
     ├── mechanics/  combat · progression · horror-and-dread · inventory ·

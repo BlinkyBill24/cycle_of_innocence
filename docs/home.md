@@ -25,12 +25,12 @@ This is a focused sub-vault for detailed planning, bible, sessions, and assets s
 - [[learnings/_index]]
 - [[sessions/_index]]
 - [[ideas]]
-- [[art/imagine-prompts]] (extend from rpg-adventure pipeline)
+- [[art/imagine-prompts]]
 
 ### Parent / Monorepo
 - [[../../docs/home]] — main project vault
 - [[../../docs/decisions/2026-04-06-game-vision-echoes-verdant-realm]] — previous cozy Mote vision (explicitly **not** reused)
-- [[../../rpg-adventure/GROK.md]] — 2D prototype patterns we are adapting (player, rooms, autoloads, Imagine tools)
+- 2D prototype patterns (player, rooms, autoloads, Imagine tools) were adapted from the old rpg-adventure prototype — removed 2026-06-10 (repo consolidation, see [[decisions/2026-06-10-repo-consolidation-game-only]]); history in git
 - Parent [[../../CLAUDE.md]] rules (R1 branch, R3 consult Obsidian + save plans, R3c journals, R3d ideas, status.py)
 
 ### Templates (copied)
