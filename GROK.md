@@ -31,10 +31,10 @@ Document every prompt + chosen output in `docs/art/imagine-prompts.md`.
 | Slice | Status | Notes |
 |-------|--------|-------|
 | Pre-prod: vault + brain + tooling + design docs | ✅ | AGENTS.md, addons, 13 system specs |
-| M0 — Art & audio batch (A1–A5, AU1–AU2) | ⬜ | Grok Imagine + human Aseprite/ACE-Step; prompts ready in docs/art/imagine-prompts.md; parallel, never blocks code |
-| M1 — Core systems (DreadManager → Combat v1 → Briar → Zone) | 🟡 | PlayerData/controller/age_morph done; rest per docs/plan/slice-implementation-roadmap.md; Codex gates after combat + companion |
-| M2 — Narrative + save ("The Food" dialogue, SaveManager, dread beat) | ⬜ | Grok reviews dialogue voice |
-| M3 — Assembly + SLICE GATE (mercy v1, touch, audio v1, web export) | ⬜ | Human playtest gate per AGENTS.md |
+| M0 — Art & audio batch (A1–A5, AU1–AU2) | ✅ | Grok Imagine + human Aseprite/ACE-Step; prompts ready in docs/art/imagine-prompts.md; parallel, never blocks code |
+| M1 — Core systems (DreadManager → Combat v1 → Briar → Zone) | ✅ | PlayerData/controller/age_morph done; rest per docs/plan/slice-implementation-roadmap.md; Codex gates after combat + companion |
+| M2 — Narrative + save ("The Food" dialogue, SaveManager, dread beat) | ✅ | Grok reviews dialogue voice |
+| M3 — Assembly + SLICE GATE | ✅ **GATE PASSED** | choice ✓ / dread ✓ (audio mix + darkness notes) / bond ✓ (bark visibility note) |
 | Post-slice | ⬜ | vision cone → day/night → mercy full → clock → quirks → interface horror → village life → recontext |
 
 ---
