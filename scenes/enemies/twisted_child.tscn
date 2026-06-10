@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://twistedchild001"]
+
+[ext_resource type="Script" path="res://scripts/enemies/enemy_base.gd" id="1_enemy_base"]
+[ext_resource type="SpriteFrames" path="res://assets/resources/enemies/twisted_child_frames.tres" id="2_frames"]
+[ext_resource type="Script" path="res://scripts/combat/health.gd" id="3_health"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="4_hurtbox"]
+[ext_resource type="Script" path="res://scripts/combat/hitbox.gd" id="5_hitbox"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 8.0
+
+[node name="TwistedChild" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_enemy_base")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_health")
+max_hp = 3
+invuln_seconds = 0.2
+
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("4_hurtbox")
+faction = &"enemy"
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_body")
+
+[node name="LungeHitbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("5_hitbox")
+damage = 1
+faction = &"enemy"
+knockback_force = 180.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LungeHitbox"]
+shape = SubResource("CircleShape2D_body")
+disabled = true
+
+[node name="LineOfSight" type="RayCast2D" parent="."]
+enabled = false
+collision_mask = 1

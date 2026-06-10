@@ -62,7 +62,7 @@ func _refresh_label() -> void:
 			PlayerData.get_morality_tier_name(),
 		]
 		+ "Briar bond: %.0f | corruption: %.0f\n" % [briar.get("bond", 0.0), briar.get("corruption", 0.0)]
-		+ "Dread: %.0f (%s)\n" % [DreadManager.dread, DreadManager.get_tier_name()]
+		+ "Dread: %.0f (%s) | HP: %d/%d\n" % [DreadManager.dread, DreadManager.get_tier_name(), PlayerData.current_hp, PlayerData.max_hp]
 		+ "Keys: 1/2 morality ±15 | 3 teen 4 adult 5 child\n"
 		+ "6 bond+10 | 7 corruption+15 | 8 revelation | 9 dread+20 | 0 reset"
 	)

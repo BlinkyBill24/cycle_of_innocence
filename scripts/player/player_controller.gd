@@ -15,6 +15,15 @@ enum AgeStage { CHILD, TEEN, ADULT }
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var age_morph: AgeMorphT = $AgeMorph
+@onready var health: Health = $Health
+@onready var hurtbox: Hurtbox = $Hurtbox
+@onready var attack_hitbox: Hitbox = $AttackHitbox
+
+const ATTACK_WINDUP := 0.08
+const ATTACK_WINDOW := 0.15
+const ATTACK_REACH := 16.0
+const HURT_SECONDS := 0.25
+const HURT_DREAD := 4.0
 
 var movement_state: MovementState = MovementState.EXPLORING
 var age_stage: AgeStage = AgeStage.CHILD
@@ -28,6 +37,11 @@ func _ready() -> void:
 	_sync_from_player_data()
 	PlayerData.age_advanced.connect(_on_player_data_age_advanced)
 	PlayerData.morality_changed.connect(_on_player_data_morality_changed)
+	health.max_hp = PlayerData.max_hp
+	health.restore_full()
+	health.hp_changed.connect(_on_hp_changed)
+	health.died.connect(_on_died)
+	hurtbox.hit_received.connect(_on_hit_received)
 
 
 func _sync_from_player_data() -> void:
@@ -85,14 +99,54 @@ func _facing_suffix() -> String:
 		return "right" if _facing.x > 0.0 else "left"
 	return "down" if _facing.y > 0.0 else "up"
 
+var _attack_id := 0
+
+
 func perform_attack() -> void:
-	# TODO: spawn hitbox / Area2D in facing dir, play anim, damage nearby enemies or interact
+	_attack_id += 1
+	var my_attack := _attack_id
 	movement_state = MovementState.ATTACKING
-	play_action_and_wait("attack")
-	# After anim, return to EXPLORING in _on_animation_finished or timer
-	await get_tree().create_timer(0.3).timeout
-	if movement_state == MovementState.ATTACKING:
+	attack_hitbox.position = _facing * ATTACK_REACH
+	play_action_animation("attack")
+	await get_tree().create_timer(ATTACK_WINDUP).timeout
+	if my_attack == _attack_id and movement_state == MovementState.ATTACKING:
+		attack_hitbox.activate(ATTACK_WINDOW)
+	await get_tree().create_timer(ATTACK_WINDOW + 0.07).timeout
+	# only the coroutine that still owns the attack may end it (Codex gate #3)
+	if my_attack == _attack_id and movement_state == MovementState.ATTACKING:
 		movement_state = MovementState.EXPLORING
+
+
+func _on_hit_received(from_hitbox: Hitbox) -> void:
+	attack_hitbox.deactivate()  # interrupted attacks must not leave a live hitbox
+	set_movement_state(MovementState.HURT)
+	velocity = from_hitbox.global_position.direction_to(global_position) * from_hitbox.knockback_force
+	if animated_sprite:
+		animated_sprite.modulate = Color(1.0, 0.5, 0.5)
+	DreadManager.add_dread(HURT_DREAD, &"player_hurt")
+	await get_tree().create_timer(HURT_SECONDS).timeout
+	if animated_sprite:
+		animated_sprite.modulate = Color.WHITE
+	if movement_state == MovementState.HURT:
+		movement_state = MovementState.EXPLORING
+
+
+func _on_hp_changed(current: int, max_value: int) -> void:
+	PlayerData.current_hp = current
+	if GameEvents:
+		GameEvents.player_damaged.emit(current, max_value)
+
+
+func _on_died() -> void:
+	# V1 stub per combat.md: "you wake at the edge of the woods" — reset with
+	# consequences arriving in M2+ (bond drop, time advance).
+	if GameEvents:
+		GameEvents.player_died.emit()
+	global_position = PlayerData.spawn_position
+	velocity = Vector2.ZERO
+	health.restore_full()
+	DreadManager.add_dread(15.0, &"death")
+	set_movement_state(MovementState.EXPLORING)
 
 func play_action_animation(action: String) -> void:
 	var anim_name := "%s_%s" % [action, _facing_suffix()]
@@ -116,6 +170,7 @@ func _on_animation_finished() -> void:
 		_action_anim_lock = false
 		_update_locomotion_animation()
 		if movement_state == MovementState.ATTACKING:
+			attack_hitbox.deactivate()  # anim ended early — close the window with it
 			movement_state = MovementState.EXPLORING
 
 func set_movement_state(new_state: MovementState) -> void:
