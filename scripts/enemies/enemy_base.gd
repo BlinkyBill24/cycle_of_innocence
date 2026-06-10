@@ -241,6 +241,8 @@ func _become_stilled() -> void:
 # --- reactions ---
 
 func _on_hit_received(hitbox: Hitbox) -> void:
+	if stilled:
+		_betrayed()
 	velocity = hitbox.global_position.direction_to(global_position) * hitbox.knockback_force
 	lunge_hitbox.deactivate()  # interrupted lunge must not keep a live hitbox
 	# Re-entering Hurt refreshes the stagger — intended (stun-lock is bounded
@@ -248,15 +250,22 @@ func _on_hit_received(hitbox: Hitbox) -> void:
 	hsm.dispatch(&"hit")
 
 
+## Striking a calmed child is the betrayal — the cost lands on the FIRST
+## blow, then it wakes and defends itself (encounters-mercy.md).
+func _betrayed() -> void:
+	stilled = false
+	recognition = RECOGNITION_MAX * 0.5  # trust broken, not erased
+	collision_mask = 7
+	PlayerData.story_flags.erase(_stilled_flag())
+	PlayerData.change_morality(20.0)
+	PlayerData.add_companion_corruption(&"briar", 10.0)
+	if GameEvents:
+		GameEvents.stilled_monster_killed.emit(stable_id)
+
+
 func _on_died() -> void:
 	if GameEvents:
 		GameEvents.enemy_died.emit(enemy_kind)
-		if stilled:
-			# killing a child you had already calmed — the heaviest act in the
-			# slice (encounters-mercy.md: heavy Vessel push + Briar learns)
-			GameEvents.stilled_monster_killed.emit(stable_id)
-			PlayerData.change_morality(20.0)
-			PlayerData.add_companion_corruption(&"briar", 10.0)
 	queue_free()
 
 

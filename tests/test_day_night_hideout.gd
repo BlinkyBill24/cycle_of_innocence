@@ -45,7 +45,7 @@ func test_world_time_survives_save_load() -> void:
 	WorldState.advance_time()  # night, day 1
 	SaveManager.save_game(0)
 	WorldState.reset()
-	assert_true(SaveManager.load_game(0))
+	assert_true(SaveManager.load_game(0, false))
 	assert_eq(WorldState.time_of_day, WorldState.TimeOfDay.NIGHT)
 
 

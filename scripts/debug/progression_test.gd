@@ -55,7 +55,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_0:
 			PlayerData.reset_to_defaults()
 			DreadManager.reset()
-			_refresh_label()
+			WorldState.reset()
+			get_tree().reload_current_scene()
 
 
 func _refresh_label() -> void:

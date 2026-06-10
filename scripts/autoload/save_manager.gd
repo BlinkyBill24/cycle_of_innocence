@@ -34,7 +34,7 @@ func save_game(slot: int = 0) -> bool:
 	return true
 
 
-func load_game(slot: int = 0) -> bool:
+func load_game(slot: int = 0, reload_scene: bool = true) -> bool:
 	if not has_save(slot):
 		return false
 	var file := FileAccess.open(save_path(slot), FileAccess.READ)
@@ -52,6 +52,10 @@ func load_game(slot: int = 0) -> bool:
 	DreadManager.add_dread(float(data.get("dread", 0.0)), &"load")
 	ZoneManager.enter_zone(StringName(str(data.get("zone_id", PlayerData.last_zone_id))))
 	game_loaded.emit(slot)
+	if reload_scene:
+		# rebuild the live world to match the save (enemies re-check their
+		# flags on spawn; one-shot beats/dialogues respect their story flags)
+		get_tree().reload_current_scene.call_deferred()
 	return true
 
 

@@ -38,14 +38,17 @@ func test_stilled_enemy_ignores_player_and_recognition() -> void:
 	assert_false(enemy.add_recognition(10.0), "no further recognition once stilled")
 
 
-func test_killing_a_stilled_monster_is_heavy() -> void:
+func test_striking_a_stilled_monster_is_the_betrayal() -> void:
 	enemy.add_recognition(100.0)
 	var morality_after_spare := PlayerData.morality
 	watch_signals(GameEvents)
-	enemy.health.take_damage(99)
+	enemy.hurtbox.hit_received.emit(Hitbox.new())  # first blow against the calmed child
 	assert_signal_emitted_with_parameters(GameEvents, "stilled_monster_killed", [&"twisted_child_01"])
-	assert_eq(PlayerData.morality, morality_after_spare + 20.0, "heavy Vessel push")
+	assert_eq(PlayerData.morality, morality_after_spare + 20.0, "heavy Vessel push on the first blow")
 	assert_eq(PlayerData.get_companion(&"briar").corruption, 10.0, "Briar learns from you")
+	assert_false(enemy.stilled, "it wakes and defends itself")
+	assert_false(PlayerData.has_story_flag(&"stilled_twisted_child_01"), "stilled flag cleared")
+	assert_eq(enemy.recognition, 50.0, "trust broken, not erased")
 
 
 func test_stilled_monster_does_not_get_dragged_by_player_overlap() -> void:

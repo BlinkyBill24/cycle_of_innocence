@@ -19,15 +19,51 @@ const PALETTES := {
 	TimeOfDay.NIGHT: Color(0.15, 0.15, 0.27),
 }
 
+## Significant actions + distance walked tick time forward (spec: time
+## advances by player action). NIGHT never auto-advances — sleep or endure.
+const ACTION_POINTS_PER_PHASE := 4.0
+const WALK_PIXELS_PER_POINT := 1100.0
+
 var time_of_day: TimeOfDay = TimeOfDay.DUSK  # the story begins the evening of the escape
 var day: int = 1
+var _action_points: float = 0.0
+var _last_player_pos := Vector2.INF
 
 
 func _ready() -> void:
 	DreadManager.register_zone_level(NIGHT_DREAD_ZONE, NIGHT_DREAD_LEVEL)
+	if GameEvents:
+		GameEvents.diggable_revealed.connect(func(_id: StringName) -> void: register_action(2.0))
+		GameEvents.monster_stilled.connect(func(_id: StringName) -> void: register_action(2.0))
+		GameEvents.enemy_died.connect(func(_kind: StringName) -> void: register_action(2.0))
+		GameEvents.cutscene_finished.connect(func(_id: StringName) -> void: register_action(1.0))
+
+
+func _physics_process(_delta: float) -> void:
+	# distance walked counts as living through the day
+	var player := get_tree().get_first_node_in_group("player") as Node2D
+	if player == null:
+		return
+	if _last_player_pos == Vector2.INF:
+		_last_player_pos = player.global_position
+		return
+	var moved := player.global_position.distance_to(_last_player_pos)
+	_last_player_pos = player.global_position
+	if moved < 200.0:  # ignore teleports (respawn, load)
+		register_action(moved / WALK_PIXELS_PER_POINT)
+
+
+func register_action(points: float) -> void:
+	if time_of_day == TimeOfDay.NIGHT:
+		return  # the night does not pass on its own — sleep or endure it
+	_action_points += points
+	if _action_points >= ACTION_POINTS_PER_PHASE:
+		_action_points = 0.0
+		advance_time()
 
 
 func advance_time() -> void:
+	_action_points = 0.0
 	if time_of_day == TimeOfDay.NIGHT:
 		time_of_day = TimeOfDay.DAWN
 		day += 1
@@ -68,6 +104,8 @@ func apply_save_data(data: Dictionary) -> void:
 func reset() -> void:
 	time_of_day = TimeOfDay.DUSK
 	day = 1
+	_action_points = 0.0
+	_last_player_pos = Vector2.INF
 	_apply_night_floor()
 
 

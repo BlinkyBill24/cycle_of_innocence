@@ -52,7 +52,7 @@ func test_save_load_round_trip() -> void:
 	DreadManager.reset()
 	ZoneManager.current_zone_id = &""
 
-	assert_true(SaveManager.load_game(SLOT))
+	assert_true(SaveManager.load_game(SLOT, false))
 	assert_eq(PlayerData.morality, -25.0)
 	assert_eq(PlayerData.age_stage, PlayerData.AgeStage.TEEN)
 	assert_eq(PlayerData.get_companion(&"briar").bond, 45.0)
@@ -68,13 +68,13 @@ func test_load_emits_resync_signals() -> void:
 	SaveManager.save_game(SLOT)
 	PlayerData.reset_to_defaults()
 	watch_signals(PlayerData)
-	SaveManager.load_game(SLOT)
+	SaveManager.load_game(SLOT, false)
 	assert_signal_emitted(PlayerData, "morality_changed")
 	assert_signal_emitted(PlayerData, "age_advanced")
 
 
 func test_load_missing_slot_returns_false() -> void:
-	assert_false(SaveManager.load_game(8))
+	assert_false(SaveManager.load_game(8, false))
 
 
 func test_food_dialogue_resource_compiles() -> void:
