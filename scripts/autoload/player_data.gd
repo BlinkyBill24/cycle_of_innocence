@@ -38,6 +38,8 @@ var companions: Dictionary = {}
 var known_revelations: Array[StringName] = []
 var appearance_flags: Array[StringName] = []  # e.g. "ritual_scar", "marked", "hardened"
 var story_flags: Array[StringName] = []  # choice-matrix flags, e.g. "food_shared"
+var spared_count: int = 0  # encounters-mercy.md: choice-matrix/endings inputs
+var dominated_count: int = 0
 
 var custom_name: String = "Rowan"
 var gender: String = "neutral"
@@ -62,6 +64,8 @@ func reset_to_defaults() -> void:
 	known_revelations.clear()
 	appearance_flags.clear()
 	story_flags.clear()
+	spared_count = 0
+	dominated_count = 0
 	custom_name = "Rowan"
 	gender = "neutral"
 	chosen_accent_color = Color(0.55, 0.45, 0.35, 1.0)
@@ -183,6 +187,18 @@ func is_revelation_known(id: StringName) -> bool:
 	return id in known_revelations
 
 
+## Mercy bookkeeping (encounters-mercy.md): permanent history for the
+## choice matrix — betrayal clears the stilled_ state flag, never these.
+func record_spared(id: StringName) -> void:
+	spared_count += 1
+	set_story_flag(StringName("spared_" + String(id)))
+
+
+func record_dominated(id: StringName) -> void:
+	dominated_count += 1
+	set_story_flag(StringName("dominated_" + String(id)))
+
+
 func set_story_flag(flag: StringName) -> void:
 	if not flag.is_empty() and flag not in story_flags:
 		story_flags.append(flag)
@@ -211,6 +227,8 @@ func get_save_data() -> Dictionary:
 		"known_revelations": known_revelations.duplicate(),
 		"appearance_flags": appearance_flags.duplicate(),
 		"story_flags": story_flags.duplicate(),
+		"spared_count": spared_count,
+		"dominated_count": dominated_count,
 		"custom_name": custom_name,
 		"gender": gender,
 		"chosen_accent_color": chosen_accent_color.to_html(),
@@ -234,6 +252,8 @@ func apply_save_data(data: Dictionary) -> void:
 		func(v: Variant) -> StringName: return StringName(v)))
 	story_flags.assign(Array(data.get("story_flags", [])).map(
 		func(v: Variant) -> StringName: return StringName(v)))
+	spared_count = int(data.get("spared_count", 0))
+	dominated_count = int(data.get("dominated_count", 0))
 	custom_name = str(data.get("custom_name", "Rowan"))
 	gender = str(data.get("gender", "neutral"))
 	chosen_accent_color = Color.from_string(str(data.get("chosen_accent_color", "")), chosen_accent_color)

@@ -34,6 +34,11 @@ var _footstep_timer: float = 0.0
 
 const SOOTHE_RANGE := 80.0
 const SOOTHE_RATE := 30.0  # recognition per second (≈3.3s to Still)
+const SOOTHE_KEY_BONUS := 1.6  # the child's specific key (encounters-mercy.md)
+const BRIAR_CALM_BONUS := 1.5  # Briar lying down non-threateningly nearby
+const BRIAR_CALM_MIN_BOND := 25.0
+const BRIAR_CALM_RANGE := 90.0
+const DOMINATE_RATE_FACTOR := 1.4  # fear is faster than trust — by design
 var _soothing := false
 var _soothe_target: EnemyBase
 
@@ -129,7 +134,7 @@ func _nearest_spareable_monster() -> EnemyBase:
 	var best := SOOTHE_RANGE
 	for node in get_tree().get_nodes_in_group("enemy"):
 		var enemy := node as EnemyBase
-		if enemy and enemy.spareable and not enemy.stilled:
+		if enemy and enemy.spareable and not enemy.stilled and not enemy.dominated:
 			var dist := global_position.distance_to(enemy.global_position)
 			if dist < best:
 				best = dist
@@ -153,16 +158,42 @@ func _start_soothe(target: EnemyBase) -> void:
 func _update_soothe(delta: float) -> void:
 	if not Input.is_action_pressed("interact") \
 			or _soothe_target == null or not is_instance_valid(_soothe_target) \
-			or _soothe_target.stilled \
+			or _soothe_target.stilled or _soothe_target.dominated \
 			or global_position.distance_to(_soothe_target.global_position) > SOOTHE_RANGE * 1.4:
 		_stop_soothe()
 		return
 	AdaptiveAudio.duck(18.0)  # held every frame: the lullaby owns the channel
-	var rate := SOOTHE_RATE
-	if DreadManager.dread > 80.0:
-		rate *= 0.5  # mercy is hardest when terrified — by design
-	if _soothe_target.add_recognition(rate * delta):
+	# Vessel-tier Rowan no longer asks — the same hold becomes Domination:
+	# unaffected by dread, needs no key. Fear is the easy road.
+	if PlayerData.get_morality_tier() == PlayerData.MoralityTier.VESSEL:
+		if _soothe_target.add_domination(SOOTHE_RATE * DOMINATE_RATE_FACTOR * delta):
+			_stop_soothe()
+		return
+	var has_key := PlayerData.has_story_flag(_soothe_target.soothe_key_flag)
+	var rate := soothe_rate(SOOTHE_RATE, DreadManager.dread, has_key,
+			_briar_calm_assist(_soothe_target))
+	if _soothe_target.add_recognition(rate * delta, has_key):
 		_stop_soothe()
+
+
+## Pure rate rule (encounters-mercy.md), unit-tested: the specific key and
+## Briar's calm presence stack; dread > 80 halves everything.
+static func soothe_rate(base: float, dread: float, has_key: bool, briar_calm: bool) -> float:
+	var rate := base
+	if has_key:
+		rate *= SOOTHE_KEY_BONUS
+	if briar_calm:
+		rate *= BRIAR_CALM_BONUS
+	if dread > 80.0:
+		rate *= 0.5  # mercy is hardest when terrified — by design
+	return rate
+
+
+func _briar_calm_assist(target: EnemyBase) -> bool:
+	var companion := get_tree().get_first_node_in_group("companion") as CompanionBase
+	return companion != null and not companion.is_afraid() \
+			and companion.get_bond() >= BRIAR_CALM_MIN_BOND \
+			and companion.global_position.distance_to(target.global_position) <= BRIAR_CALM_RANGE
 
 
 func _stop_soothe() -> void:

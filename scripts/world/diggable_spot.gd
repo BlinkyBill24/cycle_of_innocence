@@ -18,6 +18,7 @@ func reveal() -> bool:
 	if revealed:
 		return false
 	revealed = true
+	PlayerData.set_story_flag(StringName("dug_" + String(spot_id)))
 	if GameEvents:
 		GameEvents.diggable_revealed.emit(spot_id)
 	var marker := get_node_or_null("Marker") as CanvasItem

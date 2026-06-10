@@ -35,6 +35,7 @@ func _ready() -> void:
 	if GameEvents:
 		GameEvents.diggable_revealed.connect(func(_id: StringName) -> void: register_action(2.0))
 		GameEvents.monster_stilled.connect(func(_id: StringName) -> void: register_action(2.0))
+		GameEvents.monster_dominated.connect(func(_id: StringName) -> void: register_action(2.0))
 		GameEvents.enemy_died.connect(func(_kind: StringName) -> void: register_action(2.0))
 		GameEvents.cutscene_finished.connect(func(_id: StringName) -> void: register_action(1.0))
 

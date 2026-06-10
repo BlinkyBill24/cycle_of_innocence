@@ -17,6 +17,8 @@ signal player_died
 signal enemy_died(enemy_kind: StringName)
 signal monster_stilled(stable_id: StringName)
 signal stilled_monster_killed(stable_id: StringName)
+signal monster_dominated(stable_id: StringName)
+signal stilled_led_to_secret(stable_id: StringName, spot_id: StringName)
 
 signal horror_stinger(trigger: StringName)  # e.g. "first_revelation", "animal_fear"
 signal dread_zone_entered(zone_id: StringName)

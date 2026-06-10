@@ -175,6 +175,7 @@ position = Vector2(-230, 60)
 
 [node name="TwistedChild" parent="." instance=ExtResource("5_twisted_child")]
 position = Vector2(540, 130)
+secret_spot_path = NodePath("../StilledChildKeepsake")
 
 [node name="DiggableSpotPlayground" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(-100, -60)
@@ -182,6 +183,10 @@ position = Vector2(-100, -60)
 [node name="DiggableSpotFringes" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(260, 110)
 spot_id = &"fringes_buried_memory"
+
+[node name="StilledChildKeepsake" parent="." instance=ExtResource("6_diggable")]
+position = Vector2(615, 55)
+spot_id = &"stilled_child_keepsake"
 
 [node name="DreadOverlay" parent="." instance=ExtResource("7_dread_overlay")]
 

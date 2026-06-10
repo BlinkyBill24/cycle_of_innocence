@@ -17,13 +17,26 @@ extends CharacterBody2D
 
 ## Mercy system (encounters-mercy.md): Recognition fills via soothing;
 ## at threshold the monster becomes Stilled (persisted via story flag).
+## The generic lullaby plateaus — each child has ONE specific key (its buried
+## past, a dug-up story flag) that lets Recognition fill all the way.
 @export var spareable: bool = true
 @export var stable_id: StringName = &"twisted_child_01"  # unique per placed enemy
+@export var soothe_key_flag: StringName = &"dug_playground_buried_toy"
+@export var secret_spot_path: NodePath  # where the Stilled child leads Rowan
 const RECOGNITION_MAX := 100.0
+const GENERIC_PLATEAU := 60.0
 const SOOTHE_SLOW_FACTOR := 0.45
+const LEAD_TRIGGER_RANGE := 90.0
+const LEAD_ARRIVE_DISTANCE := 10.0
+const DOMINATED_LIFETIME := 45.0
 var recognition: float = 0.0
 var stilled: bool = false
+var dominated: bool = false
 var _soothe_hold: float = 0.0  # >0 while the lullaby is actively reaching it
+var _leading: bool = false
+var _dominated_life: float = 0.0
+var _fought_once: bool = false
+var _crumbling: bool = false
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health: Health = $Health
@@ -45,10 +58,14 @@ var _state_chase: LimboState
 var _state_attack: LimboState
 var _state_hurt: LimboState
 var _state_stilled: LimboState
+var _state_dominated: LimboState
 
 
 func _ready() -> void:
 	add_to_group("enemy")
+	if PlayerData.has_story_flag(_dominated_flag()):
+		queue_free()  # it fought for a Vessel once, then died — it stays dead
+		return
 	_spawn = global_position
 	_wander_target = _spawn
 	health.died.connect(_on_died)
@@ -71,9 +88,13 @@ func _init_hsm() -> void:
 		.call_on_enter(_attack_enter).call_on_update(_attack_update)
 	_state_hurt = LimboState.new().named("Hurt") \
 		.call_on_enter(_hurt_enter).call_on_update(_hurt_update)
-	_state_stilled = LimboState.new().named("Stilled").call_on_enter(_stilled_enter)
+	_state_stilled = LimboState.new().named("Stilled") \
+		.call_on_enter(_stilled_enter).call_on_update(_stilled_update)
+	_state_dominated = LimboState.new().named("Dominated") \
+		.call_on_enter(_dominated_enter).call_on_update(_dominated_update)
 
-	for state: LimboState in [_state_patrol, _state_chase, _state_attack, _state_hurt, _state_stilled]:
+	for state: LimboState in [_state_patrol, _state_chase, _state_attack, _state_hurt,
+			_state_stilled, _state_dominated]:
 		hsm.add_child(state)
 
 	hsm.add_transition(_state_patrol, _state_chase, &"spotted")
@@ -83,6 +104,8 @@ func _init_hsm() -> void:
 	hsm.add_transition(hsm.ANYSTATE, _state_hurt, &"hit")
 	hsm.add_transition(_state_hurt, _state_chase, &"recovered")
 	hsm.add_transition(hsm.ANYSTATE, _state_stilled, &"stilled")
+	hsm.add_transition(hsm.ANYSTATE, _state_dominated, &"dominated")
+	hsm.add_transition(_state_hurt, _state_dominated, &"recovered_dominated")
 
 	hsm.initial_state = _state_patrol
 	hsm.initialize(self)
@@ -95,7 +118,7 @@ func _physics_process(delta: float) -> void:
 	# Stilled monsters don't run physics: a zero-velocity CharacterBody2D still
 	# depenetrates from overlaps, so walking into one would drag it along
 	# (playtest 2026-06-10).
-	if not stilled:
+	if not stilled or _leading:
 		move_and_slide()
 	_update_animation()
 	_update_recognition_tint()
@@ -103,6 +126,9 @@ func _physics_process(delta: float) -> void:
 
 func _update_recognition_tint() -> void:
 	# visible soothe feedback: the creature pales toward calm as Recognition grows
+	if dominated:
+		sprite.modulate = Color(1.05, 0.68, 0.68)  # obedience out of fear
+		return
 	if stilled:
 		sprite.modulate = Color(0.85, 0.95, 1.1)
 		return
@@ -122,7 +148,7 @@ func distance_to_player() -> float:
 
 func can_see_player() -> bool:
 	var player := get_player()
-	if player == null or stilled:
+	if player == null or stilled or dominated:
 		return false
 	if distance_to_player() > detection_radius:
 		return false
@@ -200,7 +226,7 @@ func _hurt_update(delta: float) -> void:
 	_hurt_timer -= delta
 	velocity = velocity.move_toward(Vector2.ZERO, 600.0 * delta)
 	if _hurt_timer <= 0.0:
-		hsm.dispatch(&"recovered")
+		hsm.dispatch(&"recovered_dominated" if dominated else &"recovered")
 
 
 func _stilled_enter() -> void:
@@ -212,30 +238,149 @@ func _stilled_enter() -> void:
 		sprite.play("stilled")
 
 
+## A Stilled child remembers where it came from. When Rowan stays close it
+## leads the way to its secret (old home, buried keepsake) — once.
+func _stilled_update(_delta: float) -> void:
+	_leading = false
+	velocity = Vector2.ZERO
+	if secret_spot_path.is_empty() or PlayerData.has_story_flag(_led_flag()):
+		return
+	var spot := get_node_or_null(secret_spot_path) as Node2D
+	var player := get_player()
+	if spot == null or player == null:
+		return
+	if global_position.distance_to(player.global_position) > LEAD_TRIGGER_RANGE:
+		return
+	if global_position.distance_to(spot.global_position) <= LEAD_ARRIVE_DISTANCE:
+		PlayerData.set_story_flag(_led_flag())
+		var dig := spot as DiggableSpot
+		if dig:
+			dig.reveal()
+		if GameEvents:
+			GameEvents.stilled_led_to_secret.emit(stable_id, dig.spot_id if dig else &"")
+		return
+	_leading = true
+	velocity = global_position.direction_to(spot.global_position) * move_speed * 0.7
+
+
+func _dominated_enter() -> void:
+	collision_mask = 1  # heels beside the player; never shoves them
+	_dominated_life = DOMINATED_LIFETIME
+	_fought_once = false
+	lunge_hitbox.deactivate()
+
+
+## Vessel-path thrall (encounters-mercy.md): obeys out of fear, fights for
+## Rowan once, then crumbles. Power now, ending flags later.
+func _dominated_update(delta: float) -> void:
+	_dominated_life -= delta
+	var target := _dominated_target()
+	if _crumbling or _dominated_life <= 0.0 or (_fought_once and target == null):
+		velocity = Vector2.ZERO
+		_crumble()
+		return
+	if target:
+		var dist := global_position.distance_to(target.global_position)
+		if dist <= attack_range and _cooldown <= 0.0:
+			_fought_once = true
+			_cooldown = attack_cooldown
+			_lunge_dir = global_position.direction_to(target.global_position)
+			lunge_hitbox.position = _lunge_dir * 10.0
+			lunge_hitbox.activate(0.25)
+			velocity = _lunge_dir * lunge_speed
+		else:
+			velocity = global_position.direction_to(target.global_position) * chase_speed
+		return
+	var player := get_player()
+	if player and global_position.distance_to(player.global_position) > 48.0:
+		velocity = global_position.direction_to(player.global_position) * move_speed
+	else:
+		velocity = velocity.move_toward(Vector2.ZERO, 400.0 * delta)
+
+
+func _dominated_target() -> EnemyBase:
+	var nearest: EnemyBase = null
+	var best := 140.0
+	for node in get_tree().get_nodes_in_group("enemy"):
+		var other := node as EnemyBase
+		if other == null or other == self or other.stilled or other.dominated:
+			continue
+		var dist := global_position.distance_to(other.global_position)
+		if dist < best:
+			best = dist
+			nearest = other
+	return nearest
+
+
+func _crumble() -> void:
+	if _crumbling:
+		return
+	_crumbling = true
+	lunge_hitbox.deactivate()
+	var tween := create_tween()
+	tween.tween_property(sprite, "modulate:a", 0.0, 0.8)
+	tween.tween_callback(queue_free)
+
+
 func _stilled_flag() -> StringName:
 	return StringName("stilled_" + String(stable_id))
 
 
+func _dominated_flag() -> StringName:
+	return StringName("dominated_" + String(stable_id))
+
+
+func _led_flag() -> StringName:
+	return StringName("led_" + String(stable_id))
+
+
 ## Soothing channel (player hold-to-soothe). Returns true when newly Stilled.
-func add_recognition(amount: float) -> bool:
-	if stilled or not spareable or amount <= 0.0:
+## Without this child's specific key the generic lullaby plateaus — finding
+## the key (dig up its past) is the environmental-storytelling payoff.
+func add_recognition(amount: float, has_key: bool = false) -> bool:
+	if stilled or dominated or not spareable or amount <= 0.0:
 		return false
 	_soothe_hold = 0.6
-	recognition = minf(recognition + amount, RECOGNITION_MAX)
+	var ceiling := RECOGNITION_MAX if has_key else GENERIC_PLATEAU
+	recognition = minf(recognition + amount, maxf(ceiling, recognition))
 	if recognition < RECOGNITION_MAX:
 		return false
 	_become_stilled()
 	return true
 
 
+## Domination channel — the Vessel-tier inversion of soothing. Fear does not
+## plateau and does not need the key; that is what makes it tempting.
+func add_domination(amount: float) -> bool:
+	if stilled or dominated or not spareable or amount <= 0.0:
+		return false
+	_soothe_hold = 0.6
+	recognition = minf(recognition + amount, RECOGNITION_MAX)
+	if recognition < RECOGNITION_MAX:
+		return false
+	_become_dominated()
+	return true
+
+
 func _become_stilled() -> void:
 	stilled = true
 	PlayerData.set_story_flag(_stilled_flag())
+	PlayerData.record_spared(stable_id)
 	PlayerData.change_morality(-5.0)
 	DreadManager.reduce_dread(10.0)
 	if GameEvents:
 		GameEvents.monster_stilled.emit(stable_id)
 	hsm.dispatch(&"stilled")
+
+
+func _become_dominated() -> void:
+	dominated = true
+	PlayerData.record_dominated(stable_id)
+	PlayerData.change_morality(8.0)
+	PlayerData.add_companion_corruption(&"briar", 5.0)  # Briar watches you rule by fear
+	if GameEvents:
+		GameEvents.monster_dominated.emit(stable_id)
+	hsm.dispatch(&"dominated")
 
 
 # --- reactions ---

@@ -138,7 +138,7 @@ func _maybe_bark() -> void:
 		return
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		var node := enemy as Node2D
-		if node and not (node is EnemyBase and node.stilled) \
+		if node and not (node is EnemyBase and (node.stilled or node.dominated)) \
 				and global_position.distance_to(node.global_position) <= bark_radius:
 			hsm.dispatch(&"alert")
 			return

@@ -2,7 +2,7 @@
 name: Mercy & Calm Encounter Resolution
 date: 2026-06-10
 tags: [feature, mechanics, combat, morality, horror]
-status: planned
+status: implemented
 related_decisions: "[[decisions/2026-06-10-new-features-and-ai-setup]]"
 ---
 
@@ -45,6 +45,13 @@ Hold-to-soothe maps cleanly to a touch hold; no extra buttons beyond existing in
 
 ## Research notes (2026-06, round 2)
 - **Unique soothe per monster** (Undertale Yellow): each spareable monster has one *specific* interaction that moves Recognition fastest (show the buried toy, hum THEIR verse, let Briar approach first); repeating the generic soothe plateaus. Discovering the specific one = environmental storytelling payoff. See [[design/feature-candidates-2026-06]].
+
+## Implementation notes (2026-06-10, branch feature/full-mercy)
+- Generic soothe plateaus at Recognition 60; each monster exports `soothe_key_flag` — for the TwistedChild it is `dug_playground_buried_toy` (Briar digging up the toy IS the discovery payoff). With the key: rate ×1.6 and the plateau lifts.
+- Briar calm aura: bond ≥ 25, not afraid, within 90px of the target → rate ×1.5 (stacks with the key). Dread > 80 halves everything. Pure rule: `PlayerController.soothe_rate()`.
+- Stilled children lead: stay within 90px and the child walks to its `secret_spot_path` (keepsake diggable east of the swings) — once, flagged `led_<id>`.
+- Domination: at Vessel tier the same hold becomes `add_domination` — ×1.4 rate, ignores dread and needs no key (fear is the easy road). The thrall heels, fights other monsters once, then crumbles; `dominated_<id>` keeps it dead forever. Morality +8, Briar corruption +5.
+- Bookkeeping: `PlayerData.spared_count` / `dominated_count` + permanent `spared_`/`dominated_` flags (betrayal clears `stilled_`, never the history). All persisted.
 
 ## Related
 - [[mechanics/combat]] · [[mechanics/horror-and-dread]] · [[mechanics/hollowing-clock]] · [[story/choice-matrix]] · [[characters/companions]]
