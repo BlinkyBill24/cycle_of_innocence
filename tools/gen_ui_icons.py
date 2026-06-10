@@ -32,3 +32,24 @@ def make(color, outline):
 make((204, 51, 64, 255), (40, 10, 14, 255)).save("assets/sprites/ui/heart_full.png")
 make((60, 52, 56, 255), (30, 24, 26, 255)).save("assets/sprites/ui/heart_empty.png")
 print("wrote heart_full.png + heart_empty.png")
+
+
+EXCLAIM = [
+    ".XX.",
+    ".XX.",
+    ".XX.",
+    ".XX.",
+    "....",
+    ".XX.",
+]
+
+def make_exclaim():
+    img = Image.new("RGBA", (6, 8), (0, 0, 0, 0))
+    for y, row in enumerate(EXCLAIM):
+        for x, ch in enumerate(row):
+            if ch == "X":
+                img.putpixel((x + 1, y + 1), (255, 220, 90, 255))
+    return img
+
+make_exclaim().save("assets/sprites/ui/exclaim.png")
+print("wrote exclaim.png")

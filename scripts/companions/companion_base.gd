@@ -181,11 +181,38 @@ func _cower_update(_delta: float) -> void:
 		hsm.dispatch(&"calmed")
 
 
+const EXCLAIM_TEX := preload("res://assets/sprites/ui/exclaim.png")
+var _exclaim: Sprite2D
+
+
 func _bark_enter() -> void:
 	velocity = Vector2.ZERO
 	_bark_timer = 0.9
 	_bark_cooldown = bark_cooldown_seconds
-	Sfx.play(&"bark", -2.0)
+	Sfx.play(&"bark", 2.0)
+	get_tree().create_timer(0.35).timeout.connect(func() -> void: Sfx.play(&"bark", 1.0))
+	_show_exclaim()
+	# small hop: the body language reads even without sound
+	var hop := create_tween()
+	hop.tween_property(sprite, "position:y", -6.0, 0.12)
+	hop.tween_property(sprite, "position:y", 0.0, 0.12)
+	hop.tween_property(sprite, "position:y", -4.0, 0.1)
+	hop.tween_property(sprite, "position:y", 0.0, 0.1)
+
+
+func _show_exclaim() -> void:
+	if _exclaim == null:
+		_exclaim = Sprite2D.new()
+		_exclaim.texture = EXCLAIM_TEX
+		_exclaim.position = Vector2(0, -22)
+		_exclaim.scale = Vector2(2, 2)
+		add_child(_exclaim)
+	_exclaim.visible = true
+	_exclaim.modulate.a = 1.0
+	var tween := create_tween()
+	tween.tween_interval(0.9)
+	tween.tween_property(_exclaim, "modulate:a", 0.0, 0.3)
+	tween.tween_callback(func() -> void: _exclaim.visible = false)
 	if sprite.sprite_frames and sprite.sprite_frames.has_animation("bark"):
 		sprite.play("bark")
 	if GameEvents:

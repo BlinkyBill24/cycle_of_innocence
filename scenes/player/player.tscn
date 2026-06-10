@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cplayerrowan01"]
+[gd_scene load_steps=12 format=3 uid="uid://cplayerrowan01"]
 
 [ext_resource type="Script" path="res://scripts/player/player_controller.gd" id="1_controller"]
 [ext_resource type="Script" path="res://scripts/player/age_morph.gd" id="2_age_morph"]
@@ -7,6 +7,9 @@
 [ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="5_hurtbox"]
 [ext_resource type="Script" path="res://scripts/combat/hitbox.gd" id="6_hitbox"]
 [ext_resource type="SpriteFrames" path="res://assets/resources/player/rowan_child_frames.tres" id="7_child_frames"]
+[ext_resource type="Script" path="res://scripts/player/vision_rig.gd" id="8_vision_rig"]
+[ext_resource type="Texture2D" path="res://assets/sprites/light/glow_cone.png" id="9_cone_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/light/glow_radial.png" id="10_radial_tex"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 10.0
@@ -58,3 +61,21 @@ knockback_force = 160.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 shape = SubResource("CircleShape2D_player")
 disabled = true
+
+[node name="VisionRig" type="Node2D" parent="."]
+script = ExtResource("8_vision_rig")
+
+[node name="ConeLight" type="PointLight2D" parent="VisionRig"]
+texture = ExtResource("9_cone_tex")
+texture_scale = 2.4
+energy = 1.15
+color = Color(1, 0.96, 0.88, 1)
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 2.0
+
+[node name="AmbientLight" type="PointLight2D" parent="VisionRig"]
+texture = ExtResource("10_radial_tex")
+texture_scale = 0.9
+energy = 0.85
+color = Color(1, 0.97, 0.92, 1)

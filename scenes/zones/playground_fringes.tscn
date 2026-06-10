@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://zoneplayfringe1"]
+[gd_scene load_steps=24 format=3 uid="uid://zoneplayfringe1"]
 
 [ext_resource type="Script" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -29,6 +29,12 @@ size = Vector2(640, 832)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_beat"]
 size = Vector2(48, 832)
 
+[sub_resource type="OccluderPolygon2D" id="Occluder_h"]
+polygon = PackedVector2Array(-736, -16, 736, -16, 736, 16, -736, 16)
+
+[sub_resource type="OccluderPolygon2D" id="Occluder_v"]
+polygon = PackedVector2Array(-16, -448, 16, -448, 16, 448, -16, 448)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_silhouette"]
 atlas = ExtResource("13_monster_tex")
 region = Rect2(0, 128, 32, 32)
@@ -41,7 +47,7 @@ zone_id = &"playground_fringes"
 tile_set = ExtResource("2_tileset")
 
 [node name="DuskTint" type="CanvasModulate" parent="."]
-color = Color(0.88, 0.78, 0.72, 1)
+color = Color(0.38, 0.34, 0.44, 1)
 
 [node name="Borders" type="StaticBody2D" parent="."]
 collision_layer = 1
@@ -62,6 +68,22 @@ shape = SubResource("RectangleShape2D_wall_v")
 [node name="Right" type="CollisionShape2D" parent="Borders"]
 position = Vector2(720, 0)
 shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="OccluderTop" type="LightOccluder2D" parent="Borders"]
+position = Vector2(0, -432)
+occluder = SubResource("Occluder_h")
+
+[node name="OccluderBottom" type="LightOccluder2D" parent="Borders"]
+position = Vector2(0, 432)
+occluder = SubResource("Occluder_h")
+
+[node name="OccluderLeft" type="LightOccluder2D" parent="Borders"]
+position = Vector2(-720, 0)
+occluder = SubResource("Occluder_v")
+
+[node name="OccluderRight" type="LightOccluder2D" parent="Borders"]
+position = Vector2(720, 0)
+occluder = SubResource("Occluder_v")
 
 [node name="FringesDread" type="Area2D" parent="."]
 position = Vector2(384, 0)
