@@ -5,14 +5,15 @@ extends Node
 ## audible at a time, with equal-power crossfades, hysteresis + dwell so the
 ## score doesn't flap at thresholds, and ducking under stingers/the lullaby.
 
-enum Layer { AMBIENT, TENSE, DANGER }
+enum Layer { AMBIENT, TENSE, DANGER, HIDEOUT }
 
 const STREAMS := {
 	Layer.AMBIENT: preload("res://assets/audio/stems/playground_ambient.ogg"),
 	Layer.TENSE: preload("res://assets/audio/stems/playground_tense.ogg"),
 	Layer.DANGER: preload("res://assets/audio/stems/playground_danger.ogg"),
+	Layer.HIDEOUT: preload("res://assets/audio/stems/hideout_warm.ogg"),
 }
-const BASE_DB := {Layer.AMBIENT: -8.0, Layer.TENSE: -7.0, Layer.DANGER: -5.0}
+const BASE_DB := {Layer.AMBIENT: -8.0, Layer.TENSE: -7.0, Layer.DANGER: -5.0, Layer.HIDEOUT: -6.0}
 
 # hysteresis thresholds on dread presentation strength (0..1)
 const UP_TENSE := 0.32
@@ -45,9 +46,23 @@ func _ready() -> void:
 		GameEvents.horror_stinger.connect(func(_trigger: StringName) -> void: duck(12.0))
 
 
+var _in_hideout := false
+
+
+## Campfire override: the warm stem takes the channel while inside.
+func set_hideout(inside: bool) -> void:
+	_in_hideout = inside
+	_dwell = MIN_DWELL  # allow the handover immediately
+
+
 func _process(delta: float) -> void:
 	_dwell += delta
-	var target := select_layer(DreadManager.get_presentation_strength(), _active)
+	var target: int
+	if _in_hideout:
+		target = Layer.HIDEOUT
+	else:
+		var base := _active if _active != Layer.HIDEOUT else Layer.AMBIENT
+		target = select_layer(DreadManager.get_presentation_strength(), base)
 	if target != _active and _dwell >= MIN_DWELL:
 		_active = target as Layer
 		_dwell = 0.0

@@ -38,7 +38,14 @@ func _ready() -> void:
 	add_to_group("companion")
 	add_to_group(String(companion_id))
 	DreadManager.dread_tier_changed.connect(_on_dread_tier_changed)
+	WorldState.time_changed.connect(_on_time_changed)
 	_init_hsm()
+
+
+func _on_time_changed(time: int, _day: int) -> void:
+	# dusk restlessness: the "let's go home" cue comes from family, not UI
+	if time == WorldState.TimeOfDay.DUSK or time == WorldState.TimeOfDay.NIGHT:
+		Sfx.play(&"whimper", -6.0)
 
 
 func _init_hsm() -> void:

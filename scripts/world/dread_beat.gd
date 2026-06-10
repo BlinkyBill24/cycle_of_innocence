@@ -30,6 +30,8 @@ func _play_beat() -> void:
 	if GameEvents:
 		GameEvents.horror_stinger.emit(&"first_glimpse")
 	DreadManager.add_dread(dread_spike, &"dread_beat")
+	if WorldState.time_of_day == WorldState.TimeOfDay.DUSK:
+		WorldState.advance_time()  # night falls with the first glimpse
 
 	var stinger := get_node_or_null(stinger_player_path) as AudioStreamPlayer
 	if stinger:

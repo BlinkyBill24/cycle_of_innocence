@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://zoneplayfringe1"]
+[gd_scene load_steps=30 format=3 uid="uid://zoneplayfringe1"]
 
 [ext_resource type="Script" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -16,6 +16,9 @@
 [ext_resource type="AudioStream" path="res://assets/audio/sfx/toy_creak_stinger.wav" id="14_stinger"]
 [ext_resource type="Script" path="res://scripts/ui/hud.gd" id="16_hud"]
 [ext_resource type="Script" path="res://scripts/ui/touch_controls.gd" id="17_touch"]
+[ext_resource type="Script" path="res://scripts/world/hideout.gd" id="18_hideout"]
+[ext_resource type="Script" path="res://scripts/world/campfire_light.gd" id="19_campfire"]
+[ext_resource type="Texture2D" path="res://assets/sprites/light/glow_radial.png" id="20_glow"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -25,6 +28,12 @@ size = Vector2(32, 896)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fringes"]
 size = Vector2(640, 832)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hideout"]
+size = Vector2(180, 140)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fire"]
+radius = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_deep"]
 size = Vector2(280, 832)
@@ -105,6 +114,50 @@ dread_level = 78.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeepFringesDread"]
 shape = SubResource("RectangleShape2D_deep")
+
+[node name="Hideout" type="Area2D" parent="."]
+position = Vector2(-470, 30)
+script = ExtResource("18_hideout")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hideout"]
+shape = SubResource("RectangleShape2D_hideout")
+
+[node name="RootsCanopy" type="Polygon2D" parent="Hideout"]
+color = Color(0.1, 0.08, 0.07, 0.85)
+polygon = PackedVector2Array(-95, -75, -40, -88, 45, -84, 92, -70, 96, -40, 80, -62, -10, -70, -80, -58, -98, -42)
+
+[node name="LogSeat" type="Polygon2D" parent="Hideout"]
+position = Vector2(-30, 18)
+color = Color(0.32, 0.22, 0.14, 1)
+polygon = PackedVector2Array(-16, -4, 16, -4, 18, 4, -18, 4)
+
+[node name="Campfire" type="StaticBody2D" parent="Hideout"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hideout/Campfire"]
+shape = SubResource("CircleShape2D_fire")
+
+[node name="Stones" type="Polygon2D" parent="Hideout/Campfire"]
+color = Color(0.35, 0.34, 0.36, 1)
+polygon = PackedVector2Array(-12, 2, -8, -6, 0, -9, 8, -6, 12, 2, 8, 8, -8, 8)
+
+[node name="Flames" type="Polygon2D" parent="Hideout/Campfire"]
+position = Vector2(0, -4)
+color = Color(1, 0.55, 0.15, 0.95)
+polygon = PackedVector2Array(-6, 6, -3, -4, 0, -10, 3, -3, 6, 6, 0, 9)
+
+[node name="FlameCore" type="Polygon2D" parent="Hideout/Campfire"]
+position = Vector2(0, -1)
+color = Color(1, 0.85, 0.4, 0.95)
+polygon = PackedVector2Array(-3, 4, 0, -4, 3, 4, 0, 6)
+
+[node name="FireLight" type="PointLight2D" parent="Hideout/Campfire"]
+texture = ExtResource("20_glow")
+texture_scale = 1.5
+energy = 1.1
+color = Color(1, 0.75, 0.45, 1)
+script = ExtResource("19_campfire")
 
 [node name="VillageTransition" type="Area2D" parent="."]
 position = Vector2(-690, 0)

@@ -118,6 +118,9 @@ func _on_interact_pressed() -> void:
 	if monster:
 		_start_soothe(monster)
 		return
+	var hideout := get_tree().get_first_node_in_group("hideout") as Hideout
+	if hideout and hideout.try_interact(self):
+		return
 	_try_companion_assist()
 
 

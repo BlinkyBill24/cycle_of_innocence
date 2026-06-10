@@ -22,6 +22,7 @@ func save_game(slot: int = 0) -> bool:
 		"player": PlayerData.get_save_data(),
 		"dread": DreadManager.dread,
 		"zone_id": ZoneManager.current_zone_id,
+		"world": WorldState.get_save_data(),
 	}
 	var file := FileAccess.open(save_path(slot), FileAccess.WRITE)
 	if file == null:
@@ -46,6 +47,7 @@ func load_game(slot: int = 0) -> bool:
 		return false
 	var data := parsed as Dictionary
 	PlayerData.apply_save_data(data.get("player", {}))
+	WorldState.apply_save_data(data.get("world", {}))
 	DreadManager.reset()
 	DreadManager.add_dread(float(data.get("dread", 0.0)), &"load")
 	ZoneManager.enter_zone(StringName(str(data.get("zone_id", PlayerData.last_zone_id))))

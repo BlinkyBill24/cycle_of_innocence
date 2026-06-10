@@ -16,11 +16,18 @@ const WIDTH := 44
 const HEIGHT := 26
 
 @onready var ground: TileMapLayer = $Ground
+@onready var tint: CanvasModulate = $DuskTint
 
 
 func _ready() -> void:
 	super._ready()
 	_paint_ground()
+	tint.color = WorldState.palette()
+	WorldState.time_changed.connect(_on_time_changed)
+
+
+func _on_time_changed(_time: int, _day: int) -> void:
+	create_tween().tween_property(tint, "color", WorldState.palette(), 3.0)
 
 
 func _paint_ground() -> void:
