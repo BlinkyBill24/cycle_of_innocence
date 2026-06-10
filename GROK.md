@@ -183,3 +183,23 @@ The new details will affect early zone design (playground as ritual site), art p
 - Focus: Asset bibles (image_gen for updated playground ritual/clowns/toys context + companions), Yarn prototypes (revised escape + bond), core prototype (PlayerData states, real-time combat/assists, playground/fringes zone).
 - Memory updated; will sync/publish journal + any changes; run status/hook.
 - Pre-action checklist satisfied.
+
+## Agent Workflow (added 2026-06-10)
+User proposed (and we adopted) hybrid agent approach:
+- Grok (me): High-level vision, architecture, story consistency (reference bible + AGENT_RULES.md), Grok Imagine prompt batches, GDScript skeletons + integration steps, review of agent output.
+- Cursor (Claude 4/Sonnet) or Continue.dev (free, flexible models incl. Grok/Ollama): Primary implementation — multi-file edits, Godot terminal runs, log reading, iteration. Use @workspace/full project context.
+- Godot in-editor (Ziva or plugins): Scene tree, quick code gen, tests.
+- Local/privacy: Ollama + Continue.dev.
+
+**Setup done**:
+- AGENT_RULES.md created at root (and synced/published to rpg-adventure/ + GitHub). Contains: project identity from bible, locked tech (Godot 4 GDScript + Yarn, autoloads, structure, pixel 32x32 + shaders, Linux/Android/Web), critical rules (R1–R6 + publishing/sync always, bible reference), vertical slice def, modular architecture diagram, prompt-driven iteration template, asset pipeline, consistency rules, review loops, tooling recommendations, pro tips.
+- Reference AGENT_RULES.md + story/bible.md + GROK.md + mechanics/ docs in EVERY agent prompt.
+- Workflow: Start here (Grok) for planning ("Design X per bible + features"). Hand off to Cursor/Continue for execution. Test in Godot → paste output back.
+- Daily: Commit frequently (agents draft messages). Godot open alongside IDE. Sync/publish after chunks.
+
+**Current slice progress** (update after agent tasks):
+- Story + features docs complete (revised ritual: lottery/harmony score, playground + clowns/toys, villager "success" belief + escalation).
+- Prompts updated, initial bibles generated (protagonist child + Briar pup for revised context).
+- Next: Hand off to agents for PlayerData states, Yarn nodes, small zone prototype (playground/fringes, child Rowan + Briar, real-time combat + 1 assist, dread moment, bond choice).
+
+See full AGENT_RULES.md for details. This hybrid is powerful for solo Godot + AI in 2026. Let's execute the vertical slice.
