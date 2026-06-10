@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yrvjgt3cnnjn"
-valid=false
+uid="uid://bohn7ixldpnco"
+path="res://.godot/imported/child_sheet_32.png-5f6818aad8cd098f78aef5a847eaab49.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://assets/reference/tileset_playground_dusk.png"
+source_file="res://assets/sprites/player/child_sheet_32.png"
+dest_files=["res://.godot/imported/child_sheet_32.png-5f6818aad8cd098f78aef5a847eaab49.ctex"]
 
 [params]
 
