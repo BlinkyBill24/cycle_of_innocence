@@ -15,6 +15,9 @@ Music and ambience are authored as **stacked stems** (ambient / tense / danger +
 - [[design/game-features]] §12 already promises "adaptive layers… dynamic mixing based on dread" — this is the concrete design + implementation path.
 - Slots into the FOSS pipeline: stems generated with ACE-Step ([[design/ai-production-setup]]), mixed in Audacity, played via Godot AudioBus.
 
+## v2 implementation note (2026-06-10, slice-gate fix)
+Layered playback clashed in the gate playtest — the ACE-Step tracks are independent compositions, not aligned stems. **v2 crossfades exclusively**: one intensity track audible at a time (ambient ↔ tense ↔ danger), equal-power 2.5s handovers, hysteresis + 4s dwell against threshold flapping, and ducking under stingers and the soothe lullaby. The layered ideal returns if/when true aligned stems are produced (one composition, stripped mixes).
+
 ## Stem stack (per zone theme)
 | Stem | Driven by | Example |
 |---|---|---|

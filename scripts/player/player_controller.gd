@@ -139,6 +139,7 @@ func _start_soothe(target: EnemyBase) -> void:
 	# stays live, movement stops, the lullaby is the only shield.
 	_soothing = true
 	_soothe_target = target
+	AdaptiveAudio.duck(8.0)  # let the lullaby carry
 	Sfx.play(&"lullaby", -6.0, 0.0)
 	if animated_sprite and animated_sprite.sprite_frames \
 			and animated_sprite.sprite_frames.has_animation("crouch"):

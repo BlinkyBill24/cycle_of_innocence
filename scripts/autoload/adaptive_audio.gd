@@ -1,52 +1,98 @@
 extends Node
-## Adaptive audio v1 (docs/mechanics/adaptive-audio.md): three looping stems
-## (ambient / tense / danger) crossfaded continuously from the dread level.
-## Hollowing-stage and time-of-day inputs join post-slice.
+## Adaptive audio v2 (slice-gate fix): EXCLUSIVE crossfade between intensity
+## tracks instead of layering. The ACE-Step tracks are independent
+## compositions — stacking them clashed ("messy/overlapped"). One track is
+## audible at a time, with equal-power crossfades, hysteresis + dwell so the
+## score doesn't flap at thresholds, and ducking under stingers/the lullaby.
 
-const AMBIENT := preload("res://assets/audio/stems/playground_ambient.ogg")
-const TENSE := preload("res://assets/audio/stems/playground_tense.ogg")
-const DANGER := preload("res://assets/audio/stems/playground_danger.ogg")
+enum Layer { AMBIENT, TENSE, DANGER }
 
-const AMBIENT_DB := -8.0
-const TENSE_MAX_DB := -6.0
-const DANGER_MAX_DB := -4.0
-const FADE_SPEED := 0.8  # linear gain per second
+const STREAMS := {
+	Layer.AMBIENT: preload("res://assets/audio/stems/playground_ambient.ogg"),
+	Layer.TENSE: preload("res://assets/audio/stems/playground_tense.ogg"),
+	Layer.DANGER: preload("res://assets/audio/stems/playground_danger.ogg"),
+}
+const BASE_DB := {Layer.AMBIENT: -8.0, Layer.TENSE: -7.0, Layer.DANGER: -5.0}
 
-var _ambient: AudioStreamPlayer
-var _tense: AudioStreamPlayer
-var _danger: AudioStreamPlayer
-var _tense_gain := 0.0
-var _danger_gain := 0.0
+# hysteresis thresholds on dread presentation strength (0..1)
+const UP_TENSE := 0.32
+const DOWN_TENSE := 0.24
+const UP_DANGER := 0.66
+const DOWN_DANGER := 0.56
+
+const CROSSFADE_TIME := 2.5  # seconds for a full handover
+const MIN_DWELL := 4.0       # seconds before another switch is allowed
+const DUCK_RECOVERY_DB_PER_S := 5.0
+const SILENT_DB := -60.0
+
+var _players: Dictionary = {}
+var _gains: Dictionary = {}      # layer -> 0..1 crossfade weight
+var _active: Layer = Layer.AMBIENT
+var _dwell: float = MIN_DWELL
+var _duck_db: float = 0.0
 
 
 func _ready() -> void:
-	_ambient = _make_player(AMBIENT, AMBIENT_DB)
-	_tense = _make_player(TENSE, -60.0)
-	_danger = _make_player(DANGER, -60.0)
-
-
-func _make_player(stream: AudioStream, volume_db: float) -> AudioStreamPlayer:
-	var player := AudioStreamPlayer.new()
-	player.stream = stream
-	player.volume_db = volume_db
-	player.autoplay = true
-	add_child(player)
-	player.play()
-	return player
+	for layer: Layer in STREAMS:
+		var player := AudioStreamPlayer.new()
+		player.stream = STREAMS[layer]
+		player.volume_db = SILENT_DB
+		add_child(player)
+		player.play()
+		_players[layer] = player
+		_gains[layer] = 1.0 if layer == Layer.AMBIENT else 0.0
+	if GameEvents:
+		GameEvents.horror_stinger.connect(func(_trigger: StringName) -> void: duck(12.0))
 
 
 func _process(delta: float) -> void:
-	var presentation := DreadManager.get_presentation_strength()  # respects horror intensity
-	var dread01 := presentation  # 0..1
-	var tense_target := clampf(inverse_lerp(0.22, 0.55, dread01), 0.0, 1.0)
-	var danger_target := clampf(inverse_lerp(0.58, 0.88, dread01), 0.0, 1.0)
-	_tense_gain = move_toward(_tense_gain, tense_target, FADE_SPEED * delta)
-	_danger_gain = move_toward(_danger_gain, danger_target, FADE_SPEED * delta)
-	_tense.volume_db = _gain_to_db(_tense_gain, TENSE_MAX_DB)
-	_danger.volume_db = _gain_to_db(_danger_gain, DANGER_MAX_DB)
+	_dwell += delta
+	var target := select_layer(DreadManager.get_presentation_strength(), _active)
+	if target != _active and _dwell >= MIN_DWELL:
+		_active = target as Layer
+		_dwell = 0.0
+	_duck_db = maxf(_duck_db - DUCK_RECOVERY_DB_PER_S * delta, 0.0)
+	for layer: Layer in _players:
+		var goal := 1.0 if layer == _active else 0.0
+		_gains[layer] = move_toward(_gains[layer], goal, delta / CROSSFADE_TIME)
+		_apply(layer)
 
 
-func _gain_to_db(gain: float, max_db: float) -> float:
+## Momentarily lower the music (stingers, the soothe lullaby) — recovers
+## automatically at DUCK_RECOVERY_DB_PER_S.
+func duck(amount_db: float = 10.0) -> void:
+	_duck_db = maxf(_duck_db, amount_db)
+
+
+## Pure + hysteretic: which track should play for this dread strength,
+## given the currently active one. Static for testability.
+static func select_layer(strength: float, current: int) -> int:
+	match current:
+		Layer.TENSE:
+			if strength >= UP_DANGER:
+				return Layer.DANGER
+			if strength <= DOWN_TENSE:
+				return Layer.AMBIENT
+			return Layer.TENSE
+		Layer.DANGER:
+			if strength <= DOWN_TENSE:
+				return Layer.AMBIENT
+			if strength <= DOWN_DANGER:
+				return Layer.TENSE
+			return Layer.DANGER
+		_:
+			if strength >= UP_DANGER:
+				return Layer.DANGER
+			if strength >= UP_TENSE:
+				return Layer.TENSE
+			return Layer.AMBIENT
+
+
+func _apply(layer: Layer) -> void:
+	var gain: float = _gains[layer]
+	var player: AudioStreamPlayer = _players[layer]
 	if gain <= 0.001:
-		return -60.0
-	return linear_to_db(gain) + max_db
+		player.volume_db = SILENT_DB
+		return
+	# equal-power crossfade: amplitude follows sqrt(gain)
+	player.volume_db = BASE_DB[layer] + linear_to_db(sqrt(gain)) - _duck_db
