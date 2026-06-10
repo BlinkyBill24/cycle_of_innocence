@@ -10,7 +10,7 @@ var _label: Label
 func _ready() -> void:
 	if show_debug_label:
 		_label = Label.new()
-		_label.position = Vector2(8, 8)
+		_label.position = Vector2(8, 26)  # below the HUD heart row
 		_label.add_theme_font_size_override("font_size", 11)
 		add_child(_label)
 	_refresh_label()

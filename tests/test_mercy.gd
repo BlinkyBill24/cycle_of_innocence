@@ -48,6 +48,15 @@ func test_killing_a_stilled_monster_is_heavy() -> void:
 	assert_eq(PlayerData.get_companion(&"briar").corruption, 10.0, "Briar learns from you")
 
 
+func test_stilled_monster_does_not_get_dragged_by_player_overlap() -> void:
+	enemy.add_recognition(100.0)
+	await wait_physics_frames(1)
+	assert_eq(enemy.collision_mask, 1, "stilled: collides with world only")
+	var pos := enemy.global_position
+	enemy._physics_process(0.016)
+	assert_eq(enemy.global_position, pos, "stilled monsters skip physics movement")
+
+
 func test_stilled_state_persists_via_flag() -> void:
 	PlayerData.set_story_flag(&"stilled_twisted_child_01")
 	var second: EnemyBase = load("res://scenes/enemies/twisted_child.tscn").instantiate()

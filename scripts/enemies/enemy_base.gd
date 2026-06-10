@@ -92,7 +92,11 @@ func _init_hsm() -> void:
 func _physics_process(delta: float) -> void:
 	_cooldown = maxf(_cooldown - delta, 0.0)
 	_soothe_hold = maxf(_soothe_hold - delta, 0.0)
-	move_and_slide()
+	# Stilled monsters don't run physics: a zero-velocity CharacterBody2D still
+	# depenetrates from overlaps, so walking into one would drag it along
+	# (playtest 2026-06-10).
+	if not stilled:
+		move_and_slide()
 	_update_animation()
 	_update_recognition_tint()
 
@@ -196,6 +200,8 @@ func _hurt_update(delta: float) -> void:
 func _stilled_enter() -> void:
 	velocity = Vector2.ZERO
 	lunge_hitbox.deactivate()
+	# stop reacting to the player's body entirely; remain solid to the world
+	collision_mask = 1
 	if sprite.sprite_frames and sprite.sprite_frames.has_animation("stilled"):
 		sprite.play("stilled")
 

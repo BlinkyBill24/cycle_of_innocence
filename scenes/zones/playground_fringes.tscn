@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://zoneplayfringe1"]
+[gd_scene load_steps=22 format=3 uid="uid://zoneplayfringe1"]
 
 [ext_resource type="Script" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" path="res://scripts/world/dread_beat.gd" id="12_dread_beat"]
 [ext_resource type="Texture2D" path="res://assets/sprites/enemies/twisted_child_32.png" id="13_monster_tex"]
 [ext_resource type="AudioStream" path="res://assets/audio/sfx/toy_creak_stinger.wav" id="14_stinger"]
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="16_hud"]
+[ext_resource type="Script" path="res://scripts/ui/touch_controls.gd" id="17_touch"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -29,7 +31,7 @@ size = Vector2(48, 832)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_silhouette"]
 atlas = ExtResource("13_monster_tex")
-region = Rect2(0, 32, 32, 32)
+region = Rect2(0, 128, 32, 32)
 
 [node name="PlaygroundFringes" type="Node2D"]
 script = ExtResource("1_zone")
@@ -98,6 +100,12 @@ spot_id = &"fringes_buried_memory"
 
 [node name="ProgressionTest" type="Node2D" parent="."]
 script = ExtResource("8_progression_test")
+
+[node name="Hud" type="CanvasLayer" parent="."]
+script = ExtResource("16_hud")
+
+[node name="TouchControls" type="CanvasLayer" parent="."]
+script = ExtResource("17_touch")
 
 [node name="IntroFoodDialogue" type="Node" parent="."]
 script = ExtResource("11_story_dialogue")
