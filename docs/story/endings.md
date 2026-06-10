@@ -2,7 +2,10 @@
 name: The Four Major Endings
 tags: [story, endings, companions]
 status: draft
-related: [[story/bible]], [[story/choice-matrix]], [[characters/companions]]
+related:
+  - "[[story/bible]]"
+  - "[[story/choice-matrix]]"
+  - "[[characters/companions]]"
 ---
 
 # The Four Major Endings

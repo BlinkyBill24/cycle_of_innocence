@@ -1,5 +1,5 @@
 ---
-name: {{Pattern Name}}
+name: "{{Pattern Name}}"
 tags: [pattern]
 ---
 

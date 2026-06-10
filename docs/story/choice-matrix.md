@@ -2,7 +2,10 @@
 name: Major Choices & Consequences Matrix
 tags: [story, mechanics, morality, companions]
 status: draft
-related: [[story/bible]], [[story/endings]], [[characters/companions]]
+related:
+  - "[[story/bible]]"
+  - "[[story/endings]]"
+  - "[[characters/companions]]"
 ---
 
 # Major Choices & Consequences Matrix

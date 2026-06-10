@@ -2,7 +2,11 @@
 name: Cycle of Innocence - Story Bible
 tags: [story, bible, core]
 status: draft
-related: [[characters/protagonist]], [[characters/companions]], [[story/choice-matrix]], [[story/endings]]
+related:
+  - "[[characters/protagonist]]"
+  - "[[characters/companions]]"
+  - "[[story/choice-matrix]]"
+  - "[[story/endings]]"
 ---
 
 # Cycle of Innocence — Story Bible

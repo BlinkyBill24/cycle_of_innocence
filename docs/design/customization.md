@@ -2,7 +2,11 @@
 name: Customization & Character Design
 tags: [design, customization, characters, art]
 status: draft
-related: [[design/game-features]], [[story/bible]], [[characters/companions]], [[mechanics/progression]]
+related:
+  - "[[design/game-features]]"
+  - "[[story/bible]]"
+  - "[[characters/companions]]"
+  - "[[mechanics/progression]]"
 ---
 
 # Customization & Character Design

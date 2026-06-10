@@ -1,8 +1,8 @@
 ---
-name: Session {{YYYY-MM-DD}}
-date: {{YYYY-MM-DD}}
+name: "Session {{YYYY-MM-DD}}"
+date: "{{YYYY-MM-DD}}"
 tags: [session]
-branch: {{branch}}
+branch: "{{branch}}"
 commits: []
 ---
 

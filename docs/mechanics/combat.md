@@ -2,7 +2,11 @@
 name: Combat System (Real-Time Action + Horror)
 tags: [mechanics, combat, design]
 status: draft
-related: [[design/game-features]], [[mechanics/progression]], [[mechanics/horror-and-dread]], [[story/bible]]
+related:
+  - "[[design/game-features]]"
+  - "[[mechanics/progression]]"
+  - "[[mechanics/horror-and-dread]]"
+  - "[[story/bible]]"
 ---
 
 # Combat System

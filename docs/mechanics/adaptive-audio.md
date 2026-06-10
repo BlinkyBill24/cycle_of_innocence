@@ -3,7 +3,7 @@ name: Adaptive Audio (Stem Layers)
 date: 2026-06-10
 tags: [feature, mechanics, audio, horror]
 status: planned
-related_decisions: [[decisions/2026-06-10-recent-games-research-greenlight]]
+related_decisions: "[[decisions/2026-06-10-recent-games-research-greenlight]]"
 ---
 
 # Adaptive Audio — Three Stems and a Heartbeat

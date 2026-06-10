@@ -2,7 +2,10 @@
 name: Progression Systems (Age, Morality, Bonds, Abilities)
 tags: [mechanics, progression, design]
 status: draft
-related: [[design/game-features]], [[story/bible]], [[characters/companions]]
+related:
+  - "[[design/game-features]]"
+  - "[[story/bible]]"
+  - "[[characters/companions]]"
 ---
 
 # Progression Systems

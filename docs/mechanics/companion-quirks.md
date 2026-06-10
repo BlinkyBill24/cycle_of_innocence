@@ -3,7 +3,7 @@ name: Companion Quirks (Diagnosable Behaviors)
 date: 2026-06-10
 tags: [feature, mechanics, companions, horror]
 status: planned
-related_decisions: [[decisions/2026-06-10-recent-games-research-greenlight]]
+related_decisions: "[[decisions/2026-06-10-recent-games-research-greenlight]]"
 ---
 
 # Companion Quirks — Corruption You Can Diagnose

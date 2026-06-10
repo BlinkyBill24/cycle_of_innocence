@@ -3,7 +3,7 @@ name: Interface Horror (Dialogue Distortion + Control Degradation)
 date: 2026-06-10
 tags: [feature, mechanics, horror, dialogue, accessibility]
 status: planned
-related_decisions: [[decisions/2026-06-10-recent-games-research-greenlight]]
+related_decisions: "[[decisions/2026-06-10-recent-games-research-greenlight]]"
 ---
 
 # Interface Horror — The Game Stops Obeying You

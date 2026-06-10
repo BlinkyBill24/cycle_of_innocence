@@ -1,5 +1,5 @@
 ---
-name: {{Short description}}
+name: "{{Short description}}"
 tags: [bug-fix]
 ---
 

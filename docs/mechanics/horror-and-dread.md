@@ -2,7 +2,10 @@
 name: Horror & Dread Mechanics
 tags: [mechanics, horror, design, atmosphere]
 status: draft
-related: [[design/game-features]], [[mechanics/combat]], [[story/bible]]
+related:
+  - "[[design/game-features]]"
+  - "[[mechanics/combat]]"
+  - "[[story/bible]]"
 ---
 
 # Horror & Dread Mechanics

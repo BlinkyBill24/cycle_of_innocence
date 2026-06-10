@@ -3,7 +3,12 @@ name: Recent-games research (round 2) — greenlight quirks, interface horror, a
 date: 2026-06-10
 tags: [decision, features, research]
 status: active
-related_features: [[mechanics/companion-quirks]], [[mechanics/interface-horror]], [[mechanics/adaptive-audio]], [[mechanics/village-life]], [[mechanics/zone-recontextualization]]
+related_features:
+  - "[[mechanics/companion-quirks]]"
+  - "[[mechanics/interface-horror]]"
+  - "[[mechanics/adaptive-audio]]"
+  - "[[mechanics/village-life]]"
+  - "[[mechanics/zone-recontextualization]]"
 related_bugs: []
 supersedes: null
 superseded_by: null

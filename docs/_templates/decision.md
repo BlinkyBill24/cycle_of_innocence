@@ -1,6 +1,6 @@
 ---
-name: {{title}}
-date: {{YYYY-MM-DD}}
+name: "{{title}}"
+date: "{{YYYY-MM-DD}}"
 tags: [decision]
 status: proposed  # proposed | active | complete | superseded
 related_features: []

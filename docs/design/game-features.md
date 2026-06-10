@@ -2,7 +2,12 @@
 name: Game Features & Systems Overview
 tags: [design, features, mechanics, scope]
 status: draft
-related: [[story/bible]], [[characters/companions]], [[mechanics/progression]], [[mechanics/combat]], [[design/customization]]
+related:
+  - "[[story/bible]]"
+  - "[[characters/companions]]"
+  - "[[mechanics/progression]]"
+  - "[[mechanics/combat]]"
+  - "[[design/customization]]"
 ---
 
 # Cycle of Innocence — Game Features & Systems Overview

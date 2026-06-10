@@ -3,7 +3,12 @@ name: New features from genre research + AI production setup
 date: 2026-06-10
 tags: [decision]
 status: active
-related_features: [[mechanics/encounters-mercy]], [[mechanics/hollowing-clock]], [[mechanics/day-night-hideout]], [[mechanics/vision-and-darkness]], [[design/ai-production-setup]]
+related_features:
+  - "[[mechanics/encounters-mercy]]"
+  - "[[mechanics/hollowing-clock]]"
+  - "[[mechanics/day-night-hideout]]"
+  - "[[mechanics/vision-and-darkness]]"
+  - "[[design/ai-production-setup]]"
 related_bugs: []
 supersedes: null
 superseded_by: null

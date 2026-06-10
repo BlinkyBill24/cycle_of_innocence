@@ -2,7 +2,9 @@
 name: Animal Companions - Character Bible & Arcs
 tags: [characters, companions, core]
 status: draft
-related: [[story/bible]], [[characters/protagonist]]
+related:
+  - "[[story/bible]]"
+  - "[[characters/protagonist]]"
 ---
 
 # Animal Companions — Character Bible & Arcs

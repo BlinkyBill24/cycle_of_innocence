@@ -1,6 +1,6 @@
 ---
-name: {{Feature Name}}
-date: {{YYYY-MM-DD}}
+name: "{{Feature Name}}"
+date: "{{YYYY-MM-DD}}"
 tags: [feature]
 status: planned  # planned | in-progress | shipped | deprecated
 related_decisions: []

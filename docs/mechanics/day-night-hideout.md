@@ -3,7 +3,7 @@ name: Day-Night Loop & Hideout
 date: 2026-06-10
 tags: [feature, mechanics, companions, horror, save-system]
 status: planned
-related_decisions: [[decisions/2026-06-10-new-features-and-ai-setup]]
+related_decisions: "[[decisions/2026-06-10-new-features-and-ai-setup]]"
 ---
 
 # Day-Night Loop & Hideout (Safe-Camp)

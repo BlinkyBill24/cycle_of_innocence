@@ -2,7 +2,10 @@
 name: Inventory & Items
 tags: [mechanics, inventory, design]
 status: draft
-related: [[design/game-features]], [[mechanics/progression]], [[story/bible]]
+related:
+  - "[[design/game-features]]"
+  - "[[mechanics/progression]]"
+  - "[[story/bible]]"
 ---
 
 # Inventory & Items

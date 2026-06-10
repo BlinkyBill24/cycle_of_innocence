@@ -3,7 +3,7 @@ name: The Hollowing Clock (Doom Escalation)
 date: 2026-06-10
 tags: [feature, mechanics, narrative, horror, world-state]
 status: planned
-related_decisions: [[decisions/2026-06-10-new-features-and-ai-setup]]
+related_decisions: "[[decisions/2026-06-10-new-features-and-ai-setup]]"
 ---
 
 # The Hollowing Clock — Doom Escalation System

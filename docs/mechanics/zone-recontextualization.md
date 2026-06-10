@@ -3,7 +3,7 @@ name: Zone Recontextualization (Knowledge-Gated World)
 date: 2026-06-10
 tags: [feature, mechanics, narrative, exploration, post-slice]
 status: planned
-related_decisions: [[decisions/2026-06-10-recent-games-research-greenlight]]
+related_decisions: "[[decisions/2026-06-10-recent-games-research-greenlight]]"
 ---
 
 # Zone Recontextualization — The World Changes When You Know

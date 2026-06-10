@@ -3,7 +3,7 @@ name: Feature Candidates — Recent Games Research (Round 2)
 date: 2026-06-10
 tags: [design, research, features]
 status: active
-related_decisions: [[decisions/2026-06-10-recent-games-research-greenlight]]
+related_decisions: "[[decisions/2026-06-10-recent-games-research-greenlight]]"
 ---
 
 # Feature Candidates from Recent Games (2022–2026) — Research Round 2

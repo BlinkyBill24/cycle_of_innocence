@@ -3,7 +3,7 @@ name: AI Production Setup (FOSS-first)
 date: 2026-06-10
 tags: [design, pipeline, ai-tools, licensing]
 status: active
-related_decisions: [[decisions/2026-06-10-new-features-and-ai-setup]]
+related_decisions: "[[decisions/2026-06-10-new-features-and-ai-setup]]"
 ---
 
 # AI Production Setup — FOSS-first, upgrade later if needed
