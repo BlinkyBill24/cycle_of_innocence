@@ -29,6 +29,7 @@ The complete per-area AI/tooling stack to take *Cycle of Innocence* from current
 - `addons/` — Dialogue Manager v3.10.4, LimboAI v1.6.0 (Godot 4.4 GDExtension build), GUT v9.6.0
 - `tests/` — smoke tests; run via `tools/run-tests.sh`
 - godot-mcp registered in Claude Code MCP config (scene-tree access for agents)
+- PixelLab API client `tools/pixellab_api.py` (user subscribed 2026-06-10, free tier; key at `~/.config/pixellab/api_key`, never committed; generation needs credit top-up)
 
 ## Workflow rules
 1. **Art**: Imagine prompt batches from [[art/imagine-prompts]] → generate at 2–4× target size → downscale in Aseprite (interpolation: none) → palette discipline pass → import with nearest filter. Always add human Aseprite work on top of AI output (strengthens legal authorship position — no AI tool indemnifies).

@@ -22,7 +22,8 @@
 - **LimboAI** (`addons/limboai/`, v1.6.0 gdextension-4.4) for enemy/companion behavior trees + `NavigationAgent2D` pathfinding. **No runtime LLM calls in the shipped game** (offline mobile, latency, cost).
 - **GUT** (`addons/gut/`, v9.4.0) for unit tests — run `bash tools/run-tests.sh` (headless). ⚠️ Addon versions are pinned to Godot 4.4; bump Godot and addons together.
 - Art: 32×32 pixel (SNES/Zelda + horror), Grok Imagine → Aseprite cleanup → Godot nearest-filter import.
-- Autoloads (current + planned): `GameEvents`, `PlayerData`, `DialogueManager` (addon), then `ZoneManager`, `CompanionManager`, `SaveManager`, `InputManager`, `DreadManager`.
+- Autoloads (current): `GameEvents`, `PlayerData`, `DialogueManager` (addon), `DreadManager`, `ZoneManager`; (planned): `CompanionManager`, `SaveManager`, `InputManager`.
+- **PixelLab API** available for character/animation generation: key at `~/.config/pixellab/api_key` (NEVER in repo), client `tools/pixellab_api.py` (generate/rotate; free tier needs credits for generation). Decision: docs/decisions/2026-06-10-sprite-tool-pixellab.md.
 - AI production stack: FOSS-first; see `docs/design/ai-production-setup.md`.
 
 ## Critical rules (R1–R6)
