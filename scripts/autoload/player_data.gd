@@ -37,6 +37,7 @@ var companions: Dictionary = {}
 
 var known_revelations: Array[StringName] = []
 var appearance_flags: Array[StringName] = []  # e.g. "ritual_scar", "marked", "hardened"
+var story_flags: Array[StringName] = []  # choice-matrix flags, e.g. "food_shared"
 
 var custom_name: String = "Rowan"
 var gender: String = "neutral"
@@ -60,6 +61,7 @@ func reset_to_defaults() -> void:
 	companions.clear()
 	known_revelations.clear()
 	appearance_flags.clear()
+	story_flags.clear()
 	custom_name = "Rowan"
 	gender = "neutral"
 	chosen_accent_color = Color(0.55, 0.45, 0.35, 1.0)
@@ -179,6 +181,75 @@ func add_appearance_flag(flag: StringName) -> void:
 
 func is_revelation_known(id: StringName) -> bool:
 	return id in known_revelations
+
+
+func set_story_flag(flag: StringName) -> void:
+	if not flag.is_empty() and flag not in story_flags:
+		story_flags.append(flag)
+
+
+func has_story_flag(flag: StringName) -> bool:
+	return flag in story_flags
+
+
+## Delta helpers — primary API for dialogue mutations (Dialogue Manager).
+func add_companion_bond(id: StringName, delta: float) -> void:
+	set_companion_bond(id, get_companion(id).bond + delta)
+
+
+func add_companion_corruption(id: StringName, delta: float) -> void:
+	set_companion_corruption(id, get_companion(id).corruption + delta)
+
+
+## --- persistence (used by SaveManager) ---
+
+func get_save_data() -> Dictionary:
+	return {
+		"age_stage": age_stage,
+		"morality": morality,
+		"companions": companions.duplicate(true),
+		"known_revelations": known_revelations.duplicate(),
+		"appearance_flags": appearance_flags.duplicate(),
+		"story_flags": story_flags.duplicate(),
+		"custom_name": custom_name,
+		"gender": gender,
+		"chosen_accent_color": chosen_accent_color.to_html(),
+		"max_hp": max_hp,
+		"current_hp": current_hp,
+		"last_zone_id": last_zone_id,
+		"spawn_position": [spawn_position.x, spawn_position.y],
+	}
+
+
+func apply_save_data(data: Dictionary) -> void:
+	age_stage = int(data.get("age_stage", AgeStage.CHILD)) as AgeStage
+	morality = float(data.get("morality", 0.0))
+	companions = {}
+	var saved_companions: Dictionary = data.get("companions", {})
+	for id: Variant in saved_companions:
+		companions[StringName(id)] = Dictionary(saved_companions[id]).duplicate()
+	known_revelations.assign(Array(data.get("known_revelations", [])).map(
+		func(v: Variant) -> StringName: return StringName(v)))
+	appearance_flags.assign(Array(data.get("appearance_flags", [])).map(
+		func(v: Variant) -> StringName: return StringName(v)))
+	story_flags.assign(Array(data.get("story_flags", [])).map(
+		func(v: Variant) -> StringName: return StringName(v)))
+	custom_name = str(data.get("custom_name", "Rowan"))
+	gender = str(data.get("gender", "neutral"))
+	chosen_accent_color = Color.from_string(str(data.get("chosen_accent_color", "")), chosen_accent_color)
+	max_hp = int(data.get("max_hp", 20))
+	current_hp = int(data.get("current_hp", max_hp))
+	last_zone_id = StringName(str(data.get("last_zone_id", &"playground_fringes")))
+	var pos: Array = data.get("spawn_position", [0.0, 0.0])
+	spawn_position = Vector2(float(pos[0]), float(pos[1]))
+	if companions.is_empty():
+		_init_slice_companions()
+	# listeners (visuals, HUD) resync from signals
+	age_advanced.emit(age_stage)
+	morality_changed.emit(morality, 0.0)
+	for id: StringName in companions:
+		bond_changed.emit(id, companions[id].bond)
+		corruption_changed.emit(id, companions[id].corruption)
 
 
 func _init_slice_companions() -> void:

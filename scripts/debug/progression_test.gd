@@ -44,6 +44,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			PlayerData.unlock_revelation(&"escape_noticed")
 		KEY_9:
 			DreadManager.add_dread(20.0, &"debug")
+		KEY_K:
+			SaveManager.save_game()
+		KEY_L:
+			SaveManager.load_game()
+			_refresh_label()
 		KEY_0:
 			PlayerData.reset_to_defaults()
 			DreadManager.reset()
@@ -64,5 +69,6 @@ func _refresh_label() -> void:
 		+ "Briar bond: %.0f | corruption: %.0f\n" % [briar.get("bond", 0.0), briar.get("corruption", 0.0)]
 		+ "Dread: %.0f (%s) | HP: %d/%d\n" % [DreadManager.dread, DreadManager.get_tier_name(), PlayerData.current_hp, PlayerData.max_hp]
 		+ "Keys: 1/2 morality ±15 | 3 teen 4 adult 5 child\n"
-		+ "6 bond+10 | 7 corruption+15 | 8 revelation | 9 dread+20 | 0 reset"
+		+ "6 bond+10 | 7 corruption+15 | 8 revelation | 9 dread+20 | 0 reset\n"
+		+ "K save | L load | E dig"
 	)

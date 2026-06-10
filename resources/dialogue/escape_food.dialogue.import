@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://f13n0kaweafr"
+path="res://.godot/imported/escape_food.dialogue-3db3cd10b4bfdad603713fa81508394a.tres"
+
+[deps]
+
+source_file="res://resources/dialogue/escape_food.dialogue"
+dest_files=["res://.godot/imported/escape_food.dialogue-3db3cd10b4bfdad603713fa81508394a.tres"]
+
+[params]
+
+defaults=true

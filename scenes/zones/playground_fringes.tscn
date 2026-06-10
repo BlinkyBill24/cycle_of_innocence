@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://zoneplayfringe1"]
+[gd_scene load_steps=21 format=3 uid="uid://zoneplayfringe1"]
 
 [ext_resource type="Script" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -10,6 +10,11 @@
 [ext_resource type="Script" uid="uid://cf12kgjkd6ugf" path="res://scripts/debug/progression_test.gd" id="8_progression_test"]
 [ext_resource type="Script" path="res://scripts/world/dread_zone.gd" id="9_dread_zone"]
 [ext_resource type="Script" path="res://scripts/world/zone_transition.gd" id="10_transition"]
+[ext_resource type="Script" path="res://scripts/world/story_dialogue.gd" id="11_story_dialogue"]
+[ext_resource type="Script" path="res://scripts/world/dread_beat.gd" id="12_dread_beat"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/twisted_child_32.png" id="13_monster_tex"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/toy_creak_stinger.wav" id="14_stinger"]
+[ext_resource type="AudioStream" path="res://assets/audio/stems/playground_ambient.ogg" id="15_ambient"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -19,6 +24,13 @@ size = Vector2(32, 896)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fringes"]
 size = Vector2(640, 832)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_beat"]
+size = Vector2(48, 832)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_silhouette"]
+atlas = ExtResource("13_monster_tex")
+region = Rect2(0, 32, 32, 32)
 
 [node name="PlaygroundFringes" type="Node2D"]
 script = ExtResource("1_zone")
@@ -87,3 +99,47 @@ spot_id = &"fringes_buried_memory"
 
 [node name="ProgressionTest" type="Node2D" parent="."]
 script = ExtResource("8_progression_test")
+
+[node name="IntroFoodDialogue" type="Node" parent="."]
+script = ExtResource("11_story_dialogue")
+dialogue_path = "res://resources/dialogue/escape_food.dialogue"
+once_flag = &"intro_food_dialogue_done"
+
+[node name="AmbientLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_ambient")
+volume_db = -8.0
+autoplay = true
+
+[node name="FogSeamNorth" type="Polygon2D" parent="."]
+position = Vector2(110, -150)
+color = Color(0.55, 0.6, 0.55, 0.45)
+polygon = PackedVector2Array(-120, -60, 60, -90, 160, -20, 120, 70, -40, 90, -150, 20)
+visible = false
+
+[node name="FogSeamSouth" type="Polygon2D" parent="."]
+position = Vector2(140, 170)
+color = Color(0.5, 0.56, 0.52, 0.45)
+polygon = PackedVector2Array(-140, -50, 40, -80, 170, -10, 130, 80, -60, 100, -170, 30)
+visible = false
+
+[node name="GlimpseSilhouette" type="Sprite2D" parent="."]
+position = Vector2(250, -20)
+scale = Vector2(3, 3)
+texture = SubResource("AtlasTexture_silhouette")
+modulate = Color(0.06, 0.04, 0.08, 0.85)
+visible = false
+
+[node name="BeatStinger" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_stinger")
+volume_db = -2.0
+
+[node name="FirstDreadBeat" type="Area2D" parent="." node_paths=PackedStringArray("silhouette_path", "stinger_player_path")]
+position = Vector2(72, 0)
+script = ExtResource("12_dread_beat")
+beat_flag = &"first_dread_beat"
+fog_nodes = [NodePath("../FogSeamNorth"), NodePath("../FogSeamSouth")]
+silhouette_path = NodePath("../GlimpseSilhouette")
+stinger_player_path = NodePath("../BeatStinger")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FirstDreadBeat"]
+shape = SubResource("RectangleShape2D_beat")

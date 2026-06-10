@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dn8iabetyanme" path="res://scenes/effects/dread_overlay.tscn" id="3_dread_overlay"]
 [ext_resource type="PackedScene" uid="uid://covsxjksurfq3" path="res://scenes/enemies/twisted_child.tscn" id="4_twisted_child"]
 [ext_resource type="PackedScene" uid="uid://briarpup00001" path="res://scenes/companions/briar.tscn" id="5_briar"]
-[ext_resource type="PackedScene" uid="uid://diggable000001" path="res://scenes/world/diggable_spot.tscn" id="6_diggable"]
+[ext_resource type="PackedScene" uid="uid://b70vr0nx7dism" path="res://scenes/world/diggable_spot.tscn" id="6_diggable"]
 
 [node name="Playground" type="Node2D"]
 
