@@ -33,7 +33,7 @@ Mechanizes the story bible's "delayed alarm" beat: the village does not yet know
 
 ## Consequences per stage
 - Spawn tables and patrol routes per zone keyed to stage.
-- Yarn: `$hollowing_stage` variable gates dialogue everywhere.
+- Dialogue: `hollowing_stage` variable gates dialogue everywhere.
 - Each stage adds one **irreversible loss** (an NPC, a safe path, a child) — the cost of delay is shown, not told.
 - Endings read peak-stage and stage-at-finale flags ([[story/endings]]: Frenzy reached + low bonds feeds The Failure).
 

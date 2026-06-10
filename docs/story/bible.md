@@ -94,7 +94,7 @@ These are not pets. They are the only real family Rowan will ever have. Their ar
 - Arc: Becomes a symbol of freedom or a tragic vessel in the climax.
 
 **Corruption & Bond Mechanics** (mechanical + narrative):
-- Bond score per companion (tracked in PlayerData and Yarn variables: $bond_briar, $corruption_briar).
+- Bond score per companion (tracked in PlayerData and dialogue variables: $bond_briar, $corruption_briar).
 - Care actions (feed, soothe after dread events, protect in combat) increase bond.
 - Using them selfishly or exposing them to the Hunger increases corruption.
 - High corruption on a companion can unlock powerful but horrifying "corrupted abilities" at the cost of loyalty and story consequences (they may refuse commands, attack Rowan, or become new horror set pieces).
@@ -135,7 +135,7 @@ These are not pets. They are the only real family Rowan will ever have. Their ar
 - Multiple endings with different fates for Rowan and each companion.
 - Epilogue that changes based on morality, which companions lived, and what was revealed.
 
-## Key Yarn Variables (for dialogue & systems)
+## Key Dialogue Variables (for dialogue & systems)
 
 - `$age_stage` (child / teen / adult)
 - `$morality` (numeric or tiered: Innocent / Wounded / Hardened / Vessel)

@@ -79,7 +79,7 @@ Extend the existing PlayerData autoload and create a basic visual morph system f
 
 **Constraints:**
 - Vertical slice only — child Rowan + Briar. No full adult sprites or other companions yet.
-- Do not change combat, puzzles, or Yarn yet (those are separate hand-offs).
+- Do not change combat, puzzles, or dialogue yet (those are separate hand-offs).
 - Preserve all existing code/comments in player_data.gd and player_controller.gd.
 - Follow Godot 4 best practices and the modular architecture in AGENT_RULES.md.
 - Make it feel narrative: comments should reference story (e.g., "Age progression reflects Rowan's loss of innocence per bible").

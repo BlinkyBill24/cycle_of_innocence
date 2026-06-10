@@ -12,7 +12,7 @@ This is the living document of the most important player decisions. Each entry i
 - The choice
 - Immediate effects
 - Long-term effects on morality, companions, revelations, and endings
-- Yarn variable changes
+- dialogue variable changes
 
 **Design Goal**: Every meaningful choice should affect at least two of: companion bond/corruption, available dialogue/revelations, world reactivity, and ending eligibility. No “pure flavor” choices in the critical path.
 

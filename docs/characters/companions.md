@@ -14,7 +14,7 @@ All companions have:
 - Bond score (kindness, care, shared danger)
 - Corruption score (ruthless use, exposure to the Hunger, Rowan’s own moral decay)
 - Unique abilities that evolve (or twist) with bond/corruption
-- Deep narrative presence in Yarn (they react to revelations, can refuse commands, have their own “breaking points”)
+- Deep narrative presence in dialogue (they react to revelations, can refuse commands, have their own “breaking points”)
 
 ## Briar — The Hound (First Companion)
 
@@ -38,7 +38,7 @@ All companions have:
 - Mid game: Forcing Briar to fight when he’s scared or using him to threaten humans increases corruption fast.
 - High corruption ending possibilities: Briar turns on Rowan during a critical moment, or Rowan has to mercy-kill a fully corrupted Briar (devastating scene).
 
-**Key Yarn Scenes**:
+**Key Dialogue Scenes**:
 - The first night in the woods (bonding or survival choice).
 - Briar recognizing the scent of a previous “monster” that used to be a child he somehow remembers.
 - Climax choice: Use Briar as a living weapon against the Hunger or protect him even if it costs the “easy” path.
@@ -99,7 +99,7 @@ All companions have:
 - Positive playthroughs should feel warm and heartbreaking at the same time. Negative playthroughs should feel powerful but increasingly lonely and monstrous.
 - Art pipeline note: Each companion needs at least pup/adult + corrupted variants. Bond level can be shown through small visual details (collar Rowan made, cleaner fur, fearful posture, etc.).
 
-**Yarn Integration**:
+**Dialogue Integration**:
 Every major companion has a set of personal nodes that can be gated behind `$bond_X` and `$corruption_X` thresholds. They can also comment on Rowan’s morality and revelations in ways that either support or challenge the player’s choices.
 
 See also: [[story/bible]] for how the companions tie into the central twists, and [[story/choice-matrix]] for specific moments where companion fate is decided.

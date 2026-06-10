@@ -92,7 +92,7 @@ No traditional skill trees or XP levels. Unlocks come from:
 - PlayerData as the single source of truth for age_stage, morality, companion states, unlocked abilities.
 - Signals on every change (age_advanced, morality_changed, bond_changed, ability_unlocked, revelation_unlocked).
 - Visual system: player + companion visual nodes listen to state and swap sprites / apply shaders.
-- Yarn integration: all progression variables exposed so dialogue can react immediately.
+- dialogue integration: all progression variables exposed so dialogue can react immediately.
 - Persistence: SaveManager handles the full state (including custom names from character creation).
 
 **Scope Guardrails**:

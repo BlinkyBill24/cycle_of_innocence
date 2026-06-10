@@ -60,7 +60,7 @@ for item in scenes scripts resources assets tools addons tests; do
 done
 
 # Sync important single files at root (use cp, not rsync with trailing /)
-for item in project.godot icon.svg icon.svg.import GROK.md; do
+for item in project.godot icon.svg icon.svg.import AGENTS.md CLAUDE.md GROK.md AGENT_RULES.md; do
   if [[ -f "$SOURCE_DIR/$item" ]]; then
     echo "  - syncing $item"
     cp -f "$SOURCE_DIR/$item" "$TARGET_DIR/$item"

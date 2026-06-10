@@ -18,18 +18,18 @@ This document captures brainstormed features for the 2D top-down action-adventur
 
 **Scope Philosophy (Indie Solo-Friendly)**:
 - Focused single-player campaign (6-10 hours v1).
-- Vertical slice first: one zone as child Rowan + Briar, basic real-time combat, one companion-assisted puzzle, one meaningful Yarn choice, light horror beat.
+- Vertical slice first: one zone as child Rowan + Briar, basic real-time combat, one companion-assisted puzzle, one meaningful dialogue choice, light horror beat.
 - Prioritize emotional impact and replay over breadth.
 - Cut anything that doesn't serve story, companions, or horror.
 - Pixel art 32x32 limits (age/morality variants via sprite swaps + shaders, not hundreds of outfits).
-- Leverage Godot strengths: AnimationPlayer, 2D lights/shaders for dread, Yarn for branching, signals for systems.
+- Leverage Godot strengths: AnimationPlayer, 2D lights/shaders for dread, Dialogue Manager for branching, signals for systems.
 
 **Key Pillars**:
 1. **Age & Life Progression** (Fable-inspired): Child → Teen → Adult. Visuals, reach, dialogue options, and world perception change.
 2. **Morality / Alignment**: Numeric or tiered (Innocent / Wounded / Hardened / Vessel). Affects appearance (scars, glow, posture), companion bonds/corruption, NPC reactions, available abilities, and endings.
 3. **Animal Companions as Core "Party"**: Rescue, name, raise, bond, use in exploration/combat/puzzles. Corruption is a major horror vector.
 4. **Real-time Action + Horror Tension**: Fluid movement/combat that gets scarier as dread rises or corruption spreads.
-5. **Branching Truths**: Yarn-driven dialogue where revelations change everything. Choices have delayed, compounding consequences.
+5. **Branching Truths**: Dialogue Manager-driven dialogue where revelations change everything. Choices have delayed, compounding consequences.
 6. **Atmosphere First**: Dynamic lighting, shaders, adaptive audio, and companion behavior sell the dread.
 
 ---
@@ -47,7 +47,7 @@ This document captures brainstormed features for the 2D top-down action-adventur
 
 **Companions**:
 - **Naming**: Player can rename each companion when they join (or later at a "rest" point). 
-  - Affects immersion and some Yarn lines ("Briar" vs custom name).
+  - Affects immersion and some dialogue lines ("Briar" vs custom name).
   - Default names: Briar (hound), Echo (bird), Storm (mount).
 - **Visuals**: Growth stages (puppy → adult) + corruption variants are the main "customization." Minor bond-based details (handmade collar color chosen by player? simple accessory).
 - **Personality Flavor**: Fixed core personalities from story bible, but bond level changes behavior (fearful vs brave, loyal vs resentful).
@@ -55,7 +55,7 @@ This document captures brainstormed features for the 2D top-down action-adventur
 **Technical**:
 - SpriteFrames resources per age stage + morality tier (or base + shader params + overlay sprites for scars/glow).
 - PlayerData stores custom name, gender flag, chosen accent color, companion custom names.
-- Yarn variables: `$player_name`, `$player_gender`, `$companion_name_briar`, etc.
+- dialogue variables: `$player_name`, `$player_gender`, `$companion_name_briar`, etc.
 
 **Scope Note**: Full character creator is out of v1 scope. Focus on age/morality as the "customization" that matters thematically.
 
@@ -117,7 +117,7 @@ See [[characters/companions]] for deep story arcs. Here are the gameplay feature
   - In combat: loyal dog fights beside you; corrupted version may attack wildly or ignore commands.
 - **Fates**: Companions can die, be lost, be corrupted into enemies, or survive in different states across endings. NG+ carries "echoes" (they remember previous runs in subtle ways).
 
-**Technical**: CompanionManager autoload. Each companion is a scene with its own state machine (bond, corruption, current abilities). Signals to PlayerData and Yarn. Dedicated companion visual nodes that swap sprites based on state.
+**Technical**: CompanionManager autoload. Each companion is a scene with its own state machine (bond, corruption, current abilities). Signals to PlayerData and dialogue. Dedicated companion visual nodes that swap sprites based on state.
 
 **Scope**: 3 main companions max in v1. Deep systems for them > shallow systems for many.
 
@@ -161,7 +161,7 @@ Light, purposeful (classic action-adventure, not RPG bloat).
 - **Limits**: Small grid or list (8-12 slots). No selling or complex crafting in v1.
 - **Morality Flavor**: Some items have different effects or descriptions based on current morality (a "kind" herb soothes; a "ruthless" version poisons or empowers).
 
-**Technical**: Simple Inventory resource or array in PlayerData. UI that feels retro but readable. Items can trigger Yarn commands or companion state changes.
+**Technical**: Simple Inventory resource or array in PlayerData. UI that feels retro but readable. Items can trigger dialogue mutations or companion state changes.
 
 ---
 
@@ -204,7 +204,7 @@ Avoid grindy levels. Progression feels earned through life and bonds.
 
 ---
 
-## 9. Narrative & Dialogue (Yarn)
+## 9. Narrative & Dialogue (Dialogue Manager)
 
 - Branching conversations with heavy use of variables ($age_stage, $morality, $bond_*, $revealed_*, custom names).
 - Choices have delayed payoffs (a kind choice early can save a companion or open a better ending path much later).
@@ -249,7 +249,7 @@ Avoid grindy levels. Progression feels earned through life and bonds.
   - AnimationPlayer + state machines for age/companion visuals.
   - 2D lights + CanvasModulate + custom shaders for atmosphere.
   - Signals everywhere (GameEvents expanded for age, morality, bond, dread, revelations).
-  - Yarn Spinner for all branching.
+  - Dialogue Manager for all branching.
   - Export pipeline (Linux primary, Android touch, Web for itch demo).
 - **What We're Cutting for v1**:
   - Deep crafting or economy.
@@ -278,7 +278,7 @@ All four pass the §13 guardrail test (serve story, a companion arc, or a horror
 
 1. Lock story bible (user review in progress).
 2. Flesh out individual mechanics docs (see linked files in this vault).
-3. Prototype in code: PlayerData + age/morality/companion state first, then real-time combat with one assist, then basic Yarn integration.
+3. Prototype in code: PlayerData + age/morality/companion state first, then real-time combat with one assist, then basic dialogue integration.
 4. Generate art bibles for Rowan variants + companions using the new story details.
 5. Iterate in vertical slice: one zone that demonstrates age feel, one companion bond choice, one morality-reactive moment, one dread beat.
 

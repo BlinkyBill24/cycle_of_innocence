@@ -30,7 +30,7 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - Use test/ as active dev root for now; create self-contained docs/ vault here while linking to parent.
 - Create GROK.md + full Obsidian setup inside test/ before Phase 0 code spikes.
 - Leverage existing hooks (check-branch), .grok agents/skills (spawn_subagent, imagine, graphify on bible), and parent obsidian scripts.
-- Yarn Spinner chosen; real-time action combat; 32x32 pixel with age + corruption + animal growth variants.
+- Yarn Spinner chosen (→ replaced by Dialogue Manager 2026-06-10); real-time action combat; 32x32 pixel with age + corruption + animal growth variants.
 
 ## 🗑️ Rejected
 *Won't-do with reasons. Keep for future reference.*
@@ -61,6 +61,13 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 
 These ideas are now documented in the new design/mechanics files and should be referenced when moving from story bible → prototype.
 
+## 📥 Captured this session (central brain, 2026-06-10)
+
+- Karpathy LLM-wiki pattern: later, consider an auto-synthesized `wiki/` layer over raw docs (graphify skill could seed it) so agents read compounding summaries instead of raw files.
+- When parallel implementation starts, use git worktrees per agent (Claude Code EnterWorktree / Grok CLI's native worktree subagents) to avoid file collisions.
+- Watch Claude Code issue #34235 (native AGENTS.md support) — if it lands, the CLAUDE.md shim can shrink further.
+- Cursor reads AGENTS.md natively — revisit Cursor background agents only if a heavy parallel refactor ever needs them (cost: credits).
+
 ## 📥 Captured this session (genre research, 2026-06-10)
 
 Researched-but-not-greenlit candidates worth keeping (source game in parens):
@@ -81,4 +88,4 @@ Researched-but-not-greenlit candidates worth keeping (source game in parens):
 - Monster creation: The escalation ("sacrificing more and more") means there can be fresher, more recently transformed monsters mixed with older ones — good variety and tragedy.
 - Potential early game moment: Rowan overhears parents celebrating or breathing a sigh of relief ("Thank the Harmony Lottery our little one wasn't picked this time") while knowing the truth.
 
-These should feed into zone design, art prompts, and the first few Yarn nodes.
+These should feed into zone design, art prompts, and the first few dialogue nodes.

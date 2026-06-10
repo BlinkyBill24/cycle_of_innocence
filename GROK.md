@@ -1,105 +1,11 @@
-# Cycle of Innocence — Grok Build Project Memory
+# GROK.md — Cycle of Innocence (Grok shim + session memory)
 
-Persistent context for **Grok Build** sessions on this Godot 4.x 2D top-down horror-conspiracy action-adventure RPG.
+**Canonical project rules, identity, tech stack, and architecture live in [AGENTS.md](AGENTS.md)** — read it first (Grok CLI also picks it up natively). Consolidated 2026-06-10; see `docs/decisions/2026-06-10-central-brain-agents-md.md`. Do not add rules here.
 
-**Parent monorepo rules**: see `../CLAUDE.md` (branching `feature/...`, Obsidian vault at `../docs/` + this local `docs/`, R3 consult before design, session journals, ideas capture, `python3 ../scripts/obsidian/status.py`).
+This file keeps only what is Grok-specific: the Imagine art pipeline, the slice-progress table, and session history.
 
-**Approved build plan**: See the full phased plan in the active Grok session (or the decision doc created from it in `docs/decisions/` or promoted to `../docs/decisions/`).
-
-## Project identity
-
-| Field              | Value |
-|--------------------|-------|
-| Title              | Cycle of Innocence (working title) |
-| Theme              | Escaped child sacrifice grows up inside a generational conspiracy; raises animal companions that can be nurtured, broken, or corrupted |
-| Folder             | `test/` (active dev root per clarification) |
-| Godot              | 4.x (4.4+), GDScript (typed) |
-| Tiles / Art        | 32×32 base, retro pixel (SNES/Zelda + horror atmosphere), Grok Imagine + Aseprite |
-| Movement           | 8-direction `CharacterBody2D` real-time action |
-| Combat             | Real-time action (Zelda + Secret of Mana inspired) with light companion assists |
-| Companions         | Animal only (dog/hound, bird/raptor, horse/stag etc.) — rescue, raise, bond, possible corruption |
-| Progression        | Age stages (child → teen → adult) + morality/alignment + companion bond/growth/corruption |
-| Narrative          | Dialogue Manager (pure GDScript; branching with conditions/mutations on PlayerData) + deep AoT-style twists — *replaced Yarn Spinner 2026-06-10 (C#-only addon breaks Web export; see docs/decisions/2026-06-10-new-features-and-ai-setup.md)* |
-| Structure          | Semi-open zones (not strict small rooms) |
-| Difficulty         | Fair but tense; child sections feel vulnerable |
-| Platforms          | Linux (primary), Android (touch), Web/HTML5 |
-
-**Explicit guardrails** (from user revision + plan):
-- **No re-use of the Mote / Echoes of the Verdant Realm** game (cozy 3D puzzle). Only low-level 2D engine patterns, touch/export/pixel pipeline, autoloads, and Imagine import tools are adapted.
-- Protagonist **is an escaped child sacrifice** (inciting incident + core of all reveals).
-- **Animal companions are the primary emotional and mechanical "party"** (raising, loyalty, care mechanics, growth stages, corruption paths). Human NPCs are secondary and untrustworthy.
-
-## Publishing / GitHub Sync Requirement (MUST ALWAYS DO)
-
-The game must also live on (and overwrite) https://github.com/tchintchie/rpg-adventure .
-
-- Active dev root is currently `test/`.
-- **Before or as part of any commit of game changes**: sync/overwrite the content from here into the `../rpg-adventure/` subdir of the monorepo (old prototype files are intentionally replaced).
-- Commit the monorepo on the feature branch (this updates the subdir in tchintchie/game).
-- Run the publish script (`../rpg-adventure/tools/publish-standalone.sh` or the wrapper) — it uses `git subtree split --force` push to the rpg-adventure GitHub.
-- See the new `tools/sync-to-rpg-adventure.sh` (created in this session) and the updated `../rpg-adventure/GROK.md` (which now lives in the published location).
-
-**Always update your memory** (edit this GROK.md + `../rpg-adventure/GROK.md` + relevant `docs/` files) when architecture, slice progress, or rules change. Create new Claude hooks (in ~/.claude/hooks/) for enforcement if needed (e.g. memory-update hook, sync reminder).
-
-Failure to sync means the GitHub rpg-adventure will be out of date.
-
-## Slice progress (update after every milestone)
-
-| Slice | Status | Notes |
-|-------|--------|-------|
-| 0 — Branch + local vault (docs/) + GROK.md | ✅ In progress (this session) | On `feature/cycle-of-innocence`; docs/ + templates created |
-| 1 — Core player movement + real-time attack + age stub | ⬜ | Port/adapt from rpg-adventure |
-| 2 — First animal companion (escape) + basic bond + dialogue integration | ⬜ | Phase 2 vertical slice target |
-| 3 — One semi-open zone + 1 combat + 1 puzzle + 1 horror seed + age-up teaser | ⬜ | Phase 2 exit criteria |
-| ... (see approved plan for full 0–6 phases) |
-
-## Architecture (target, evolving from siblings)
-
-```
-autoloads: GameEvents, PlayerData (age, morality, bonds, revelations), DialogueManager (from addon), ZoneManager, CompanionManager, SaveManager, InputManager
-main: world or zone container + persistent player + companions + UI
-player: CharacterBody2D (extended from rpg-adventure/scripts/player/player_controller.gd) with age_stage + morality visuals + real-time combat states
-companions: scenes/companions/ + scripts/companions/ (base + dog/bird/horse; follow, assists, care, corruption)
-dialogue: Dialogue Manager addon + resources/dialogue/*.dialogue (conditions/mutations call PlayerData directly — no sync layer)
-horror: DreadManager + shaders (vignette, grain, pulse, corruption) + dynamic audio buses
-render: pixel post-process + resolution (from godot/)
-```
-
-**Key files to adapt** (see approved plan for full list + line references):
-- Player controller + anim lock (rpg-adventure/scripts/player/player_controller.gd)
-- Autoloads GameEvents / PlayerData / Room/ZoneManager (rpg-adventure/scripts/autoload/)
-- Touch + input + save + pixel pipeline (godot/scripts/globals/ + rendering/ + scenes/ui/)
-- Imagine import tools (rpg-adventure/tools/)
-
-## 🔴 Critical rules (local + parent)
-
-- R1 — Branch before code changes (`feature/cycle-of-innocence` etc.). check-branch hook will block main commits.
-- R2 — Read this GROK.md + approved plan + consult `docs/` (and parent) before proposing work.
-- R3 — Incremental vertical slices — each F5-playable.
-- R4 — Use Grok Imagine (via image_gen or imagine skill) for bibles/sheets first; Aseprite for cleanup/anim. Document prompts in `docs/art/imagine-prompts.md`.
-- R5 — Session journal in `docs/sessions/YYYY-MM-DD.md` (local or parent). Capture ideas to `ideas.md`.
-- R6 — At completion of any session/phase: run status, triage, commit on branch only.
-- New: Animal companions carry emotional weight — every bond/corruption choice is a potential tragedy or redemption. Track in PlayerData + dialogue state.
-- New: Horror is psychological + implication first. Provide intensity/accessibility options.
-
-## Key paths (initial)
-
-| What                  | Path (or sibling source) |
-|-----------------------|--------------------------|
-| Player controller     | `scripts/player/player_controller.gd` (adapt from `../rpg-adventure/...`) |
-| Companion base        | `scripts/companions/` + `scenes/companions/` (new) |
-| Dialogue (Dialogue Manager) | `resources/dialogue/*.dialogue` + `addons/dialogue_manager/` |
-| Autoloads             | `scripts/autoload/` |
-| Shaders (horror)      | `assets/shaders/` (extend godot/ pixelate) |
-| Art bibles            | `assets/reference/` (Imagine first) |
-| Tools                 | `tools/import_imagine_assets.py` (extend for animals/growth/corruption) |
-
-## Design locked (from approved plan + clarifications)
-- Real-time action combat (Zelda/Mana feel) with companion assists.
-- Dialogue Manager for all branching (age, morality, bonds, revelations, companion reactions — conditions/mutations on PlayerData).
-- Age stages + visible morality + animal growth/corruption as core progression.
-- Protagonist = escaped sacrifice. First companion escapes with them.
-- 3–4 endings driven by alignment + which animals lived / were corrupted / sacrificed.
+## Grok's role
+High-level vision, story consistency (against `docs/story/bible.md`), Grok Imagine prompt batches + image generation, review of other agents' output. Implementation belongs to Claude Code/Cursor (see tool roles table in AGENTS.md).
 
 ## Image generation (Grok Imagine) — locked pipeline
 **Default**: Use image_gen / imagine skill (or chat) for concept bibles and sprite sheets. Post-process in Aseprite. Never rely only on procedural for final.
@@ -118,103 +24,37 @@ render: pixel post-process + resolution (from godot/)
 4. Godot: SpriteFrames (or logic that selects by age + bond + corruption state). Modulate/shader for final horror tint.
 5. Update resources/ and scenes.
 
-Document every prompt + chosen output in `docs/art/imagine-prompts.md` (extend the one from rpg-adventure).
+Document every prompt + chosen output in `docs/art/imagine-prompts.md`.
 
-## Useful commands
+## Slice progress (update after every milestone)
 
-```bash
-# Branch (always)
-git checkout -b feature/...
+| Slice | Status | Notes |
+|-------|--------|-------|
+| 0 — Branch + local vault (docs/) + brain files | ✅ | docs/ + templates + AGENTS.md consolidation done |
+| 1 — Core player movement + real-time attack + age stub | 🟡 Partial | player_controller + age_morph + PlayerData implemented; combat hitboxes pending |
+| 2 — First animal companion (escape) + basic bond + dialogue integration | ⬜ | Phase 2 vertical slice target; Dialogue Manager installed |
+| 3 — One semi-open zone + 1 combat + 1 puzzle + 1 horror seed + age-up teaser | ⬜ | Phase 2 exit criteria |
+| ... (see approved plan for full 0–6 phases) |
 
-# Local vault hygiene
-python3 ../scripts/obsidian/status.py
-python3 ../scripts/obsidian/digest.py
+---
 
-# Art (after Imagine)
-# python3 tools/import_imagine_assets.py ... (extend as needed)
+# Session history (journal extracts — newest first)
 
-# Godot
-# godot (or godot --headless for exports)
-# Export presets for Linux / Android / Web (adapt from ../godot/export_presets.cfg)
-```
+## Brain consolidation (2026-06-10)
+- AGENTS.md created as canonical brain for all CLIs (Claude Code, Codex, Grok, Cursor). CLAUDE.md/GROK.md/AGENT_RULES.md became shims. Stale Yarn references in design docs fixed; `tools/check-brain.sh` drift guard added.
 
-## Next immediate actions (from approved plan)
-- Finish local vault (home.md, ideas.md, first decision/session stubs).
-- Persist high-level decision to parent docs/decisions/ with backlinks.
-- Phase 0 engine spike (player + zone + age stub).
-- Phase 0 art spike (first bibles via Imagine).
-- Yarn first nodes (escape ritual + first bond choice).
+## Feature greenlight + tooling (2026-06-10)
+- 4 features greenlit from genre research: encounters-mercy, hollowing-clock, day-night-hideout, vision-and-darkness (docs/mechanics/).
+- Yarn Spinner → Dialogue Manager (C#-only addon breaks Web export). Installed: dialogue_manager v3.10.4, LimboAI v1.6.0, GUT v9.4.0 (+ tests/, tools/run-tests.sh). FOSS-first AI production stack documented in docs/design/ai-production-setup.md.
 
-Update this file's slice table after every vertical slice ships. Re-read the full approved plan before major work.
+## Cursor hand-off (2026-06-10)
+- Cursor installed (AppImage). First hand-off prompt: docs/prompts/cursor-handoff-01-playerdata-age-morph.md (PlayerData + AgeMorph — since implemented and unit-tested).
 
-**This is the single source of truth for Grok in this project.** Read it + the plan before touching code or art.
+## Agent workflow (2026-06-10)
+- Hybrid adopted: Grok = vision/story/art prompts; Claude Code/Cursor = implementation; Codex = review/rescue. Originally codified in AGENT_RULES.md, now in AGENTS.md.
 
-## Feature Design Work (added this session)
-While the story bible is under user review, a full set of game systems documentation was created in the local vault and synced/published:
+## Story bible revision (2026-06-09)
+- Selection via lottery / Community Harmony Score (no marked families). Ritual at village playground; "Playtime Guardians" clowns, stitched stuffed animals, living toys (no white robes). Villagers believe the ritual succeeded — no alarm at first; failed feeding → escalating emergency sacrifices → more monsters. Affects zone design, art prompts, early dialogue.
 
-- [[docs/design/game-features.md]] — Overview of all major features with philosophy, scope guardrails, and ties to story/companions/morality.
-- [[docs/mechanics/progression.md]] — Age stages, morality system, companion bond/corruption as core progression, revelation abilities, NG+.
-- [[docs/mechanics/combat.md]] — Real-time action design with horror layers (dread, body horror via corruption, psychological threats).
-- [[docs/design/customization.md]] — Name picking (protagonist + companions), gender selection with narrative flavor, appearance driven by age + morality.
-- [[docs/mechanics/horror-and-dread.md]] — Dread meter, body horror, accessibility (horror intensity slider), atmosphere tools.
-- [[docs/mechanics/inventory.md]] — Light, purposeful inventory focused on companion care, story keys, and lore fragments.
-
-All documents are cross-linked with the story bible and approved plan. They emphasize keeping scope realistic for solo dev while making choices (especially around companions and morality) feel visible and consequential.
-
-These docs live in the published rpg-adventure/ repo after sync + publish.
-
-## Story Bible Revision (this session)
-User review feedback incorporated into docs/story/bible.md and docs/characters/companions.md:
-
-- Selection is now a random lottery or based on a "Community Harmony Score" earned (or lost) by parents through work, loyalty, volunteering, etc. No "marked families" or old blood requirement.
-- Ritual location changed from stone circle in the woods to the village playground (a place children are supposed to feel safe and happy).
-- Atmosphere elements changed: no white robes. Instead, "Playtime Guardians" — creepy clowns in bright but faded costumes, oversized stitched stuffed animals, and living toys that move wrong.
-- Villagers do **not** notice the escape. They believe the ritual was completely successful and everything is fine. The village carries on normally at first.
-- Because the Hunger was not fed, strange things begin happening (withering crops, restless dead, more monster sightings). Villagers start running the lottery more frequently and sacrificing additional children in panic, which creates even more monsters and accelerates the breakdown of the cycle.
-
-These changes make the conspiracy feel more systemic, random, and insidious. The initial "everything is okay" lie from the village's perspective heightens the horror and isolation for Rowan. Updated Act 0 description, Background, Cycle section, and relevant twists/companions rescue details.
-
-The new details will affect early zone design (playground as ritual site), art prompts (toys/clowns), and the "delayed alarm" in the story.
-
-## Session 2026-06-10 Start
-- New session initialized per project rules (journal in docs/sessions/2026-06-10.md).
-- Branch: feature/cycle-of-innocence (confirmed not main).
-- Obsidian consulted: grep on docs/ for story/features/prototype/asset/yarn/companion/playground/lottery/ritual (extensive prior art in bible, features docs, mechanics, art prompts – no conflicts with revised ritual details).
-- Focus: Asset bibles (image_gen for updated playground ritual/clowns/toys context + companions), Yarn prototypes (revised escape + bond), core prototype (PlayerData states, real-time combat/assists, playground/fringes zone).
-- Memory updated; will sync/publish journal + any changes; run status/hook.
-- Pre-action checklist satisfied.
-
-## Agent Workflow (added 2026-06-10)
-User proposed (and we adopted) hybrid agent approach:
-- Grok (me): High-level vision, architecture, story consistency (reference bible + AGENT_RULES.md), Grok Imagine prompt batches, GDScript skeletons + integration steps, review of agent output.
-- Cursor (Claude 4/Sonnet) or Continue.dev (free, flexible models incl. Grok/Ollama): Primary implementation — multi-file edits, Godot terminal runs, log reading, iteration. Use @workspace/full project context.
-- Godot in-editor (Ziva or plugins): Scene tree, quick code gen, tests.
-- Local/privacy: Ollama + Continue.dev.
-
-**Setup done**:
-- AGENT_RULES.md created at root (and synced/published to rpg-adventure/ + GitHub). Contains: project identity from bible, locked tech (Godot 4 GDScript + Yarn, autoloads, structure, pixel 32x32 + shaders, Linux/Android/Web), critical rules (R1–R6 + publishing/sync always, bible reference), vertical slice def, modular architecture diagram, prompt-driven iteration template, asset pipeline, consistency rules, review loops, tooling recommendations, pro tips.
-- Reference AGENT_RULES.md + story/bible.md + GROK.md + mechanics/ docs in EVERY agent prompt.
-- Workflow: Start here (Grok) for planning ("Design X per bible + features"). Hand off to Cursor/Continue for execution. Test in Godot → paste output back.
-- Daily: Commit frequently (agents draft messages). Godot open alongside IDE. Sync/publish after chunks.
-
-**Current slice progress** (update after agent tasks):
-- Story + features docs complete (revised ritual: lottery/harmony score, playground + clowns/toys, villager "success" belief + escalation).
-- Prompts updated, initial bibles generated (protagonist child + Briar pup for revised context).
-- Next: Hand off to agents for PlayerData states, Yarn nodes, small zone prototype (playground/fringes, child Rowan + Briar, real-time combat + 1 assist, dread moment, bond choice).
-
-See full AGENT_RULES.md for details. This hybrid is powerful for solo Godot + AI in 2026. Let's execute the vertical slice.
-
-## Cursor Hand-off (2026-06-10)
-- Cursor now installed (AppImage in ~/Applications).
-- First hand-off prepared: docs/prompts/cursor-handoff-01-playerdata-age-morph.md
-- Full prompt (copy-paste to Cursor Composer with @workspace):
-  Use @workspace + read AGENT_RULES.md, docs/story/bible.md (revised: lottery/harmony score selection, playground ritual with creepy clowns/stuffed animals/toys, villagers believe "succeeded" initially + no notice of escape, escalation creates more monsters), docs/characters/companions.md, docs/design/game-features.md, docs/mechanics/progression.md, docs/mechanics/companion.md, docs/art/imagine-prompts.md (updated for revised ritual).
-
-  Task (vertical slice scope: child Rowan + Briar only):
-  1. Extend scripts/autoload/player_data.gd for age_stage enum (CHILD/TEEN/ADULT), morality (float -100..+100 with tiers), companions dict (Briar/Echo/Storm: bond, corruption, growth, alive). Add signals: age_advanced, morality_changed, bond_changed, corruption_changed, revelation_unlocked. Add helpers: set_age_stage, change_morality, set_companion_bond, set_companion_corruption, unlock_revelation, is_revelation_known, reset_to_defaults.
-  2. Create/extend scripts/player/age_morph.gd (or attach to player visual): swap SpriteFrames or modulate + shader based on age + morality (use existing player setup). Simple "marked" effects on high corruption.
-  Keep scope tight to vertical slice (child + Briar, playground/fringes zone). Output: complete GDScript, exact integration steps (player.tscn, player_controller.gd, autoloads, resources), test plan (F5 in zone, trigger age-up stub + morality change, verify visuals/states/companions).
-
-  Reference vertical slice def + "Prompt-Driven Iteration" in AGENT_RULES.md. Base on existing player_controller.gd and autoload patterns. Clean typed GDScript.
-- This hands off implementation to Cursor while I (Grok) handle vision/story consistency.
-- Will sync/publish after user pastes result back for review/fix loop.
+## Feature design docs (2026-06-09)
+- Created design/game-features.md, mechanics/progression.md, mechanics/combat.md, design/customization.md, mechanics/horror-and-dread.md, mechanics/inventory.md — all cross-linked with the bible.

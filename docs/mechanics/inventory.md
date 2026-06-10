@@ -40,7 +40,7 @@ related: [[design/game-features]], [[mechanics/progression]], [[story/bible]]
 4. **Memory / Lore Items**
    - Collectible fragments (child drawings, broken ritual tools, letters).
    - These don't take normal inventory space — they go into the Journal.
-   - Collecting them feeds the revelation system and can unlock new Yarn branches or companion conversations.
+   - Collecting them feeds the revelation system and can unlock new dialogue branches or companion conversations.
 
 ## Interaction with Other Systems
 
@@ -88,7 +88,7 @@ related: [[design/game-features]], [[mechanics/progression]], [[story/bible]]
 ## Technical Notes
 
 - Simple array or dictionary in PlayerData (or a dedicated Inventory resource).
-- Items are data-driven (small resources or a JSON/table) so they can carry effects, descriptions, and Yarn commands.
+- Items are data-driven (small resources or a JSON/table) so they can carry effects, descriptions, and dialogue mutations.
 - Use signals when items are gained/used/lost so the journal, companions, and dialogue systems can react.
 - Icon loading via the existing pixel art pipeline.
 

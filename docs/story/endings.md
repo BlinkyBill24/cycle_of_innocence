@@ -95,7 +95,7 @@ The game tracks:
 - Which major revelations were known before the final choice
 - Whether Rowan accepted, rejected, or tried to transform the vessel power
 
-These flags are checked in the final Yarn nodes and the epilogue sequences.
+These flags are checked in the final dialogue nodes and the epilogue sequences.
 
 **Best Ending** (most players will feel is “good”): Transformation path with at least two companions surviving with high bond and low corruption.
 
