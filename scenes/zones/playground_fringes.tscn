@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://zoneplayfringe1"]
+[gd_scene load_steps=25 format=3 uid="uid://zoneplayfringe1"]
 
 [ext_resource type="Script" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -25,6 +25,9 @@ size = Vector2(32, 896)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fringes"]
 size = Vector2(640, 832)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_deep"]
+size = Vector2(280, 832)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_beat"]
 size = Vector2(48, 832)
@@ -93,6 +96,15 @@ dread_level = 45.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FringesDread"]
 shape = SubResource("RectangleShape2D_fringes")
+
+[node name="DeepFringesDread" type="Area2D" parent="."]
+position = Vector2(564, 0)
+script = ExtResource("9_dread_zone")
+dread_zone_id = &"deep_fringes"
+dread_level = 78.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeepFringesDread"]
+shape = SubResource("RectangleShape2D_deep")
 
 [node name="VillageTransition" type="Area2D" parent="."]
 position = Vector2(-690, 0)

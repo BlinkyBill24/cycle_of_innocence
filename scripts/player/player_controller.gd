@@ -23,7 +23,7 @@ const ATTACK_WINDUP := 0.08
 const ATTACK_WINDOW := 0.15
 const ATTACK_REACH := 16.0
 const HURT_SECONDS := 0.25
-const HURT_DREAD := 4.0
+const HURT_DREAD := 7.0
 
 var movement_state: MovementState = MovementState.EXPLORING
 var age_stage: AgeStage = AgeStage.CHILD
