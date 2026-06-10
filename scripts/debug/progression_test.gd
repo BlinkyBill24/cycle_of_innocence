@@ -68,7 +68,23 @@ func _refresh_label() -> void:
 		]
 		+ "Briar bond: %.0f | corruption: %.0f\n" % [briar.get("bond", 0.0), briar.get("corruption", 0.0)]
 		+ "Dread: %.0f (%s) | HP: %d/%d\n" % [DreadManager.dread, DreadManager.get_tier_name(), PlayerData.current_hp, PlayerData.max_hp]
+		+ _enemy_line()
 		+ "Keys: 1/2 morality ±15 | 3 teen 4 adult 5 child\n"
 		+ "6 bond+10 | 7 corruption+15 | 8 revelation | 9 dread+20 | 0 reset\n"
-		+ "K save | L load | E dig"
+		+ "K save | L load | E dig/soothe (hold near creature)"
 	)
+
+
+func _enemy_line() -> String:
+	var enemy := get_tree().get_first_node_in_group("enemy") as EnemyBase
+	if enemy == null or not is_instance_valid(enemy):
+		return ""
+	return "Creature: recognition %.0f%% %s\n" % [
+		enemy.recognition, "(STILLED)" if enemy.stilled else ""]
+
+
+func _process(_delta: float) -> void:
+	# live-refresh while soothing so recognition progress is visible
+	var enemy := get_tree().get_first_node_in_group("enemy") as EnemyBase
+	if enemy and not enemy.stilled and enemy.recognition > 0.0:
+		_refresh_label()

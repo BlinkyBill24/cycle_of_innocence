@@ -20,8 +20,10 @@ extends CharacterBody2D
 @export var spareable: bool = true
 @export var stable_id: StringName = &"twisted_child_01"  # unique per placed enemy
 const RECOGNITION_MAX := 100.0
+const SOOTHE_SLOW_FACTOR := 0.45
 var recognition: float = 0.0
 var stilled: bool = false
+var _soothe_hold: float = 0.0  # >0 while the lullaby is actively reaching it
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health: Health = $Health
@@ -89,8 +91,18 @@ func _init_hsm() -> void:
 
 func _physics_process(delta: float) -> void:
 	_cooldown = maxf(_cooldown - delta, 0.0)
+	_soothe_hold = maxf(_soothe_hold - delta, 0.0)
 	move_and_slide()
 	_update_animation()
+	_update_recognition_tint()
+
+
+func _update_recognition_tint() -> void:
+	# visible soothe feedback: the creature pales toward calm as Recognition grows
+	if stilled:
+		sprite.modulate = Color(0.85, 0.95, 1.1)
+		return
+	sprite.modulate = Color.WHITE.lerp(Color(0.82, 0.92, 1.08), (recognition / RECOGNITION_MAX) * 0.8)
 
 
 # --- perception helpers (pure-ish; unit-tested) ---
@@ -142,10 +154,12 @@ func _chase_update(_delta: float) -> void:
 	if player == null or stilled or distance_to_player() > lose_radius:
 		hsm.dispatch(&"lost")
 		return
-	if distance_to_player() <= attack_range and _cooldown <= 0.0:
+	if distance_to_player() <= attack_range and _cooldown <= 0.0 and _soothe_hold <= 0.0:
 		hsm.dispatch(&"in_range")
 		return
-	velocity = global_position.direction_to(player.global_position) * chase_speed
+	# the lullaby reaches it: hesitates and slows instead of lunging
+	var speed := chase_speed * (SOOTHE_SLOW_FACTOR if _soothe_hold > 0.0 else 1.0)
+	velocity = global_position.direction_to(player.global_position) * speed
 
 
 func _attack_enter() -> void:
@@ -194,6 +208,7 @@ func _stilled_flag() -> StringName:
 func add_recognition(amount: float) -> bool:
 	if stilled or not spareable or amount <= 0.0:
 		return false
+	_soothe_hold = 0.6
 	recognition = minf(recognition + amount, RECOGNITION_MAX)
 	if recognition < RECOGNITION_MAX:
 		return false

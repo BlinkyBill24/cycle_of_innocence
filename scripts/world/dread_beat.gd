@@ -23,6 +23,9 @@ func _on_body_entered(body: Node2D) -> void:
 	_play_beat()
 
 
+## Ordered so each element is readable (playtest 2026-06-10: a near-black
+## sprite under simultaneous fog tween was invisible):
+## stinger -> Briar barks at it -> silhouette ahead on the path -> fog rolls in.
 func _play_beat() -> void:
 	if GameEvents:
 		GameEvents.horror_stinger.emit(&"first_glimpse")
@@ -32,25 +35,37 @@ func _play_beat() -> void:
 	if stinger:
 		stinger.play()
 
-	for path in fog_nodes:
-		var fog := get_node_or_null(path) as CanvasItem
-		if fog:
-			var target := fog.modulate
-			fog.modulate.a = 0.0
-			fog.visible = true
-			create_tween().tween_property(fog, "modulate:a", target.a if target.a > 0.05 else 0.45, 2.5)
+	# the companion sees it first — directs the player's eyes
+	var companion := get_tree().get_first_node_in_group("companion") as CompanionBase
+	if companion and companion.hsm:
+		companion.hsm.dispatch(&"alert")
 
 	var silhouette := get_node_or_null(silhouette_path) as Node2D
+	var player := get_tree().get_first_node_in_group("player") as Node2D
 	if silhouette:
-		# place AHEAD of wherever the player actually crossed — a fixed world
-		# position can be off-screen (playtest 2026-06-10)
-		var player := get_tree().get_first_node_in_group("player") as Node2D
+		# directly ahead on the path at the player's height — unmissable
 		if player:
-			silhouette.global_position = player.global_position + Vector2(170, -36)
-		silhouette.modulate.a = 0.0
+			silhouette.global_position = player.global_position + Vector2(150, 0)
+		silhouette.scale = Vector2(4, 4)
+		# dark violet, not pure black: reads against the dusk ground
+		silhouette.modulate = Color(0.22, 0.12, 0.3, 0.0)
 		silhouette.visible = true
 		var tween := create_tween()
-		tween.tween_property(silhouette, "modulate:a", 0.9, 0.5)
-		tween.tween_interval(0.8)
-		tween.tween_property(silhouette, "modulate:a", 0.0, 0.7)
+		tween.tween_property(silhouette, "modulate:a", 1.0, 0.4)
+		tween.tween_interval(1.3)
+		tween.tween_property(silhouette, "modulate:a", 0.0, 0.8)
 		tween.tween_callback(func() -> void: silhouette.visible = false)
+
+	# fog arrives AFTER the glimpse registered
+	var fog_tween := create_tween()
+	fog_tween.tween_interval(1.6)
+	fog_tween.tween_callback(func() -> void:
+		for path in fog_nodes:
+			var fog := get_node_or_null(path) as CanvasItem
+			if fog:
+				var target := fog.modulate
+				fog.modulate.a = 0.0
+				fog.visible = true
+				create_tween().tween_property(
+					fog, "modulate:a", target.a if target.a > 0.05 else 0.45, 2.5)
+	)

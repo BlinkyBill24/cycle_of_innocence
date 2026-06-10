@@ -32,8 +32,8 @@ var _facing: Vector2 = Vector2.DOWN
 var _action_anim_lock: bool = false
 var _footstep_timer: float = 0.0
 
-const SOOTHE_RANGE := 56.0
-const SOOTHE_RATE := 25.0  # recognition per second (≈4s to Still)
+const SOOTHE_RANGE := 80.0
+const SOOTHE_RATE := 30.0  # recognition per second (≈3.3s to Still)
 var _soothing := false
 var _soothe_target: EnemyBase
 
