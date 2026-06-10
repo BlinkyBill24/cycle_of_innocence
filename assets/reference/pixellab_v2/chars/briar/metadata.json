@@ -1,0 +1,104 @@
+{
+  "group_id": null,
+  "states": [
+    {
+      "character": {
+        "id": "112c7bed-980c-4e7f-b27b-4f2f6fb8e1ea",
+        "name": "small Belgian Malinois puppy, short fawn tan coat, black mask on muzzle, large dark upright ears, torn left ear, small bell collar, lean young build",
+        "prompt": "small Belgian Malinois puppy, short fawn tan coat, black mask on muzzle, large dark upright ears, torn left ear, small bell collar, lean young build",
+        "size": {
+          "width": 48,
+          "height": 48
+        },
+        "template_id": "dog",
+        "directions": 4,
+        "view": "low top-down",
+        "created_at": "2026-06-10T17:26:06.109192+00:00"
+      },
+      "folder": "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b",
+      "frames": {
+        "rotations": {
+          "south": "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/rotations/south.png",
+          "west": "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/rotations/west.png",
+          "east": "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/rotations/east.png",
+          "north": "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/rotations/north.png"
+        },
+        "animations": {
+          "animating": {
+            "north": [
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating/north/frame_000.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating/north/frame_001.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating/north/frame_002.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating/north/frame_003.png"
+            ],
+            "south": [
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating/south/frame_000.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating/south/frame_001.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating/south/frame_002.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating/south/frame_003.png"
+            ]
+          },
+          "animating-501bd44e": {
+            "south": [
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-501bd44e/south/frame_000.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-501bd44e/south/frame_001.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-501bd44e/south/frame_002.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-501bd44e/south/frame_003.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-501bd44e/south/frame_004.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-501bd44e/south/frame_005.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-501bd44e/south/frame_006.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-501bd44e/south/frame_007.png"
+            ]
+          },
+          "animating-806a9088": {
+            "south": [
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-806a9088/south/frame_000.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-806a9088/south/frame_001.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-806a9088/south/frame_002.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-806a9088/south/frame_003.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-806a9088/south/frame_004.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-806a9088/south/frame_005.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-806a9088/south/frame_006.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-806a9088/south/frame_007.png"
+            ]
+          },
+          "animating-a9daec65": {
+            "east": [
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-a9daec65/east/frame_000.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-a9daec65/east/frame_001.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-a9daec65/east/frame_002.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-a9daec65/east/frame_003.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-a9daec65/east/frame_004.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-a9daec65/east/frame_005.png"
+            ]
+          },
+          "animating-b09da537": {
+            "east": [
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-b09da537/east/frame_000.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-b09da537/east/frame_001.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-b09da537/east/frame_002.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-b09da537/east/frame_003.png"
+            ],
+            "west": [
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-b09da537/west/frame_000.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-b09da537/west/frame_001.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-b09da537/west/frame_002.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-b09da537/west/frame_003.png"
+            ]
+          },
+          "digging_energetically_in_the_dirt_with_front_paws": {
+            "east": [
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/digging_energetically_in_the_dirt_with_front_paws/east/frame_000.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/digging_energetically_in_the_dirt_with_front_paws/east/frame_001.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/digging_energetically_in_the_dirt_with_front_paws/east/frame_002.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/digging_energetically_in_the_dirt_with_front_paws/east/frame_003.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/digging_energetically_in_the_dirt_with_front_paws/east/frame_004.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.0",
+  "export_date": "2026-06-10T19:41:24.338537"
+}

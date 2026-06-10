@@ -183,15 +183,15 @@ func _try_companion_assist() -> void:
 	if nearest:
 		companion.command_dig(nearest)
 
-## AI-generated side rows all face right — render "left" as the right row
-## mirrored. Returns [animation_name, flip_h]; pure for testability.
+## PixelLab characters have true 4-direction rows (incl. west) — no mirroring.
+## Returns [animation_name, flip_h]; pure for testability.
 static func directional_anim(action: String, facing: Vector2) -> Array:
 	var suffix := ""
 	if absf(facing.x) > absf(facing.y):
-		suffix = "right"
+		suffix = "right" if facing.x > 0.0 else "left"
 	else:
 		suffix = "down" if facing.y > 0.0 else "up"
-	return ["%s_%s" % [action, suffix], absf(facing.x) > absf(facing.y) and facing.x < 0.0]
+	return ["%s_%s" % [action, suffix], false]
 
 
 func _update_locomotion_animation() -> void:

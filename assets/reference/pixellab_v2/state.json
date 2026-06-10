@@ -1,0 +1,32 @@
+{
+ "rowan": {
+  "create_job": "c2bab626-2e14-4946-9204-3f2f4f3f503f",
+  "character_id": "2bb43e6b-d018-49aa-9b7b-c5842db10c21",
+  "anim_job_walk_south_north": "done",
+  "anim_job_walk_east_west": "done",
+  "anim_job_idle_south": "done",
+  "anim_job_attack_south_north": "done",
+  "anim_job_attack_east_west": "done",
+  "anim_job_hurt_south": "done",
+  "anim_job_crouch_south": "done"
+ },
+ "briar": {
+  "create_job": "424325c7-9515-4e1b-8492-b1d4dc939415",
+  "character_id": "112c7bed-980c-4e7f-b27b-4f2f6fb8e1ea",
+  "anim_job_walk_south_north": "queued",
+  "anim_job_walk_east_west": "queued",
+  "anim_job_idle_south": "queued",
+  "anim_job_bark_east": "queued",
+  "anim_job_cower_south": "queued",
+  "anim_job_dig_east": "queued"
+ },
+ "twisted": {
+  "create_job": "34b2732c-5a4e-4659-9367-d9082a03d637",
+  "character_id": "d31bf47a-2bca-4c82-ad05-8ff648666727",
+  "anim_job_walk_south_north": "queued",
+  "anim_job_walk_east_west": "queued",
+  "anim_job_idle_south": "queued",
+  "anim_job_lunge_east": "queued",
+  "anim_job_stilled_south": "queued"
+ }
+}
