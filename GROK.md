@@ -203,3 +203,18 @@ User proposed (and we adopted) hybrid agent approach:
 - Next: Hand off to agents for PlayerData states, Yarn nodes, small zone prototype (playground/fringes, child Rowan + Briar, real-time combat + 1 assist, dread moment, bond choice).
 
 See full AGENT_RULES.md for details. This hybrid is powerful for solo Godot + AI in 2026. Let's execute the vertical slice.
+
+## Cursor Hand-off (2026-06-10)
+- Cursor now installed (AppImage in ~/Applications).
+- First hand-off prepared: docs/prompts/cursor-handoff-01-playerdata-age-morph.md
+- Full prompt (copy-paste to Cursor Composer with @workspace):
+  Use @workspace + read AGENT_RULES.md, docs/story/bible.md (revised: lottery/harmony score selection, playground ritual with creepy clowns/stuffed animals/toys, villagers believe "succeeded" initially + no notice of escape, escalation creates more monsters), docs/characters/companions.md, docs/design/game-features.md, docs/mechanics/progression.md, docs/mechanics/companion.md, docs/art/imagine-prompts.md (updated for revised ritual).
+
+  Task (vertical slice scope: child Rowan + Briar only):
+  1. Extend scripts/autoload/player_data.gd for age_stage enum (CHILD/TEEN/ADULT), morality (float -100..+100 with tiers), companions dict (Briar/Echo/Storm: bond, corruption, growth, alive). Add signals: age_advanced, morality_changed, bond_changed, corruption_changed, revelation_unlocked. Add helpers: set_age_stage, change_morality, set_companion_bond, set_companion_corruption, unlock_revelation, is_revelation_known, reset_to_defaults.
+  2. Create/extend scripts/player/age_morph.gd (or attach to player visual): swap SpriteFrames or modulate + shader based on age + morality (use existing player setup). Simple "marked" effects on high corruption.
+  Keep scope tight to vertical slice (child + Briar, playground/fringes zone). Output: complete GDScript, exact integration steps (player.tscn, player_controller.gd, autoloads, resources), test plan (F5 in zone, trigger age-up stub + morality change, verify visuals/states/companions).
+
+  Reference vertical slice def + "Prompt-Driven Iteration" in AGENT_RULES.md. Base on existing player_controller.gd and autoload patterns. Clean typed GDScript.
+- This hands off implementation to Cursor while I (Grok) handle vision/story consistency.
+- Will sync/publish after user pastes result back for review/fix loop.
