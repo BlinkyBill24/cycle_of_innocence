@@ -61,6 +61,14 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 
 These ideas are now documented in the new design/mechanics files and should be referenced when moving from story bible → prototype.
 
+## 📥 Captured this session (slice gate polish, 2026-06-10)
+
+Gate passed; polish items from the verdict (address during post-slice audio/feel passes):
+
+- **Audio stem overlap**: stems clash when layered — regenerate as true aligned layers (same seed/progression in ACE-Step, or strip-down mixes of ONE track), duck tense/danger under stingers, review mix levels. ([[mechanics/adaptive-audio]])
+- **Darker dread**: push the dusk/vignette further at high tiers — consider lowering CanvasModulate with dread, not just the overlay.
+- **Bark visibility**: barking is easy to miss — louder/double bark SFX, a small "!" pixel indicator above Briar, and/or a brief hop animation; companion telegraphs must read instantly (feeds [[mechanics/companion-quirks]] later).
+
 ## 📥 Captured this session (legal, 2026-06-10)
 
 - **Re-run the patent review at the demo/marketing milestone**: verify Nemesis patent unchanged, check Palworld-case fallout (USPTO re-exam of US 12,403,397 may set precedent), and have an IP attorney sanity-check before commercial release. ([[decisions/2026-06-10-patent-risk-review]])
