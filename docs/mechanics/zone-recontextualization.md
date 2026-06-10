@@ -1,0 +1,41 @@
+---
+name: Zone Recontextualization (Knowledge-Gated World)
+date: 2026-06-10
+tags: [feature, mechanics, narrative, exploration, post-slice]
+status: planned
+related_decisions: [[decisions/2026-06-10-recent-games-research-greenlight]]
+---
+
+# Zone Recontextualization — The World Changes When You Know
+
+> **Post-slice.** Designed now, built after the vertical slice ships.
+
+## What it does
+Revelations don't just unlock dialogue — they change how **existing zones function** on revisit (Void Stranger's knowledge gates). The playground you escaped is a different place once you know what the toys are. Same scene, new truth.
+
+## Why it fits (prior art check, R3b)
+- [[mechanics/progression]] already lists "Revelation abilities" and [[design/game-features]] §7 says "some puzzles change or become solvable only after revelations" — this gives those lines a concrete mechanism and content plan.
+- Round-1 note in [[mechanics/vision-and-darkness]] (child-outline silhouettes after the monsters-are-children revelation) is one instance of this system.
+
+## Mechanism
+- Zones contain **recontext nodes**: children of a `RecontextGroup` toggled by `PlayerData.is_revelation_known(id)` (visibility + collision + interactivity), checked on zone enter. One scene per zone — variants are node groups, never duplicate scenes.
+- Classes of change:
+  1. **Perception**: decor reveals truth (scratches spell names; the merry-go-round's "rust" pattern is a seal diagram).
+  2. **Interaction**: objects gain verbs (the toy chest can be *listened to*; a grave can be apologized at — morality beat).
+  3. **Access**: a door/path that "was always there" becomes usable (knowledge IS the key — no fetch-item).
+  4. **Inhabitants**: spawn-table swaps (a Stilled monster waits where its house stood, see [[mechanics/encounters-mercy]]).
+- Companions react on first recontextualized visit (Briar whines at the spot he was rescued — bond moment for free).
+
+## Content plan (v1)
+3 zones × 2-3 revelations each ≈ **8-10 authored recontext moments**, anchored on the big bible twists (monsters-are-children, elders-are-survivors, Rowan-is-the-vessel). The playground gets the full treatment (it's the thesis statement: safety → horror → grief).
+
+## Data model / tech
+- Naming convention: nodes grouped `recontext_<revelation_id>`; a 20-line `ZoneRecontext` helper applies visibility on `zone_entered` + live on `GameEvents.revelation_unlocked`.
+- NG+ interaction: revelations carried into NG+ mean zones start recontextualized — the run *feels* different from minute one (replay hook from [[mechanics/progression]] NG+ echoes, no extra work).
+
+## Edge cases
+- Never recontextualize a zone the player is standing in mid-change (apply on enter; live changes only via explicit scripted moments).
+- Recontext access paths must not break sequence (gate checks remain on flags, not geometry alone).
+
+## Related
+[[mechanics/progression]] · [[mechanics/encounters-mercy]] · [[mechanics/vision-and-darkness]] · [[story/bible]] · [[design/feature-candidates-2026-06]]

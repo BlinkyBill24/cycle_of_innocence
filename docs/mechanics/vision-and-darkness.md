@@ -40,5 +40,8 @@ Darkwood-style perception: the player only clearly sees what Rowan faces; everyt
 - Accessibility: "expanded vision" toggle (wider cone + brighter ambient) under the horror-intensity umbrella; puzzle-critical objects must never be findable *only* by pixel-hunting the dark.
 - Top-down twin-stick aiming on touch: facing follows movement by default; optional touch-and-hold to look without walking.
 
+## Research notes (2026-06, round 2)
+- **Counterfeit pings** (Dredge sanity spiral): at dread > 80, hallucinations can mimic *companion senses* — a scent-wisp or aerial reveal that no companion produced. The family's voice can be forged; cross-checking with the actual companion's position/behavior is the counterplay. Interacts with [[mechanics/companion-quirks]] (corrupted Echo's false pings vs dread's fake pings — two distinct lies).
+
 ## Related
-- [[mechanics/horror-and-dread]] · [[mechanics/day-night-hideout]] · [[mechanics/encounters-mercy]] · [[characters/companions]]
+- [[mechanics/horror-and-dread]] · [[mechanics/day-night-hideout]] · [[mechanics/encounters-mercy]] · [[characters/companions]] · [[mechanics/companion-quirks]]

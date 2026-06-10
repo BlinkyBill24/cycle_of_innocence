@@ -30,7 +30,7 @@ The complete per-area AI/tooling stack to take *Cycle of Innocence* from current
 
 ## Workflow rules
 1. **Art**: Imagine prompt batches from [[art/imagine-prompts]] → generate at 2–4× target size → downscale in Aseprite (interpolation: none) → palette discipline pass → import with nearest filter. Always add human Aseprite work on top of AI output (strengthens legal authorship position — no AI tool indemnifies).
-2. **Audio**: generate 3–5 ACE-Step candidates per mood, pick, loop in Audacity. Keep generation prompts/files as provenance receipts.
+2. **Audio**: generate 3–5 ACE-Step candidates per mood, pick, loop in Audacity. Compose as **stems** (ambient/tense/danger sharing BPM/key per zone theme) for the adaptive system ([[../mechanics/adaptive-audio]]). Keep generation prompts/files as provenance receipts.
 3. **Dialogue**: LLM drafts against the story bible; human pass for voice consistency; Dialogue Manager's in-editor test scene to validate branches; nothing generated at runtime.
 4. **Code**: Grok = vision/architecture/prompts; Claude Code/Cursor = implementation via godot-mcp; runtime errors pasted back in text (agents are runtime-blind — test with F5/headless, report, iterate). Agents scaffold; humans balance (damage values, AI difficulty, dread tuning are playtest work).
 5. **Enemy/companion AI**: design archetypes as LimboAI behavior trees (patrol/alert/chase/attack; companion follow/assist/fear states keyed to bond & corruption); tune via blackboard variables; watch live with LimboAI's visual debugger.

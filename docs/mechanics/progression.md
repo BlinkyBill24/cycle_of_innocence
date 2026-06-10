@@ -86,6 +86,7 @@ No traditional skill trees or XP levels. Unlocks come from:
 - Morality, known revelations, and companion "echo" states carry over.
 - New playthroughs have altered dialogue, some events play differently with foreknowledge, and you can pursue "what if" paths (e.g., trying to save a companion you lost before).
 - This is a major source of replayability alongside different morality/ending combinations.
+- **Loop-memory dialogue** (research round 2, In Stars and Time): companion echoes surface as *fractional* remembered details, not full recall — Briar hesitates at the spot where he died last run; Echo repeats one word from a timeline that didn't happen. Small authored moments per echo state; see [[design/feature-candidates-2026-06]]. NG+ also starts zones pre-recontextualized via carried revelations ([[mechanics/zone-recontextualization]]).
 
 ## Technical Implementation Priorities (Godot)
 

@@ -274,6 +274,23 @@ All four pass the §13 guardrail test (serve story, a companion arc, or a horror
 
 ---
 
+## 15. Greenlit Additions (2026-06-10 research round 2 — recent games)
+
+From the recent-releases research pass ([[design/feature-candidates-2026-06]], decision: [[decisions/2026-06-10-recent-games-research-greenlight]]):
+
+**Slice-adjacent (cheap, high horror-per-effort):**
+1. **[[mechanics/companion-quirks]]** — bond/corruption manifests as diagnosable companion behaviors (false pings, true growls, refusals); the player learns to read the family. (Pacific Drive)
+2. **[[mechanics/interface-horror]]** — Vessel-tier dialogue distortion + dread-driven control degradation, behind the horror-intensity slider. (Mouthwashing/Heartworm)
+3. **[[mechanics/adaptive-audio]]** — ambient/tense/danger/companion stems crossfaded from dread, time, and hollowing stage. (FOSS AdaptiSound or ~100-line autoload)
+
+**Post-slice (systemic):**
+4. **[[mechanics/village-life]]** — ~12 villager daily routines + proximity-overheard gossip + per-NPC suspicion feeding the hollowing clock. (Shadows of Doubt / Sorry We're Closed)
+5. **[[mechanics/zone-recontextualization]]** — revelations change how existing zones function on revisit; the playground is the thesis statement. (Void Stranger)
+
+Plus refinement notes added to encounters-mercy (unique soothe per monster), vision-and-darkness (counterfeit pings at high dread), and progression NG+ (loop-memory dialogue).
+
+---
+
 ## Next Steps for Features
 
 1. Lock story bible (user review in progress).

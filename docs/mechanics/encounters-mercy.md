@@ -43,5 +43,8 @@ Most monsters are former sacrificed children ([[story/bible]] twist #1). Encount
 ## Mobile note
 Hold-to-soothe maps cleanly to a touch hold; no extra buttons beyond existing interact.
 
+## Research notes (2026-06, round 2)
+- **Unique soothe per monster** (Undertale Yellow): each spareable monster has one *specific* interaction that moves Recognition fastest (show the buried toy, hum THEIR verse, let Briar approach first); repeating the generic soothe plateaus. Discovering the specific one = environmental storytelling payoff. See [[design/feature-candidates-2026-06]].
+
 ## Related
 - [[mechanics/combat]] · [[mechanics/horror-and-dread]] · [[mechanics/hollowing-clock]] · [[story/choice-matrix]] · [[characters/companions]]
