@@ -40,12 +40,17 @@ func _play_beat() -> void:
 			fog.visible = true
 			create_tween().tween_property(fog, "modulate:a", target.a if target.a > 0.05 else 0.45, 2.5)
 
-	var silhouette := get_node_or_null(silhouette_path) as CanvasItem
+	var silhouette := get_node_or_null(silhouette_path) as Node2D
 	if silhouette:
+		# place AHEAD of wherever the player actually crossed — a fixed world
+		# position can be off-screen (playtest 2026-06-10)
+		var player := get_tree().get_first_node_in_group("player") as Node2D
+		if player:
+			silhouette.global_position = player.global_position + Vector2(170, -36)
 		silhouette.modulate.a = 0.0
 		silhouette.visible = true
 		var tween := create_tween()
-		tween.tween_property(silhouette, "modulate:a", 0.85, 0.35)
-		tween.tween_interval(0.45)
-		tween.tween_property(silhouette, "modulate:a", 0.0, 0.6)
+		tween.tween_property(silhouette, "modulate:a", 0.9, 0.5)
+		tween.tween_interval(0.8)
+		tween.tween_property(silhouette, "modulate:a", 0.0, 0.7)
 		tween.tween_callback(func() -> void: silhouette.visible = false)

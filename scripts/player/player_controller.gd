@@ -30,6 +30,12 @@ var age_stage: AgeStage = AgeStage.CHILD
 var morality: float = 0.0
 var _facing: Vector2 = Vector2.DOWN
 var _action_anim_lock: bool = false
+var _footstep_timer: float = 0.0
+
+const SOOTHE_RANGE := 56.0
+const SOOTHE_RATE := 25.0  # recognition per second (≈4s to Still)
+var _soothing := false
+var _soothe_target: EnemyBase
 
 func _ready() -> void:
 	if animated_sprite:
@@ -64,6 +70,12 @@ func _physics_process(delta: float) -> void:
 			_update_locomotion_animation()
 		return
 
+	if _soothing:
+		_update_soothe(delta)
+		_decelerate(delta)
+		move_and_slide()
+		return
+
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
 	if input_vector != Vector2.ZERO:
@@ -75,19 +87,85 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if not _action_anim_lock:
 		_update_locomotion_animation()
+	_update_footsteps(delta)
 
 	# Real-time attack (no pause menu)
 	if Input.is_action_just_pressed("attack") and movement_state == MovementState.EXPLORING:
 		perform_attack()
 
 	if Input.is_action_just_pressed("interact") and movement_state == MovementState.EXPLORING:
-		_try_companion_assist()
+		_on_interact_pressed()
 
 func _decelerate(delta: float) -> void:
 	velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
 
+func _update_footsteps(delta: float) -> void:
+	if velocity.length() < 30.0:
+		_footstep_timer = 0.12
+		return
+	_footstep_timer -= delta
+	if _footstep_timer <= 0.0:
+		Sfx.play(&"footstep", -10.0, 0.12)
+		_footstep_timer = 0.34
+
+
 const ASSIST_RANGE := 48.0
+
+## Interact priority: soothe a nearby spareable monster, else companion dig.
+func _on_interact_pressed() -> void:
+	var monster := _nearest_spareable_monster()
+	if monster:
+		_start_soothe(monster)
+		return
+	_try_companion_assist()
+
+
+func _nearest_spareable_monster() -> EnemyBase:
+	var nearest: EnemyBase = null
+	var best := SOOTHE_RANGE
+	for node in get_tree().get_nodes_in_group("enemy"):
+		var enemy := node as EnemyBase
+		if enemy and enemy.spareable and not enemy.stilled:
+			var dist := global_position.distance_to(enemy.global_position)
+			if dist < best:
+				best = dist
+				nearest = enemy
+	return nearest
+
+
+func _start_soothe(target: EnemyBase) -> void:
+	# Hold-to-soothe (encounters-mercy.md): defenseless channel — hurtbox
+	# stays live, movement stops, the lullaby is the only shield.
+	_soothing = true
+	_soothe_target = target
+	Sfx.play(&"lullaby", -6.0, 0.0)
+	if animated_sprite and animated_sprite.sprite_frames \
+			and animated_sprite.sprite_frames.has_animation("crouch"):
+		_action_anim_lock = true
+		animated_sprite.play("crouch")
+
+
+func _update_soothe(delta: float) -> void:
+	if not Input.is_action_pressed("interact") \
+			or _soothe_target == null or not is_instance_valid(_soothe_target) \
+			or _soothe_target.stilled \
+			or global_position.distance_to(_soothe_target.global_position) > SOOTHE_RANGE * 1.4:
+		_stop_soothe()
+		return
+	var rate := SOOTHE_RATE
+	if DreadManager.dread > 80.0:
+		rate *= 0.5  # mercy is hardest when terrified — by design
+	if _soothe_target.add_recognition(rate * delta):
+		_stop_soothe()
+
+
+func _stop_soothe() -> void:
+	_soothing = false
+	_soothe_target = null
+	_action_anim_lock = false
+	_update_locomotion_animation()
+
 
 func _try_companion_assist() -> void:
 	var companion := get_tree().get_first_node_in_group("companion") as CompanionBase
@@ -142,6 +220,7 @@ func perform_attack() -> void:
 	movement_state = MovementState.ATTACKING
 	attack_hitbox.position = _facing * ATTACK_REACH
 	play_action_animation("attack")
+	Sfx.play(&"swing", -6.0)
 	await get_tree().create_timer(ATTACK_WINDUP).timeout
 	if my_attack == _attack_id and movement_state == MovementState.ATTACKING:
 		attack_hitbox.activate(ATTACK_WINDOW)
@@ -153,6 +232,8 @@ func perform_attack() -> void:
 
 func _on_hit_received(from_hitbox: Hitbox) -> void:
 	attack_hitbox.deactivate()  # interrupted attacks must not leave a live hitbox
+	if _soothing:
+		_stop_soothe()  # the channel breaks when the world bites back
 	set_movement_state(MovementState.HURT)
 	velocity = from_hitbox.global_position.direction_to(global_position) * from_hitbox.knockback_force
 	if animated_sprite:

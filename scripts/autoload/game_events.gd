@@ -15,6 +15,8 @@ signal combat_hit(target_faction: StringName, amount: int)
 signal player_damaged(current_hp: int, max_hp: int)
 signal player_died
 signal enemy_died(enemy_kind: StringName)
+signal monster_stilled(stable_id: StringName)
+signal stilled_monster_killed(stable_id: StringName)
 
 signal horror_stinger(trigger: StringName)  # e.g. "first_revelation", "animal_fear"
 signal dread_zone_entered(zone_id: StringName)

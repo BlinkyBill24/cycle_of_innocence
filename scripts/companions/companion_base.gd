@@ -97,6 +97,7 @@ func command_dig(spot: Node2D) -> bool:
 	# fear first: a cowering companion REFUSES (visible feedback), it doesn't
 	# silently ignore — that ambiguity would read as a bug, not as fear
 	if is_afraid() or hsm.get_active_state() == _state_cower:
+		Sfx.play(&"whimper", -6.0)
 		assist_refused.emit(&"afraid")
 		return false
 	if hsm.get_active_state() != _state_follow:
@@ -151,6 +152,7 @@ func _dig_update(delta: float) -> void:
 			return
 		_dig_phase_digging = true
 		velocity = Vector2.ZERO
+		Sfx.play(&"dig", -4.0)
 		if sprite.sprite_frames and sprite.sprite_frames.has_animation("dig"):
 			sprite.play("dig")
 		return
@@ -168,6 +170,7 @@ func _dig_update(delta: float) -> void:
 func _cower_enter() -> void:
 	velocity = Vector2.ZERO
 	_dig_target = null
+	Sfx.play(&"whimper", -4.0)
 	if sprite.sprite_frames and sprite.sprite_frames.has_animation("cower"):
 		sprite.play("cower")
 
@@ -182,6 +185,7 @@ func _bark_enter() -> void:
 	velocity = Vector2.ZERO
 	_bark_timer = 0.9
 	_bark_cooldown = bark_cooldown_seconds
+	Sfx.play(&"bark", -2.0)
 	if sprite.sprite_frames and sprite.sprite_frames.has_animation("bark"):
 		sprite.play("bark")
 	if GameEvents:

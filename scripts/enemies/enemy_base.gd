@@ -15,8 +15,11 @@ extends CharacterBody2D
 @export var wander_radius: float = 50.0
 @export var hurt_seconds: float = 0.25
 
-## Mercy system stubs — full loop lands in M3 (encounters-mercy.md).
+## Mercy system (encounters-mercy.md): Recognition fills via soothing;
+## at threshold the monster becomes Stilled (persisted via story flag).
 @export var spareable: bool = true
+@export var stable_id: StringName = &"twisted_child_01"  # unique per placed enemy
+const RECOGNITION_MAX := 100.0
 var recognition: float = 0.0
 var stilled: bool = false
 
@@ -39,14 +42,20 @@ var _state_patrol: LimboState
 var _state_chase: LimboState
 var _state_attack: LimboState
 var _state_hurt: LimboState
+var _state_stilled: LimboState
 
 
 func _ready() -> void:
+	add_to_group("enemy")
 	_spawn = global_position
 	_wander_target = _spawn
 	health.died.connect(_on_died)
 	hurtbox.hit_received.connect(_on_hit_received)
 	_init_hsm()
+	if PlayerData.has_story_flag(_stilled_flag()):
+		stilled = true
+		recognition = RECOGNITION_MAX
+		hsm.dispatch(&"stilled")
 
 
 func _init_hsm() -> void:
@@ -60,8 +69,9 @@ func _init_hsm() -> void:
 		.call_on_enter(_attack_enter).call_on_update(_attack_update)
 	_state_hurt = LimboState.new().named("Hurt") \
 		.call_on_enter(_hurt_enter).call_on_update(_hurt_update)
+	_state_stilled = LimboState.new().named("Stilled").call_on_enter(_stilled_enter)
 
-	for state: LimboState in [_state_patrol, _state_chase, _state_attack, _state_hurt]:
+	for state: LimboState in [_state_patrol, _state_chase, _state_attack, _state_hurt, _state_stilled]:
 		hsm.add_child(state)
 
 	hsm.add_transition(_state_patrol, _state_chase, &"spotted")
@@ -70,6 +80,7 @@ func _init_hsm() -> void:
 	hsm.add_transition(_state_attack, _state_chase, &"attack_done")
 	hsm.add_transition(hsm.ANYSTATE, _state_hurt, &"hit")
 	hsm.add_transition(_state_hurt, _state_chase, &"recovered")
+	hsm.add_transition(hsm.ANYSTATE, _state_stilled, &"stilled")
 
 	hsm.initial_state = _state_patrol
 	hsm.initialize(self)
@@ -168,6 +179,38 @@ func _hurt_update(delta: float) -> void:
 		hsm.dispatch(&"recovered")
 
 
+func _stilled_enter() -> void:
+	velocity = Vector2.ZERO
+	lunge_hitbox.deactivate()
+	if sprite.sprite_frames and sprite.sprite_frames.has_animation("stilled"):
+		sprite.play("stilled")
+
+
+func _stilled_flag() -> StringName:
+	return StringName("stilled_" + String(stable_id))
+
+
+## Soothing channel (player hold-to-soothe). Returns true when newly Stilled.
+func add_recognition(amount: float) -> bool:
+	if stilled or not spareable or amount <= 0.0:
+		return false
+	recognition = minf(recognition + amount, RECOGNITION_MAX)
+	if recognition < RECOGNITION_MAX:
+		return false
+	_become_stilled()
+	return true
+
+
+func _become_stilled() -> void:
+	stilled = true
+	PlayerData.set_story_flag(_stilled_flag())
+	PlayerData.change_morality(-5.0)
+	DreadManager.reduce_dread(10.0)
+	if GameEvents:
+		GameEvents.monster_stilled.emit(stable_id)
+	hsm.dispatch(&"stilled")
+
+
 # --- reactions ---
 
 func _on_hit_received(hitbox: Hitbox) -> void:
@@ -181,6 +224,12 @@ func _on_hit_received(hitbox: Hitbox) -> void:
 func _on_died() -> void:
 	if GameEvents:
 		GameEvents.enemy_died.emit(enemy_kind)
+		if stilled:
+			# killing a child you had already calmed — the heaviest act in the
+			# slice (encounters-mercy.md: heavy Vessel push + Briar learns)
+			GameEvents.stilled_monster_killed.emit(stable_id)
+			PlayerData.change_morality(20.0)
+			PlayerData.add_companion_corruption(&"briar", 10.0)
 	queue_free()
 
 

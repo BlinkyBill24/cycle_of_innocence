@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://zoneplayfringe1"]
+[gd_scene load_steps=20 format=3 uid="uid://zoneplayfringe1"]
 
 [ext_resource type="Script" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -14,7 +14,6 @@
 [ext_resource type="Script" path="res://scripts/world/dread_beat.gd" id="12_dread_beat"]
 [ext_resource type="Texture2D" path="res://assets/sprites/enemies/twisted_child_32.png" id="13_monster_tex"]
 [ext_resource type="AudioStream" path="res://assets/audio/sfx/toy_creak_stinger.wav" id="14_stinger"]
-[ext_resource type="AudioStream" path="res://assets/audio/stems/playground_ambient.ogg" id="15_ambient"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -86,7 +85,7 @@ position = Vector2(-200, 40)
 position = Vector2(-230, 60)
 
 [node name="TwistedChild" parent="." instance=ExtResource("5_twisted_child")]
-position = Vector2(360, -40)
+position = Vector2(540, 130)
 
 [node name="DiggableSpotPlayground" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(-100, -60)
@@ -104,11 +103,6 @@ script = ExtResource("8_progression_test")
 script = ExtResource("11_story_dialogue")
 dialogue_path = "res://resources/dialogue/escape_food.dialogue"
 once_flag = &"intro_food_dialogue_done"
-
-[node name="AmbientLoop" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("15_ambient")
-volume_db = -8.0
-autoplay = true
 
 [node name="FogSeamNorth" type="Polygon2D" parent="."]
 position = Vector2(110, -150)

@@ -23,6 +23,8 @@ DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 DreadManager="*res://scripts/autoload/dread_manager.gd"
 ZoneManager="*res://scripts/autoload/zone_manager.gd"
 SaveManager="*res://scripts/autoload/save_manager.gd"
+Sfx="*res://scripts/autoload/sfx.gd"
+AdaptiveAudio="*res://scripts/autoload/adaptive_audio.gd"
 
 [display]
 
