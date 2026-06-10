@@ -164,38 +164,8 @@ func _on_companion_state_changed(_companion_id: StringName, _value: float) -> vo
 
 
 func _build_slice_frames() -> SpriteFrames:
-	var frames := SpriteFrames.new()
-	var idle_tex := load("res://Player/Sprites/idle.png") as Texture2D
-	var walk_tex := load("res://Player/Sprites/walking.png") as Texture2D
-	var attack_tex := load("res://Player/Sprites/attacking.png") as Texture2D
-	var dirs := {"down": 0, "left": 1, "right": 2, "up": 3}
-	for dir in dirs:
-		var col: int = dirs[dir]
-		_add_atlas_animation(frames, idle_tex, col, 0, "idle_%s" % dir, 4.0, true)
-		_add_atlas_animation(frames, walk_tex, col, 0, "walk_%s" % dir, 8.0, true)
-		_add_atlas_animation(frames, attack_tex, col, 0, "attack_%s" % dir, 10.0, false)
-	return frames
-
-
-func _add_atlas_animation(
-	frames: SpriteFrames,
-	texture: Texture2D,
-	col: int,
-	row: int,
-	anim_name: String,
-	speed: float,
-	loop: bool
-) -> void:
-	if texture == null:
-		return
-	var frame_size := Vector2(texture.get_width() / 4.0, texture.get_height() / 4.0)
-	var atlas := AtlasTexture.new()
-	atlas.atlas = texture
-	atlas.region = Rect2(frame_size.x * col, frame_size.y * row, frame_size.x, frame_size.y)
-	frames.add_animation(anim_name)
-	frames.set_animation_loop(anim_name, loop)
-	frames.set_animation_speed(anim_name, speed)
-	frames.add_frame(anim_name, atlas)
+	# Fallback only — the scene normally assigns child_frames in player.tscn.
+	return load("res://assets/resources/player/rowan_child_frames.tres") as SpriteFrames
 
 
 func _find_visual_target() -> CanvasItem:

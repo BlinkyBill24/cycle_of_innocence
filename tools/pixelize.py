@@ -17,15 +17,37 @@ import numpy as np
 from PIL import Image
 
 
+def _key_magenta(arr: np.ndarray) -> np.ndarray | None:
+    """Preferred path: sheets generated on a solid #FF00FF background.
+    Hue-based mask (high R+B, low G) catches the background plus its
+    anti-aliased fringe; a despill pass neutralizes leftover pink edges."""
+    r, g, b = arr[:, :, 0], arr[:, :, 1], arr[:, :, 2]
+    magenta = (r > 130) & (b > 130) & (g < (r * 0.62)) & (g < (b * 0.62))
+    if magenta.mean() < 0.10:
+        return None  # not a magenta-keyed sheet
+    arr = arr.copy()
+    arr[magenta, 3] = 0
+    # despill: kept pixels with a magenta cast (r & b both well above g)
+    spill = (~magenta) & (r > g + 60) & (b > g + 60) & (np.abs(r - b) < 60)
+    avg = ((arr[:, :, 0] + arr[:, :, 1] + arr[:, :, 2]) // 3).astype(np.int16)
+    for ch in (0, 2):
+        arr[:, :, ch] = np.where(spill, (arr[:, :, ch] + avg) // 2, arr[:, :, ch])
+    return arr
+
+
 def key_background(img: Image.Image, tolerance: int = 26, n_bg_colors: int = 2) -> Image.Image:
-    """AI generators often paint a literal checkerboard instead of real alpha
-    (RGB output, no alpha channel). Detect the dominant border colors and key
-    every pixel near them to transparent. No-op if the image already has
+    """AI generators often paint a literal background instead of real alpha
+    (RGB output, no alpha channel). Prefer magenta chroma-key; fall back to
+    border-color detection (checkerboard era). No-op if the image already has
     meaningful transparency."""
     img = img.convert("RGBA")
     arr = np.asarray(img).astype(np.int16)
     if (arr[:, :, 3] < 250).mean() > 0.02:
         return img  # real alpha already present
+
+    keyed = _key_magenta(arr)
+    if keyed is not None:
+        return Image.fromarray(keyed.clip(0, 255).astype(np.uint8), "RGBA")
 
     border = np.concatenate([
         arr[:3, :, :3].reshape(-1, 3),
