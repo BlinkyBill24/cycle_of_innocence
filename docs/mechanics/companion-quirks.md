@@ -41,5 +41,8 @@ Examples (v1 pool: ~4 per companion):
 - Horror-intensity slider: quirk *behaviors* always play (mechanical), but the most disturbing expressions (corrupted staring, wrong-jointed movement) soften visually.
 - Quirks freeze during cutscenes/dialogue.
 
+## Design-language note (patent posture)
+Quirks are **authored, designer-scripted progressions** on three fixed characters — acquisition thresholds and behaviors are hand-defined data, never procedurally generated NPC evolution, hierarchies, or ranks. Keep that framing in code, docs, and marketing. See [[decisions/2026-06-10-patent-risk-review]].
+
 ## Related
 [[characters/companions]] · [[mechanics/vision-and-darkness]] · [[mechanics/day-night-hideout]] · [[mechanics/interface-horror]] · [[design/feature-candidates-2026-06]]

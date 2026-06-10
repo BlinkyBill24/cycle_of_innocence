@@ -13,7 +13,7 @@
 - Platforms: Linux (primary), Android (touch), **Web/HTML5** (itch demo + NAS playtest loop — Web support is a hard constraint).
 - Scope: focused single-player campaign (6–10h v1); replay via choices/companion fates/endings/NG+. **Vertical slice first.**
 
-**Guardrails**: No reuse of the Mote/"Echoes of the Verdant Realm" cozy game (only low-level 2D patterns/pipelines). Every feature must serve story, a companion arc, a horror beat, or replay — otherwise cut/defer.
+**Guardrails**: No reuse of the Mote/"Echoes of the Verdant Realm" cozy game (only low-level 2D patterns/pipelines). Every feature must serve story, a companion arc, a horror beat, or replay — otherwise cut/defer. **Patent posture** (docs/decisions/2026-06-10-patent-risk-review.md): companions are authored characters with scripted progressions — never frame/implement as procedural NPC hierarchies, ranks, or "nemesis systems" (WB patent live to 2036); no radial emotion-mapped dialogue wheel UI before Oct 2029 (BioWare patent) — list balloons as built.
 
 ## Locked tech stack
 
