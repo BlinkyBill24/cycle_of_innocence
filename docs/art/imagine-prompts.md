@@ -28,6 +28,32 @@ Save as: `assets/reference/companion_dog_pup_bible.png` (revise for playground c
 
 Use `image_edit` on the bibles for variations (different morality tints, specific action frames) before full sheet generation.
 
+## M0 batch additions (slice roadmap, 2026-06-10)
+
+### A3a — Playground-at-dusk tileset
+```
+retro pixel art top-down 32x32 tileset reference sheet, SNES Zelda style with creeping horror, village playground at dusk after a ritual: swing set, slide, merry-go-round, sandbox, scattered oversized stitched stuffed animals and porcelain-faced toys posed slightly wrong, faded bunting and lottery posters, trampled grass paths, low fog patches, ground tiles + edge transitions + decor objects organized in grid, limited 28-color palette (warm dusk orange fading to sick green-grey, one wrong red accent), transparent background, crisp pixels no anti-aliasing
+```
+Save as: `assets/reference/tileset_playground_dusk.png`
+
+### A3b — Fringes forest tileset
+```
+retro pixel art top-down 32x32 tileset reference sheet, SNES Zelda style horror-tinged, forest fringe at the edge of a village: twisted trees, root tangles, dirt paths, hiding hollows under roots, diggable soft-earth patches (marked subtly), fog banks, distant village fence pieces, ground + transition + decor tiles in grid, limited 24-color palette (cold greens/browns, moonlit highlights), transparent background, crisp pixels no anti-aliasing
+```
+Save as: `assets/reference/tileset_fringes_forest.png`
+
+### A4 — "Twisted Child" monster (first former-sacrifice)
+```
+retro pixel art top-down 32x32 creature reference sheet, SNES Zelda style horror, small humanoid monster that was once a sacrificed child: hunched, wrong-jointed limbs, face hidden, still wearing a faded clown ruff and dragging one broken toy by a string, more sad than gory, subtle body horror (too-long fingers, faint glow under skin), 4 views + idle/stalk/lunge pose hints, growth note space for "Stilled" calm variant (head tilted, toy hugged), limited 20-color palette (greys, faded carnival colors, one wrong red), transparent bg, crisp pixels no anti-aliasing
+```
+Save as: `assets/reference/monster_twisted_child_bible.png`
+
+### A5 — Minimal HUD + touch icons
+```
+retro pixel art UI icon sheet, 16x16 and 24x24 elements, SNES-style with subtle horror edge: small heart containers (whole/half/empty, slightly hand-stitched look), interact prompt hand icon, hold-to-soothe musical note icon, dig paw icon, touch virtual stick base + nub, simple dialogue arrow, limited 16-color palette matching desaturated rural tones, transparent background, crisp pixels no anti-aliasing
+```
+Save as: `assets/reference/ui_hud_icons.png`
+
 ## Full animation sheets (after bible approval)
 Use image_edit referencing the bible + exact grid layout (document in sheet_layout.txt).
 

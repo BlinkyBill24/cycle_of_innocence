@@ -30,11 +30,12 @@ Document every prompt + chosen output in `docs/art/imagine-prompts.md`.
 
 | Slice | Status | Notes |
 |-------|--------|-------|
-| 0 — Branch + local vault (docs/) + brain files | ✅ | docs/ + templates + AGENTS.md consolidation done |
-| 1 — Core player movement + real-time attack + age stub | 🟡 Partial | player_controller + age_morph + PlayerData implemented; combat hitboxes pending |
-| 2 — First animal companion (escape) + basic bond + dialogue integration | ⬜ | Phase 2 vertical slice target; Dialogue Manager installed |
-| 3 — One semi-open zone + 1 combat + 1 puzzle + 1 horror seed + age-up teaser | ⬜ | Phase 2 exit criteria |
-| ... (see approved plan for full 0–6 phases) |
+| Pre-prod: vault + brain + tooling + design docs | ✅ | AGENTS.md, addons, 13 system specs |
+| M0 — Art & audio batch (A1–A5, AU1–AU2) | ⬜ | Grok Imagine + human Aseprite/ACE-Step; prompts ready in docs/art/imagine-prompts.md; parallel, never blocks code |
+| M1 — Core systems (DreadManager → Combat v1 → Briar → Zone) | 🟡 | PlayerData/controller/age_morph done; rest per docs/plan/slice-implementation-roadmap.md; Codex gates after combat + companion |
+| M2 — Narrative + save ("The Food" dialogue, SaveManager, dread beat) | ⬜ | Grok reviews dialogue voice |
+| M3 — Assembly + SLICE GATE (mercy v1, touch, audio v1, web export) | ⬜ | Human playtest gate per AGENTS.md |
+| Post-slice | ⬜ | vision cone → day/night → mercy full → clock → quirks → interface horror → village life → recontext |
 
 ---
 
