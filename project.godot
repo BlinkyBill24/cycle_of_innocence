@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="Cycle of Innocence"
+run/main_scene="res://playground.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
-run/main_scene="res://playground.tscn"
 
 [autoload]
 
@@ -21,6 +21,14 @@ GameEvents="*res://scripts/autoload/game_events.gd"
 PlayerData="*res://scripts/autoload/player_data.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 DreadManager="*res://scripts/autoload/dread_manager.gd"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=480
+window/size/window_width_override=1920
+window/size/window_height_override=1080
+window/stretch/mode="viewport"
 
 [editor_plugins]
 
@@ -58,14 +66,6 @@ attack={
 , Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
-
-[display]
-
-window/size/viewport_width=720
-window/size/viewport_height=480
-window/size/window_width_override=1920
-window/size/window_height_override=1080
-window/stretch/mode="viewport"
 
 [rendering]
 
