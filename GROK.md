@@ -175,3 +175,11 @@ User review feedback incorporated into docs/story/bible.md and docs/characters/c
 These changes make the conspiracy feel more systemic, random, and insidious. The initial "everything is okay" lie from the village's perspective heightens the horror and isolation for Rowan. Updated Act 0 description, Background, Cycle section, and relevant twists/companions rescue details.
 
 The new details will affect early zone design (playground as ritual site), art prompts (toys/clowns), and the "delayed alarm" in the story.
+
+## Session 2026-06-10 Start
+- New session initialized per project rules (journal in docs/sessions/2026-06-10.md).
+- Branch: feature/cycle-of-innocence (confirmed not main).
+- Obsidian consulted: grep on docs/ for story/features/prototype/asset/yarn/companion/playground/lottery/ritual (extensive prior art in bible, features docs, mechanics, art prompts – no conflicts with revised ritual details).
+- Focus: Asset bibles (image_gen for updated playground ritual/clowns/toys context + companions), Yarn prototypes (revised escape + bond), core prototype (PlayerData states, real-time combat/assists, playground/fringes zone).
+- Memory updated; will sync/publish journal + any changes; run status/hook.
+- Pre-action checklist satisfied.
