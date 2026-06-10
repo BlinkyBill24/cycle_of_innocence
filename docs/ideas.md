@@ -61,6 +61,12 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 
 These ideas are now documented in the new design/mechanics files and should be referenced when moving from story bible → prototype.
 
+## 📥 Captured this session (sprite tooling, 2026-06-10)
+
+- **PixelLab API/MCP from the hub**: PixelLab has an API + documented MCP/Claude Code workflow — when variant batches start (outfits × ages), drive generation from Claude Code instead of clicking the web UI. (Decision: [[decisions/2026-06-10-sprite-tool-pixellab]])
+- **Paper-doll layering v2**: if weapon/equipment combinatorics outgrow the 3 morality outfit states, switch from full variant sheets to base-body + clothing/weapon overlay layers (PixelLab can generate clothing-only transparent layers); composite in Godot.
+- LPC/OpenGameArt dog walk cycles (CC) as animation timing reference for Briar polish.
+
 ## 📥 Captured this session (research round 2, 2026-06-10)
 
 - **Ability layering rule** (Animal Well): every companion ability must ship with 2-3 cross-context uses (Briar's dig = puzzle + combat interrupt + lore unearthing) — depth without new ability count. Apply when implementing assists.

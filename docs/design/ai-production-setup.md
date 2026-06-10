@@ -14,7 +14,9 @@ The complete per-area AI/tooling stack to take *Cycle of Innocence* from current
 
 | Area | Now (free/FOSS) | Upgrade trigger → paid option |
 |---|---|---|
-| Pixel art | **Grok Imagine** (already locked, AGENT_RULES R4) → **Aseprite** cleanup, nearest-neighbor import | Sprite *volume* wall (many enemy variants) → Retro Diffusion ~$10/mo |
+| Pixel art (concepts/bibles) | **Grok Imagine** → **Aseprite** cleanup + `tools/pixelize.py` (magenta chroma-key), nearest-neighbor import | — |
+| Pixel art (character animation & variants) | Grok placeholders for the slice (functional but clunky) | **TRIGGER FIRED 2026-06-10** (Grok can't grid-align animation sheets) → **PixelLab** ~$12-30/mo pause-able, when variant work starts — skeleton rigs keep pose timing identical across outfit/age variants (see [[decisions/2026-06-10-sprite-tool-pixellab]]) |
+| Pixel art (static tiles/icons) | Grok Imagine | Retro Diffusion ($20 one-time Aseprite Lite) if tileset quality wall fires |
 | Music | **ACE-Step** (Apache 2.0, free web/self-host) for instrumental loops → **Audacity** loop/crossfade, export OGG | Need vocals or signature tracks → Suno Pro $10/mo (commercial license; never use Suno free tier commercially) |
 | SFX | **ChipTone** + **sfxr** (free) for UI/hits/pickups; layer in Godot audio buses | Complex organic horror SFX ("wet stone crumble") → ElevenLabs SFX $5/mo Pro |
 | Voice | **None — deliberate.** Text-only horror (Undertale/Inscryption precedent); text + ambience scarier than mediocre TTS | Trailer narration only, if ever |
