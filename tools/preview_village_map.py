@@ -97,15 +97,7 @@ def main():
         "grass_var": Image.open("assets/sprites/tiles/grass_variants_tiles_32.png").convert("RGB"),
         "dirt_var": Image.open("assets/sprites/tiles/dirt_variants_tiles_32.png").convert("RGB"),
     }
-    out = Image.new("RGB", (WIDTH * TILE, HEIGHT * TILE))
-    for y in range(-HEIGHT // 2, HEIGHT // 2):
-        for x in range(-WIDTH // 2, WIDTH // 2):
-            src_name, idx = cell_tile(x, y)
-            atlas = atlases[src_name]
-            cols = atlas.width // TILE
-            tile = atlas.crop(((idx % cols) * TILE, (idx // cols) * TILE,
-                               (idx % cols + 1) * TILE, (idx // cols + 1) * TILE))
-            out.paste(tile, ((x + WIDTH // 2) * TILE, (y + HEIGHT // 2) * TILE))
+    out = Image.open("assets/sprites/village/village_ground_backdrop.png").convert("RGB")
     out = out.convert("RGBA")
     cx, cy = WIDTH * TILE // 2, HEIGHT * TILE // 2
     court = Image.open("assets/sprites/village/chapel_courtyard.png").convert("RGBA")
@@ -115,6 +107,8 @@ def main():
     draw = ImageDraw.Draw(shadow_layer)
     for name, tex, px, py, oy, _shape, flip in props_sorted:
         img = Image.open(placements.PROP_DIR / f"{tex}.png")
+        if img.width >= 96:
+            continue  # buildings: baked foundations
         w = img.width * 0.82
         h = w * 0.34
         draw.ellipse([cx + px - w / 2, cy + py - 1 - h / 2,

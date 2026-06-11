@@ -8,6 +8,9 @@ const SHADOW_ALPHA := 0.30
 const WIDTH_FACTOR := 0.82
 const FLATTEN := 0.34
 const TEX_SIZE := 64
+## Buildings don't get ellipses — they float (playtest 2026-06-11); their
+## grounding is baked into the painted backdrop as worn foundations.
+const MAX_SHADOW_SPRITE_WIDTH := 96
 
 ## glow_radial.png keeps its gradient in RGB (for Light2D) — modulating it
 ## black gives a RECTANGLE (playtest 2026-06-11). Build a real alpha-falloff
@@ -36,6 +39,8 @@ static func apply(world: Node2D) -> void:
 		var sprite := body.get_node_or_null("Sprite2D") as Sprite2D
 		if sprite == null or sprite.texture == null:
 			continue
+		if sprite.texture.get_width() >= MAX_SHADOW_SPRITE_WIDTH:
+			continue  # buildings: baked foundations, not ellipses
 		var shadow := Sprite2D.new()
 		shadow.name = "ContactShadow"
 		shadow.texture = shadow_texture()
