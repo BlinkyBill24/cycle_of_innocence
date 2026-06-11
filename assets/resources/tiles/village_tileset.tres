@@ -1,10 +1,10 @@
-[gd_resource type="TileSet" load_steps=11 format=3]
+[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://bxgr7vd1tapr8"]
 
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/village_green_tiles_32.png" id="tex_village_green"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/village_yard_tiles_32.png" id="tex_village_yard"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/village_terrace_tiles_32.png" id="tex_village_terrace"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/grass_variants_tiles_32.png" id="tex_grass_variants"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/dirt_variants_tiles_32.png" id="tex_dirt_variants"]
+[ext_resource type="Texture2D" uid="uid://bl4e8i35rj2mo" path="res://assets/sprites/tiles/dirt_variants_tiles_32.png" id="tex_dirt_variants"]
+[ext_resource type="Texture2D" uid="uid://dreac5yk5bbd4" path="res://assets/sprites/tiles/grass_variants_tiles_32.png" id="tex_grass_variants"]
+[ext_resource type="Texture2D" uid="uid://cp8wkn2luy5hn" path="res://assets/sprites/tiles/village_green_tiles_32.png" id="tex_village_green"]
+[ext_resource type="Texture2D" uid="uid://cx1w8wfil3ics" path="res://assets/sprites/tiles/village_terrace_tiles_32.png" id="tex_village_terrace"]
+[ext_resource type="Texture2D" uid="uid://gqrln6gpxp5" path="res://assets/sprites/tiles/village_yard_tiles_32.png" id="tex_village_yard"]
 
 [sub_resource type="TileSetAtlasSource" id="atlas_village_green"]
 texture = ExtResource("tex_village_green")
