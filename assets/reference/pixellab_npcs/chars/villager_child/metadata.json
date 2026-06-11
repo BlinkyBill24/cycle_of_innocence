@@ -27,10 +27,95 @@
           "west": "small_cheerful_village_child_brown_messy_hair_with/rotations/west.png",
           "south-west": "small_cheerful_village_child_brown_messy_hair_with/rotations/south-west.png"
         },
-        "animations": {}
+        "animations": {
+          "animating": {
+            "west": [
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating/west/frame_000.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating/west/frame_001.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating/west/frame_002.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating/west/frame_003.png"
+            ]
+          },
+          "walking": {
+            "west": [
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking/west/frame_000.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking/west/frame_001.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking/west/frame_002.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking/west/frame_003.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking/west/frame_004.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking/west/frame_005.png"
+            ],
+            "east": [
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking/east/frame_000.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking/east/frame_001.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking/east/frame_002.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking/east/frame_003.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking/east/frame_004.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking/east/frame_005.png"
+            ]
+          },
+          "walking-7e75611d": {
+            "west": [
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-7e75611d/west/frame_000.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-7e75611d/west/frame_001.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-7e75611d/west/frame_002.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-7e75611d/west/frame_003.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-7e75611d/west/frame_004.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-7e75611d/west/frame_005.png"
+            ]
+          },
+          "animating-89c531ef": {
+            "south": [
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-89c531ef/south/frame_000.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-89c531ef/south/frame_001.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-89c531ef/south/frame_002.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-89c531ef/south/frame_003.png"
+            ]
+          },
+          "walking-8c9d102c": {
+            "south": [
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-8c9d102c/south/frame_000.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-8c9d102c/south/frame_001.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-8c9d102c/south/frame_002.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-8c9d102c/south/frame_003.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-8c9d102c/south/frame_004.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-8c9d102c/south/frame_005.png"
+            ],
+            "north": [
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-8c9d102c/north/frame_000.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-8c9d102c/north/frame_001.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-8c9d102c/north/frame_002.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-8c9d102c/north/frame_003.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-8c9d102c/north/frame_004.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/walking-8c9d102c/north/frame_005.png"
+            ]
+          },
+          "animating-b2829d12": {
+            "north": [
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-b2829d12/north/frame_000.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-b2829d12/north/frame_001.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-b2829d12/north/frame_002.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-b2829d12/north/frame_003.png"
+            ]
+          },
+          "animating-dbde32b8": {
+            "east": [
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-dbde32b8/east/frame_000.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-dbde32b8/east/frame_001.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-dbde32b8/east/frame_002.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-dbde32b8/east/frame_003.png"
+            ],
+            "west": [
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-dbde32b8/west/frame_000.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-dbde32b8/west/frame_001.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-dbde32b8/west/frame_002.png",
+              "small_cheerful_village_child_brown_messy_hair_with/animations/animating-dbde32b8/west/frame_003.png"
+            ]
+          }
+        }
       }
     }
   ],
   "export_version": "3.0",
-  "export_date": "2026-06-11T14:14:11.538352"
+  "export_date": "2026-06-11T15:41:26.328920"
 }

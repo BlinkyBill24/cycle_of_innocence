@@ -57,6 +57,17 @@ TILESETS = {
         "upper_description": "cold wild grass in deep dusk shadow, desaturated blue-green, uneasy mood",
         "transition_description": "healthy dusk grass sickening into cold shadowed grass",
     },
+    # village zone (village-life.md, mood anchor village_dusk_mood.png)
+    "village_green": {
+        "lower_description": "village green lawn grass at golden sunset, warm and tended, short blades",
+        "upper_description": "old cobblestone path, rounded grey stones with thin moss lines between",
+        "transition_description": "lawn edge meeting cobblestones, a few stray stones in the grass",
+    },
+    "village_yard": {
+        "lower_description": "village green lawn grass at golden sunset, warm and tended, short blades",
+        "upper_description": "packed dirt yard, swept dry earth with faint broom marks",
+        "transition_description": "grass thinning into trodden bare earth",
+    },
 }
 
 

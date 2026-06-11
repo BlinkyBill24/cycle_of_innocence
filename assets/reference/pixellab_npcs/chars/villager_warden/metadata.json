@@ -27,10 +27,93 @@
           "west": "heavyset_village_warden_long_slate-blue_oilskin_co/rotations/west.png",
           "south-west": "heavyset_village_warden_long_slate-blue_oilskin_co/rotations/south-west.png"
         },
-        "animations": {}
+        "animations": {
+          "animating": {
+            "north": [
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating/north/frame_000.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating/north/frame_001.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating/north/frame_002.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating/north/frame_003.png"
+            ],
+            "south": [
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating/south/frame_000.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating/south/frame_001.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating/south/frame_002.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating/south/frame_003.png"
+            ]
+          },
+          "walking": {
+            "west": [
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking/west/frame_000.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking/west/frame_001.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking/west/frame_002.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking/west/frame_003.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking/west/frame_004.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking/west/frame_005.png"
+            ]
+          },
+          "walking-462b775e": {
+            "north": [
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-462b775e/north/frame_000.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-462b775e/north/frame_001.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-462b775e/north/frame_002.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-462b775e/north/frame_003.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-462b775e/north/frame_004.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-462b775e/north/frame_005.png"
+            ],
+            "south": [
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-462b775e/south/frame_000.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-462b775e/south/frame_001.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-462b775e/south/frame_002.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-462b775e/south/frame_003.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-462b775e/south/frame_004.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-462b775e/south/frame_005.png"
+            ]
+          },
+          "walking-88b42d49": {
+            "west": [
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-88b42d49/west/frame_000.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-88b42d49/west/frame_001.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-88b42d49/west/frame_002.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-88b42d49/west/frame_003.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-88b42d49/west/frame_004.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-88b42d49/west/frame_005.png"
+            ],
+            "east": [
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-88b42d49/east/frame_000.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-88b42d49/east/frame_001.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-88b42d49/east/frame_002.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-88b42d49/east/frame_003.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-88b42d49/east/frame_004.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/walking-88b42d49/east/frame_005.png"
+            ]
+          },
+          "animating-a52f5bc7": {
+            "north": [
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating-a52f5bc7/north/frame_000.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating-a52f5bc7/north/frame_001.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating-a52f5bc7/north/frame_002.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating-a52f5bc7/north/frame_003.png"
+            ]
+          },
+          "animating-bdb5fef1": {
+            "west": [
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating-bdb5fef1/west/frame_000.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating-bdb5fef1/west/frame_001.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating-bdb5fef1/west/frame_002.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating-bdb5fef1/west/frame_003.png"
+            ],
+            "east": [
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating-bdb5fef1/east/frame_000.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating-bdb5fef1/east/frame_001.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating-bdb5fef1/east/frame_002.png",
+              "heavyset_village_warden_long_slate-blue_oilskin_co/animations/animating-bdb5fef1/east/frame_003.png"
+            ]
+          }
+        }
       }
     }
   ],
   "export_version": "3.0",
-  "export_date": "2026-06-11T14:14:20.396089"
+  "export_date": "2026-06-11T15:35:23.441411"
 }

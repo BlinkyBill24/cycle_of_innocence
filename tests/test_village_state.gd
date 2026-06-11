@@ -85,6 +85,16 @@ func test_suspicion_survives_save_round_trip() -> void:
 	assert_true(VillageState.has_reported(&"marta_farmer"), "report flag persists")
 
 
+func test_villager_sheets_have_every_routine_animation() -> void:
+	for archetype in ["villager_parent", "villager_warden", "villager_elder", "villager_child"]:
+		var frames: SpriteFrames = load("res://assets/resources/npcs/%s_frames.tres" % archetype)
+		assert_not_null(frames, archetype)
+		for anim in ["walk", "idle"]:
+			for direction in ["down", "up", "right", "left"]:
+				assert_true(frames.has_animation("%s_%s" % [anim, direction]),
+						"%s has %s_%s" % [archetype, anim, direction])
+
+
 # --- villager scene ---
 
 func test_villager_walks_to_scheduled_marker() -> void:

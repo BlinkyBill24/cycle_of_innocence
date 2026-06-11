@@ -220,7 +220,7 @@ def download() -> None:
     st = state()
     for name, info in st.items():
         cid = info.get("character_id")
-        if not cid:
+        if not cid or name.endswith("_discarded"):
             continue
         dest = OUT / "chars" / name
         dest.mkdir(parents=True, exist_ok=True)

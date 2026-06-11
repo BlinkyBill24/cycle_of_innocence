@@ -27,10 +27,75 @@
           "west": "elderly_village_priest_layered_olive_and_purple_wo/rotations/west.png",
           "south-west": "elderly_village_priest_layered_olive_and_purple_wo/rotations/south-west.png"
         },
-        "animations": {}
+        "animations": {
+          "animating": {
+            "north": [
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating/north/frame_000.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating/north/frame_001.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating/north/frame_002.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating/north/frame_003.png"
+            ],
+            "south": [
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating/south/frame_000.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating/south/frame_001.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating/south/frame_002.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating/south/frame_003.png"
+            ]
+          },
+          "walking": {
+            "north": [
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking/north/frame_000.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking/north/frame_001.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking/north/frame_002.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking/north/frame_003.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking/north/frame_004.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking/north/frame_005.png"
+            ],
+            "south": [
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking/south/frame_000.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking/south/frame_001.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking/south/frame_002.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking/south/frame_003.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking/south/frame_004.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking/south/frame_005.png"
+            ]
+          },
+          "animating-6782de8e": {
+            "west": [
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating-6782de8e/west/frame_000.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating-6782de8e/west/frame_001.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating-6782de8e/west/frame_002.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating-6782de8e/west/frame_003.png"
+            ],
+            "east": [
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating-6782de8e/east/frame_000.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating-6782de8e/east/frame_001.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating-6782de8e/east/frame_002.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/animating-6782de8e/east/frame_003.png"
+            ]
+          },
+          "walking-8268a75d": {
+            "east": [
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking-8268a75d/east/frame_000.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking-8268a75d/east/frame_001.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking-8268a75d/east/frame_002.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking-8268a75d/east/frame_003.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking-8268a75d/east/frame_004.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking-8268a75d/east/frame_005.png"
+            ],
+            "west": [
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking-8268a75d/west/frame_000.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking-8268a75d/west/frame_001.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking-8268a75d/west/frame_002.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking-8268a75d/west/frame_003.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking-8268a75d/west/frame_004.png",
+              "elderly_village_priest_layered_olive_and_purple_wo/animations/walking-8268a75d/west/frame_005.png"
+            ]
+          }
+        }
       }
     }
   ],
   "export_version": "3.0",
-  "export_date": "2026-06-11T14:14:22.807368"
+  "export_date": "2026-06-11T15:35:27.952257"
 }

@@ -27,10 +27,85 @@
           "west": "adult_village_farmer_tired_kind_face_straw_hat_bei/rotations/west.png",
           "south-west": "adult_village_farmer_tired_kind_face_straw_hat_bei/rotations/south-west.png"
         },
-        "animations": {}
+        "animations": {
+          "walking": {
+            "north": [
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking/north/frame_000.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking/north/frame_001.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking/north/frame_002.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking/north/frame_003.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking/north/frame_004.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking/north/frame_005.png"
+            ],
+            "south": [
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking/south/frame_000.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking/south/frame_001.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking/south/frame_002.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking/south/frame_003.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking/south/frame_004.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking/south/frame_005.png"
+            ]
+          },
+          "animating": {
+            "east": [
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating/east/frame_000.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating/east/frame_001.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating/east/frame_002.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating/east/frame_003.png"
+            ],
+            "west": [
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating/west/frame_000.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating/west/frame_001.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating/west/frame_002.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating/west/frame_003.png"
+            ]
+          },
+          "walking-be9fd688": {
+            "east": [
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-be9fd688/east/frame_000.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-be9fd688/east/frame_001.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-be9fd688/east/frame_002.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-be9fd688/east/frame_003.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-be9fd688/east/frame_004.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-be9fd688/east/frame_005.png"
+            ],
+            "west": [
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-be9fd688/west/frame_000.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-be9fd688/west/frame_001.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-be9fd688/west/frame_002.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-be9fd688/west/frame_003.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-be9fd688/west/frame_004.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-be9fd688/west/frame_005.png"
+            ]
+          },
+          "walking-c97f68b5": {
+            "west": [
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-c97f68b5/west/frame_000.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-c97f68b5/west/frame_001.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-c97f68b5/west/frame_002.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-c97f68b5/west/frame_003.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-c97f68b5/west/frame_004.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/walking-c97f68b5/west/frame_005.png"
+            ]
+          },
+          "animating-f1fb33d3": {
+            "north": [
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating-f1fb33d3/north/frame_000.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating-f1fb33d3/north/frame_001.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating-f1fb33d3/north/frame_002.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating-f1fb33d3/north/frame_003.png"
+            ],
+            "south": [
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating-f1fb33d3/south/frame_000.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating-f1fb33d3/south/frame_001.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating-f1fb33d3/south/frame_002.png",
+              "adult_village_farmer_tired_kind_face_straw_hat_bei/animations/animating-f1fb33d3/south/frame_003.png"
+            ]
+          }
+        }
       }
     }
   ],
   "export_version": "3.0",
-  "export_date": "2026-06-11T14:14:19.828925"
+  "export_date": "2026-06-11T15:35:18.412234"
 }
