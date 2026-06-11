@@ -88,3 +88,41 @@ Two Briar animations the quirk system expressed only via SFX/sit until now
 - `dusk_press` (east, once 6fps) — bond quirk at dusk/night, falls back to
   head_bump if missing: "leaning its whole body sideways against a person's
   leg, pressing close for comfort, tail low"
+
+## Village life batch (2026-06-11, branch feature/village-art-bibles)
+
+Humans for village-life.md (grok-imagine-image-quality, 2k, magenta chroma-key).
+Moderation notes: "horror undertone" + child in one prompt → rejected; child
+sheet reworded fully wholesome (the horror is contextual, not in the sprite).
+The mood scene tripped OUTPUT moderation twice even with benign wording —
+third phrasing ("cozy... sunset... festival") passed.
+
+### B1 — Farmer parent (base villager, palette-swap archetype)
+```
+retro pixel art top-down 32x32 character reference sheet, SNES Zelda style with creeping horror undertone, adult villager farmer parent in their 30s, plain rural work clothes with apron and rolled sleeves, tired kind face that never asks questions, posture of someone who chose not to see, 4-8 views (front back left right + 3/4 angles), A-pose + one carrying-basket pose + one hands-clasped celebration pose, limited 24-color palette desaturated rural earth tones with one cheerful festival ribbon accent that feels slightly wrong, palette swatches bottom row, note space for male and female variant heads, solid magenta #FF00FF background (chroma-key), crisp pixels no anti-aliasing
+```
+Save as: `assets/reference/villager_parent_bible.png`
+
+### B2 — Warden (stage-2 patrol figure)
+```
+retro pixel art top-down 32x32 character reference sheet, SNES Zelda style horror-tinged, village Warden patrol figure, heavyset adult in long oilskin coat and wide-brim hat, carved wooden lantern pole with a small bell, stitched festival armband with cheerful colors gone grimy, face half-shadowed under the hat, silhouette must read instantly as someone to avoid, 4-8 views (front back left right + 3/4 angles), standing watch pose + walking patrol pose + raised-lantern searching pose, limited 24-color palette cold slate blues and oilskin browns with one sickly festival-yellow armband accent, palette swatches bottom row, solid magenta #FF00FF background (chroma-key), crisp pixels no anti-aliasing
+```
+Save as: `assets/reference/villager_warden_bible.png`
+
+### B3 — Elder / Harmony-lottery priest
+```
+retro pixel art top-down 32x32 character reference sheet, SNES Zelda style with quiet horror, village Elder priest of the Harmony lottery, gentle grandfatherly figure in layered rural vestments with small stitched stuffed-animal charms hanging from the sash, kind open-armed posture that looks trustworthy but reads wrong in hindsight, ceremonial wooden clapper instead of a bell, 4-8 views (front back left right + 3/4 angles), blessing pose + leaning-on-staff pose, limited 24-color palette warm parchment and faded festival colors with one deep ritual red accent, palette swatches bottom row, solid magenta #FF00FF background (chroma-key), crisp pixels no anti-aliasing
+```
+Save as: `assets/reference/villager_elder_bible.png`
+
+### B4 — Village child (still allowed to play)
+```
+retro pixel art top-down 32x32 character reference sheet, cozy SNES Zelda style, cheerful village child around 8 years old, patched bright rural clothes, small stuffed toy bunny held by one arm, carefree run pose + sitting-on-bench pose + waving pose, 4-6 views (front back left right), limited 20-color palette bright and warm, one festival ribbon in hair, palette swatches bottom row, solid magenta #FF00FF background (chroma-key), crisp pixels no anti-aliasing
+```
+Save as: `assets/reference/villager_child_bible.png`
+
+### B5 — Village establishing mood (palette/architecture anchor for the zone)
+```
+retro pixel art game scene, top-down wide view of a cozy rural village green at sunset, SNES RPG style, half-timbered cottages with thatched roofs, a little chapel with bell tower, colorful festival bunting and glowing paper lanterns between the houses, village well and market stalls on the green, warm golden window lights, soft blue evening sky, a small playground with swings visible at the village edge, limited 32-color palette, crisp pixels no anti-aliasing
+```
+Save as: `assets/reference/village_dusk_mood.png` (16:9 — scene, no chroma-key)
