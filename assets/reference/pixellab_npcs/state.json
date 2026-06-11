@@ -1,0 +1,18 @@
+{
+ "villager_parent": {
+  "create_job": "f5a32243-4d02-46cb-a462-09765e3634f4",
+  "character_id": "5aafca42-f7ab-4f00-b335-3f07c5e8c770"
+ },
+ "villager_warden": {
+  "create_job": "8929577d-5071-4d1f-983e-b0609e200e30",
+  "character_id": "d6089407-7cc4-4cee-a45d-1db6344c9b48"
+ },
+ "villager_elder": {
+  "create_job": "94ccaccc-b2a7-4f2b-8923-a709c6a8ccbd",
+  "character_id": "87387bee-3a8a-4353-8b0a-8c2a3572a520"
+ },
+ "villager_child": {
+  "create_job": "65c95261-9ae4-432b-a1c2-4c8b0a1bc3d9",
+  "character_id": "da34403a-e6cf-4cf9-9bb1-132d53c5e969"
+ }
+}
