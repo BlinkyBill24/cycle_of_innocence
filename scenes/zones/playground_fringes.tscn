@@ -325,6 +325,9 @@ script = ExtResource("16_hud")
 [node name="TouchControls" type="CanvasLayer" parent="."]
 script = ExtResource("17_touch")
 
+[node name="EntryFromVillage" type="Node2D" parent="." groups=["entry_from_village_edge"]]
+position = Vector2(-640, 0)
+
 [node name="NameEntry" type="CanvasLayer" parent="."]
 script = ExtResource("21_name_entry")
 
