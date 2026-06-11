@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://zoneplayfringe1"]
+[gd_scene load_steps=49 format=3 uid="uid://zoneplayfringe1"]
 
 [ext_resource type="Script" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -24,6 +24,7 @@
 [ext_resource type="SpriteFrames" path="res://assets/resources/npcs/villager_warden_frames.tres" id="31_warden_frames"]
 [ext_resource type="Script" path="res://scripts/world/zone_recontext.gd" id="32_recontext"]
 [ext_resource type="Script" path="res://scripts/world/whisper_spot.gd" id="33_whisper"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/playground_ground_backdrop.png" id="34_backdrop"]
 [ext_resource type="Texture2D" path="res://assets/sprites/props/swing_set.png" id="22_swing"]
 [ext_resource type="Texture2D" path="res://assets/sprites/props/slide.png" id="23_slide"]
 [ext_resource type="Texture2D" path="res://assets/sprites/props/roundabout.png" id="24_roundabout"]
@@ -85,6 +86,9 @@ zone_id = &"playground_fringes"
 
 [node name="Ground" type="TileMapLayer" parent="."]
 tile_set = ExtResource("2_tileset")
+
+[node name="GroundBackdrop" type="Sprite2D" parent="."]
+texture = ExtResource("34_backdrop")
 
 [node name="DuskTint" type="CanvasModulate" parent="."]
 color = Color(0.38, 0.34, 0.44, 1)

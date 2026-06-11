@@ -100,8 +100,6 @@ def main():
     out = Image.open("assets/sprites/village/village_ground_backdrop.png").convert("RGB")
     out = out.convert("RGBA")
     cx, cy = WIDTH * TILE // 2, HEIGHT * TILE // 2
-    court = Image.open("assets/sprites/village/chapel_courtyard.png").convert("RGBA")
-    out.alpha_composite(court, (cx + 16 - court.width // 2, cy - 352 - court.height // 2))
     props_sorted = sorted(placements.PLACEMENTS, key=lambda p: p[3])
     shadow_layer = Image.new("RGBA", out.size, (0, 0, 0, 0))
     draw = ImageDraw.Draw(shadow_layer)
