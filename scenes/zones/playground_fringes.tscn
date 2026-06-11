@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://zoneplayfringe1"]
+[gd_scene load_steps=48 format=3 uid="uid://zoneplayfringe1"]
 
 [ext_resource type="Script" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -22,6 +22,8 @@
 [ext_resource type="Script" path="res://scripts/ui/name_entry.gd" id="21_name_entry"]
 [ext_resource type="PackedScene" uid="uid://villagernpc001" path="res://scenes/npcs/villager.tscn" id="30_villager"]
 [ext_resource type="SpriteFrames" path="res://assets/resources/npcs/villager_warden_frames.tres" id="31_warden_frames"]
+[ext_resource type="Script" path="res://scripts/world/zone_recontext.gd" id="32_recontext"]
+[ext_resource type="Script" path="res://scripts/world/whisper_spot.gd" id="33_whisper"]
 [ext_resource type="Texture2D" path="res://assets/sprites/props/swing_set.png" id="22_swing"]
 [ext_resource type="Texture2D" path="res://assets/sprites/props/slide.png" id="23_slide"]
 [ext_resource type="Texture2D" path="res://assets/sprites/props/roundabout.png" id="24_roundabout"]
@@ -30,6 +32,9 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/props/dead_tree_a.png" id="27_tree_a"]
 [ext_resource type="Texture2D" path="res://assets/sprites/props/dead_tree_b.png" id="28_tree_b"]
 [ext_resource type="Texture2D" path="res://assets/sprites/props/toy_duck.png" id="29_duck"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_whisper"]
+radius = 56.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_prop_wide"]
 size = Vector2(64, 12)
@@ -347,6 +352,19 @@ position = Vector2(-340, -120)
 
 [node name="MarkerSearchPath" type="Node2D" parent="." groups=["marker_search_path"]]
 position = Vector2(-60, 30)
+
+[node name="Recontext" type="Node" parent="."]
+script = ExtResource("32_recontext")
+
+[node name="SandboxWhisper" type="Area2D" parent="." groups=["recontext_monsters_are_children"]]
+position = Vector2(-368, -200)
+script = ExtResource("33_whisper")
+spot_id = &"sandbox_handprints"
+text = "The sand is full of small handprints. None of them lead away."
+dread_on_hear = 8.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SandboxWhisper"]
+shape = SubResource("CircleShape2D_whisper")
 
 [node name="NameEntry" type="CanvasLayer" parent="."]
 script = ExtResource("21_name_entry")
