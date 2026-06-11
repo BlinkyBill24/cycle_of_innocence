@@ -35,12 +35,16 @@ func _on_body_entered(body: Node2D) -> void:
 		player_inside = true
 		DreadManager.reduce_dread(10.0)  # the fire pushes the dark back a little
 		AdaptiveAudio.set_hideout(true)
+		if GameEvents:
+			GameEvents.hideout_entered.emit()
 
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		player_inside = false
 		AdaptiveAudio.set_hideout(false)
+		if GameEvents:
+			GameEvents.hideout_exited.emit()
 
 
 ## Player interact inside the camp: near the fire = rest; near Briar = play.

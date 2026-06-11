@@ -71,10 +71,16 @@ func _ready() -> void:
 	health.died.connect(_on_died)
 	hurtbox.hit_received.connect(_on_hit_received)
 	_init_hsm()
+	if GameEvents:
+		GameEvents.hollowing_stage_advanced.connect(_on_hollowing_advanced)
 	if PlayerData.has_story_flag(_stilled_flag()):
-		stilled = true
-		recognition = RECOGNITION_MAX
-		hsm.dispatch(&"stilled")
+		if HollowingClock.stage >= HollowingClock.RE_AGGRO_STAGE:
+			# Frenzy world: the Hunger already took it back while Rowan was away
+			PlayerData.story_flags.erase(_stilled_flag())
+		else:
+			stilled = true
+			recognition = RECOGNITION_MAX
+			hsm.dispatch(&"stilled")
 
 
 func _init_hsm() -> void:
@@ -104,6 +110,7 @@ func _init_hsm() -> void:
 	hsm.add_transition(hsm.ANYSTATE, _state_hurt, &"hit")
 	hsm.add_transition(_state_hurt, _state_chase, &"recovered")
 	hsm.add_transition(hsm.ANYSTATE, _state_stilled, &"stilled")
+	hsm.add_transition(_state_stilled, _state_patrol, &"hunger_reasserts")
 	hsm.add_transition(hsm.ANYSTATE, _state_dominated, &"dominated")
 	hsm.add_transition(_state_hurt, _state_dominated, &"recovered_dominated")
 
@@ -150,7 +157,8 @@ func can_see_player() -> bool:
 	var player := get_player()
 	if player == null or stilled or dominated:
 		return false
-	if distance_to_player() > detection_radius:
+	# the world hunts harder as the Hollowing advances
+	if distance_to_player() > detection_radius * (1.0 + 0.1 * HollowingClock.stage):
 		return false
 	los_ray.target_position = to_local(player.global_position)
 	los_ray.force_raycast_update()
@@ -384,6 +392,17 @@ func _become_dominated() -> void:
 
 
 # --- reactions ---
+
+## Frenzy undoes mercy (hollowing-clock.md stage 3): not the player's blow —
+## no betrayal cost — but the calm is gone and the child hunts again.
+func _on_hollowing_advanced(new_stage: int) -> void:
+	if new_stage >= HollowingClock.RE_AGGRO_STAGE and stilled:
+		stilled = false
+		recognition = 0.0
+		collision_mask = 7
+		PlayerData.story_flags.erase(_stilled_flag())
+		hsm.dispatch(&"hunger_reasserts")
+
 
 func _on_hit_received(hitbox: Hitbox) -> void:
 	if stilled:

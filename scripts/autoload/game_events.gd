@@ -23,6 +23,9 @@ signal stilled_led_to_secret(stable_id: StringName, spot_id: StringName)
 signal horror_stinger(trigger: StringName)  # e.g. "first_revelation", "animal_fear"
 signal dread_zone_entered(zone_id: StringName)
 signal dread_zone_exited(zone_id: StringName)
+signal hollowing_stage_advanced(stage: int)
+signal hideout_entered
+signal hideout_exited
 
 signal exploration_paused
 signal exploration_resumed

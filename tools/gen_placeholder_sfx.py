@@ -71,3 +71,20 @@ swell = tone(lambda t: 55 + 8 * t, 1.6, decay=0.35)
 stinger = [(creak[i] * 0.55 if i < len(creak) else 0.0) + swell[i] * 0.7
            for i in range(len(swell))]
 write_wav("toy_creak_stinger", stinger)
+
+
+# hollowing bell: distant church bell, two slow tolls (inharmonic partials)
+def bell(dur: float, f0: float) -> list[float]:
+    n = int(SR * dur)
+    partials = [(0.56, 0.5), (0.92, 1.0), (1.19, 0.55), (1.71, 0.3), (2.0, 0.45), (2.74, 0.2)]
+    out = []
+    for i in range(n):
+        t = i / SR
+        s = sum(a * math.sin(2 * math.pi * f0 * r * t) * math.exp(-t * (1.2 + r))
+                for r, a in partials)
+        out.append(s * 0.28)
+    return out
+
+
+toll = bell(2.2, 160.0)
+write_wav("hollowing_bell", toll + [0.0] * int(SR * 0.7) + toll)

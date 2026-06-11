@@ -10,6 +10,7 @@ const STREAMS := {
 	&"whimper": preload("res://assets/audio/sfx/briar_whimper.wav"),
 	&"bark": preload("res://assets/audio/sfx/briar_bark.wav"),
 	&"stinger_toy": preload("res://assets/audio/sfx/toy_creak_stinger.wav"),
+	&"bell_toll": preload("res://assets/audio/sfx/hollowing_bell.wav"),
 	&"lullaby": preload("res://assets/audio/stems/lullaby_motif.ogg"),
 }
 const POOL_SIZE := 8

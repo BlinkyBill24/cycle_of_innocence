@@ -2,7 +2,7 @@
 name: The Hollowing Clock (Doom Escalation)
 date: 2026-06-10
 tags: [feature, mechanics, narrative, horror, world-state]
-status: planned
+status: implemented
 related_decisions: "[[decisions/2026-06-10-new-features-and-ai-setup]]"
 ---
 
@@ -46,6 +46,13 @@ Mechanizes the story bible's "delayed alarm" beat: the village does not yet know
 - NG+ starts at stage 0 but with `$knew_it_was_coming` echoes (NPCs uneasy around Rowan).
 - Stage must never advance mid-dialogue or mid-hideout; queue and fire on zone transition.
 - Anti-frustration: stage 2+ always leaves at least one safe route to the current objective.
+
+## Implementation notes (2026-06-11, branch feature/hollowing-clock)
+- `HollowingClock` autoload: `stage` (QUIET→HOLLOWING), milestones (revelations, age-ups — once per id) + Alarm points (kill +25, betrayal +40, domination +35, stilling **−20**; 100 = one stage early, overflow carries).
+- Queue rule enforced: never advances mid-dialogue (`exploration_paused`) or inside the hideout (`hideout_entered/exited` on GameEvents); fires on resume.
+- Stage feedback: distant bell toll (`hollowing_bell.wav`), Briar whimper (early warning), +12 dread, `horror_stinger`. No UI — debug label shows stage during dev (key H = +1 stage).
+- Consequences live now: **Frenzy (3) un-stills every Stilled monster** (no betrayal cost — the Hunger's doing; `spared_` history kept); **Alarm (2) spawns the emergency-ritual child** in the deep fringes (`spareable=false` — the player could not save it); night dread floor 20 + 5×stage; enemy detection radius ×(1 + 0.1×stage).
+- Persisted in saves (stage, points, pending, consumed milestones). Dialogue can gate on `HollowingClock.stage` directly.
 
 ## Related
 - [[story/bible]] · [[story/endings]] · [[mechanics/encounters-mercy]] · [[mechanics/day-night-hideout]] · [[mechanics/horror-and-dread]]

@@ -15,8 +15,13 @@ const TILE_SAND := Vector2i(4, 0)
 const WIDTH := 44
 const HEIGHT := 26
 
+const TWISTED_CHILD := preload("res://scenes/enemies/twisted_child.tscn")
+const EMERGENCY_SPAWN := Vector2(640, 250)  # deep fringes, east
+
 @onready var ground: TileMapLayer = $Ground
 @onready var tint: CanvasModulate = $DuskTint
+
+var _emergency_spawned := false
 
 
 func _ready() -> void:
@@ -24,6 +29,28 @@ func _ready() -> void:
 	_paint_ground()
 	tint.color = WorldState.palette()
 	WorldState.time_changed.connect(_on_time_changed)
+	GameEvents.hollowing_stage_advanced.connect(_on_hollowing_advanced)
+	if HollowingClock.stage >= HollowingClock.Stage.ALARM:
+		_spawn_emergency_child()
+
+
+func _on_hollowing_advanced(stage: int) -> void:
+	if stage >= HollowingClock.Stage.ALARM:
+		_spawn_emergency_child()
+
+
+## Stage 2 consequence (hollowing-clock.md): the first emergency ritual — a
+## new monster the player could not save. Not spareable; the cost of delay.
+func _spawn_emergency_child() -> void:
+	if _emergency_spawned:
+		return
+	_emergency_spawned = true
+	var child: EnemyBase = TWISTED_CHILD.instantiate()
+	child.stable_id = &"emergency_child_01"
+	child.spareable = false
+	child.position = EMERGENCY_SPAWN
+	child.modulate = Color(0.72, 0.66, 0.78)  # already further gone
+	add_child(child)
 
 
 func _on_time_changed(_time: int, _day: int) -> void:

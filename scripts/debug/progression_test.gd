@@ -20,6 +20,7 @@ func _ready() -> void:
 	PlayerData.corruption_changed.connect(func(_id, _v): _refresh_label())
 	DreadManager.dread_changed.connect(func(_v, _d): _refresh_label())
 	WorldState.time_changed.connect(func(_t2, _d2): _refresh_label())
+	HollowingClock.stage_advanced.connect(func(_s): _refresh_label())
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -47,6 +48,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			DreadManager.add_dread(20.0, &"debug")
 		KEY_T:
 			WorldState.advance_time()
+		KEY_H:
+			HollowingClock.add_alarm(HollowingClock.ALARM_THRESHOLD)
 		KEY_K:
 			SaveManager.save_game()
 		KEY_L:
@@ -56,6 +59,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			PlayerData.reset_to_defaults()
 			DreadManager.reset()
 			WorldState.reset()
+			HollowingClock.reset()
 			get_tree().reload_current_scene()
 
 
@@ -72,10 +76,11 @@ func _refresh_label() -> void:
 		]
 		+ "Briar bond: %.0f | corruption: %.0f\n" % [briar.get("bond", 0.0), briar.get("corruption", 0.0)]
 		+ "Dread: %.0f (%s) | HP: %d/%d | %s day %d\n" % [DreadManager.dread, DreadManager.get_tier_name(), PlayerData.current_hp, PlayerData.max_hp, WorldState.TimeOfDay.keys()[WorldState.time_of_day], WorldState.day]
+		+ "Hollowing: %d (%s) | alarm %.0f\n" % [HollowingClock.stage, HollowingClock.stage_name(), HollowingClock.alarm_points]
 		+ _enemy_line()
 		+ "Keys: 1/2 morality ±15 | 3 teen 4 adult 5 child\n"
 		+ "6 bond+10 | 7 corruption+15 | 8 revelation | 9 dread+20 | 0 reset\n"
-		+ "K save | L load | T time | E dig/soothe/rest/play"
+		+ "K save | L load | T time | H hollow+1 | E dig/soothe/rest/play"
 	)
 
 
