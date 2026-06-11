@@ -2,7 +2,7 @@
 name: Interface Horror (Dialogue Distortion + Control Degradation)
 date: 2026-06-10
 tags: [feature, mechanics, horror, dialogue, accessibility]
-status: planned
+status: implemented (v1 2026-06-11, branch feature/interface-horror)
 related_decisions: "[[decisions/2026-06-10-recent-games-research-greenlight]]"
 ---
 
@@ -33,6 +33,12 @@ Corruption and dread reach through the fourth wall via the two channels the play
 ## Data model / tech
 - `DreadManager` (planned autoload) exposes `interface_pressure: float`; player controller + dialogue balloon read it.
 - Dialogue: `[if PlayerData.get_morality_tier() == PlayerData.MoralityTier.VESSEL]` response variants.
+
+## Implementation notes (2026-06-11, v1)
+- `DreadManager.interface_pressure()` — pure rule `interface_pressure_rule(dread, morality, intensity)`: dread ramps over [85,100], morality (Rowan's own corruption proxy) over [70,100], max of both × intensity; hard 0 below intensity 0.4. "Marked zones" deferred until zones carry a marked flag.
+- Spikes (`player_controller.gd`): scheduler rolls `pressure * delta * 0.6` per frame with a 9s cooldown; spike = 0.8–2.0s of 1–3 frame input lag (FIFO buffer), ONE eaten attack press, walk `speed_scale` ×0.8. Skipped when FPS < 45 (mobile contract). Frozen during CUTSCENE (menus/dialogue never degrade).
+- Dialogue distortion: `escape_food.dialogue` Vessel variants per choice — mutations stay outside the conditional (identical flags/morality/bond), distorted lines styled `[color=#b39ddb][shake]` (the always-on cue), Briar reacts to what was *said* (whimper + reaction beat).
+- Tests: `tests/test_interface_horror.gd` (pressure rule, spike behaviors, both dialogue paths).
 
 ## Related
 [[mechanics/horror-and-dread]] · [[mechanics/companion-quirks]] · [[design/customization]] (accessibility) · [[design/feature-candidates-2026-06]]

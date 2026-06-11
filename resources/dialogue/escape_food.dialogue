@@ -7,22 +7,37 @@
 	do PlayerData.change_morality(-10.0)
 	do PlayerData.add_companion_bond("briar", 10.0)
 	do PlayerData.set_story_flag("food_shared")
-	{{PlayerData.custom_name}}: Here. Half for you. We both run on it as far as it goes.
-	{{PlayerData.custom_name}}: *He eats from my hand, careful, like he expects it to be taken back. When it isn't, his tail thumps once.*
-	{{PlayerData.custom_name}}: *It's the first warm thing all night.*
+	if PlayerData.get_morality_tier_name() == "vessel"
+		{{PlayerData.custom_name}}: [color=#b39ddb][shake rate=10 level=3]Here. Half. Eat it while it is offered.[/shake][/color]
+		{{PlayerData.custom_name}}: *That wasn't how I meant it. Flatter. Older. Briar's ears go back — he eats from the ground, not from my hand.*
+		do Sfx.play("whimper", -8.0)
+	else
+		{{PlayerData.custom_name}}: Here. Half for you. We both run on it as far as it goes.
+		{{PlayerData.custom_name}}: *He eats from my hand, careful, like he expects it to be taken back. When it isn't, his tail thumps once.*
+		{{PlayerData.custom_name}}: *It's the first warm thing all night.*
 - Eat it alone
 	do PlayerData.change_morality(10.0)
 	do PlayerData.add_companion_bond("briar", -5.0)
 	do PlayerData.set_story_flag("food_kept")
-	{{PlayerData.custom_name}}: I'm sorry. I need it... or I won't be able to run anymore.
-	{{PlayerData.custom_name}}: *He lowers his head onto his paws and looks away. He doesn't whine.*
-	{{PlayerData.custom_name}}: *Somehow that's worse.*
+	if PlayerData.get_morality_tier_name() == "vessel"
+		{{PlayerData.custom_name}}: [color=#b39ddb][shake rate=10 level=3]Mine. Bodies that run get fed.[/shake][/color]
+		{{PlayerData.custom_name}}: *I wanted to say sorry. The sorry didn't come out. He backs away from me until the dark takes his eyes.*
+		do Sfx.play("whimper", -8.0)
+	else
+		{{PlayerData.custom_name}}: I'm sorry. I need it... or I won't be able to run anymore.
+		{{PlayerData.custom_name}}: *He lowers his head onto his paws and looks away. He doesn't whine.*
+		{{PlayerData.custom_name}}: *Somehow that's worse.*
 - Give him all of it
 	do PlayerData.change_morality(-15.0)
 	do PlayerData.add_companion_bond("briar", 15.0)
 	do PlayerData.set_story_flag("food_given_all")
-	{{PlayerData.custom_name}}: Take it. They didn't feed you either... I know how that feels.
-	{{PlayerData.custom_name}}: *He eats everything, then presses his whole shaking body against my leg and stays there.*
-	{{PlayerData.custom_name}}: *They wanted us both gone... so maybe we're stuck together now.*
+	if PlayerData.get_morality_tier_name() == "vessel"
+		{{PlayerData.custom_name}}: [color=#b39ddb][shake rate=10 level=3]Take it. Grow. You will be useful.[/shake][/color]
+		{{PlayerData.custom_name}}: *The kindness arrived wearing something else's grammar. He takes the bread to the far edge of the light to eat it.*
+		do Sfx.play("whimper", -8.0)
+	else
+		{{PlayerData.custom_name}}: Take it. They didn't feed you either... I know how that feels.
+		{{PlayerData.custom_name}}: *He eats everything, then presses his whole shaking body against my leg and stays there.*
+		{{PlayerData.custom_name}}: *They wanted us both gone... so maybe we're stuck together now.*
 {{PlayerData.custom_name}}: We can't stay here. The toys know the playground better than we do.
 => END

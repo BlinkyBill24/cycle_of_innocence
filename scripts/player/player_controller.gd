@@ -28,6 +28,16 @@ const HURT_DREAD := 7.0
 # press is still "just pressed" the frame control returns (playtest 2026-06-11).
 const POST_CUTSCENE_INPUT_GRACE := 0.15
 
+## Interface horror (interface-horror.md): under pressure the body resists —
+## brief input-lag pulses, ONE eaten attack press per spike, walk hitching.
+## Presentation only (no mechanical consequence); never longer than 2s; off
+## below the intensity gate and on poor frame rates (mobile contract).
+const SPIKE_MAX_SECONDS := 2.0
+const SPIKE_MIN_SECONDS := 0.8
+const SPIKE_COOLDOWN_SECONDS := 9.0
+const SPIKE_MIN_FPS := 45.0
+const SPIKE_HITCH_FACTOR := 0.8
+
 var movement_state: MovementState = MovementState.EXPLORING
 var age_stage: AgeStage = AgeStage.CHILD
 var morality: float = 0.0
@@ -35,6 +45,13 @@ var _facing: Vector2 = Vector2.DOWN
 var _action_anim_lock: bool = false
 var _footstep_timer: float = 0.0
 var _input_grace: float = 0.0
+
+var _spike_timer := 0.0
+var _spike_cooldown := 0.0
+var _spike_lag_frames := 0
+var _spike_ate_press := false
+var _spike_prev_speed_scale := 1.0
+var _lag_buffer: Array[Vector2] = []
 
 const SOOTHE_RANGE := 80.0
 const SOOTHE_RATE := 30.0  # recognition per second (≈3.3s to Still)
@@ -49,6 +66,8 @@ var _soothe_target: EnemyBase
 func _ready() -> void:
 	if animated_sprite:
 		animated_sprite.animation_finished.connect(_on_animation_finished)
+	if PlayerData.spawn_position == Vector2.ZERO:
+		PlayerData.spawn_position = global_position  # death respawn = scene spawn
 	_sync_from_player_data()
 	PlayerData.age_advanced.connect(_on_player_data_age_advanced)
 	PlayerData.morality_changed.connect(_on_player_data_morality_changed)
@@ -86,7 +105,10 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
+	_update_interface_spike(delta)
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	if _spike_timer > 0.0:
+		input_vector = _lagged_input(input_vector)
 
 	if input_vector != Vector2.ZERO:
 		_facing = input_vector.normalized()
@@ -104,7 +126,8 @@ func _physics_process(delta: float) -> void:
 
 	# Real-time attack (no pause menu)
 	if Input.is_action_just_pressed("attack") and movement_state == MovementState.EXPLORING:
-		perform_attack()
+		if not _spike_eats_press():
+			perform_attack()
 
 	if Input.is_action_just_pressed("interact") and movement_state == MovementState.EXPLORING:
 		_on_interact_pressed()
@@ -269,6 +292,58 @@ func _facing_suffix() -> String:
 	if absf(_facing.x) > absf(_facing.y):
 		return "right" if _facing.x > 0.0 else "left"
 	return "down" if _facing.y > 0.0 else "up"
+
+# --- interface horror spikes ---
+
+func _update_interface_spike(delta: float) -> void:
+	_spike_cooldown = maxf(_spike_cooldown - delta, 0.0)
+	if _spike_timer > 0.0:
+		_spike_timer -= delta
+		if _spike_timer <= 0.0:
+			_end_spike()
+		return
+	var pressure: float = DreadManager.interface_pressure()
+	if pressure <= 0.0 or _spike_cooldown > 0.0:
+		return
+	if Engine.get_frames_per_second() < SPIKE_MIN_FPS:
+		return  # input already heavy — never stack (accessibility contract)
+	if randf() < pressure * delta * 0.6:
+		start_interface_spike(pressure)
+
+
+func start_interface_spike(pressure: float) -> void:
+	_spike_timer = lerpf(SPIKE_MIN_SECONDS, SPIKE_MAX_SECONDS, clampf(pressure, 0.0, 1.0))
+	_spike_cooldown = SPIKE_COOLDOWN_SECONDS
+	_spike_lag_frames = 1 + int(round(clampf(pressure, 0.0, 1.0) * 2.0))  # 1-3
+	_spike_ate_press = false
+	_lag_buffer.clear()
+	if animated_sprite:
+		_spike_prev_speed_scale = animated_sprite.speed_scale
+		animated_sprite.speed_scale = _spike_prev_speed_scale * SPIKE_HITCH_FACTOR
+
+
+func _end_spike() -> void:
+	_spike_timer = 0.0
+	_lag_buffer.clear()
+	if animated_sprite:
+		animated_sprite.speed_scale = _spike_prev_speed_scale
+
+
+## The hand hesitates — at most one attack press dies per spike.
+func _spike_eats_press() -> bool:
+	if _spike_timer > 0.0 and not _spike_ate_press:
+		_spike_ate_press = true
+		return true
+	return false
+
+
+## 1-3 frames of input latency while a spike runs (the doc's latency pulse).
+func _lagged_input(raw: Vector2) -> Vector2:
+	_lag_buffer.push_back(raw)
+	if _lag_buffer.size() > _spike_lag_frames:
+		return _lag_buffer.pop_front()
+	return Vector2.ZERO
+
 
 var _attack_id := 0
 

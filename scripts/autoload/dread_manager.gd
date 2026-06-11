@@ -107,6 +107,29 @@ func get_presentation_strength() -> float:
 	return (dread / DREAD_MAX) * horror_intensity
 
 
+## --- interface horror (interface-horror.md) ---
+## Pressure on the player's words and hands. Presentation-tier: scaled by
+## horror_intensity and HARD-OFF below the accessibility gate.
+const INTERFACE_DREAD_FLOOR := 85.0
+const INTERFACE_VESSEL_FLOOR := 70.0
+const INTERFACE_INTENSITY_GATE := 0.4
+
+
+func interface_pressure() -> float:
+	return interface_pressure_rule(dread, PlayerData.morality, horror_intensity)
+
+
+## Pure rule, unit-tested: terror-band dread (>=85) or Vessel-bound morality
+## (>=70) ramp pressure to 0..1; below the intensity gate it is always 0.
+static func interface_pressure_rule(dread_value: float, morality: float,
+		intensity: float) -> float:
+	if intensity < INTERFACE_INTENSITY_GATE:
+		return 0.0
+	var dread_p := clampf(inverse_lerp(INTERFACE_DREAD_FLOOR, DREAD_MAX, dread_value), 0.0, 1.0)
+	var vessel_p := clampf(inverse_lerp(INTERFACE_VESSEL_FLOOR, 100.0, morality), 0.0, 1.0)
+	return maxf(dread_p, vessel_p) * intensity
+
+
 func set_horror_intensity(value: float) -> void:
 	horror_intensity = clampf(value, 0.0, 1.0)
 

@@ -85,6 +85,7 @@ func _rest(player: Node2D) -> void:
 	PlayerData.add_companion_corruption(briar_id, REST_CORRUPTION)
 	if player is PlayerController:
 		(player as PlayerController).health.restore_full()
+	PlayerData.spawn_position = player.global_position  # the camp is home now
 	SaveManager.save_game()
 	rested.emit()
 	await get_tree().create_timer(0.5).timeout
