@@ -73,6 +73,12 @@ func test_entry_placement_uses_matching_marker() -> void:
 	entry.add_to_group("entry_from_playground_fringes")
 	add_child_autofree(entry)
 	entry.global_position = Vector2(620, 0)
+	var companion := CharacterBody2D.new()
+	companion.add_to_group("companion")
+	add_child_autofree(companion)
+	companion.global_position = Vector2(-300, -180)  # scene-default, far away
 	ZoneManager.place_player_at_entry(self)
 	assert_eq(player.global_position, Vector2(620, 0), "spawned at the matching gate")
+	assert_lt(companion.global_position.distance_to(player.global_position), 40.0,
+			"the family crosses together")
 	assert_eq(ZoneManager.arriving_from, &"", "entry intent consumed")

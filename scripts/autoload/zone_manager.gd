@@ -55,3 +55,11 @@ func place_player_at_entry(zone: Node) -> void:
 		return
 	player.global_position = (entries[0] as Node2D).global_position
 	PlayerData.spawn_position = player.global_position
+	# the family crosses together — companions must not sprint over from
+	# their scene-default spot (playtest 2026-06-11)
+	var offset := Vector2(-20, 14)
+	for node in zone.get_tree().get_nodes_in_group("companion"):
+		var companion := node as Node2D
+		if companion:
+			companion.global_position = player.global_position + offset
+			offset = offset.rotated(TAU / 3.0)
