@@ -1,0 +1,126 @@
+extends GutTest
+## Village life core (village-life.md): schedule resolution with hollowing
+## shifts, suspicion -> alarm conversion (once per villager), gossip pools,
+## save round-trip.
+
+
+func before_each() -> void:
+	VillageState.reset()
+	HollowingClock.reset()
+	WorldState.reset()
+
+
+func after_each() -> void:
+	VillageState.reset()
+	HollowingClock.reset()
+	WorldState.reset()
+
+
+# --- schedules ---
+
+func test_normal_slot_resolves() -> void:
+	var slot := VillageState.resolve_slot(&"marta_farmer", WorldState.TimeOfDay.DAY, 0)
+	assert_eq(slot.marker, &"field_west")
+	assert_eq(slot.activity, &"work")
+
+
+func test_stage2_hardens_the_childs_routine() -> void:
+	var before := VillageState.resolve_slot(&"lena_child", WorldState.TimeOfDay.DAY, 0)
+	assert_eq(before.marker, &"green_center", "stage 0: children still play outside")
+	var after := VillageState.resolve_slot(&"lena_child", WorldState.TimeOfDay.DAY, 2)
+	assert_eq(after.marker, &"house_marta", "stage 2: kept indoors")
+
+
+func test_stage3_stops_a_routine_entirely() -> void:
+	var slot := VillageState.resolve_slot(&"marta_farmer", WorldState.TimeOfDay.DAY, 3)
+	assert_true(slot.is_empty(), "the empty bench at the usual hour")
+
+
+func test_unknown_npc_resolves_empty() -> void:
+	assert_true(VillageState.resolve_slot(&"nobody", WorldState.TimeOfDay.DAY, 0).is_empty())
+
+
+# --- suspicion ---
+
+func test_suspicion_threshold_reports_exactly_once() -> void:
+	watch_signals(VillageState)
+	var alarm_before: float = HollowingClock.alarm_points
+	VillageState.add_suspicion(&"warden_brek", 60.0)
+	assert_eq(HollowingClock.alarm_points, alarm_before, "below threshold: no report")
+	VillageState.add_suspicion(&"warden_brek", 60.0)
+	assert_signal_emitted_with_parameters(VillageState, "villager_reported", [&"warden_brek"])
+	var alarm_after_report: float = HollowingClock.alarm_points
+	assert_gt(alarm_after_report, alarm_before, "the clock hears the talk")
+	VillageState.add_suspicion(&"warden_brek", 60.0)
+	assert_eq(HollowingClock.alarm_points, alarm_after_report, "never reports twice")
+
+
+func test_time_decays_suspicion() -> void:
+	VillageState.add_suspicion(&"pieter_parent", 50.0)
+	WorldState.advance_time()
+	assert_almost_eq(VillageState.get_suspicion(&"pieter_parent"),
+			50.0 * VillageState.SUSPICION_DECAY_PER_PHASE, 0.01, "rumors quiet with time")
+
+
+# --- gossip ---
+
+func test_gossip_pools_exist_for_every_stage() -> void:
+	for stage in range(4):
+		assert_false(VillageState.pick_gossip(stage).is_empty(), "stage %d has lines" % stage)
+
+
+func test_high_suspicion_changes_the_gossip() -> void:
+	var line := VillageState.pick_gossip(0, true)
+	assert_string_contains(line, "something small", "the net closing")
+
+
+# --- persistence ---
+
+func test_suspicion_survives_save_round_trip() -> void:
+	VillageState.add_suspicion(&"marta_farmer", 120.0)  # also reports
+	var data := VillageState.get_save_data()
+	VillageState.reset()
+	VillageState.apply_save_data(data)
+	assert_eq(VillageState.get_suspicion(&"marta_farmer"), 100.0, "clamped + restored")
+	assert_true(VillageState.has_reported(&"marta_farmer"), "report flag persists")
+
+
+# --- villager scene ---
+
+func test_villager_walks_to_scheduled_marker() -> void:
+	var marker := Node2D.new()
+	marker.add_to_group("marker_field_west")
+	add_child_autofree(marker)
+	marker.global_position = Vector2(100, 0)
+	var villager: Villager = load("res://scenes/npcs/villager.tscn").instantiate()
+	villager.npc_id = &"marta_farmer"
+	add_child_autofree(villager)
+	villager.global_position = Vector2.ZERO
+	WorldState.time_of_day = WorldState.TimeOfDay.DAY
+	villager.refresh_slot()
+	var start := villager.global_position.distance_to(marker.global_position)
+	await wait_physics_frames(20)
+	assert_lt(villager.global_position.distance_to(marker.global_position), start,
+			"closing on the slot marker")
+
+
+func test_villager_absent_when_marker_not_in_zone() -> void:
+	var villager: Villager = load("res://scenes/npcs/villager.tscn").instantiate()
+	villager.npc_id = &"elder_aldwin"  # chapel marker does not exist here
+	add_child_autofree(villager)
+	WorldState.time_of_day = WorldState.TimeOfDay.DAY
+	villager.refresh_slot()
+	assert_false(villager.visible, "the elder is elsewhere right now")
+
+
+func test_villager_vanishes_at_stage3_when_stopped() -> void:
+	var marker := Node2D.new()
+	marker.add_to_group("marker_field_west")
+	add_child_autofree(marker)
+	var villager: Villager = load("res://scenes/npcs/villager.tscn").instantiate()
+	villager.npc_id = &"marta_farmer"
+	add_child_autofree(villager)
+	WorldState.time_of_day = WorldState.TimeOfDay.DAY
+	HollowingClock.stage = 3
+	villager.refresh_slot()
+	assert_false(villager.visible, "her routine stopped")

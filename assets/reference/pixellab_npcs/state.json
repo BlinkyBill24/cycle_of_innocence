@@ -1,7 +1,8 @@
 {
  "villager_child": {
   "create_job": "65c95261-9ae4-432b-a1c2-4c8b0a1bc3d9",
-  "character_id": "da34403a-e6cf-4cf9-9bb1-132d53c5e969"
+  "character_id": "da34403a-e6cf-4cf9-9bb1-132d53c5e969",
+  "anim_job_idle_south_north": "1f12b3fe-b2be-4e8e-bf47-bbb84b3b501c"
  },
  "villager_parent_v1_discarded": {
   "create_job": "f5a32243-4d02-46cb-a462-09765e3634f4",
@@ -17,7 +18,11 @@
  },
  "villager_parent": {
   "create_job": "9ab81708-cd53-4f60-a6f3-f43ee41f733f",
-  "character_id": "801ec7b4-bc1d-4926-aba5-f3a316c2958a"
+  "character_id": "801ec7b4-bc1d-4926-aba5-f3a316c2958a",
+  "anim_job_walk_south_north": "7bbcfca6-01e1-4364-961a-b8635b363b1c",
+  "anim_job_walk_east_west": "b0c16a53-5d9d-4342-8a64-ad90b875c574",
+  "anim_job_idle_south_north": "77b3e653-b10c-4451-bf81-5c91106a96af",
+  "anim_job_idle_east_west": "3a0cd18d-054d-4bcb-8b7c-fe36f252dfb7"
  },
  "villager_warden": {
   "create_job": "a006193a-2e70-4340-b258-6a2d8ce9bdd0",

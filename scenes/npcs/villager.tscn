@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://villagernpc001"]
+
+[ext_resource type="Script" path="res://scripts/npcs/villager.gd" id="1_villager"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_villager"]
+radius = 8.0
+
+[node name="Villager" type="CharacterBody2D"]
+collision_layer = 1
+collision_mask = 1
+script = ExtResource("1_villager")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_villager")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="LineOfSight" type="RayCast2D" parent="."]
+enabled = false
+collision_mask = 1
