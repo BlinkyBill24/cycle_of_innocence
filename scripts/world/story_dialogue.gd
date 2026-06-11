@@ -3,6 +3,8 @@ extends Node
 ## Plays a one-shot story dialogue (Dialogue Manager) gated by a story flag.
 ## Pauses player exploration while the balloon is open.
 
+const BALLOON_SCENE := "res://scenes/ui/dialogue_balloon.tscn"
+
 @export_file("*.dialogue") var dialogue_path: String
 @export var title: String = "start"
 @export var once_flag: StringName = &""
@@ -34,7 +36,7 @@ func _try_start() -> void:
 		player.set_movement_state(PlayerController.MovementState.CUTSCENE)
 	if GameEvents:
 		GameEvents.exploration_paused.emit()
-	DialogueManager.show_example_dialogue_balloon(load(dialogue_path), title)
+	DialogueManager.show_dialogue_balloon_scene(BALLOON_SCENE, load(dialogue_path), title)
 	await DialogueManager.dialogue_ended
 	if not once_flag.is_empty():
 		PlayerData.set_story_flag(once_flag)
