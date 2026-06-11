@@ -1,0 +1,156 @@
+{
+  "group_id": null,
+  "states": [
+    {
+      "character": {
+        "id": "d706fb71-f01a-4e56-9e69-036f40548763",
+        "name": "small 9 year old village child, messy dark purple-brown hair, pale skin, big sad eyes, grey rough-spun knee-length tunic with faded red hand print on chest, bare feet",
+        "prompt": "small 9 year old village child, messy dark purple-brown hair, pale skin, big sad eyes, grey rough-spun knee-length tunic with faded red hand print on chest, bare feet",
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-06-11T08:48:18.199034+00:00"
+      },
+      "folder": "small_9_year_old_village_child_messy_dark_purple-b",
+      "frames": {
+        "rotations": {
+          "south": "small_9_year_old_village_child_messy_dark_purple-b/rotations/south.png",
+          "south-east": "small_9_year_old_village_child_messy_dark_purple-b/rotations/south-east.png",
+          "east": "small_9_year_old_village_child_messy_dark_purple-b/rotations/east.png",
+          "north-east": "small_9_year_old_village_child_messy_dark_purple-b/rotations/north-east.png",
+          "north": "small_9_year_old_village_child_messy_dark_purple-b/rotations/north.png",
+          "north-west": "small_9_year_old_village_child_messy_dark_purple-b/rotations/north-west.png",
+          "west": "small_9_year_old_village_child_messy_dark_purple-b/rotations/west.png",
+          "south-west": "small_9_year_old_village_child_messy_dark_purple-b/rotations/south-west.png"
+        },
+        "animations": {
+          "animating": {
+            "west": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating/west/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating/west/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating/west/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating/west/frame_003.png"
+            ],
+            "east": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating/east/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating/east/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating/east/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating/east/frame_003.png"
+            ]
+          },
+          "cross_punch_attack": {
+            "north": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack/north/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack/north/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack/north/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack/north/frame_003.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack/north/frame_004.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack/north/frame_005.png"
+            ],
+            "south": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack/south/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack/south/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack/south/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack/south/frame_003.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack/south/frame_004.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack/south/frame_005.png"
+            ]
+          },
+          "taking_a_punch": {
+            "south": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/taking_a_punch/south/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/taking_a_punch/south/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/taking_a_punch/south/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/taking_a_punch/south/frame_003.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/taking_a_punch/south/frame_004.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/taking_a_punch/south/frame_005.png"
+            ]
+          },
+          "crouching": {
+            "south": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/crouching/south/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/crouching/south/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/crouching/south/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/crouching/south/frame_003.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/crouching/south/frame_004.png"
+            ]
+          },
+          "cross_punch_attack-65d1bbae": {
+            "east": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack-65d1bbae/east/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack-65d1bbae/east/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack-65d1bbae/east/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack-65d1bbae/east/frame_003.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack-65d1bbae/east/frame_004.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack-65d1bbae/east/frame_005.png"
+            ],
+            "west": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack-65d1bbae/west/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack-65d1bbae/west/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack-65d1bbae/west/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack-65d1bbae/west/frame_003.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack-65d1bbae/west/frame_004.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/cross_punch_attack-65d1bbae/west/frame_005.png"
+            ]
+          },
+          "walking": {
+            "east": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking/east/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking/east/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking/east/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking/east/frame_003.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking/east/frame_004.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking/east/frame_005.png"
+            ],
+            "west": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking/west/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking/west/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking/west/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking/west/frame_003.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking/west/frame_004.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking/west/frame_005.png"
+            ]
+          },
+          "animating-c7d057f7": {
+            "south": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating-c7d057f7/south/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating-c7d057f7/south/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating-c7d057f7/south/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating-c7d057f7/south/frame_003.png"
+            ],
+            "north": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating-c7d057f7/north/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating-c7d057f7/north/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating-c7d057f7/north/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/animating-c7d057f7/north/frame_003.png"
+            ]
+          },
+          "walking-df230a91": {
+            "north": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking-df230a91/north/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking-df230a91/north/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking-df230a91/north/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking-df230a91/north/frame_003.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking-df230a91/north/frame_004.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking-df230a91/north/frame_005.png"
+            ],
+            "south": [
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking-df230a91/south/frame_000.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking-df230a91/south/frame_001.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking-df230a91/south/frame_002.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking-df230a91/south/frame_003.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking-df230a91/south/frame_004.png",
+              "small_9_year_old_village_child_messy_dark_purple-b/animations/walking-df230a91/south/frame_005.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.0",
+  "export_date": "2026-06-11T10:00:01.376356"
+}

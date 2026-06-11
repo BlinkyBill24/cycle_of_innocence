@@ -344,6 +344,64 @@ def status() -> None:
 
 # sheet rows: (row_anim_name, zip_animation_match, direction, loop, fps)
 SHEET_ROWS = {
+    "rowan_pro": {
+        "out": "assets/sprites/player/child_sheet_32.png",
+        "tres": "assets/resources/player/rowan_child_frames.tres",
+        "rows": [
+            ("walk_down", "walk", "south", "loop", 8),
+            ("walk_up", "walk", "north", "loop", 8),
+            ("walk_right", "walk", "east", "loop", 8),
+            ("walk_left", "walk", "west", "loop", 8),
+            ("idle_down", "breathing-idle", "south", "loop", 5),
+            ("idle_up", "breathing-idle", "north", "loop", 5),
+            ("idle_right", "breathing-idle", "east", "loop", 5),
+            ("idle_left", "breathing-idle", "west", "loop", 5),
+            ("attack_down", "cross-punch", "south", "once", 12),
+            ("attack_up", "cross-punch", "north", "once", 12),
+            ("attack_right", "cross-punch", "east", "once", 12),
+            ("attack_left", "cross-punch", "west", "once", 12),
+            ("hurt", "taking-punch", "south", "once", 10),
+            ("crouch", "crouching", "south", "once", 8),
+        ],
+        "aliases": {},
+    },
+    "briar_pro": {
+        "out": "assets/sprites/companions/briar_pup_32.png",
+        "tres": "assets/resources/companions/briar_pup_frames.tres",
+        "rows": [
+            ("trot_down", "walk-4-frames", "south", "loop", 8),
+            ("trot_up", "walk-4-frames", "north", "loop", 8),
+            ("trot_right", "walk-4-frames", "east", "loop", 8),
+            ("trot_left", "walk-4-frames", "west", "loop", 8),
+            ("sit", "sit", "south", "loop", 4),
+            ("bark", "bark", "east", "loop", 8),
+            ("cower", "sneaking", "south", "loop", 6),
+            ("dig", "dig", "east", "loop", 10),
+            ("growl_down", "growl", "south", "loop", 6),
+            ("growl_up", "growl", "north", "loop", 6),
+            ("growl_right", "growl", "east", "loop", 6),
+            ("growl_left", "growl", "west", "loop", 6),
+            ("lie_down", "lie_down", "east", "loop", 4),
+            ("head_bump", "head_bump", "east", "once", 10),
+        ],
+        "aliases": {},
+    },
+    "twisted_pro": {
+        "out": "assets/sprites/enemies/twisted_child_32.png",
+        "tres": "assets/resources/enemies/twisted_child_frames.tres",
+        "rows": [
+            ("walk_down", "crouched-walking", "south", "loop", 7),
+            ("walk_up", "crouched-walking", "north", "loop", 7),
+            ("walk_right", "crouched-walking", "east", "loop", 7),
+            ("walk_left", "crouched-walking", "west", "loop", 7),
+            ("idle", "breathing-idle", "south", "loop", 4),
+            ("lunge", "lunge", "east", "once", 10),
+            ("stilled", "stilled", "south", "loop", 3),
+            ("hurt", "taking-punch", "south", "once", 10),
+            ("crumble", "crumble", "south", "once", 8),
+        ],
+        "aliases": {},
+    },
     "rowan": {
         "out": "assets/sprites/player/child_sheet_32.png",
         "tres": "assets/resources/player/rowan_child_frames.tres",
@@ -492,8 +550,92 @@ ZIP_FOLDERS = {
 }
 
 
+PRO_CELL = 48  # pro canvas is 60px; 32 would amputate lunges — keep 48
+
+
+## Reroll disambiguation: when several groups share an animation_type, pin
+## the approved group id prefix (visual verification 2026-06-11).
+PRO_GROUP_PINS = {
+    ("briar_pro", "sit"): "15b0f147",
+    ("briar_pro", "lie_down"): "974204a6",  # side view reads at 32px; south never did
+}
+
+
+def pro_anim_map(char: str) -> dict:
+    """(animation_name, direction) -> frame dir, resolved from the API list.
+    ZIP folder = slug or slug-<group_id[:8]> on collision. List order is
+    chronological, so later groups (rerolls) override earlier ones."""
+    st = state()
+    info = call(f"characters/{st[char]['character_id']}", method="GET")
+    anim_root = next((OUT / "chars" / char).glob("*/animations"))
+    folders = [f for f in anim_root.iterdir() if f.is_dir()]
+    mapping: dict = {}
+    for group in info.get("animations") or []:
+        gid8 = group["animation_group_id"][:8]
+        pin = PRO_GROUP_PINS.get((char, group["animation_type"]))
+        if pin is not None and gid8 != pin:
+            continue  # a sibling group was explicitly approved instead
+        suffixed = next((f for f in folders if f.name.endswith(gid8)), None)
+        for dentry in group.get("directions", []):
+            direction = dentry["direction"]
+            n = dentry["frame_count"]
+            folder = suffixed
+            if folder is None:
+                for f in folders:
+                    ddir = f / direction
+                    if ddir.is_dir() and len(list(ddir.glob("frame_*.png"))) == n \
+                            and not any(f.name.endswith(g["animation_group_id"][:8])
+                                        for g in info["animations"]):
+                        folder = f
+                        break
+            if folder and (folder / direction).is_dir():
+                mapping[(group["animation_type"], direction)] = folder / direction
+    return mapping
+
+
+def sheets_pro(only: str | None = None) -> None:
+    for char, cfg in SHEET_ROWS.items():
+        if not char.endswith("_pro") or (only and char != only):
+            continue
+        mapping = pro_anim_map(char)
+        rows_frames: list = []
+        max_cols = 0
+        missing = []
+        for name, anim_type, direction, _loop, _fps in cfg["rows"]:
+            frame_dir = mapping.get((anim_type, direction))
+            if frame_dir is None:
+                missing.append(f"{name} ({anim_type}/{direction})")
+                continue
+            imgs = []
+            for fp in sorted(frame_dir.glob("frame_*.png")):
+                img = Image.open(fp).convert("RGBA")
+                if img.width > PRO_CELL:
+                    ox = (img.width - PRO_CELL) // 2
+                    oy = (img.height - PRO_CELL) // 2
+                    img = img.crop((ox, oy, ox + PRO_CELL, oy + PRO_CELL))
+                imgs.append(img)
+            max_cols = max(max_cols, len(imgs))
+            rows_frames.append((name, imgs))
+        if missing:
+            print(f"{char}: MISSING {missing} — aborting this sheet")
+            continue
+        cell = PRO_CELL
+        sheet = Image.new("RGBA", (max_cols * cell, len(rows_frames) * cell), (0, 0, 0, 0))
+        for r, (_n, imgs) in enumerate(rows_frames):
+            for c, img in enumerate(imgs):
+                sheet.paste(img, (c * cell, r * cell))
+        Path(cfg["out"]).parent.mkdir(parents=True, exist_ok=True)
+        sheet.save(cfg["out"])
+        sheet.resize((sheet.width * 3, sheet.height * 3), Image.NEAREST).save(
+            cfg["out"].replace(".png", "_preview.png"))
+        _write_tres(char, cfg, rows_frames, cell)
+        print(f"sheet: {cfg['out']} ({len(rows_frames)} rows x {max_cols} cols, cell {cell})")
+
+
 def sheets() -> None:
     for char, cfg in SHEET_ROWS.items():
+        if char.endswith("_pro"):
+            continue  # handled by sheets_pro
         char_dir = OUT / "chars" / char
         anim_root = next(char_dir.glob("*/animations"))
         rows_frames: list[tuple[str, list[Image.Image]]] = []
@@ -524,11 +666,11 @@ def sheets() -> None:
         sheet.save(cfg["out"])
         sheet.resize((sheet.width * 3, sheet.height * 3), Image.NEAREST).save(
             cfg["out"].replace(".png", "_preview.png"))
-        _write_tres(char, cfg, rows_frames)
+        _write_tres(char, cfg, rows_frames, CHAR_SIZE)
         print(f"sheet: {cfg['out']} ({len(rows_frames)} rows, {max_cols} cols)")
 
 
-def _write_tres(char: str, cfg: dict, rows_frames: list) -> None:
+def _write_tres(char: str, cfg: dict, rows_frames: list, cell: int = CHAR_SIZE) -> None:
     import random
     import string
     rng = random.Random(char)
@@ -543,7 +685,7 @@ def _write_tres(char: str, cfg: dict, rows_frames: list) -> None:
             atlases.append(
                 f'[sub_resource type="AtlasTexture" id="{aid}"]\n'
                 f'atlas = ExtResource("1_sheet")\n'
-                f"region = Rect2({col * CHAR_SIZE}, {row * CHAR_SIZE}, {CHAR_SIZE}, {CHAR_SIZE})\n")
+                f"region = Rect2({col * cell}, {row * cell}, {cell}, {cell})\n")
             refs.append('{\n"duration": 1.0,\n"texture": SubResource("%s")\n}' % aid)
         anims.append("{\n"
                      f'"frames": [{", ".join(refs)}],\n'
@@ -568,7 +710,7 @@ def _write_tres(char: str, cfg: dict, rows_frames: list) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("cmd", choices=["refs", "create", "status", "animate", "download", "sheets", "balance", "create-pro", "preview"])
+    ap.add_argument("cmd", choices=["refs", "create", "status", "animate", "download", "sheets", "balance", "create-pro", "preview", "sheets-pro"])
     ap.add_argument("--only")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
@@ -586,6 +728,8 @@ def main() -> None:
         sheets()
     elif args.cmd == "animate":
         animate(args.only)
+    elif args.cmd == "sheets-pro":
+        sheets_pro(args.only)
     elif args.cmd == "create-pro":
         create_pro(args.only)
     elif args.cmd == "preview":

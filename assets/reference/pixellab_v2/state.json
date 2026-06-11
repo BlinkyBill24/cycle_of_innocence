@@ -43,10 +43,27 @@
  },
  "twisted_pro": {
   "create_job": "baea5793-f2c6-45bc-8a9d-bbcef07fe0e9",
-  "character_id": "6b4b4466-322e-4faf-a59e-a446b9213e36"
+  "character_id": "6b4b4466-322e-4faf-a59e-a446b9213e36",
+  "anim_job_walk_south_north": "queued",
+  "anim_job_walk_east_west": "queued",
+  "anim_job_idle_south": "queued",
+  "anim_job_lunge_east": "queued",
+  "anim_job_stilled_south": "queued",
+  "anim_job_hurt_south": "queued",
+  "anim_job_crumble_south": "queued"
  },
  "briar_pro": {
   "create_job": "95ffbcf9-ec2b-4638-81e2-3b7e138f3d9f",
-  "character_id": "372cf8d9-70a2-47b7-8f0c-2a2634225cf6"
+  "character_id": "372cf8d9-70a2-47b7-8f0c-2a2634225cf6",
+  "anim_job_walk_south_north": "queued",
+  "anim_job_walk_east_west": "queued",
+  "anim_job_sit_south": "queued",
+  "anim_job_bark_east": "queued",
+  "anim_job_cower_south": "queued",
+  "anim_job_dig_east": "queued",
+  "anim_job_growl_south_north": "queued",
+  "anim_job_growl_east_west": "queued",
+  "anim_job_lie_down_south": "queued",
+  "anim_job_head_bump_east": "queued"
  }
 }

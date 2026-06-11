@@ -1,0 +1,118 @@
+{
+  "group_id": null,
+  "states": [
+    {
+      "character": {
+        "id": "6b4b4466-322e-4faf-a59e-a446b9213e36",
+        "name": "small hunched creature in tattered grey rags, faded carnival clown neck ruff, face hidden in shadow, overly long thin fingers, dragging a tiny wooden duck pull toy on a string",
+        "prompt": "small hunched creature in tattered grey rags, faded carnival clown neck ruff, face hidden in shadow, overly long thin fingers, dragging a tiny wooden duck pull toy on a string",
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-06-11T08:54:16.293082+00:00"
+      },
+      "folder": "small_hunched_creature_in_tattered_grey_rags_faded",
+      "frames": {
+        "rotations": {
+          "south": "small_hunched_creature_in_tattered_grey_rags_faded/rotations/south.png",
+          "south-east": "small_hunched_creature_in_tattered_grey_rags_faded/rotations/south-east.png",
+          "east": "small_hunched_creature_in_tattered_grey_rags_faded/rotations/east.png",
+          "north-east": "small_hunched_creature_in_tattered_grey_rags_faded/rotations/north-east.png",
+          "north": "small_hunched_creature_in_tattered_grey_rags_faded/rotations/north.png",
+          "north-west": "small_hunched_creature_in_tattered_grey_rags_faded/rotations/north-west.png",
+          "west": "small_hunched_creature_in_tattered_grey_rags_faded/rotations/west.png",
+          "south-west": "small_hunched_creature_in_tattered_grey_rags_faded/rotations/south-west.png"
+        },
+        "animations": {
+          "slowly_collapsing_into_a_limp_heap_of_rags_and_dus": {
+            "south": [
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/slowly_collapsing_into_a_limp_heap_of_rags_and_dus/south/frame_000.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/slowly_collapsing_into_a_limp_heap_of_rags_and_dus/south/frame_001.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/slowly_collapsing_into_a_limp_heap_of_rags_and_dus/south/frame_002.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/slowly_collapsing_into_a_limp_heap_of_rags_and_dus/south/frame_003.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/slowly_collapsing_into_a_limp_heap_of_rags_and_dus/south/frame_004.png"
+            ]
+          },
+          "sudden_forward_lunge_with_long_arms_outstretched": {
+            "east": [
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/sudden_forward_lunge_with_long_arms_outstretched/east/frame_000.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/sudden_forward_lunge_with_long_arms_outstretched/east/frame_001.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/sudden_forward_lunge_with_long_arms_outstretched/east/frame_002.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/sudden_forward_lunge_with_long_arms_outstretched/east/frame_003.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/sudden_forward_lunge_with_long_arms_outstretched/east/frame_004.png"
+            ]
+          },
+          "taking_a_punch": {
+            "south": [
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/taking_a_punch/south/frame_000.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/taking_a_punch/south/frame_001.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/taking_a_punch/south/frame_002.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/taking_a_punch/south/frame_003.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/taking_a_punch/south/frame_004.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/taking_a_punch/south/frame_005.png"
+            ]
+          },
+          "walking_while_crouched": {
+            "south": [
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched/south/frame_000.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched/south/frame_001.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched/south/frame_002.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched/south/frame_003.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched/south/frame_004.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched/south/frame_005.png"
+            ],
+            "north": [
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched/north/frame_000.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched/north/frame_001.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched/north/frame_002.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched/north/frame_003.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched/north/frame_004.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched/north/frame_005.png"
+            ]
+          },
+          "animating": {
+            "south": [
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/animating/south/frame_000.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/animating/south/frame_001.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/animating/south/frame_002.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/animating/south/frame_003.png"
+            ]
+          },
+          "walking_while_crouched-f43fbc8d": {
+            "west": [
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched-f43fbc8d/west/frame_000.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched-f43fbc8d/west/frame_001.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched-f43fbc8d/west/frame_002.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched-f43fbc8d/west/frame_003.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched-f43fbc8d/west/frame_004.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched-f43fbc8d/west/frame_005.png"
+            ],
+            "east": [
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched-f43fbc8d/east/frame_000.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched-f43fbc8d/east/frame_001.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched-f43fbc8d/east/frame_002.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched-f43fbc8d/east/frame_003.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched-f43fbc8d/east/frame_004.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/walking_while_crouched-f43fbc8d/east/frame_005.png"
+            ]
+          },
+          "sitting_down_calmly_hugging_a_small_wooden_duck_to": {
+            "south": [
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/sitting_down_calmly_hugging_a_small_wooden_duck_to/south/frame_000.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/sitting_down_calmly_hugging_a_small_wooden_duck_to/south/frame_001.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/sitting_down_calmly_hugging_a_small_wooden_duck_to/south/frame_002.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/sitting_down_calmly_hugging_a_small_wooden_duck_to/south/frame_003.png",
+              "small_hunched_creature_in_tattered_grey_rags_faded/animations/sitting_down_calmly_hugging_a_small_wooden_duck_to/south/frame_004.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.0",
+  "export_date": "2026-06-11T10:00:11.014678"
+}
