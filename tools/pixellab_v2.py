@@ -807,9 +807,10 @@ def animate(only: str | None) -> None:
             print(f"{char}: no character yet")
             continue
         for name, template, action, directions in anims:
-            # free accounts have 2 concurrent slots — chunk directions in pairs
-            for chunk_start in range(0, len(directions), 2):
-                chunk = directions[chunk_start:chunk_start + 2]
+            # tier 2 (2026-06-11): up to 10 concurrent jobs — full-direction
+            # chunks; the old pair-chunking was a trial-tier workaround
+            for chunk_start in range(0, len(directions), 4):
+                chunk = directions[chunk_start:chunk_start + 4]
                 key = f"anim_job_{name}_{'_'.join(chunk)}"
                 if st[char].get(key):
                     print(f"skip {char}/{name} {chunk} (queued)")

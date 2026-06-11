@@ -179,7 +179,11 @@ def status() -> None:
 
 
 def animate(only: str | None = None) -> None:
+    """Tier 2 (2026-06-11): one job per animation with ALL directions,
+    submitted through the slot-aware pool — no pair-chunking, no sleeps."""
+    from pixellab_jobs import run_jobs
     st = state()
+    jobs = []
     for name in NPCS:
         if only and name != only:
             continue
@@ -188,31 +192,26 @@ def animate(only: str | None = None) -> None:
             print(f"{name}: no character yet")
             continue
         for anim_name, template, directions in ANIMATIONS:
-            for chunk_start in range(0, len(directions), 2):
-                chunk = directions[chunk_start:chunk_start + 2]
-                key = f"anim_job_{anim_name}_{'_'.join(chunk)}"
-                if st[name].get(key):
-                    print(f"skip {name}/{anim_name} {chunk}")
-                    continue
-                for _attempt in range(40):
-                    try:
-                        result = call("animate-character", {
-                            "character_id": cid,
-                            "animation_name": anim_name,
-                            "directions": chunk,
-                            "mode": "template",
-                            "template_animation_id": template,
-                        })
-                        jids = result.get("background_job_ids") or []
-                        st[name][key] = jids[0] if jids else "queued"
-                        print(f"{name}/{anim_name} {chunk}: queued")
-                        save_state(st)
-                        break
-                    except RuntimeError as e:
-                        if "429" in str(e):
-                            time.sleep(75)
-                            continue
-                        raise
+            key = f"anim_job_{anim_name}_{'_'.join(directions)}"
+            if st[name].get(key):
+                print(f"skip {name}/{anim_name}")
+                continue
+
+            def submit(cid=cid, anim_name=anim_name, template=template,
+                       directions=directions, name=name, key=key) -> str:
+                result = call("animate-character", {
+                    "character_id": cid, "animation_name": anim_name,
+                    "directions": directions, "mode": "template",
+                    "template_animation_id": template,
+                })
+                jid = (result.get("background_job_ids") or ["queued"])[0]
+                st[name][key] = jid
+                save_state(st)
+                return jid
+            jobs.append((f"{name}/{anim_name}", submit))
+    if jobs:
+        results = run_jobs(jobs)
+        print("animation results:", results)
     print("balance:", call("balance", method="GET")["credits"]["usd"])
 
 
