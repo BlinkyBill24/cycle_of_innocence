@@ -18,6 +18,14 @@ signal assist_refused(reason: StringName)
 @export var dig_seconds: float = 1.2
 @export var dig_bond_reward: float = 2.0
 
+## Quirk expression (companion-quirks.md): acquired quirks live on PlayerData;
+## this layer is HOW they show. Authored behaviors only — see CompanionQuirkDefs.
+const SCENT_RANGE := 90.0
+const QUIRK_COOLDOWN := 20.0
+const STARE_SECONDS := 0.9
+const STARE_SOFTENED_BOND := 60.0  # earned trust: stare becomes a head-bump
+const DUSK_PRESS_DREAD_RELIEF := 5.0
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var hsm: LimboHSM
@@ -32,6 +40,16 @@ var _state_follow: LimboState
 var _state_dig: LimboState
 var _state_cower: LimboState
 var _state_bark: LimboState
+var _state_quirk: LimboState
+
+var _paused := false  # quirks freeze during cutscenes/dialogue
+var _quirk_cooldown := 0.0
+var _quirk_point := Vector2.ZERO
+var _quirk_truth := false
+var _quirk_id: StringName
+var _quirk_timer := 0.0
+var _phantom_timer := 0.0
+var _stare_timer := 0.0
 
 
 func _ready() -> void:
@@ -39,6 +57,10 @@ func _ready() -> void:
 	add_to_group(String(companion_id))
 	DreadManager.dread_tier_changed.connect(_on_dread_tier_changed)
 	WorldState.time_changed.connect(_on_time_changed)
+	if GameEvents:
+		GameEvents.exploration_paused.connect(func() -> void: _paused = true)
+		GameEvents.exploration_resumed.connect(func() -> void: _paused = false)
+	_phantom_timer = randf_range(15.0, 30.0)
 	_init_hsm()
 
 
@@ -46,6 +68,13 @@ func _on_time_changed(time: int, _day: int) -> void:
 	# dusk restlessness: the "let's go home" cue comes from family, not UI
 	if time == WorldState.TimeOfDay.DUSK or time == WorldState.TimeOfDay.NIGHT:
 		Sfx.play(&"whimper", -6.0)
+		# dusk press (bond quirk): as the dark comes, the family holds
+		if PlayerData.has_quirk(companion_id, &"briar_dusk_press") \
+				and not _paused and not is_afraid():
+			DreadManager.reduce_dread(DUSK_PRESS_DREAD_RELIEF)
+			Sfx.play(&"bark", -6.0)
+			if GameEvents:
+				GameEvents.quirk_expressed.emit(companion_id, &"briar_dusk_press")
 
 
 func _init_hsm() -> void:
@@ -59,14 +88,18 @@ func _init_hsm() -> void:
 		.call_on_enter(_cower_enter).call_on_update(_cower_update)
 	_state_bark = LimboState.new().named("Bark") \
 		.call_on_enter(_bark_enter).call_on_update(_bark_update)
+	_state_quirk = LimboState.new().named("Quirk") \
+		.call_on_enter(_quirk_enter).call_on_update(_quirk_update)
 
-	for state: LimboState in [_state_follow, _state_dig, _state_cower, _state_bark]:
+	for state: LimboState in [_state_follow, _state_dig, _state_cower, _state_bark, _state_quirk]:
 		hsm.add_child(state)
 
 	hsm.add_transition(_state_follow, _state_dig, &"dig")
 	hsm.add_transition(_state_dig, _state_follow, &"done")
 	hsm.add_transition(_state_follow, _state_bark, &"alert")
 	hsm.add_transition(_state_bark, _state_follow, &"done")
+	hsm.add_transition(_state_follow, _state_quirk, &"quirk")
+	hsm.add_transition(_state_quirk, _state_follow, &"done")
 	hsm.add_transition(hsm.ANYSTATE, _state_cower, &"afraid")
 	hsm.add_transition(_state_cower, _state_follow, &"calmed")
 
@@ -80,6 +113,7 @@ func _init_hsm() -> void:
 
 func _physics_process(delta: float) -> void:
 	_bark_cooldown = maxf(_bark_cooldown - delta, 0.0)
+	_quirk_cooldown = maxf(_quirk_cooldown - delta, 0.0)
 	move_and_slide()
 	_update_animation()
 
@@ -130,6 +164,7 @@ func _follow_update(_delta: float) -> void:
 		velocity = global_position.direction_to(player.global_position) * speed
 	else:
 		velocity = Vector2.ZERO
+	_maybe_express_quirks(_delta)
 	_maybe_bark()
 
 
@@ -147,11 +182,30 @@ func _maybe_bark() -> void:
 func _dig_enter() -> void:
 	_dig_phase_digging = false
 	_dig_timer = dig_seconds
+	_stare_timer = 0.0
+	# corruption quirk: the order lands, but something looks back at you first.
+	# Earned bond softens it into a head-bump — visibly changed, never removed.
+	if PlayerData.has_quirk(companion_id, &"briar_long_stare"):
+		if get_bond() >= STARE_SOFTENED_BOND:
+			var hop := create_tween()
+			hop.tween_property(sprite, "position:y", -5.0, 0.1)
+			hop.tween_property(sprite, "position:y", 0.0, 0.1)
+		else:
+			_stare_timer = STARE_SECONDS
+		if GameEvents:
+			GameEvents.quirk_expressed.emit(companion_id, &"briar_long_stare")
 
 
 func _dig_update(delta: float) -> void:
 	if _dig_target == null or not is_instance_valid(_dig_target):
 		hsm.dispatch(&"done")
+		return
+	if _stare_timer > 0.0:  # the beat-too-long stare before complying
+		_stare_timer -= delta
+		velocity = Vector2.ZERO
+		var player := get_player()
+		if player:
+			_facing = global_position.direction_to(player.global_position)
 		return
 	if not _dig_phase_digging:
 		if global_position.distance_to(_dig_target.global_position) > 10.0:
@@ -230,6 +284,77 @@ func _bark_update(delta: float) -> void:
 	_bark_timer -= delta
 	if _bark_timer <= 0.0:
 		hsm.dispatch(&"done")
+
+
+# --- quirk expression ---
+
+func _maybe_express_quirks(delta: float) -> void:
+	if _paused or is_afraid() or _quirk_cooldown > 0.0:
+		return
+	# scent growl (bond quirk): a TRUE ping at buried things — learn to trust it
+	if PlayerData.has_quirk(companion_id, &"briar_scent_growl"):
+		var spot := _nearest_unrevealed_diggable()
+		if spot:
+			_express_ping(spot.global_position, true, &"briar_scent_growl")
+			return
+	# phantom guard (deep corruption): the same growl at NOTHING — the player
+	# can no longer tell which warnings are real
+	if PlayerData.has_quirk(companion_id, &"briar_phantom_guard"):
+		_phantom_timer -= delta
+		if _phantom_timer <= 0.0:
+			_phantom_timer = randf_range(15.0, 30.0)
+			var dir := Vector2.RIGHT.rotated(randf() * TAU)
+			_express_ping(global_position + dir * randf_range(40.0, 70.0), false,
+					&"briar_phantom_guard")
+
+
+func _nearest_unrevealed_diggable() -> DiggableSpot:
+	var nearest: DiggableSpot = null
+	var best := SCENT_RANGE
+	for node in get_tree().get_nodes_in_group("diggable"):
+		var spot := node as DiggableSpot
+		if spot and not spot.revealed:
+			var dist := global_position.distance_to(spot.global_position)
+			if dist < best:
+				best = dist
+				nearest = spot
+	return nearest
+
+
+func _express_ping(point: Vector2, truth: bool, quirk_id: StringName) -> void:
+	_quirk_point = point
+	_quirk_truth = truth
+	_quirk_id = quirk_id
+	_quirk_cooldown = QUIRK_COOLDOWN
+	hsm.dispatch(&"quirk")
+
+
+func _quirk_enter() -> void:
+	velocity = Vector2.ZERO
+	_quirk_timer = 1.6
+	_facing = global_position.direction_to(_quirk_point)
+	Sfx.play(&"growl", -2.0)
+	if sprite.sprite_frames and sprite.sprite_frames.has_animation("bark"):
+		sprite.play("bark")  # hackles up, fixed on the point
+	# Empath insight: only the Innocent, with earned bond, can tell true
+	# warnings from corrupted ones; a Vessel sees nothing wrong at all
+	if insight_tell_visible(_quirk_truth, PlayerData.get_morality_tier(), get_bond()):
+		_show_exclaim()
+	if GameEvents:
+		GameEvents.quirk_expressed.emit(companion_id, _quirk_id)
+
+
+func _quirk_update(delta: float) -> void:
+	velocity = Vector2.ZERO
+	_quirk_timer -= delta
+	if _quirk_timer <= 0.0:
+		hsm.dispatch(&"done")
+
+
+## Pure tell rule (companion-quirks.md), unit-tested.
+static func insight_tell_visible(is_true_ping: bool, tier: int, bond: float) -> bool:
+	return is_true_ping and tier == PlayerData.MoralityTier.INNOCENT_EMPATH \
+			and bond >= STARE_SOFTENED_BOND
 
 
 func _on_dread_tier_changed(_tier: int) -> void:

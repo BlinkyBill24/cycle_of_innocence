@@ -9,6 +9,8 @@ signal companion_bond_changed(companion_id: StringName, bond_value: float)
 signal companion_corrupted(companion_id: StringName, level: float)
 signal companion_lost(companion_id: StringName, permanent: bool)
 signal companion_bark(companion_id: StringName)
+signal quirk_acquired(companion_id: StringName, quirk_id: StringName)
+signal quirk_expressed(companion_id: StringName, quirk_id: StringName)
 signal diggable_revealed(spot_id: StringName)
 
 signal combat_hit(target_faction: StringName, amount: int)

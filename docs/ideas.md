@@ -24,6 +24,7 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - Strong emphasis on "no Mote reuse" — document guardrails in GROK.md and local handbook.
 
 ## 📥 Captured this session
+- Quirk journal UI: let the player pin one observed line per discovered quirk (companion-quirks.md diagnosis loop) — fold into the interface-horror/UI pass.
 - Plateau discovery cue: when generic soothe stalls at 60, the monster could glance toward its buried key (environmental hint without UI).
 - Faction-aware hitboxes before multi-enemy zones: a Dominated thrall's lunge currently uses the player-hurting hitbox layer — fine with one enemy, needs factions later.
 *From plan creation + initial setup (2026-04). Move to Unsorted or Ready after review.*

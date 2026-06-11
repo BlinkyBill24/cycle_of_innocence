@@ -2,7 +2,7 @@
 name: Companion Quirks (Diagnosable Behaviors)
 date: 2026-06-10
 tags: [feature, mechanics, companions, horror]
-status: planned
+status: implemented
 related_decisions: "[[decisions/2026-06-10-recent-games-research-greenlight]]"
 ---
 
@@ -43,6 +43,12 @@ Examples (v1 pool: ~4 per companion):
 
 ## Design-language note (patent posture)
 Quirks are **authored, designer-scripted progressions** on three fixed characters — acquisition thresholds and behaviors are hand-defined data, never procedurally generated NPC evolution, hierarchies, or ranks. Keep that framing in code, docs, and marketing. See [[decisions/2026-06-10-patent-risk-review]].
+
+## Implementation notes (2026-06-11, branch feature/companion-quirks)
+- `CompanionQuirkDefs` (authored catalogue, patent-posture comment inline) + acquisition in `PlayerData.set_companion_bond/corruption` — earned at thresholds, persisted in the companion dict, never removed.
+- Briar v1 pool live: **scent growl** (bond ≥ 60, TRUE ping at unrevealed diggables ≤ 90px), **long stare** (corr ≥ 40, 0.9s delay before obeying dig — softens to a head-bump at bond ≥ 60), **phantom guard** (corr ≥ 70, the same growl at nothing every 15–30s), **dusk press** (bond ≥ 75, −5 dread as dusk/night falls).
+- Empath insight rule (`CompanionBase.insight_tell_visible`, pure/unit-tested): "!" tell only on TRUE pings, only for Innocent tier with bond ≥ 60; Vessel sees nothing wrong.
+- Quirks freeze during dialogue (`exploration_paused`). New `growl` SFX. GameEvents: `quirk_acquired` / `quirk_expressed`. Journal-pinning UI deferred to interface-horror/UI pass (ideas inbox).
 
 ## Related
 [[characters/companions]] · [[mechanics/vision-and-darkness]] · [[mechanics/day-night-hideout]] · [[mechanics/interface-horror]] · [[design/feature-candidates-2026-06]]

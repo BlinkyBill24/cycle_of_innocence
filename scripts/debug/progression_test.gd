@@ -75,6 +75,7 @@ func _refresh_label() -> void:
 			PlayerData.get_morality_tier_name(),
 		]
 		+ "Briar bond: %.0f | corruption: %.0f\n" % [briar.get("bond", 0.0), briar.get("corruption", 0.0)]
+		+ ("Quirks: %s\n" % ", ".join(PlayerData.get_companion_quirks(PlayerData.BRIAR_ID)) if not PlayerData.get_companion_quirks(PlayerData.BRIAR_ID).is_empty() else "")
 		+ "Dread: %.0f (%s) | HP: %d/%d | %s day %d\n" % [DreadManager.dread, DreadManager.get_tier_name(), PlayerData.current_hp, PlayerData.max_hp, WorldState.TimeOfDay.keys()[WorldState.time_of_day], WorldState.day]
 		+ "Hollowing: %d (%s) | alarm %.0f\n" % [HollowingClock.stage, HollowingClock.stage_name(), HollowingClock.alarm_points]
 		+ _enemy_line()

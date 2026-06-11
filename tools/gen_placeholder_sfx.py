@@ -88,3 +88,16 @@ def bell(dur: float, f0: float) -> list[float]:
 
 toll = bell(2.2, 160.0)
 write_wav("hollowing_bell", toll + [0.0] * int(SR * 0.7) + toll)
+
+
+# briar growl: low chest rumble (quirk pings — true and false alike)
+growl = []
+n = int(SR * 0.55)
+phase = 0.0
+prev = 0.0
+for i in range(n):
+    phase += 2 * math.pi * (62 + 8 * math.sin(i / SR * 30)) / SR
+    prev += 0.08 * ((rng.random() * 2 - 1) - prev)
+    s = (math.sin(phase) * 0.6 + prev * 1.5) * env(i, n, attack=0.15, decay=0.9)
+    growl.append(s * 0.7)
+write_wav("briar_growl", growl)

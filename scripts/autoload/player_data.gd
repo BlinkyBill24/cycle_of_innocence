@@ -152,6 +152,7 @@ func set_companion_bond(id: StringName, value: float) -> void:
 	bond_changed.emit(id, clamped)
 	if GameEvents:
 		GameEvents.companion_bond_changed.emit(id, clamped)
+	_check_quirk_acquisition(id, &"bond", clamped)
 
 
 func set_companion_corruption(id: StringName, value: float) -> void:
@@ -166,6 +167,28 @@ func set_companion_corruption(id: StringName, value: float) -> void:
 	corruption_changed.emit(id, clamped)
 	if GameEvents:
 		GameEvents.companion_corrupted.emit(id, clamped)
+	_check_quirk_acquisition(id, &"corruption", clamped)
+
+
+func get_companion_quirks(id: StringName) -> Array:
+	var quirks: Array = get_companion(id).get("quirks", [])
+	return quirks
+
+
+func has_quirk(id: StringName, quirk_id: StringName) -> bool:
+	return quirk_id in get_companion_quirks(id)
+
+
+## Quirks are acquired at authored thresholds and never lost — hideout care
+## softens how they express, not whether they exist (companion-quirks.md).
+func _check_quirk_acquisition(id: StringName, stat: StringName, value: float) -> void:
+	_ensure_companion(id)
+	var owned: Array = companions[id].get("quirks", [])
+	for quirk_id: StringName in CompanionQuirkDefs.newly_acquired(id, stat, value, owned):
+		owned.append(quirk_id)
+		companions[id]["quirks"] = owned
+		if GameEvents:
+			GameEvents.quirk_acquired.emit(id, quirk_id)
 
 
 func set_companion_growth(id: StringName, value: float) -> void:
@@ -292,6 +315,7 @@ func _ensure_companion(id: StringName) -> void:
 		"corruption": 0.0,
 		"growth": 0.0,
 		"alive": true,
+		"quirks": [],
 	}
 
 
