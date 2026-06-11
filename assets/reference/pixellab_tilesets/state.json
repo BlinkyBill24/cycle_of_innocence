@@ -52,5 +52,14 @@
    "tileset_id": "d4c3afde-8a1c-4c19-92be-1f7292d7ac0b",
    "status": "processing"
   }
+ },
+ "village_terrace": {
+  "tileset_id": "864b610b-7ccb-42d8-9665-b80d5fb3f304",
+  "raw": {
+   "usage": null,
+   "background_job_id": "3f1ea352-9f8b-47b8-9ae7-a35e888188ba",
+   "tileset_id": "864b610b-7ccb-42d8-9665-b80d5fb3f304",
+   "status": "processing"
+  }
  }
 }

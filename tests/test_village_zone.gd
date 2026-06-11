@@ -15,21 +15,46 @@ func after_each() -> void:
 
 
 func test_wang_bitmask_and_pure_tiles() -> void:
-	assert_eq(Zone.wang_tile(Zone.Terrain.GREEN, Zone.Terrain.GREEN,
-			Zone.Terrain.GREEN, Zone.Terrain.GREEN), [Zone.SRC_GREEN_YARD, Vector2i(0, 0)])
 	assert_eq(Zone.wang_tile(Zone.Terrain.DIRT, Zone.Terrain.DIRT,
 			Zone.Terrain.DIRT, Zone.Terrain.DIRT), [Zone.SRC_GREEN_YARD, Vector2i(3, 3)])
+	assert_eq(Zone.wang_tile(Zone.Terrain.TERRACE, Zone.Terrain.TERRACE,
+			Zone.Terrain.TERRACE, Zone.Terrain.TERRACE), [Zone.SRC_TERRACE, Vector2i(3, 3)])
 	assert_eq(Zone.wang_tile(Zone.Terrain.GREEN, Zone.Terrain.DIRT,
 			Zone.Terrain.GREEN, Zone.Terrain.GREEN), [Zone.SRC_GREEN_YARD, Vector2i(0, 1)])
+	assert_eq(Zone.wang_tile(Zone.Terrain.GREEN, Zone.Terrain.TERRACE,
+			Zone.Terrain.GREEN, Zone.Terrain.GREEN), [Zone.SRC_TERRACE, Vector2i(0, 1)])
 
 
-func test_paths_yards_and_forecourt_are_dirt() -> void:
-	# the ring (vertex ~(7.5, 0)), the west-east lane, a yard, the forecourt
-	assert_eq(Zone.vertex_terrain(7, 0), Zone.Terrain.DIRT, "ring")
-	assert_eq(Zone.vertex_terrain(-20, 0), Zone.Terrain.DIRT, "west lane")
-	assert_eq(Zone.vertex_terrain(-14, -9), Zone.Terrain.DIRT, "NW yard")
+func test_no_cell_mixes_dirt_and_terrace() -> void:
+	# no DIRT<->TERRACE tileset exists; the layout must keep them apart
+	var bad := 0
+	for y in range(-Zone.HEIGHT / 2, Zone.HEIGHT / 2):
+		for x in range(-Zone.WIDTH / 2, Zone.WIDTH / 2):
+			var kinds := {}
+			for t in [Zone.vertex_terrain(x, y), Zone.vertex_terrain(x + 1, y),
+					Zone.vertex_terrain(x, y + 1), Zone.vertex_terrain(x + 1, y + 1)]:
+				kinds[t] = true
+			if kinds.has(Zone.Terrain.DIRT) and kinds.has(Zone.Terrain.TERRACE):
+				bad += 1
+	assert_eq(bad, 0, "terrace rim never touches the dirt network")
+
+
+func test_variation_scatter_is_deterministic_and_bounded() -> void:
+	for i in range(50):
+		var a: Array = Zone.green_cell(i, -i)
+		assert_eq(a, Zone.green_cell(i, -i), "same cell, same tile")
+		if a[0] == Zone.SRC_GRASS_VAR:
+			assert_between(a[1].x, 0, Zone.GRASS_VARIANTS - 1)
+		var d: Array = Zone.dirt_cell(i, -i)
+		if d[0] == Zone.SRC_DIRT_VAR:
+			assert_between(d[1].x, 0, Zone.DIRT_VARIANTS - 1)
+
+
+func test_paths_yards_and_terrace_resolve() -> void:
+	assert_eq(Zone.vertex_terrain(-14, -9), Zone.Terrain.DIRT, "NW yard (shifted south)")
 	assert_eq(Zone.vertex_terrain(0, -12), Zone.Terrain.DIRT, "chapel forecourt")
-	assert_eq(Zone.vertex_terrain(-3, 3), Zone.Terrain.GREEN, "the green inside the ring")
+	assert_eq(Zone.vertex_terrain(12, -13), Zone.Terrain.TERRACE, "north rim plateau")
+	assert_eq(Zone.vertex_terrain(0, -13), Zone.Terrain.DIRT, "forecourt splits the rim")
 
 
 func test_transition_registry_covers_both_zones() -> void:

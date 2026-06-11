@@ -14,8 +14,8 @@ PROP_DIR = Path("assets/sprites/village")
 
 # name, texture, x, y, sprite_offset_y, collision(kind,a,b), flip_h
 PLACEMENTS = [
-    ("PropCottageA", "cottage_a", -432, -330, -52, ("rect", 100, 16), False),
-    ("PropCottageB", "cottage_b", 416, -330, -48, ("rect", 100, 16), False),
+    ("PropCottageA", "cottage_a", -432, -298, -52, ("rect", 100, 16), False),
+    ("PropCottageB", "cottage_b", 416, -298, -48, ("rect", 100, 16), False),
     ("PropCottageDark", "cottage_dark", -384, 290, -48, ("rect", 100, 16), False),
     ("PropCottagePieter", "cottage_b", 384, 290, -48, ("rect", 100, 16), True),
     ("PropChapel", "chapel", 0, -408, -76, ("rect", 110, 18), False),

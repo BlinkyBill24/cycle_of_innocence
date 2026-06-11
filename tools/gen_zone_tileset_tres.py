@@ -12,32 +12,39 @@ SRC_DIR = Path("assets/reference/pixellab_tilesets")
 DST_DIR = Path("assets/sprites/tiles")
 TILE = 32
 
-# tres path -> ordered atlas list (order defines source ids)
+# tres path -> ordered atlas list (order defines source ids).
+# entries: name or (name, cols, rows) — default 4x4 Wang grid
 SETS = {
     "assets/resources/tiles/ground_tileset.tres":
         ["playground", "fringes", "ritual", "grass_blend"],
     "assets/resources/tiles/village_tileset.tres":
-        ["village_green", "village_yard"],
+        ["village_green", "village_yard", "village_terrace",
+         ("grass_variants", 6, 1), ("dirt_variants", 4, 1)],
 }
+
+# variation strips live with the variations pipeline, wang sets with tilesets
+ALT_SRC_DIR = Path("assets/reference/pixellab_variations")
 
 # flat stand-in colors per atlas (lower, upper) until the real render lands
 PLACEHOLDER_COLORS = {
     "village_green": ((116, 128, 72), (122, 120, 116)),
     "village_yard": ((116, 128, 72), (150, 128, 88)),
+    "village_terrace": ((116, 128, 72), (104, 116, 64)),
+    "grass_variants": ((116, 128, 72), (116, 128, 72)),
+    "dirt_variants": ((150, 128, 88), (150, 128, 88)),
 }
 
 
-def _placeholder_atlas(name: str, dst: Path) -> None:
+def _placeholder_atlas(name: str, dst: Path, cols: int = 4, rows: int = 4) -> None:
     from PIL import Image
     lower, upper = PLACEHOLDER_COLORS[name]
-    atlas = Image.new("RGB", (4 * TILE, 4 * TILE))
-    for idx in range(16):
-        # idx bits NW NE SW SE: paint quadrants so transitions roughly read
-        ox, oy = (idx % 4) * TILE, (idx // 4) * TILE
+    atlas = Image.new("RGB", (cols * TILE, rows * TILE))
+    for idx in range(cols * rows):
+        ox, oy = (idx % cols) * TILE, (idx // cols) * TILE
         half = TILE // 2
         quads = [(0, 0, 8), (half, 0, 4), (0, half, 2), (half, half, 1)]
         for qx, qy, bit in quads:
-            color = upper if idx & bit else lower
+            color = upper if (rows == 4 and idx & bit) else lower
             for y in range(half):
                 for x in range(half):
                     atlas.putpixel((ox + qx + x, oy + qy + y), color)
@@ -56,16 +63,19 @@ def _build_set(tres: Path, atlases: list) -> None:
     ext_resources = []
     sub_resources = []
     source_lines = []
-    for i, name in enumerate(atlases):
+    for i, entry in enumerate(atlases):
+        name, cols, rows = entry if isinstance(entry, tuple) else (entry, 4, 4)
         src = SRC_DIR / f"{name}_tileset_{TILE}.png"
+        if not src.exists():
+            src = ALT_SRC_DIR / f"{name}_{TILE}.png"
         dst = DST_DIR / f"{name}_tiles_{TILE}.png"
         if src.exists():
             shutil.copyfile(src, dst)
         elif not dst.exists():
-            _placeholder_atlas(name, dst)
+            _placeholder_atlas(name, dst, cols, rows)
         ext_resources.append(
             f'[ext_resource type="Texture2D" path="res://{dst}" id="tex_{name}"]')
-        tiles = "\n".join(f"{x}:{y}/0 = 0" for y in range(4) for x in range(4))
+        tiles = "\n".join(f"{x}:{y}/0 = 0" for y in range(rows) for x in range(cols))
         sub_resources.append(
             f'[sub_resource type="TileSetAtlasSource" id="atlas_{name}"]\n'
             f'texture = ExtResource("tex_{name}")\n'

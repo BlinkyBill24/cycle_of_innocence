@@ -1,0 +1,13 @@
+{
+ "village_terrace": {
+  "job": "3f1ea352-9f8b-47b8-9ae7-a35e888188ba"
+ },
+ "grass_variants": {
+  "id": "9b94be50-f02f-412f-8abf-d00ade407aba",
+  "job": "957b60f5-e51f-4fcb-8ebf-69859f285267"
+ },
+ "dirt_variants": {
+  "id": "23bb375c-8b33-4374-a98a-fc69478c756b",
+  "job": "459ce8ab-e44b-4375-b7d4-0244e5dc9a22"
+ }
+}
