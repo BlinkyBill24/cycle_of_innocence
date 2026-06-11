@@ -67,3 +67,30 @@ func test_death_emits_enemy_died() -> void:
 	watch_signals(GameEvents)
 	enemy.health.take_damage(99)
 	assert_signal_emitted_with_parameters(GameEvents, "enemy_died", [&"twisted_child"])
+
+
+func _spawn_player_at(offset: Vector2) -> CharacterBody2D:
+	var player := CharacterBody2D.new()
+	player.add_to_group("player")
+	add_child_autofree(player)
+	player.global_position = enemy.global_position + offset
+	return player
+
+
+func test_point_blank_contact_backs_out_instead_of_gluing() -> void:
+	# regression (playtest 2026-06-11): a lunge ends at body contact (~18px);
+	# the old standoff froze there and re-lunged point-blank forever
+	_spawn_player_at(Vector2(12, 0))
+	enemy._cooldown = 999.0  # isolate the retreat: no bite this test
+	enemy.hsm.dispatch(&"spotted")
+	var start := enemy.distance_to_player()
+	await wait_physics_frames(30)
+	assert_eq(enemy.hsm.get_active_state(), enemy._state_chase, "no point-blank lunge")
+	assert_gt(enemy.distance_to_player(), start + 4.0, "backs out toward the hover ring")
+
+
+func test_still_attacks_from_the_hover_ring() -> void:
+	_spawn_player_at(Vector2(24, 0))
+	enemy.hsm.dispatch(&"spotted")
+	await wait_physics_frames(2)
+	assert_eq(enemy.hsm.get_active_state(), enemy._state_attack, "ring distance still bites")

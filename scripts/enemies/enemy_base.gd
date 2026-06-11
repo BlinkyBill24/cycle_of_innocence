@@ -195,6 +195,19 @@ func _chase_update(_delta: float) -> void:
 		hsm.dispatch(&"lost")
 		return
 	var dist := distance_to_player()
+	if dist < attack_range * 0.8:
+		# A lunge always ends at body contact (player r10 + enemy r8 = 18px),
+		# INSIDE the standoff band — freezing there glued it to the player and
+		# every next lunge was point-blank (playtest 2026-06-11). Back out to
+		# the hover ring before attacking again.
+		velocity = player.global_position.direction_to(global_position) * move_speed
+		# pinned against a wall while ready to strike: bite rather than be
+		# cornered into harmlessness
+		if _cooldown <= 0.0 and _soothe_hold <= 0.0 \
+				and get_slide_collision_count() > 0 \
+				and get_real_velocity().length() < move_speed * 0.3:
+			hsm.dispatch(&"in_range")
+		return
 	if dist <= attack_range and _cooldown <= 0.0 and _soothe_hold <= 0.0:
 		hsm.dispatch(&"in_range")
 		return
