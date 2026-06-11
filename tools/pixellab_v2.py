@@ -51,6 +51,17 @@ DESCRIPTIONS = {
 
 TEMPLATE_IDS = {"rowan": "mannequin", "briar": "dog", "twisted": "mannequin"}
 
+## Redesign pass (2026-06-11): create-character-pro with the Grok bible as
+## concept_image and a crisp cell from the Grok pixel sheets as style
+## reference_image. Twisted has no clean sheet — Rowan's cell carries the
+## rendering style; the bible + description carry the design.
+STYLE_CELLS = {
+    "rowan": ("assets/reference/protagonist_child_sheet_clean.png", 0, 0),
+    "briar": ("assets/reference/companion_briar_sheet_clean.png", 0, 0),
+    "twisted": ("assets/reference/protagonist_child_sheet_clean.png", 0, 0),
+}
+STYLE_CELL_SIZE = 296  # 1776x2368 sheets are 6x8 grids
+
 
 def call(endpoint: str, payload: dict | None = None, method: str = "POST") -> dict:
     req = urllib.request.Request(
@@ -168,6 +179,125 @@ def _largest_blob(img: Image.Image) -> Image.Image:
 ## briar: clean pixel direction ref. rowan/twisted: the bibles' red annotation
 ## marks poison pixelart conversion — use description + bible palette instead.
 USE_DIRECTION_REF: set[str] = set()  # dog template demands south+east refs; palette path for all
+
+
+def _despill_magenta(img: Image.Image) -> Image.Image:
+    import numpy as np
+    arr = np.asarray(img.convert("RGBA")).copy()
+    r = arr[:, :, 0].astype(int)
+    g = arr[:, :, 1].astype(int)
+    b = arr[:, :, 2].astype(int)
+    arr[(r > 170) & (b > 170) & (g < r - 60) & (g < b - 60), 3] = 0
+    return Image.fromarray(arr, "RGBA")
+
+
+def make_style_ref(char: str) -> Path:
+    """One sheet cell -> clean native-32 pixel art -> 4x nearest (crisp 128px
+    style reference, under the API's 168px cap)."""
+    src, col, row = STYLE_CELLS[char]
+    c = STYLE_CELL_SIZE
+    cell = Image.open(src).crop((col * c, row * c, (col + 1) * c, (row + 1) * c))
+    cell = _despill_magenta(cell)
+    bbox = cell.getchannel("A").getbbox()
+    if bbox:
+        cell = cell.crop(bbox)
+    side = max(cell.size)
+    padded = Image.new("RGBA", (side, side), (0, 0, 0, 0))
+    padded.paste(cell, ((side - cell.width) // 2, (side - cell.height) // 2))
+    px = padded.resize((32, 32), Image.BOX)
+    out = OUT / f"{char}_style_ref.png"
+    px.resize((128, 128), Image.NEAREST).save(out)
+    return out
+
+
+def make_concept(char: str) -> Path:
+    """Keyed character crop from the bible — the full page leaks parchment
+    and annotation blocks into the generation (rowan probe #1)."""
+    src, l, t, r, b, _facing, api_debg = REFS[char]
+    crop = Image.open(src).crop((l, t, r, b))
+    if api_debg:
+        tmp = OUT / f"_{char}_concept_crop.png"
+        crop.convert("RGB").resize((400, 400), Image.LANCZOS).save(tmp)
+        result = call("remove-background", {
+            "image": b64(tmp),
+            "image_size": {"width": 400, "height": 400},
+        })
+        img = result.get("image") or (result.get("images") or [{}])[0]
+        import io
+        keyed = Image.open(io.BytesIO(base64.b64decode(
+            img["base64"] if isinstance(img, dict) else img))).convert("RGBA")
+    else:
+        keyed = pixelize.key_background(crop)
+    bbox = keyed.getchannel("A").getbbox()
+    if bbox:
+        keyed = keyed.crop(bbox)
+    keyed = _largest_blob(keyed)
+    side = max(keyed.size)
+    padded = Image.new("RGBA", (side, side), (0, 0, 0, 0))
+    padded.paste(keyed, ((side - keyed.width) // 2, (side - keyed.height) // 2))
+    out = OUT / f"{char}_concept.png"
+    padded.resize((512, 512), Image.LANCZOS).save(out)
+    return out
+
+
+def create_pro(only: str | None = None) -> None:
+    st = state()
+    for char in REFS:
+        if only and char != only:
+            continue
+        key = f"{char}_pro"
+        if st.get(key, {}).get("character_id") or st.get(key, {}).get("create_job"):
+            print(f"skip {key} (already created/queued)")
+            continue
+        payload = {
+            "description": DESCRIPTIONS[char],
+            "image_size": {"width": 32, "height": 32},
+            "method": "create_from_concept",
+            "view": "low top-down",
+            "template_id": TEMPLATE_IDS[char],
+            "concept_image": b64(make_concept(char)),
+            "reference_image": b64(make_style_ref(char)),
+            "no_background": True,
+        }
+        if getattr(create_pro, "seed", 0):
+            payload["seed"] = create_pro.seed
+        result = call("create-character-pro", payload)
+        st[key] = {
+            "create_job": result.get("background_job_id"),
+            "character_id": result.get("character_id"),
+        }
+        print(f"{key}: character {st[key]['character_id']} (job {st[key]['create_job']})")
+        save_state(st)
+    print("balance:", call("balance", method="GET"))
+
+
+def preview(char_key: str) -> None:
+    """Fetch a character's stored rotations and build an upscaled contact strip."""
+    import io
+    st = state()
+    cid = st.get(char_key, {}).get("character_id")
+    if not cid:
+        print(f"{char_key}: no character")
+        return
+    info = call(f"characters/{cid}", method="GET")
+    frames: list[Image.Image] = []
+    rot_urls: dict = info.get("rotation_urls") or {}
+    order = ["south", "south-east", "east", "north-east", "north", "north-west", "west", "south-west"]
+    for direction in sorted(rot_urls, key=lambda d: order.index(d) if d in order else 99):
+        url = rot_urls[direction]
+        # storage URLs are public and reject the API bearer header
+        with urllib.request.urlopen(url, timeout=120) as resp:
+            frames.append(Image.open(io.BytesIO(resp.read())).convert("RGBA"))
+    if not frames:
+        print(f"{char_key}: no rotation images in response — keys: {list(info.keys())}")
+        return
+    w = max(f.width for f in frames)
+    strip = Image.new("RGBA", (w * len(frames), w), (40, 40, 50, 255))
+    for i, f in enumerate(frames):
+        strip.paste(f, (i * w, 0), f)
+    out = OUT / f"{char_key}_preview.png"
+    strip.resize((strip.width * 4, strip.height * 4), Image.NEAREST).save(out)
+    print(f"preview: {out} ({len(frames)} rotations, frame {w}px)")
 
 
 def create() -> None:
@@ -438,7 +568,7 @@ def _write_tres(char: str, cfg: dict, rows_frames: list) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("cmd", choices=["refs", "create", "status", "animate", "download", "sheets", "balance"])
+    ap.add_argument("cmd", choices=["refs", "create", "status", "animate", "download", "sheets", "balance", "create-pro", "preview"])
     ap.add_argument("--only")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
@@ -456,6 +586,10 @@ def main() -> None:
         sheets()
     elif args.cmd == "animate":
         animate(args.only)
+    elif args.cmd == "create-pro":
+        create_pro(args.only)
+    elif args.cmd == "preview":
+        preview(args.only or "rowan_pro")
 
 
 # (name, template_id or None, action_description or None, directions)
@@ -463,6 +597,31 @@ def main() -> None:
 #   mannequin: walk, breathing-idle, cross-punch, taking-punch, crouching, crouched-walking, ...
 #   dog: walk-4-frames, idle, bark, sneaking, fast-walk, running-*
 ANIMATIONS = {
+    "rowan_pro": [
+        ("walk", "walk", None, ["south", "north", "east", "west"]),
+        ("idle", "breathing-idle", None, ["south", "north", "east", "west"]),
+        ("attack", "cross-punch", None, ["south", "north", "east", "west"]),
+        ("hurt", "taking-punch", None, ["south"]),
+        ("crouch", "crouching", None, ["south"]),
+    ],
+    "briar_pro": [
+        ("walk", "walk-4-frames", None, ["south", "north", "east", "west"]),
+        ("sit", None, "sitting down attentively, tail curled around paws", ["south"]),
+        ("bark", "bark", None, ["east"]),
+        ("cower", "sneaking", None, ["south"]),
+        ("dig", None, "digging energetically in the dirt with front paws", ["east"]),
+        ("growl", None, "growling with hackles raised, head low, body tense, fixed stare", ["south", "north", "east", "west"]),
+        ("lie_down", None, "lying down calmly, head resting on front paws", ["south"]),
+        ("head_bump", None, "quick affectionate forward head nudge against a friend", ["east"]),
+    ],
+    "twisted_pro": [
+        ("walk", "crouched-walking", None, ["south", "north", "east", "west"]),
+        ("idle", "breathing-idle", None, ["south"]),
+        ("lunge", None, "sudden forward lunge with long arms outstretched", ["east"]),
+        ("stilled", None, "sitting down calmly hugging a small wooden duck toy", ["south"]),
+        ("hurt", "taking-punch", None, ["south"]),
+        ("crumble", None, "slowly collapsing into a limp heap of rags and dust", ["south"]),
+    ],
     "rowan": [
         ("walk", "walk", None, ["south", "north", "east", "west"]),
         ("idle", "breathing-idle", None, ["south"]),

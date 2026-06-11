@@ -28,5 +28,21 @@
   "anim_job_idle_south": "queued",
   "anim_job_lunge_east": "queued",
   "anim_job_stilled_south": "queued"
+ },
+ "rowan_pro": {
+  "create_job": "8ddb06df-1604-46cc-aa83-1984198a87e5",
+  "character_id": "d706fb71-f01a-4e56-9e69-036f40548763",
+  "anim_job_walk_south_north": "queued",
+  "anim_job_walk_east_west": "queued",
+  "anim_job_idle_south_north": "queued",
+  "anim_job_idle_east_west": "queued"
+ },
+ "twisted_pro": {
+  "create_job": "baea5793-f2c6-45bc-8a9d-bbcef07fe0e9",
+  "character_id": "6b4b4466-322e-4faf-a59e-a446b9213e36"
+ },
+ "briar_pro": {
+  "create_job": "95ffbcf9-ec2b-4638-81e2-3b7e138f3d9f",
+  "character_id": "372cf8d9-70a2-47b7-8f0c-2a2634225cf6"
  }
 }

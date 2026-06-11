@@ -67,6 +67,9 @@ func _play_with(briar: CompanionBase) -> void:
 	PlayerData.add_companion_bond(briar.companion_id, PLAY_BOND)
 	PlayerData.add_companion_corruption(briar.companion_id, PLAY_CORRUPTION)
 	Sfx.play(&"bark", 0.0)
+	if briar.sprite and briar.sprite.sprite_frames \
+			and briar.sprite.sprite_frames.has_animation("head_bump"):
+		briar.sprite.play("head_bump")
 	DreadManager.reduce_dread(5.0)
 	if briar.hsm and briar.hsm.get_active_state() == briar._state_follow:
 		briar.hsm.dispatch(&"alert")  # happy bark + hop reuses the telegraph

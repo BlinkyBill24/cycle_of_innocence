@@ -170,8 +170,10 @@ func _update_soothe(delta: float) -> void:
 			_stop_soothe()
 		return
 	var has_key := PlayerData.has_story_flag(_soothe_target.soothe_key_flag)
-	var rate := soothe_rate(SOOTHE_RATE, DreadManager.dread, has_key,
-			_briar_calm_assist(_soothe_target))
+	var calm_anchor := _briar_calm_companion(_soothe_target)
+	if calm_anchor:
+		calm_anchor.show_calm()  # she lies down — the child trusts the dog first
+	var rate := soothe_rate(SOOTHE_RATE, DreadManager.dread, has_key, calm_anchor != null)
 	if _soothe_target.add_recognition(rate * delta, has_key):
 		_stop_soothe()
 
@@ -189,11 +191,13 @@ static func soothe_rate(base: float, dread: float, has_key: bool, briar_calm: bo
 	return rate
 
 
-func _briar_calm_assist(target: EnemyBase) -> bool:
+func _briar_calm_companion(target: EnemyBase) -> CompanionBase:
 	var companion := get_tree().get_first_node_in_group("companion") as CompanionBase
-	return companion != null and not companion.is_afraid() \
+	if companion != null and not companion.is_afraid() \
 			and companion.get_bond() >= BRIAR_CALM_MIN_BOND \
-			and companion.global_position.distance_to(target.global_position) <= BRIAR_CALM_RANGE
+			and companion.global_position.distance_to(target.global_position) <= BRIAR_CALM_RANGE:
+		return companion
+	return null
 
 
 func _stop_soothe() -> void:

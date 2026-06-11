@@ -50,6 +50,7 @@ var _quirk_id: StringName
 var _quirk_timer := 0.0
 var _phantom_timer := 0.0
 var _stare_timer := 0.0
+var _calm_hold := 0.0  # >0 while anchoring the player's soothe (lie_down)
 
 
 func _ready() -> void:
@@ -114,6 +115,7 @@ func _init_hsm() -> void:
 func _physics_process(delta: float) -> void:
 	_bark_cooldown = maxf(_bark_cooldown - delta, 0.0)
 	_quirk_cooldown = maxf(_quirk_cooldown - delta, 0.0)
+	_calm_hold = maxf(_calm_hold - delta, 0.0)
 	move_and_slide()
 	_update_animation()
 
@@ -187,6 +189,8 @@ func _dig_enter() -> void:
 	# Earned bond softens it into a head-bump — visibly changed, never removed.
 	if PlayerData.has_quirk(companion_id, &"briar_long_stare"):
 		if get_bond() >= STARE_SOFTENED_BOND:
+			if sprite.sprite_frames and sprite.sprite_frames.has_animation("head_bump"):
+				sprite.play("head_bump")
 			var hop := create_tween()
 			hop.tween_property(sprite, "position:y", -5.0, 0.1)
 			hop.tween_property(sprite, "position:y", 0.0, 0.1)
@@ -334,8 +338,11 @@ func _quirk_enter() -> void:
 	_quirk_timer = 1.6
 	_facing = global_position.direction_to(_quirk_point)
 	Sfx.play(&"growl", -2.0)
-	if sprite.sprite_frames and sprite.sprite_frames.has_animation("bark"):
-		sprite.play("bark")  # hackles up, fixed on the point
+	var anim: Array = PlayerController.directional_anim("growl", _facing)
+	if sprite.sprite_frames and sprite.sprite_frames.has_animation(anim[0]):
+		sprite.play(anim[0])  # hackles up, fixed on the point
+	elif sprite.sprite_frames and sprite.sprite_frames.has_animation("bark"):
+		sprite.play("bark")  # pre-redesign fallback
 	# Empath insight: only the Innocent, with earned bond, can tell true
 	# warnings from corrupted ones; a Vessel sees nothing wrong at all
 	if insight_tell_visible(_quirk_truth, PlayerData.get_morality_tier(), get_bond()):
@@ -349,6 +356,12 @@ func _quirk_update(delta: float) -> void:
 	_quirk_timer -= delta
 	if _quirk_timer <= 0.0:
 		hsm.dispatch(&"done")
+
+
+## Per-frame anchor while the player soothes nearby: Briar lies down
+## non-threateningly (encounters-mercy.md companion assist).
+func show_calm() -> void:
+	_calm_hold = 0.3
 
 
 ## Pure tell rule (companion-quirks.md), unit-tested.
@@ -370,6 +383,11 @@ func _update_animation() -> void:
 	if hsm and hsm.get_active_state() in [_state_cower, _state_bark]:
 		return
 	if hsm and hsm.get_active_state() == _state_dig and _dig_phase_digging:
+		return
+	if _calm_hold > 0.0 and velocity.length() <= 4.0 \
+			and sprite.sprite_frames.has_animation("lie_down"):
+		if sprite.animation != "lie_down":
+			sprite.play("lie_down")
 		return
 	if velocity.length() > 4.0:
 		_facing = velocity.normalized()

@@ -325,6 +325,8 @@ func _crumble() -> void:
 		return
 	_crumbling = true
 	lunge_hitbox.deactivate()
+	if sprite.sprite_frames and sprite.sprite_frames.has_animation("crumble"):
+		sprite.play("crumble")
 	var tween := create_tween()
 	tween.tween_property(sprite, "modulate:a", 0.0, 0.8)
 	tween.tween_callback(queue_free)
@@ -438,6 +440,8 @@ func _on_died() -> void:
 func _update_animation() -> void:
 	if sprite.sprite_frames == null:
 		return
+	if _crumbling:
+		return  # crumble owns the sprite to the end
 	if hsm and hsm.get_active_state() in [_state_attack, _state_hurt]:
 		return  # state already chose its animation
 	if velocity.length() > 4.0:
