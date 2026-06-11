@@ -202,7 +202,7 @@ position = Vector2(540, 130)
 secret_spot_path = NodePath("../../StilledChildKeepsake")
 
 [node name="SwingSet" type="StaticBody2D" parent="World"]
-position = Vector2(-590, -240)
+position = Vector2(-430, -250)
 collision_layer = 1
 collision_mask = 0
 
@@ -214,7 +214,7 @@ texture = ExtResource("22_swing")
 shape = SubResource("RectangleShape2D_prop_wide")
 
 [node name="Slide" type="StaticBody2D" parent="World"]
-position = Vector2(-120, -290)
+position = Vector2(-290, -210)
 collision_layer = 1
 collision_mask = 0
 
@@ -226,7 +226,7 @@ texture = ExtResource("23_slide")
 shape = SubResource("RectangleShape2D_prop_mid")
 
 [node name="Roundabout" type="StaticBody2D" parent="World"]
-position = Vector2(-280, 270)
+position = Vector2(-460, -180)
 collision_layer = 1
 collision_mask = 0
 
@@ -238,7 +238,7 @@ texture = ExtResource("24_roundabout")
 shape = SubResource("RectangleShape2D_prop_mid")
 
 [node name="TotemBear" type="StaticBody2D" parent="World"]
-position = Vector2(-500, -150)
+position = Vector2(-516, -150)
 collision_layer = 1
 collision_mask = 0
 
@@ -250,7 +250,7 @@ texture = ExtResource("25_totem_bear")
 shape = SubResource("CircleShape2D_totem")
 
 [node name="TotemRabbit" type="StaticBody2D" parent="World"]
-position = Vector2(-240, -250)
+position = Vector2(-220, -290)
 collision_layer = 1
 collision_mask = 0
 
@@ -299,12 +299,12 @@ flip_h = true
 shape = SubResource("CircleShape2D_trunk")
 
 [node name="ToyDuck" type="Sprite2D" parent="World"]
-position = Vector2(580, 100)
+position = Vector2(-360, -170)
 offset = Vector2(0, -12)
 texture = ExtResource("29_duck")
 
 [node name="DiggableSpotPlayground" parent="." instance=ExtResource("6_diggable")]
-position = Vector2(-100, -60)
+position = Vector2(-368, -200)
 
 [node name="DiggableSpotFringes" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(260, 110)

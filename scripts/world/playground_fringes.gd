@@ -27,7 +27,10 @@ const PAIR_SOURCES := {
 ## The trampled path peters out where the village's reach ends (vertices
 ## east of this are never PATH) — keeps a 2-vertex gap to the fringe seam.
 const PATH_END_X := -1
-const SAND_RECT := Rect2i(-14, -8, 6, 4)  # vertex-space, inclusive ranges
+## The playground plaza: ritual sand the equipment stands on (playtest
+## 2026-06-11: props belong ON the sand, one clustered scene). Bottom edge
+## keeps a full WARM vertex row before the path band (no SAND/PATH tiles).
+const SAND_RECT := Rect2i(-16, -9, 10, 5)  # vertex-space
 
 ## Zone footprint in tiles (centered on origin): x in [-W/2, W/2)
 const WIDTH := 44
