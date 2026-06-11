@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://gameballoon001"]
+[gd_scene load_steps=13 format=3 uid="uid://gameballoon001"]
 
 [ext_resource type="Script" path="res://scripts/ui/dialogue_balloon.gd" id="1_balloon"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_label"]
@@ -51,6 +51,19 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_choice"]
+content_margin_left = 22.0
+content_margin_top = 1.0
+content_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_choice_focus"]
+bg_color = Color(1, 1, 1, 0.08)
+border_width_left = 3
+border_color = Color(0.7, 0.62, 0.82, 1)
+content_margin_left = 19.0
+content_margin_top = 1.0
+content_margin_bottom = 1.0
 
 [sub_resource type="Theme" id="Theme_balloon"]
 default_font_size = 14
@@ -114,7 +127,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_balloon")
 
-[node name="MarginContainer" type="MarginContainer" parent="Balloon"]
+[node name="BalloonMargin" type="MarginContainer" parent="Balloon"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -127,22 +141,22 @@ offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="Balloon/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Balloon/BalloonMargin"]
 clip_children = 2
 layout_mode = 2
 mouse_filter = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Balloon/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Balloon/BalloonMargin/PanelContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Balloon/MarginContainer/PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Balloon/BalloonMargin/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Balloon/BalloonMargin/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CharacterLabel" type="RichTextLabel" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="CharacterLabel" type="RichTextLabel" parent="Balloon/BalloonMargin/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 2
@@ -152,47 +166,42 @@ text = "Character"
 fit_content = true
 scroll_active = false
 
-[node name="DialogueLabel" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource("2_label")]
+[node name="DialogueLabel" parent="Balloon/BalloonMargin/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource("2_label")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 text = "Dialogue..."
 
-[node name="Control" type="Control" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="Balloon/BalloonMargin/PanelContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(14, 7)
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="Progress" type="Polygon2D" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Control"]
+[node name="Progress" type="Polygon2D" parent="Balloon/BalloonMargin/PanelContainer/MarginContainer/HBoxContainer/Control"]
 unique_name_in_owner = true
 polygon = PackedVector2Array(0, 0, 7, 7, 14, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Control"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Balloon/BalloonMargin/PanelContainer/MarginContainer/HBoxContainer/Control"]
 libraries/ = SubResource("AnimationLibrary_balloon")
 autoplay = &"progress"
 
-[node name="ResponsesMenu" type="VBoxContainer" parent="Balloon" node_paths=PackedStringArray("response_template")]
+[node name="ResponsesMenu" type="VBoxContainer" parent="Balloon/BalloonMargin/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("response_template")]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -220.0
-offset_top = -40.0
-offset_right = 220.0
-offset_bottom = 40.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 8
-theme_override_constants/separation = 2
-alignment = 1
+layout_mode = 2
+theme_override_constants/separation = 0
 script = ExtResource("3_responses")
 response_template = NodePath("ResponseExample")
 
-[node name="ResponseExample" type="Button" parent="Balloon/ResponsesMenu"]
+[node name="ResponseExample" type="Button" parent="Balloon/BalloonMargin/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/ResponsesMenu"]
 layout_mode = 2
+alignment = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_choice")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_choice")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_choice")
+theme_override_styles/focus = SubResource("StyleBoxFlat_choice_focus")
+theme_override_colors/font_color = Color(0.78, 0.78, 0.82, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 text = "Response example"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
