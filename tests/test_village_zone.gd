@@ -14,29 +14,22 @@ func after_each() -> void:
 	ZoneManager.arriving_from = &""
 
 
-func test_no_cell_mixes_cobble_and_yard() -> void:
-	# only GREEN<->COBBLE and GREEN<->YARD tilesets exist
-	var bad := 0
-	for y in range(-Zone.HEIGHT / 2, Zone.HEIGHT / 2):
-		for x in range(-Zone.WIDTH / 2, Zone.WIDTH / 2):
-			var kinds := {}
-			for c in [Zone.vertex_terrain(x, y), Zone.vertex_terrain(x + 1, y),
-					Zone.vertex_terrain(x, y + 1), Zone.vertex_terrain(x + 1, y + 1)]:
-				kinds[c] = true
-			if kinds.has(Zone.Terrain.COBBLE) and kinds.has(Zone.Terrain.YARD):
-				bad += 1
-			elif kinds.size() > 2:
-				bad += 1
-	assert_eq(bad, 0, "no cell pairs terrains without a transition tileset")
-
-
 func test_wang_bitmask_and_pure_tiles() -> void:
 	assert_eq(Zone.wang_tile(Zone.Terrain.GREEN, Zone.Terrain.GREEN,
-			Zone.Terrain.GREEN, Zone.Terrain.GREEN), [Zone.SRC_GREEN_COBBLE, Vector2i(0, 0)])
-	assert_eq(Zone.wang_tile(Zone.Terrain.YARD, Zone.Terrain.YARD,
-			Zone.Terrain.YARD, Zone.Terrain.YARD), [Zone.SRC_GREEN_YARD, Vector2i(3, 3)])
-	assert_eq(Zone.wang_tile(Zone.Terrain.GREEN, Zone.Terrain.COBBLE,
-			Zone.Terrain.GREEN, Zone.Terrain.GREEN), [Zone.SRC_GREEN_COBBLE, Vector2i(0, 1)])
+			Zone.Terrain.GREEN, Zone.Terrain.GREEN), [Zone.SRC_GREEN_YARD, Vector2i(0, 0)])
+	assert_eq(Zone.wang_tile(Zone.Terrain.DIRT, Zone.Terrain.DIRT,
+			Zone.Terrain.DIRT, Zone.Terrain.DIRT), [Zone.SRC_GREEN_YARD, Vector2i(3, 3)])
+	assert_eq(Zone.wang_tile(Zone.Terrain.GREEN, Zone.Terrain.DIRT,
+			Zone.Terrain.GREEN, Zone.Terrain.GREEN), [Zone.SRC_GREEN_YARD, Vector2i(0, 1)])
+
+
+func test_paths_yards_and_forecourt_are_dirt() -> void:
+	# the ring (vertex ~(7.5, 0)), the west-east lane, a yard, the forecourt
+	assert_eq(Zone.vertex_terrain(7, 0), Zone.Terrain.DIRT, "ring")
+	assert_eq(Zone.vertex_terrain(-20, 0), Zone.Terrain.DIRT, "west lane")
+	assert_eq(Zone.vertex_terrain(-14, -9), Zone.Terrain.DIRT, "NW yard")
+	assert_eq(Zone.vertex_terrain(0, -12), Zone.Terrain.DIRT, "chapel forecourt")
+	assert_eq(Zone.vertex_terrain(-3, 3), Zone.Terrain.GREEN, "the green inside the ring")
 
 
 func test_transition_registry_covers_both_zones() -> void:

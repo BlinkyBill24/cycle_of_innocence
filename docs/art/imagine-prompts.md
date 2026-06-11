@@ -126,3 +126,17 @@ Save as: `assets/reference/villager_child_bible.png`
 retro pixel art game scene, top-down wide view of a cozy rural village green at sunset, SNES RPG style, half-timbered cottages with thatched roofs, a little chapel with bell tower, colorful festival bunting and glowing paper lanterns between the houses, village well and market stalls on the green, warm golden window lights, soft blue evening sky, a small playground with swings visible at the village edge, limited 32-color palette, crisp pixels no anti-aliasing
 ```
 Save as: `assets/reference/village_dusk_mood.png` (16:9 — scene, no chroma-key)
+
+## Village look reference (user-provided, 2026-06-11)
+
+`assets/reference/village_tileset_ref_youmind.jpg` — cozy farming-village
+asset sheet (warm saturated palette, soft outlines, front-facing cottages,
+dirt paths — NO cobble). Drove two decisions:
+- Village paths/yards are all packed DIRT (village_yard tileset); the
+  cobble set is shelved for interiors/plazas (its transition rendered as a
+  raised curb — create-tileset models transitions as elevation, see
+  transition_size="height" in their docs).
+- Future clutter pass (barrels, crates, cart, signpost, flowers, hay) can
+  anchor on crops of this sheet via generate-with-style-v2 (style_images)
+  or create-image-bitforge (style_image) — the tileset endpoint's reference
+  params 500 server-side, but the image endpoints' style refs work.
