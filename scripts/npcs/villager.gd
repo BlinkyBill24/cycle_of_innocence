@@ -8,6 +8,10 @@ extends CharacterBody2D
 const EXCLAIM_TEX := preload("res://assets/sprites/ui/exclaim.png")
 
 @export var npc_id: StringName = &"marta_farmer"
+## Archetype SpriteFrames — set on the INSTANCE root, never on the child:
+## child overrides are dropped by export's binary scene conversion
+## (web playtest 2026-06-11: invisible villagers).
+@export var frames: SpriteFrames
 @export var move_speed: float = 55.0
 @export var notice_radius: float = 70.0
 @export var notice_rate: float = 25.0  # suspicion per second while seeing Rowan
@@ -25,6 +29,8 @@ var _exclaim: Sprite2D
 
 func _ready() -> void:
 	add_to_group("villager")
+	if frames and sprite:
+		sprite.sprite_frames = frames
 	WorldState.time_changed.connect(func(_t: int, _d: int) -> void: refresh_slot())
 	GameEvents.hollowing_stage_advanced.connect(func(_s: int) -> void: refresh_slot())
 	refresh_slot()

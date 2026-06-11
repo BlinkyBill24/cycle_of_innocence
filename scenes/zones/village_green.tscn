@@ -134,42 +134,32 @@ position = Vector2(610, 30)
 [node name="Marta" parent="World" instance=ExtResource("5_villager")]
 position = Vector2(-600, 40)
 npc_id = &"marta_farmer"
-
-[node name="AnimatedSprite2D" parent="World/Marta" index="1"]
-sprite_frames = ExtResource("6_parent_frames")
+frames = ExtResource("6_parent_frames")
 
 [node name="Pieter" parent="World" instance=ExtResource("5_villager")]
 position = Vector2(-40, -80)
 npc_id = &"pieter_parent"
-
-[node name="AnimatedSprite2D" parent="World/Pieter" index="1"]
-sprite_frames = ExtResource("6_parent_frames")
+frames = ExtResource("6_parent_frames")
 modulate = Color(0.92, 0.96, 1, 1)
 
 [node name="ElderAldwin" parent="World" instance=ExtResource("5_villager")]
 position = Vector2(0, -360)
 npc_id = &"elder_aldwin"
+frames = ExtResource("8_elder_frames")
 move_speed = 35.0
-
-[node name="AnimatedSprite2D" parent="World/ElderAldwin" index="1"]
-sprite_frames = ExtResource("8_elder_frames")
 
 [node name="WardenBrek" parent="World" instance=ExtResource("5_villager")]
 position = Vector2(610, 20)
 npc_id = &"warden_brek"
+frames = ExtResource("7_warden_frames")
 notice_radius = 110.0
 notice_rate = 40.0
-
-[node name="AnimatedSprite2D" parent="World/WardenBrek" index="1"]
-sprite_frames = ExtResource("7_warden_frames")
 
 [node name="Lena" parent="World" instance=ExtResource("5_villager")]
 position = Vector2(0, 120)
 npc_id = &"lena_child"
+frames = ExtResource("9_child_frames")
 move_speed = 70.0
-
-[node name="AnimatedSprite2D" parent="World/Lena" index="1"]
-sprite_frames = ExtResource("9_child_frames")
 
 [node name="DreadOverlay" parent="." instance=ExtResource("12_overlay")]
 

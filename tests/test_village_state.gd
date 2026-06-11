@@ -93,6 +93,35 @@ func test_suspicion_survives_save_round_trip() -> void:
 	assert_true(VillageState.has_reported(&"marta_farmer"), "report flag persists")
 
 
+func test_villager_frames_assigned_on_instance_roots() -> void:
+	# regression (web playtest 2026-06-11): sprite_frames overrides on the
+	# instanced CHILD are dropped by export's binary conversion — invisible
+	# villagers in the web build. Frames must be a root-level property.
+	for path in ["res://scenes/zones/village_green.tscn",
+			"res://scenes/zones/playground_fringes.tscn"]:
+		var state: SceneState = (load(path) as PackedScene).get_state()
+		for i in state.get_node_count():
+			var has_npc_id := false
+			var has_frames := false
+			for p in state.get_node_property_count(i):
+				match String(state.get_node_property_name(i, p)):
+					"npc_id":
+						has_npc_id = true
+					"frames":
+						has_frames = true
+			if has_npc_id:
+				assert_true(has_frames, "%s/%s sets frames on the instance root"
+						% [path.get_file(), state.get_node_name(i)])
+
+
+func test_villager_applies_exported_frames_to_sprite() -> void:
+	var villager: Villager = load("res://scenes/npcs/villager.tscn").instantiate()
+	villager.frames = load("res://assets/resources/npcs/villager_parent_frames.tres")
+	add_child_autofree(villager)
+	await wait_physics_frames(1)
+	assert_not_null(villager.sprite.sprite_frames, "export var lands on the sprite")
+
+
 func test_villager_sheets_have_every_routine_animation() -> void:
 	for archetype in ["villager_parent", "villager_warden", "villager_elder", "villager_child"]:
 		var frames: SpriteFrames = load("res://assets/resources/npcs/%s_frames.tres" % archetype)

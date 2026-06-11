@@ -207,11 +207,9 @@ position = Vector2(-335, -155)
 [node name="WardenOslo" parent="World" instance=ExtResource("30_villager")]
 position = Vector2(-600, 60)
 npc_id = &"warden_oslo"
+frames = ExtResource("31_warden_frames")
 notice_radius = 110.0
 notice_rate = 40.0
-
-[node name="AnimatedSprite2D" parent="World/WardenOslo" index="1"]
-sprite_frames = ExtResource("31_warden_frames")
 
 [node name="TwistedChild" parent="World" instance=ExtResource("5_twisted_child")]
 position = Vector2(540, 130)
