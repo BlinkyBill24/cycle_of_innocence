@@ -35,7 +35,11 @@
   "anim_job_walk_south_north": "queued",
   "anim_job_walk_east_west": "queued",
   "anim_job_idle_south_north": "queued",
-  "anim_job_idle_east_west": "queued"
+  "anim_job_idle_east_west": "queued",
+  "anim_job_attack_south_north": "queued",
+  "anim_job_attack_east_west": "queued",
+  "anim_job_hurt_south": "queued",
+  "anim_job_crouch_south": "queued"
  },
  "twisted_pro": {
   "create_job": "baea5793-f2c6-45bc-8a9d-bbcef07fe0e9",

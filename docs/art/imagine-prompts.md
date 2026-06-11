@@ -65,3 +65,15 @@ retro pixel art top-down RPG sprite sheet, same escaped child from reference ima
 ```
 
 Post-process in Aseprite (grid snap, palette reduce, anim timing for age weight shift and companion personality).
+
+
+## PixelLab redesign pass (2026-06-11)
+
+Character redesign via `create-character-pro` (`method=create_from_concept`):
+- **concept_image**: keyed character crop from the Grok bible (full pages leak parchment/annotation blocks into the generation — probe #1 failed on this)
+- **reference_image**: one clean 296px cell from the Grok pixel sheets, despilled, BOX-downscaled to native 32, NEAREST-upscaled to 128 (crisp style signal under the 168px API cap)
+- `no_background: true` + style_description "single isolated character sprite, fully transparent background, no backdrop, no ground tile, no kennel, no box behind the dog" — the dog template repeatedly painted a backdrop box without the explicit negative
+- 8 directions, 32px frames (stored on a 60px canvas for animation room), ~$0.095 per create
+- Twisted has no clean Grok sheet — Rowan's style cell carries the rendering style; the bible + description carry the design
+
+New animations this pass (beyond regenerating the old set): Briar `growl` (4-dir, quirk pings), `lie_down` (soothe calm-anchor), `head_bump` (softened stare / hideout play), `sit`; TwistedChild `hurt`, `crumble` (dominated death).
