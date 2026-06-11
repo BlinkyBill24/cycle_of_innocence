@@ -8,6 +8,9 @@ extends Node
 @export var once_flag: StringName = &""
 @export var start_delay: float = 1.2
 @export var autostart: bool = true
+## Optional gate: don't start until this story flag is set (e.g. player_named
+## while the NameEntry prompt is open).
+@export var wait_for_flag: StringName = &""
 
 var _running := false
 
@@ -23,6 +26,8 @@ func _try_start() -> void:
 	if not once_flag.is_empty() and PlayerData.has_story_flag(once_flag):
 		return
 	_running = true
+	while not wait_for_flag.is_empty() and not PlayerData.has_story_flag(wait_for_flag):
+		await get_tree().process_frame
 	await get_tree().create_timer(start_delay).timeout
 	var player := get_tree().get_first_node_in_group("player")
 	if player is PlayerController:

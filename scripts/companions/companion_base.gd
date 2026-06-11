@@ -364,6 +364,18 @@ func show_calm() -> void:
 	_calm_hold = 0.3
 
 
+## The player asks for a dig where the earth is already turned over: answer
+## the press with body language so silence never reads as a bug.
+func signal_nothing_to_dig() -> void:
+	if is_afraid() or hsm.get_active_state() != _state_follow:
+		return
+	assist_refused.emit(&"nothing_buried")
+	Sfx.play(&"bark", -8.0)
+	var hop := create_tween()
+	hop.tween_property(sprite, "position:y", -4.0, 0.1)
+	hop.tween_property(sprite, "position:y", 0.0, 0.1)
+
+
 ## Pure tell rule (companion-quirks.md), unit-tested.
 static func insight_tell_visible(is_true_ping: bool, tier: int, bond: float) -> bool:
 	return is_true_ping and tier == PlayerData.MoralityTier.INNOCENT_EMPATH \

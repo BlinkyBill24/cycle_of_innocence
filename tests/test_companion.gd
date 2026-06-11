@@ -101,3 +101,17 @@ func test_revealed_spot_cannot_reveal_twice() -> void:
 	spot.reveal()
 	spot.reveal()
 	assert_signal_emit_count(GameEvents, "diggable_revealed", 1)
+
+
+func test_nothing_to_dig_answers_with_refusal() -> void:
+	watch_signals(briar)
+	briar.signal_nothing_to_dig()
+	assert_signal_emitted_with_parameters(briar, "assist_refused", [&"nothing_buried"])
+
+
+func test_nothing_to_dig_stays_silent_while_afraid() -> void:
+	DreadManager.add_dread(90.0)
+	await wait_physics_frames(2)
+	watch_signals(briar)
+	briar.signal_nothing_to_dig()
+	assert_signal_not_emitted(briar, "assist_refused", "cower already explains itself")

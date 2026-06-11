@@ -1,28 +1,28 @@
 ~ start
-Rowan: It's quiet now. The fog ate the music.
-Rowan: They were still singing when I ran. Like nothing was wrong. Like I wasn't even—
-Rowan: ...One piece of bread. That's everything I grabbed.
-Rowan: *The pup is watching my hands. His ribs show through the scruff. There's a bell on his collar — they gave him a bell, like a toy.*
+{{PlayerData.custom_name}}: It's quiet now. The fog ate the music.
+{{PlayerData.custom_name}}: They were still singing when I ran. Like nothing was wrong. Like I wasn't even—
+{{PlayerData.custom_name}}: ...One piece of bread. That's everything I grabbed.
+{{PlayerData.custom_name}}: *The pup is watching my hands. His ribs show through the scruff. There's a bell on his collar — they gave him a bell, like a toy.*
 - Share the bread
 	do PlayerData.change_morality(-10.0)
 	do PlayerData.add_companion_bond("briar", 10.0)
 	do PlayerData.set_story_flag("food_shared")
-	Rowan: Here. Half for you. We both run on it as far as it goes.
-	Rowan: *He eats from my hand, careful, like he expects it to be taken back. When it isn't, his tail thumps once.*
-	Rowan: *It's the first warm thing all night.*
+	{{PlayerData.custom_name}}: Here. Half for you. We both run on it as far as it goes.
+	{{PlayerData.custom_name}}: *He eats from my hand, careful, like he expects it to be taken back. When it isn't, his tail thumps once.*
+	{{PlayerData.custom_name}}: *It's the first warm thing all night.*
 - Eat it alone
 	do PlayerData.change_morality(10.0)
 	do PlayerData.add_companion_bond("briar", -5.0)
 	do PlayerData.set_story_flag("food_kept")
-	Rowan: I'm sorry. I need it... or I won't be able to run anymore.
-	Rowan: *He lowers his head onto his paws and looks away. He doesn't whine.*
-	Rowan: *Somehow that's worse.*
+	{{PlayerData.custom_name}}: I'm sorry. I need it... or I won't be able to run anymore.
+	{{PlayerData.custom_name}}: *He lowers his head onto his paws and looks away. He doesn't whine.*
+	{{PlayerData.custom_name}}: *Somehow that's worse.*
 - Give him all of it
 	do PlayerData.change_morality(-15.0)
 	do PlayerData.add_companion_bond("briar", 15.0)
 	do PlayerData.set_story_flag("food_given_all")
-	Rowan: Take it. They didn't feed you either... I know how that feels.
-	Rowan: *He eats everything, then presses his whole shaking body against my leg and stays there.*
-	Rowan: *They wanted us both gone... so maybe we're stuck together now.*
-Rowan: We can't stay here. The toys know the playground better than we do.
+	{{PlayerData.custom_name}}: Take it. They didn't feed you either... I know how that feels.
+	{{PlayerData.custom_name}}: *He eats everything, then presses his whole shaking body against my leg and stays there.*
+	{{PlayerData.custom_name}}: *They wanted us both gone... so maybe we're stuck together now.*
+{{PlayerData.custom_name}}: We can't stay here. The toys know the playground better than we do.
 => END

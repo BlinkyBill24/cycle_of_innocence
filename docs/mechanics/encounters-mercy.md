@@ -49,7 +49,7 @@ Hold-to-soothe maps cleanly to a touch hold; no extra buttons beyond existing in
 ## Implementation notes (2026-06-10, branch feature/full-mercy)
 - Generic soothe plateaus at Recognition 60; each monster exports `soothe_key_flag` — for the TwistedChild it is `dug_playground_buried_toy` (Briar digging up the toy IS the discovery payoff). With the key: rate ×1.6 and the plateau lifts.
 - Briar calm aura: bond ≥ 25, not afraid, within 90px of the target → rate ×1.5 (stacks with the key). Dread > 80 halves everything. Pure rule: `PlayerController.soothe_rate()`.
-- Stilled children lead: stay within 90px and the child walks to its `secret_spot_path` (keepsake diggable east of the swings) — once, flagged `led_<id>`.
+- Stilled children lead: stay within 90px and the child walks to its `secret_spot_path` (keepsake diggable east of the swings) — once, flagged `led_<id>`. It stops *beside* the spot and waits; the reveal stays Briar's dig (assist + bond reward), never the monster's (playtest fix 2026-06-11).
 - Domination: at Vessel tier the same hold becomes `add_domination` — ×1.4 rate, ignores dread and needs no key (fear is the easy road). The thrall heels, fights other monsters once, then crumbles; `dominated_<id>` keeps it dead forever. Morality +8, Briar corruption +5.
 - Bookkeeping: `PlayerData.spared_count` / `dominated_count` + permanent `spared_`/`dominated_` flags (betrayal clears `stilled_`, never the history). All persisted.
 

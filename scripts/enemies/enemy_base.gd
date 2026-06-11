@@ -27,7 +27,9 @@ const RECOGNITION_MAX := 100.0
 const GENERIC_PLATEAU := 60.0
 const SOOTHE_SLOW_FACTOR := 0.45
 const LEAD_TRIGGER_RANGE := 90.0
-const LEAD_ARRIVE_DISTANCE := 10.0
+# Stop BESIDE the spot, not on it — parking on the marker hides it and the
+# dig must stay Briar's moment (playtest 2026-06-11).
+const LEAD_ARRIVE_DISTANCE := 20.0
 const DOMINATED_LIFETIME := 45.0
 var recognition: float = 0.0
 var stilled: bool = false
@@ -260,10 +262,10 @@ func _stilled_update(_delta: float) -> void:
 	if global_position.distance_to(player.global_position) > LEAD_TRIGGER_RANGE:
 		return
 	if global_position.distance_to(spot.global_position) <= LEAD_ARRIVE_DISTANCE:
+		# It shows the way and waits — uncovering the keepsake is Briar's dig
+		# (the assist + bond reward), never the monster's (playtest 2026-06-11).
 		PlayerData.set_story_flag(_led_flag())
 		var dig := spot as DiggableSpot
-		if dig:
-			dig.reveal()
 		if GameEvents:
 			GameEvents.stilled_led_to_secret.emit(stable_id, dig.spot_id if dig else &"")
 		return

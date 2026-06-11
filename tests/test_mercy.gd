@@ -99,7 +99,7 @@ func test_stilled_state_persists_via_flag() -> void:
 func test_stilled_child_leads_to_its_secret() -> void:
 	var spot: DiggableSpot = load("res://scenes/world/diggable_spot.tscn").instantiate()
 	add_child_autofree(spot)
-	spot.global_position = enemy.global_position + Vector2(20, 0)
+	spot.global_position = enemy.global_position + Vector2(40, 0)
 	enemy.secret_spot_path = enemy.get_path_to(spot)
 	var player := CharacterBody2D.new()
 	player.add_to_group("player")
@@ -107,11 +107,15 @@ func test_stilled_child_leads_to_its_secret() -> void:
 	player.global_position = enemy.global_position + Vector2(30, 0)
 	enemy.add_recognition(100.0, true)
 	watch_signals(GameEvents)
-	await wait_physics_frames(70)  # walks ~10px at 0.7x move_speed
+	await wait_physics_frames(80)  # walks ~20px at 0.7x move_speed
 	assert_true(PlayerData.has_story_flag(&"led_twisted_child_01"), "led once, remembered")
-	assert_true(spot.revealed, "the keepsake is uncovered")
+	assert_false(spot.revealed, "showing the way is not digging — that is Briar's moment")
 	assert_signal_emitted_with_parameters(GameEvents, "stilled_led_to_secret",
 			[&"twisted_child_01", &"playground_buried_toy"])
+	assert_lte(enemy.global_position.distance_to(spot.global_position),
+			enemy.LEAD_ARRIVE_DISTANCE + 2.0, "waits beside the spot")
+	assert_gte(enemy.global_position.distance_to(spot.global_position), 10.0,
+			"does not park on the marker")
 
 
 func test_vessel_tier_dominates_instead() -> void:

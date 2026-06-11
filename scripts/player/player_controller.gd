@@ -24,6 +24,9 @@ const ATTACK_WINDOW := 0.15
 const ATTACK_REACH := 16.0
 const HURT_SECONDS := 0.25
 const HURT_DREAD := 7.0
+# Space both advances dialogue (ui_accept) and attacks — the balloon-closing
+# press is still "just pressed" the frame control returns (playtest 2026-06-11).
+const POST_CUTSCENE_INPUT_GRACE := 0.15
 
 var movement_state: MovementState = MovementState.EXPLORING
 var age_stage: AgeStage = AgeStage.CHILD
@@ -31,6 +34,7 @@ var morality: float = 0.0
 var _facing: Vector2 = Vector2.DOWN
 var _action_anim_lock: bool = false
 var _footstep_timer: float = 0.0
+var _input_grace: float = 0.0
 
 const SOOTHE_RANGE := 80.0
 const SOOTHE_RATE := 30.0  # recognition per second (≈3.3s to Still)
@@ -68,6 +72,7 @@ func _on_player_data_morality_changed(new_value: float, _delta: float) -> void:
 	morality = new_value
 
 func _physics_process(delta: float) -> void:
+	_input_grace = maxf(_input_grace - delta, 0.0)
 	if movement_state != MovementState.EXPLORING:
 		_decelerate(delta)
 		move_and_slide()
@@ -93,6 +98,9 @@ func _physics_process(delta: float) -> void:
 	if not _action_anim_lock:
 		_update_locomotion_animation()
 	_update_footsteps(delta)
+
+	if _input_grace > 0.0:
+		return
 
 	# Real-time attack (no pause menu)
 	if Input.is_action_just_pressed("attack") and movement_state == MovementState.EXPLORING:
@@ -172,7 +180,7 @@ func _update_soothe(delta: float) -> void:
 	var has_key := PlayerData.has_story_flag(_soothe_target.soothe_key_flag)
 	var calm_anchor := _briar_calm_companion(_soothe_target)
 	if calm_anchor:
-		calm_anchor.show_calm()  # she lies down — the child trusts the dog first
+		calm_anchor.show_calm()  # he lies down — the child trusts the dog first
 	var rate := soothe_rate(SOOTHE_RATE, DreadManager.dread, has_key, calm_anchor != null)
 	if _soothe_target.add_recognition(rate * delta, has_key):
 		_stop_soothe()
@@ -213,16 +221,26 @@ func _try_companion_assist() -> void:
 	if companion == null:
 		return
 	var nearest: DiggableSpot = null
+	var nearest_revealed: DiggableSpot = null
 	var best := ASSIST_RANGE
+	var best_revealed := ASSIST_RANGE
 	for node in get_tree().get_nodes_in_group("diggable"):
 		var spot := node as DiggableSpot
-		if spot and not spot.revealed:
-			var dist := global_position.distance_to(spot.global_position)
-			if dist < best:
-				best = dist
-				nearest = spot
+		if spot == null:
+			continue
+		var dist := global_position.distance_to(spot.global_position)
+		if not spot.revealed and dist < best:
+			best = dist
+			nearest = spot
+		elif spot.revealed and dist < best_revealed:
+			best_revealed = dist
+			nearest_revealed = spot
 	if nearest:
 		companion.command_dig(nearest)
+	elif nearest_revealed:
+		# standing on dug-up earth: answer the press so silence never reads as
+		# a bug — there is just nothing left buried here (playtest 2026-06-11)
+		companion.signal_nothing_to_dig()
 
 ## PixelLab characters have true 4-direction rows (incl. west) — no mirroring.
 ## Returns [animation_name, flip_h]; pure for testability.
@@ -332,7 +350,11 @@ func _on_animation_finished() -> void:
 			movement_state = MovementState.EXPLORING
 
 func set_movement_state(new_state: MovementState) -> void:
+	var previous := movement_state
 	movement_state = new_state
+	if new_state == MovementState.EXPLORING \
+			and previous in [MovementState.CUTSCENE, MovementState.DREAD_LOCK]:
+		_input_grace = POST_CUTSCENE_INPUT_GRACE
 	if new_state != MovementState.EXPLORING:
 		velocity = Vector2.ZERO
 		if not _action_anim_lock and animated_sprite:
