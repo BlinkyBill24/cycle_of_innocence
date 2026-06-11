@@ -18,8 +18,17 @@ var _running := false
 
 
 func _ready() -> void:
+	add_to_group("story_dialogue")
 	if autostart:
 		_try_start.call_deferred()
+
+
+## Debug/testing: forget the once-flag and run the dialogue again with the
+## CURRENT PlayerData state (e.g. Vessel-tier distortion checks).
+func replay() -> void:
+	if not once_flag.is_empty():
+		PlayerData.story_flags.erase(once_flag)
+	_try_start()
 
 
 func _try_start() -> void:

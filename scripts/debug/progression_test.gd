@@ -50,6 +50,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			WorldState.advance_time()
 		KEY_H:
 			HollowingClock.add_alarm(HollowingClock.ALARM_THRESHOLD)
+		KEY_J:
+			# replay story dialogues with CURRENT stats (vessel distortion QA)
+			for node in get_tree().get_nodes_in_group("story_dialogue"):
+				(node as StoryDialogue).replay()
 		KEY_K:
 			SaveManager.save_game()
 		KEY_L:
@@ -81,7 +85,7 @@ func _refresh_label() -> void:
 		+ _enemy_line()
 		+ "Keys: 1/2 morality ±15 | 3 teen 4 adult 5 child\n"
 		+ "6 bond+10 | 7 corruption+15 | 8 revelation | 9 dread+20 | 0 reset\n"
-		+ "K save | L load | T time | H hollow+1 | E dig/soothe/rest/play"
+		+ "K save | L load(after K) | J replay intro | T time | H hollow+1 | E interact"
 	)
 
 
