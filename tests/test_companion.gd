@@ -103,6 +103,28 @@ func test_revealed_spot_cannot_reveal_twice() -> void:
 	assert_signal_emit_count(GameEvents, "diggable_revealed", 1)
 
 
+func test_long_stare_quirk_shows_stare_pose_then_complies() -> void:
+	PlayerData.set_companion_corruption(&"briar", 45.0)  # acquires briar_long_stare
+	var player := CharacterBody2D.new()
+	player.add_to_group("player")
+	add_child_autofree(player)
+	player.global_position = briar.global_position + Vector2(-30, 0)
+	var spot := _make_spot()
+	briar.command_dig(spot)
+	await wait_physics_frames(3)
+	assert_true(String(briar.sprite.animation).begins_with("stare_"),
+			"the beat-too-long stare reads as a stare, not a sit")
+	await wait_seconds(briar.STARE_SECONDS + briar.dig_seconds + 0.6)
+	assert_true(spot.revealed, "still complies after the beat")
+
+
+func test_dusk_press_quirk_plays_press_pose() -> void:
+	PlayerData.set_companion_bond(&"briar", 80.0)  # acquires briar_dusk_press
+	briar._on_time_changed(WorldState.TimeOfDay.DUSK, 1)
+	assert_eq(briar.sprite.animation, &"dusk_press", "the press is visible, not just a bark")
+	assert_gt(briar._pose_hold, 0.0, "pose holds against locomotion override")
+
+
 func test_nothing_to_dig_answers_with_refusal() -> void:
 	watch_signals(briar)
 	briar.signal_nothing_to_dig()

@@ -51,6 +51,7 @@ var _quirk_timer := 0.0
 var _phantom_timer := 0.0
 var _stare_timer := 0.0
 var _calm_hold := 0.0  # >0 while anchoring the player's soothe (lie_down)
+var _pose_hold := 0.0  # >0 while a quirk pose (dusk press) owns the sprite
 
 
 func _ready() -> void:
@@ -74,6 +75,7 @@ func _on_time_changed(time: int, _day: int) -> void:
 				and not _paused and not is_afraid():
 			DreadManager.reduce_dread(DUSK_PRESS_DREAD_RELIEF)
 			Sfx.play(&"bark", -6.0)
+			_play_dusk_press()
 			if GameEvents:
 				GameEvents.quirk_expressed.emit(companion_id, &"briar_dusk_press")
 
@@ -116,6 +118,7 @@ func _physics_process(delta: float) -> void:
 	_bark_cooldown = maxf(_bark_cooldown - delta, 0.0)
 	_quirk_cooldown = maxf(_quirk_cooldown - delta, 0.0)
 	_calm_hold = maxf(_calm_hold - delta, 0.0)
+	_pose_hold = maxf(_pose_hold - delta, 0.0)
 	move_and_slide()
 	_update_animation()
 
@@ -210,6 +213,10 @@ func _dig_update(delta: float) -> void:
 		var player := get_player()
 		if player:
 			_facing = global_position.direction_to(player.global_position)
+		var anim: Array = PlayerController.directional_anim("stare", _facing)
+		if sprite.sprite_frames and sprite.sprite_frames.has_animation(anim[0]) \
+				and sprite.animation != anim[0]:
+			sprite.play(anim[0])  # locked on Rowan, not on the order
 		return
 	if not _dig_phase_digging:
 		if global_position.distance_to(_dig_target.global_position) > 10.0:
@@ -364,6 +371,21 @@ func show_calm() -> void:
 	_calm_hold = 0.3
 
 
+const DUSK_PRESS_POSE_SECONDS := 1.4
+
+
+## Dusk press quirk visual: lean into Rowan's legs as the dark comes.
+## Falls back to head_bump until the dedicated animation exists.
+func _play_dusk_press() -> void:
+	if sprite.sprite_frames == null:
+		return
+	for anim_name in ["dusk_press", "head_bump"]:
+		if sprite.sprite_frames.has_animation(anim_name):
+			_pose_hold = DUSK_PRESS_POSE_SECONDS
+			sprite.play(anim_name)
+			return
+
+
 ## The player asks for a dig where the earth is already turned over: answer
 ## the press with body language so silence never reads as a bug.
 func signal_nothing_to_dig() -> void:
@@ -394,8 +416,11 @@ func _update_animation() -> void:
 		return
 	if hsm and hsm.get_active_state() in [_state_cower, _state_bark]:
 		return
-	if hsm and hsm.get_active_state() == _state_dig and _dig_phase_digging:
+	if hsm and hsm.get_active_state() == _state_dig \
+			and (_dig_phase_digging or String(sprite.animation).begins_with("stare_")):
 		return
+	if _pose_hold > 0.0 and velocity.length() <= 4.0:
+		return  # quirk pose (dusk press) holds until it ends or Briar moves
 	if _calm_hold > 0.0 and velocity.length() <= 4.0 \
 			and sprite.sprite_frames.has_animation("lie_down"):
 		if sprite.animation != "lie_down":

@@ -383,6 +383,11 @@ SHEET_ROWS = {
             ("growl_left", "growl", "west", "loop", 6),
             ("lie_down", "lie_down", "east", "loop", 4),
             ("head_bump", "head_bump", "east", "once", 10),
+            ("stare_down", "stare", "south", "loop", 3),
+            ("stare_up", "stare", "north", "loop", 3),
+            ("stare_right", "stare", "east", "loop", 3),
+            ("stare_left", "stare", "west", "loop", 3),
+            ("dusk_press", "dusk_press", "east", "once", 6),
         ],
         "aliases": {},
     },
@@ -757,6 +762,9 @@ ANIMATIONS = {
         ("growl", None, "growling with hackles raised, head low, body tense, fixed stare", ["south", "north", "east", "west"]),
         ("lie_down", None, "lying down calmly, head resting on front paws", ["south"]),
         ("head_bump", None, "quick affectionate forward head nudge against a friend", ["east"]),
+        # quirk visuals (2026-06-11): the corruption stare + the dusk comfort press
+        ("stare", None, "standing rigidly still, frozen mid-step, head raised, unblinking fixed stare straight ahead", ["south", "north", "east", "west"]),
+        ("dusk_press", None, "leaning its whole body sideways against a person's leg, pressing close for comfort, tail low", ["east"]),
     ],
     "twisted_pro": [
         ("walk", "crouched-walking", None, ["south", "north", "east", "west"]),

@@ -118,6 +118,16 @@ func test_stilled_child_leads_to_its_secret() -> void:
 			"does not park on the marker")
 
 
+func test_dominated_thrall_lunge_plays_lunge_animation() -> void:
+	enemy.dominated = true
+	enemy.hsm.dispatch(&"dominated")
+	var prey: EnemyBase = load("res://scenes/enemies/twisted_child.tscn").instantiate()
+	add_child_autofree(prey)
+	prey.global_position = enemy.global_position + Vector2(20, 0)
+	await wait_physics_frames(3)
+	assert_eq(enemy.sprite.animation, &"lunge", "the thrall's strike reads as a strike")
+
+
 func test_vessel_tier_dominates_instead() -> void:
 	PlayerData.change_morality(90.0)  # Vessel tier (> 80)
 	assert_eq(PlayerData.get_morality_tier(), PlayerData.MoralityTier.VESSEL)

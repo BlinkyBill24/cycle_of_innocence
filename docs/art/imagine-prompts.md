@@ -77,3 +77,14 @@ Character redesign via `create-character-pro` (`method=create_from_concept`):
 - Twisted has no clean Grok sheet — Rowan's style cell carries the rendering style; the bible + description carry the design
 
 New animations this pass (beyond regenerating the old set): Briar `growl` (4-dir, quirk pings), `lie_down` (soothe calm-anchor), `head_bump` (softened stare / hideout play), `sit`; TwistedChild `hurt`, `crumble` (dominated death).
+
+## Quirk-visual gap fill (2026-06-11, branch feature/anim-gap-fill)
+
+Two Briar animations the quirk system expressed only via SFX/sit until now
+(`animate-character`, `mode=v3`, frame_count 4, character 372cf8d9):
+- `stare` (4-dir, loop 3fps) — long-stare corruption quirk, replaces the sit
+  fallback during the beat-too-long stare: "standing rigidly still, frozen
+  mid-step, head raised, unblinking fixed stare straight ahead"
+- `dusk_press` (east, once 6fps) — bond quirk at dusk/night, falls back to
+  head_bump if missing: "leaning its whole body sideways against a person's
+  leg, pressing close for comfort, tail low"

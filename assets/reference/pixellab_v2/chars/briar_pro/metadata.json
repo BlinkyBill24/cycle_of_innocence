@@ -133,6 +133,15 @@
               "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/growling_with_hackles_raised_head_low_body_tense_f-9ac7d73e/west/frame_004.png"
             ]
           },
+          "standing_rigidly_still_frozen_mid-step_head_raised": {
+            "west": [
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised/west/frame_000.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised/west/frame_001.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised/west/frame_002.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised/west/frame_003.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised/west/frame_004.png"
+            ]
+          },
           "digging_energetically_in_the_dirt_with_front_paws": {
             "east": [
               "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/digging_energetically_in_the_dirt_with_front_paws/east/frame_000.png",
@@ -156,6 +165,15 @@
               "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-bf037135/south/frame_003.png"
             ]
           },
+          "leaning_its_whole_body_sideways_against_a_person_s": {
+            "east": [
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/leaning_its_whole_body_sideways_against_a_person_s/east/frame_000.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/leaning_its_whole_body_sideways_against_a_person_s/east/frame_001.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/leaning_its_whole_body_sideways_against_a_person_s/east/frame_002.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/leaning_its_whole_body_sideways_against_a_person_s/east/frame_003.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/leaning_its_whole_body_sideways_against_a_person_s/east/frame_004.png"
+            ]
+          },
           "sitting_down_attentively_tail_curled_around_paws": {
             "south": [
               "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/sitting_down_attentively_tail_curled_around_paws/south/frame_000.png",
@@ -174,11 +192,36 @@
               "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-d90d42d8/east/frame_004.png",
               "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/animating-d90d42d8/east/frame_005.png"
             ]
+          },
+          "standing_rigidly_still_frozen_mid-step_head_raised-e4d2e362": {
+            "south": [
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e4d2e362/south/frame_000.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e4d2e362/south/frame_001.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e4d2e362/south/frame_002.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e4d2e362/south/frame_003.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e4d2e362/south/frame_004.png"
+            ],
+            "north": [
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e4d2e362/north/frame_000.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e4d2e362/north/frame_001.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e4d2e362/north/frame_002.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e4d2e362/north/frame_003.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e4d2e362/north/frame_004.png"
+            ]
+          },
+          "standing_rigidly_still_frozen_mid-step_head_raised-e6965438": {
+            "east": [
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e6965438/east/frame_000.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e6965438/east/frame_001.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e6965438/east/frame_002.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e6965438/east/frame_003.png",
+              "small_Belgian_Malinois_puppy_short_fawn_tan_coat_b/animations/standing_rigidly_still_frozen_mid-step_head_raised-e6965438/east/frame_004.png"
+            ]
           }
         }
       }
     }
   ],
   "export_version": "3.0",
-  "export_date": "2026-06-11T10:11:45.496728"
+  "export_date": "2026-06-11T12:07:52.821659"
 }

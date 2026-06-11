@@ -39,6 +39,7 @@ var _leading: bool = false
 var _dominated_life: float = 0.0
 var _fought_once: bool = false
 var _crumbling: bool = false
+var _thrall_lunge_anim: float = 0.0  # dominated lunges happen outside Attack state
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health: Health = $Health
@@ -124,6 +125,7 @@ func _init_hsm() -> void:
 func _physics_process(delta: float) -> void:
 	_cooldown = maxf(_cooldown - delta, 0.0)
 	_soothe_hold = maxf(_soothe_hold - delta, 0.0)
+	_thrall_lunge_anim = maxf(_thrall_lunge_anim - delta, 0.0)
 	# Stilled monsters don't run physics: a zero-velocity CharacterBody2D still
 	# depenetrates from overlaps, so walking into one would drag it along
 	# (playtest 2026-06-10).
@@ -311,6 +313,9 @@ func _dominated_update(delta: float) -> void:
 			lunge_hitbox.position = _lunge_dir * 10.0
 			lunge_hitbox.activate(0.25)
 			velocity = _lunge_dir * lunge_speed
+			_thrall_lunge_anim = 0.25
+			if sprite.sprite_frames and sprite.sprite_frames.has_animation("lunge"):
+				sprite.play("lunge")
 		else:
 			velocity = global_position.direction_to(target.global_position) * chase_speed
 		return
@@ -459,6 +464,8 @@ func _update_animation() -> void:
 		return  # crumble owns the sprite to the end
 	if hsm and hsm.get_active_state() in [_state_attack, _state_hurt]:
 		return  # state already chose its animation
+	if _thrall_lunge_anim > 0.0:
+		return  # dominated lunge owns the sprite for its burst
 	if velocity.length() > 4.0:
 		_facing = velocity.normalized()
 		var anim: Array = PlayerController.directional_anim("walk", _facing)

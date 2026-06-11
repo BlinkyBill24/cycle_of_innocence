@@ -64,6 +64,9 @@
   "anim_job_growl_south_north": "queued",
   "anim_job_growl_east_west": "queued",
   "anim_job_lie_down_south": "queued",
-  "anim_job_head_bump_east": "queued"
+  "anim_job_head_bump_east": "queued",
+  "anim_job_stare_south_north": "queued",
+  "anim_job_stare_east_west": "queued",
+  "anim_job_dusk_press_east": "queued"
  }
 }

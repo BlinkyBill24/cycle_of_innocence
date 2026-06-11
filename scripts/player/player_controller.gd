@@ -297,12 +297,17 @@ func _on_hit_received(from_hitbox: Hitbox) -> void:
 	velocity = from_hitbox.global_position.direction_to(global_position) * from_hitbox.knockback_force
 	if animated_sprite:
 		animated_sprite.modulate = Color(1.0, 0.5, 0.5)
+		if animated_sprite.sprite_frames and animated_sprite.sprite_frames.has_animation("hurt"):
+			_action_anim_lock = true
+			animated_sprite.play("hurt")
 	DreadManager.add_dread(HURT_DREAD, &"player_hurt")
 	await get_tree().create_timer(HURT_SECONDS).timeout
 	if animated_sprite:
 		animated_sprite.modulate = Color.WHITE
 	if movement_state == MovementState.HURT:
 		movement_state = MovementState.EXPLORING
+		_action_anim_lock = false
+		_update_locomotion_animation()
 
 
 func _on_hp_changed(current: int, max_value: int) -> void:
