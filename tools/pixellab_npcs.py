@@ -47,9 +47,10 @@ NPCS = {
     "villager_warden": (
         "assets/reference/villager_warden_bible.png",
         (0.013, 0.047, 0.253, 0.430),
-        "heavyset village warden, long dark oilskin coat, wide-brim dark hat "
-        "shadowing the face, carved wooden lantern pole with hanging lantern "
-        "and small bell, grimy festival-yellow armband"),
+        "heavyset village warden, long slate-blue oilskin coat with visible "
+        "fabric highlights, wide-brim dark hat shadowing the face, carved "
+        "wooden lantern pole with glowing hanging lantern and small bell, "
+        "grimy festival-yellow armband, clear readable silhouette"),
     "villager_elder": (
         "assets/reference/villager_elder_bible.png",
         (0.020, 0.067, 0.242, 0.433),
@@ -146,6 +147,12 @@ def create(only: str | None = None) -> None:
             "concept_image": b64(make_concept(name)),
             "reference_image": b64(style),
             "no_background": True,
+            # without the explicit negative the generator paints black
+            # backdrop slabs into the alpha (same failure as the Briar
+            # redesign pass — see imagine-prompts.md)
+            "style_description": "single isolated character sprite, fully "
+                "transparent background, no backdrop, no ground tile, no "
+                "box behind the character, no black slabs",
         })
         st[name] = {"create_job": result.get("background_job_id"),
                     "character_id": result.get("character_id")}
