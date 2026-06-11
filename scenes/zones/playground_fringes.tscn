@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://zoneplayfringe1"]
+[gd_scene load_steps=43 format=3 uid="uid://zoneplayfringe1"]
 
 [ext_resource type="Script" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -20,6 +20,26 @@
 [ext_resource type="Script" path="res://scripts/world/campfire_light.gd" id="19_campfire"]
 [ext_resource type="Texture2D" path="res://assets/sprites/light/glow_radial.png" id="20_glow"]
 [ext_resource type="Script" path="res://scripts/ui/name_entry.gd" id="21_name_entry"]
+[ext_resource type="Texture2D" path="res://assets/sprites/props/swing_set.png" id="22_swing"]
+[ext_resource type="Texture2D" path="res://assets/sprites/props/slide.png" id="23_slide"]
+[ext_resource type="Texture2D" path="res://assets/sprites/props/roundabout.png" id="24_roundabout"]
+[ext_resource type="Texture2D" path="res://assets/sprites/props/totem_bear.png" id="25_totem_bear"]
+[ext_resource type="Texture2D" path="res://assets/sprites/props/totem_rabbit.png" id="26_totem_rabbit"]
+[ext_resource type="Texture2D" path="res://assets/sprites/props/dead_tree_a.png" id="27_tree_a"]
+[ext_resource type="Texture2D" path="res://assets/sprites/props/dead_tree_b.png" id="28_tree_b"]
+[ext_resource type="Texture2D" path="res://assets/sprites/props/toy_duck.png" id="29_duck"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_prop_wide"]
+size = Vector2(64, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_prop_mid"]
+size = Vector2(40, 12)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_trunk"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_totem"]
+radius = 5.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -168,15 +188,120 @@ target_zone_id = &"village_edge"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VillageTransition"]
 shape = SubResource("RectangleShape2D_wall_v")
 
-[node name="Player" parent="." instance=ExtResource("3_player")]
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="World" instance=ExtResource("3_player")]
 position = Vector2(-200, 40)
 
-[node name="Briar" parent="." instance=ExtResource("4_briar")]
+[node name="Briar" parent="World" instance=ExtResource("4_briar")]
 position = Vector2(-230, 60)
 
-[node name="TwistedChild" parent="." instance=ExtResource("5_twisted_child")]
+[node name="TwistedChild" parent="World" instance=ExtResource("5_twisted_child")]
 position = Vector2(540, 130)
-secret_spot_path = NodePath("../StilledChildKeepsake")
+secret_spot_path = NodePath("../../StilledChildKeepsake")
+
+[node name="SwingSet" type="StaticBody2D" parent="World"]
+position = Vector2(-590, -240)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/SwingSet"]
+position = Vector2(0, -26)
+texture = ExtResource("22_swing")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/SwingSet"]
+shape = SubResource("RectangleShape2D_prop_wide")
+
+[node name="Slide" type="StaticBody2D" parent="World"]
+position = Vector2(-120, -290)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Slide"]
+position = Vector2(0, -26)
+texture = ExtResource("23_slide")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Slide"]
+shape = SubResource("RectangleShape2D_prop_mid")
+
+[node name="Roundabout" type="StaticBody2D" parent="World"]
+position = Vector2(-280, 270)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Roundabout"]
+position = Vector2(0, -18)
+texture = ExtResource("24_roundabout")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Roundabout"]
+shape = SubResource("RectangleShape2D_prop_mid")
+
+[node name="TotemBear" type="StaticBody2D" parent="World"]
+position = Vector2(-500, -150)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/TotemBear"]
+position = Vector2(0, -20)
+texture = ExtResource("25_totem_bear")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TotemBear"]
+shape = SubResource("CircleShape2D_totem")
+
+[node name="TotemRabbit" type="StaticBody2D" parent="World"]
+position = Vector2(-240, -250)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/TotemRabbit"]
+position = Vector2(0, -20)
+texture = ExtResource("26_totem_rabbit")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TotemRabbit"]
+shape = SubResource("CircleShape2D_totem")
+
+[node name="DeadTreeA" type="StaticBody2D" parent="World"]
+position = Vector2(330, -200)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/DeadTreeA"]
+position = Vector2(0, -44)
+texture = ExtResource("27_tree_a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/DeadTreeA"]
+shape = SubResource("CircleShape2D_trunk")
+
+[node name="DeadTreeB" type="StaticBody2D" parent="World"]
+position = Vector2(495, 295)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/DeadTreeB"]
+position = Vector2(0, -36)
+texture = ExtResource("28_tree_b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/DeadTreeB"]
+shape = SubResource("CircleShape2D_trunk")
+
+[node name="DeadTreeA2" type="StaticBody2D" parent="World"]
+position = Vector2(655, -255)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/DeadTreeA2"]
+position = Vector2(0, -44)
+texture = ExtResource("27_tree_a")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/DeadTreeA2"]
+shape = SubResource("CircleShape2D_trunk")
+
+[node name="ToyDuck" type="Sprite2D" parent="World"]
+position = Vector2(580, 100)
+offset = Vector2(0, -12)
+texture = ExtResource("29_duck")
 
 [node name="DiggableSpotPlayground" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(-100, -60)

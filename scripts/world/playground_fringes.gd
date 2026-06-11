@@ -68,7 +68,9 @@ func _spawn_emergency_child() -> void:
 	child.spareable = false
 	child.position = EMERGENCY_SPAWN
 	child.modulate = Color(0.72, 0.66, 0.78)  # already further gone
-	add_child(child)
+	# into the y-sorted container so it layers with props like everyone else
+	var world := get_node_or_null("World")
+	(world if world else self).add_child(child)
 
 
 func _on_time_changed(_time: int, _day: int) -> void:

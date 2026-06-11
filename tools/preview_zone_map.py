@@ -84,6 +84,35 @@ def wang_tile(nw: int, ne: int, sw: int, se: int):
     return None  # invalid mix — caller decides (mock marks it red)
 
 
+# (texture, zone px, zone py, sprite y-offset, flip_h) — mirrors the
+# World/* StaticBody2D placements in playground_fringes.tscn
+PROPS = [
+    ("swing_set", -590, -240, -26, False),
+    ("slide", -120, -290, -26, False),
+    ("roundabout", -280, 270, -18, False),
+    ("totem_bear", -500, -150, -20, False),
+    ("totem_rabbit", -240, -250, -20, False),
+    ("dead_tree_a", 330, -200, -44, False),
+    ("dead_tree_b", 495, 295, -36, False),
+    ("dead_tree_a", 655, -255, -44, True),
+    ("toy_duck", 580, 100, -12, False),
+]
+
+
+def overlay_props(out: Image.Image) -> None:
+    props_dir = Path("assets/sprites/props")
+    cx, cy = WIDTH * TILE // 2, HEIGHT * TILE // 2
+    for name, px, py, oy, flip in sorted(PROPS, key=lambda p: p[2]):
+        path = props_dir / f"{name}.png"
+        if not path.exists():
+            continue
+        img = Image.open(path).convert("RGBA")
+        if flip:
+            img = img.transpose(Image.FLIP_LEFT_RIGHT)
+        out.paste(img, (cx + px - img.width // 2,
+                        cy + py + oy - img.height // 2), img)
+
+
 def main() -> None:
     ref = Path("assets/reference/pixellab_tilesets")
     atlases = [Image.open(ref / f"{n}_tileset_{TILE}.png").convert("RGB")
@@ -103,6 +132,9 @@ def main() -> None:
             tile = atlases[src].crop(((idx % 4) * TILE, (idx // 4) * TILE,
                                       (idx % 4 + 1) * TILE, (idx // 4 + 1) * TILE))
             out.paste(tile, (px, py))
+    out = out.convert("RGBA")
+    overlay_props(out)
+    out = out.convert("RGB")
     out.save("/tmp/zone_mock_raw.png")
     tinted = Image.eval(out, lambda v: v)  # copy
     tinted = Image.merge("RGB", [ch.point(lambda v, f=f: int(v * f))
