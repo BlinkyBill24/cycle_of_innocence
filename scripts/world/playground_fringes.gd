@@ -5,11 +5,29 @@ extends ZoneRoot
 ## from a seeded RNG so the layout is stable run-to-run; real tile art can
 ## replace the atlas without touching this script.
 
-const TILE_GRASS_WARM := Vector2i(0, 0)
-const TILE_PATH := Vector2i(1, 0)
-const TILE_GRASS_COLD := Vector2i(2, 0)
-const TILE_FOREST := Vector2i(3, 0)
-const TILE_SAND := Vector2i(4, 0)
+## Wang terrain painting (zone art pass 2026-06-11): terrains live on cell
+## CORNERS (vertices); each cell resolves to a transition tile from one of
+## four 4x4 PixelLab atlases. Atlas slot = corner bitmask NW<<3|NE<<2|SW<<1|SE
+## with upper=1 (tools/pixellab_tilesets.py download ordering).
+enum Terrain { WARM, COLD, FLOOR, PATH, SAND }
+
+const SRC_PLAYGROUND := 0  # warm grass -> trampled path
+const SRC_FRINGES := 1     # cold grass -> dead forest floor
+const SRC_RITUAL := 2      # warm grass -> ritual sand
+const SRC_BLEND := 3       # warm grass -> cold grass (the fringe seam)
+
+## (lower, upper) -> atlas source; pure terrains use lower of a canonical pair
+const PAIR_SOURCES := {
+	Vector2i(Terrain.WARM, Terrain.PATH): SRC_PLAYGROUND,
+	Vector2i(Terrain.WARM, Terrain.SAND): SRC_RITUAL,
+	Vector2i(Terrain.WARM, Terrain.COLD): SRC_BLEND,
+	Vector2i(Terrain.COLD, Terrain.FLOOR): SRC_FRINGES,
+}
+
+## The trampled path peters out where the village's reach ends (vertices
+## east of this are never PATH) — keeps a 2-vertex gap to the fringe seam.
+const PATH_END_X := -1
+const SAND_RECT := Rect2i(-14, -8, 6, 4)  # vertex-space, inclusive ranges
 
 ## Zone footprint in tiles (centered on origin): x in [-W/2, W/2)
 const WIDTH := 44
@@ -58,26 +76,96 @@ func _on_time_changed(_time: int, _day: int) -> void:
 
 
 func _paint_ground() -> void:
-	var rng := RandomNumberGenerator.new()
-	rng.seed = 20260610  # deterministic layout
 	for y in range(-HEIGHT / 2, HEIGHT / 2):
 		for x in range(-WIDTH / 2, WIDTH / 2):
-			ground.set_cell(Vector2i(x, y), 0, _tile_for(x, y, rng))
+			var pick: Array = cell_tile(x, y)
+			ground.set_cell(Vector2i(x, y), pick[0], pick[1])
 
 
-func _tile_for(x: int, y: int, rng: RandomNumberGenerator) -> Vector2i:
-	# Ritual sandbox: small patch near the playground center.
-	if x >= -14 and x <= -9 and y >= -3 and y <= 1:
-		return TILE_SAND
-	# Trampled path running west-east through the middle (the escape route).
-	if absi(y - _path_wobble(x)) <= 1:
-		return TILE_PATH
-	# West = playground at dusk, east = fringes; noisy blend across the seam.
-	var fringe_chance := clampf(inverse_lerp(-6.0, 10.0, float(x)), 0.0, 1.0)
-	if rng.randf() < fringe_chance:
-		return TILE_FOREST if rng.randf() < 0.35 else TILE_GRASS_COLD
-	return TILE_GRASS_WARM
+## Deterministic terrain field sampled at cell corners (vertex space).
+## Layout mirrors the old map: path west-east (dying at the fringe), ritual
+## sandbox NW, cold fringes east with dead-floor blobs deeper in.
+static func vertex_terrain(vx: int, vy: int) -> Terrain:
+	if vx <= PATH_END_X and absi(vy - path_wobble(vx)) <= 1:
+		return Terrain.PATH
+	if vx >= SAND_RECT.position.x and vx < SAND_RECT.position.x + SAND_RECT.size.x \
+			and vy >= SAND_RECT.position.y and vy < SAND_RECT.position.y + SAND_RECT.size.y:
+		return Terrain.SAND
+	var edge := fringe_edge(vy)
+	if vx >= edge:
+		if vx >= edge + 5 and _blob_noise(vx, vy):
+			return Terrain.FLOOR
+		return Terrain.COLD
+	return Terrain.WARM
 
 
-func _path_wobble(x: int) -> int:
+## Deterministic smoothed value noise: irregular dead-floor patches with
+## wobbly edges (sin*cos gave periodic crosses; raw block-hash gave 90-degree
+## slabs). Mirrored in tools/preview_zone_map.py — keep in sync.
+static func _blob_noise(vx: int, vy: int) -> bool:
+	return _value_noise(vx / 3.0, vy / 3.0) > 0.60
+
+
+static func _value_noise(x: float, y: float) -> float:
+	var x0 := floori(x)
+	var y0 := floori(y)
+	var fx := smoothstep(0.0, 1.0, x - x0)
+	var fy := smoothstep(0.0, 1.0, y - y0)
+	var top := lerpf(_hash01(x0, y0), _hash01(x0 + 1, y0), fx)
+	var bottom := lerpf(_hash01(x0, y0 + 1), _hash01(x0 + 1, y0 + 1), fx)
+	return lerpf(top, bottom, fy)
+
+
+static func _hash01(ix: int, iy: int) -> float:
+	var h := ((ix * 73856093) ^ (iy * 19349663)) & 0x7fffffff
+	return float(h % 1000) / 999.0
+
+
+## Cell -> [atlas_source, atlas_coords]; pure, unit-tested.
+static func cell_tile(x: int, y: int) -> Array:
+	return wang_tile(vertex_terrain(x, y), vertex_terrain(x + 1, y),
+			vertex_terrain(x, y + 1), vertex_terrain(x + 1, y + 1))
+
+
+## Resolve 4 corner terrains to a Wang tile. Unknown mixes (never produced
+## by vertex_terrain — asserted in tests) fall back to the NW corner's pure
+## tile so a future layout bug shows as wrong ground, not a crash.
+static func wang_tile(nw: Terrain, ne: Terrain, sw: Terrain, se: Terrain) -> Array:
+	var corners: Array[Terrain] = [nw, ne, sw, se]
+	var kinds := {}
+	for t in corners:
+		kinds[t] = true
+	if kinds.size() == 1:
+		return _pure_tile(nw)
+	if kinds.size() == 2:
+		for pair: Vector2i in PAIR_SOURCES:
+			if kinds.has(pair.x) and kinds.has(pair.y):
+				var idx := 0
+				for i in corners.size():
+					idx = idx << 1 | (1 if corners[i] == pair.y else 0)
+				return [PAIR_SOURCES[pair], Vector2i(idx % 4, idx / 4)]
+	return _pure_tile(nw)
+
+
+static func _pure_tile(terrain: Terrain) -> Array:
+	match terrain:
+		Terrain.PATH:
+			return [SRC_PLAYGROUND, Vector2i(3, 3)]  # idx 15: all-upper
+		Terrain.SAND:
+			return [SRC_RITUAL, Vector2i(3, 3)]
+		Terrain.COLD:
+			return [SRC_FRINGES, Vector2i(0, 0)]  # idx 0: all-lower
+		Terrain.FLOOR:
+			return [SRC_FRINGES, Vector2i(3, 3)]
+		_:
+			return [SRC_PLAYGROUND, Vector2i(0, 0)]
+
+
+static func path_wobble(x: int) -> int:
 	return int(round(sin(float(x) * 0.35) * 2.0))
+
+
+## Fringe boundary wobbles between vertex x 1 and 5 — east of it the world
+## goes cold. PATH_END_X keeps the path two vertices clear of the minimum.
+static func fringe_edge(vy: int) -> int:
+	return 3 + int(round(2.0 * sin(float(vy) * 0.45)))

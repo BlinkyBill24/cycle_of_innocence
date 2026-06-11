@@ -1,16 +1,93 @@
-[gd_resource type="TileSet" load_steps=3 format=3]
+[gd_resource type="TileSet" load_steps=9 format=3]
 
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/ground_tiles_32.png" id="1_ground"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/playground_tiles_32.png" id="tex_playground"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/fringes_tiles_32.png" id="tex_fringes"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/ritual_tiles_32.png" id="tex_ritual"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/grass_blend_tiles_32.png" id="tex_grass_blend"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ground"]
-texture = ExtResource("1_ground")
+[sub_resource type="TileSetAtlasSource" id="atlas_playground"]
+texture = ExtResource("tex_playground")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
-4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_fringes"]
+texture = ExtResource("tex_fringes")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_ritual"]
+texture = ExtResource("tex_ritual")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="atlas_grass_blend"]
+texture = ExtResource("tex_grass_blend")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
 
 [resource]
 tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_ground")
+sources/0 = SubResource("atlas_playground")
+sources/1 = SubResource("atlas_fringes")
+sources/2 = SubResource("atlas_ritual")
+sources/3 = SubResource("atlas_grass_blend")

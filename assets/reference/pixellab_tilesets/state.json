@@ -1,0 +1,38 @@
+{
+ "playground": {
+  "tileset_id": "128eafca-a5ab-468d-a92c-ba2a497e050d",
+  "raw": {
+   "usage": null,
+   "background_job_id": "e8e4f892-3505-43fb-b209-9527c3c76aa0",
+   "tileset_id": "128eafca-a5ab-468d-a92c-ba2a497e050d",
+   "status": "processing"
+  }
+ },
+ "fringes": {
+  "tileset_id": "7b4a355b-08ce-4cae-a1dd-1dc3db039818",
+  "raw": {
+   "usage": null,
+   "background_job_id": "6786f861-1e2f-4c97-a84f-13282c5a71ee",
+   "tileset_id": "7b4a355b-08ce-4cae-a1dd-1dc3db039818",
+   "status": "processing"
+  }
+ },
+ "ritual": {
+  "tileset_id": "f6145584-6021-43da-adf2-043b1434f7d3",
+  "raw": {
+   "usage": null,
+   "background_job_id": "e14480e7-8d02-4239-874f-7edc93415daf",
+   "tileset_id": "f6145584-6021-43da-adf2-043b1434f7d3",
+   "status": "processing"
+  }
+ },
+ "grass_blend": {
+  "tileset_id": "43092348-2a7f-40cf-a57b-055857df7432",
+  "raw": {
+   "usage": null,
+   "background_job_id": "5ba48e6b-e71d-463c-a0df-a50e99273670",
+   "tileset_id": "43092348-2a7f-40cf-a57b-055857df7432",
+   "status": "processing"
+  }
+ }
+}
