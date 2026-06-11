@@ -47,6 +47,17 @@ def main() -> None:
     out = out.convert("RGBA")
     cx, cy = WIDTH * TILE // 2, HEIGHT * TILE // 2
     props_sorted = sorted(placements.PLACEMENTS, key=lambda p: p[3])
+    # contact shadows first (mirrors PropShadows.apply)
+    from PIL import ImageDraw
+    shadow_layer = Image.new("RGBA", out.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(shadow_layer)
+    for name, tex, px, py, oy, _shape, flip in props_sorted:
+        img = Image.open(placements.PROP_DIR / f"{tex}.png")
+        w = img.width * 0.82
+        h = w * 0.34
+        draw.ellipse([cx + px - w / 2, cy + py - 1 - h / 2,
+                      cx + px + w / 2, cy + py - 1 + h / 2], fill=(0, 0, 0, 70))
+    out.alpha_composite(shadow_layer)
     for name, tex, px, py, oy, _shape, flip in props_sorted:
         img = Image.open(placements.PROP_DIR / f"{tex}.png").convert("RGBA")
         if flip:
@@ -58,7 +69,10 @@ def main() -> None:
             .crop((0, 4 * 48, 48, 5 * 48))
         out.paste(cell, (cx + px - 24, cy + py - 24), cell)
     out.convert("RGB").save("/tmp/village_mock.png")
-    print("mock: /tmp/village_mock.png")
+    dusk = Image.merge("RGB", [ch.point(lambda v, f=f: int(v * f))
+                               for ch, f in zip(out.convert("RGB").split(), (0.38, 0.34, 0.44))])
+    dusk.save("/tmp/village_mock_dusk.png")
+    print("mock: /tmp/village_mock.png + _dusk.png")
 
 
 if __name__ == "__main__":

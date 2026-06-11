@@ -48,6 +48,7 @@ var _emergency_spawned := false
 func _ready() -> void:
 	super._ready()
 	_paint_ground()
+	PropShadows.apply($World)
 	tint.color = WorldState.palette()
 	WorldState.time_changed.connect(_on_time_changed)
 	GameEvents.hollowing_stage_advanced.connect(_on_hollowing_advanced)

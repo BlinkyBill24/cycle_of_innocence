@@ -75,3 +75,18 @@ func test_entry_placement_uses_matching_marker() -> void:
 	assert_lt(companion.global_position.distance_to(player.global_position), 40.0,
 			"the family crosses together")
 	assert_eq(ZoneManager.arriving_from, &"", "entry intent consumed")
+
+
+func test_world_props_get_contact_shadows() -> void:
+	var world := Node2D.new()
+	add_child_autofree(world)
+	var prop := StaticBody2D.new()
+	var sprite := Sprite2D.new()
+	sprite.name = "Sprite2D"
+	sprite.texture = PlaceholderTexture2D.new()
+	prop.add_child(sprite)
+	world.add_child(prop)
+	PropShadows.apply(world)
+	var shadow := prop.get_node_or_null("ContactShadow")
+	assert_not_null(shadow, "props get grounded")
+	assert_eq(prop.get_child(0), shadow, "shadow draws under the sprite")

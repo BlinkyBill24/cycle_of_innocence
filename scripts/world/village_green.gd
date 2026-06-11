@@ -34,6 +34,7 @@ const CHAPEL_COURT := Rect2i(-2, -13, 5, 4)  # forecourt, joined by the north la
 func _ready() -> void:
 	super._ready()
 	_paint_ground()
+	PropShadows.apply($World)
 	tint.color = WorldState.palette()
 	WorldState.time_changed.connect(func(_t: int, _d: int) -> void:
 		create_tween().tween_property(tint, "color", WorldState.palette(), 3.0))
