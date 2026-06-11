@@ -63,6 +63,27 @@ func test_suspicion_threshold_reports_exactly_once() -> void:
 	assert_eq(HollowingClock.alarm_points, alarm_after_report, "never reports twice")
 
 
+func test_caught_eavesdropping_is_worse() -> void:
+	assert_eq(VillageState.effective_notice_rate(20.0, false), 20.0)
+	assert_eq(VillageState.effective_notice_rate(20.0, true),
+			20.0 * VillageState.EAVESDROP_CAUGHT_MULTIPLIER)
+
+
+func test_eavesdrop_zone_tracks_player_presence() -> void:
+	var zone: EavesdropZone = load("res://scripts/world/eavesdrop_zone.gd").new()
+	var shape := CollisionShape2D.new()
+	shape.shape = CircleShape2D.new()
+	zone.add_child(shape)
+	add_child_autofree(zone)
+	var player := CharacterBody2D.new()
+	player.add_to_group("player")
+	add_child_autofree(player)
+	zone._on_body_entered(player)
+	assert_true(VillageState.player_eavesdropping, "listening is a state")
+	zone._on_body_exited(player)
+	assert_false(VillageState.player_eavesdropping, "stepping away clears it")
+
+
 func test_time_decays_suspicion() -> void:
 	VillageState.add_suspicion(&"pieter_parent", 50.0)
 	WorldState.advance_time()

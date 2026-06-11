@@ -17,14 +17,23 @@ func _ready() -> void:
 	monitoring = true
 	collision_mask = 2  # player
 	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
 
 
 func _process(delta: float) -> void:
 	_cooldown = maxf(_cooldown - delta, 0.0)
 
 
+func _on_body_exited(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		VillageState.player_eavesdropping = false
+
+
 func _on_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("player") or _cooldown > 0.0:
+	if not body.is_in_group("player"):
+		return
+	VillageState.player_eavesdropping = true  # caught HERE is worse
+	if _cooldown > 0.0:
 		return
 	_cooldown = cooldown_seconds
 	var suspicious := not source_npc_id.is_empty() \

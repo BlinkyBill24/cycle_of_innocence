@@ -100,7 +100,12 @@ const GOSSIP := {
 	],
 }
 
+## Caught listening is worse than being seen walking (village-life.md B).
+const EAVESDROP_CAUGHT_MULTIPLIER := 2.5
+
 var suspicion: Dictionary = {}
+## Maintained by EavesdropZone enter/exit; villagers read it when noticing.
+var player_eavesdropping := false
 var _reported: Array[StringName] = []
 var _gossip_cursor: int = 0
 
@@ -139,6 +144,11 @@ func add_suspicion(npc_id: StringName, amount: float) -> void:
 
 func get_suspicion(npc_id: StringName) -> float:
 	return float(suspicion.get(npc_id, 0.0))
+
+
+## Pure rule: the suspicion rate a villager applies while seeing Rowan.
+static func effective_notice_rate(base_rate: float, eavesdropping: bool) -> float:
+	return base_rate * (EAVESDROP_CAUGHT_MULTIPLIER if eavesdropping else 1.0)
 
 
 func has_reported(npc_id: StringName) -> bool:
@@ -181,3 +191,4 @@ func reset() -> void:
 	suspicion.clear()
 	_reported.clear()
 	_gossip_cursor = 0
+	player_eavesdropping = false

@@ -2,7 +2,7 @@
 name: Village Life (Schedules + Overheard Gossip)
 date: 2026-06-10
 tags: [feature, mechanics, npc, narrative, post-slice]
-status: planned
+status: implemented (v1 core 2026-06-11)
 related_decisions: "[[decisions/2026-06-10-recent-games-research-greenlight]]"
 ---
 
@@ -38,6 +38,12 @@ The village runs on **daily NPC routines** (Shadows of Doubt, scaled way down) a
 
 ## Scope guardrails
 ≤ 15 NPCs, one village zone, no economy/trading, no procedural names — every villager is authored (we need their children to have names).
+
+## Implementation notes (2026-06-11, v1)
+- `VillageState` autoload: SCHEDULES (5 authored villagers x 4 TimeOfDay slots, markers resolved per-zone via `marker_<name>` groups), STAGE2_OVERRIDES (children indoors), STAGE3_STOPPED (the empty bench), STAGE2_STARTED (Warden Oslo's playground search detail only exists once the village fears). Suspicion -> one alarm report per villager (25 pts); decays x0.7 per phase. Stage-keyed gossip pools with intel lines; caught eavesdropping multiplies notice rate x2.5 (`player_eavesdropping`).
+- `Villager` NPC: walk/idle to slot markers, LOS notice + exclaim, absent when its marker isn't in the zone. Frames as @export on the instance ROOT (child overrides die in web export).
+- `EavesdropZone`: floating ambient lines, no input lock. Village green zone: `scenes/zones/village_green.tscn` with real ZoneManager transitions.
+- Tests: tests/test_village_state.gd + test_village_zone.gd.
 
 ## Related
 [[mechanics/hollowing-clock]] · [[mechanics/day-night-hideout]] · [[mechanics/vision-and-darkness]] · [[story/bible]] · [[design/feature-candidates-2026-06]]

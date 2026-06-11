@@ -69,7 +69,9 @@ func _update_notice(delta: float) -> void:
 		los_ray.force_raycast_update()
 		sees = not los_ray.is_colliding()
 	if sees:
-		VillageState.add_suspicion(npc_id, notice_rate * delta)
+		var rate := VillageState.effective_notice_rate(
+				notice_rate, VillageState.player_eavesdropping)
+		VillageState.add_suspicion(npc_id, rate * delta)
 		_facing = global_position.direction_to(player.global_position)
 	if sees != _noticing:
 		_noticing = sees
