@@ -1,63 +1,35 @@
-[gd_scene load_steps=45 format=3 uid="uid://villagegreen001"]
+[gd_scene load_steps=46 format=3 uid="uid://bq5l6scrtss13"]
 
-[ext_resource type="Script" path="res://scripts/world/village_green.gd" id="1_zone"]
-[ext_resource type="TileSet" path="res://assets/resources/tiles/village_tileset.tres" id="2_tileset"]
+[ext_resource type="Script" uid="uid://djr7o5g0hpu7q" path="res://scripts/world/village_green.gd" id="1_zone"]
+[ext_resource type="TileSet" uid="uid://bxgr7vd1tapr8" path="res://assets/resources/tiles/village_tileset.tres" id="2_tileset"]
 [ext_resource type="PackedScene" uid="uid://cfpo0lhe11a3y" path="res://scenes/player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" uid="uid://briarpup00001" path="res://scenes/companions/briar.tscn" id="4_briar"]
-[ext_resource type="PackedScene" uid="uid://villagernpc001" path="res://scenes/npcs/villager.tscn" id="5_villager"]
-[ext_resource type="SpriteFrames" path="res://assets/resources/npcs/villager_parent_frames.tres" id="6_parent_frames"]
-[ext_resource type="SpriteFrames" path="res://assets/resources/npcs/villager_warden_frames.tres" id="7_warden_frames"]
-[ext_resource type="SpriteFrames" path="res://assets/resources/npcs/villager_elder_frames.tres" id="8_elder_frames"]
-[ext_resource type="SpriteFrames" path="res://assets/resources/npcs/villager_child_frames.tres" id="9_child_frames"]
-[ext_resource type="Script" path="res://scripts/world/zone_transition.gd" id="10_transition"]
-[ext_resource type="Script" path="res://scripts/world/eavesdrop_zone.gd" id="11_eavesdrop"]
+[ext_resource type="PackedScene" uid="uid://dppepvssnp72s" path="res://scenes/npcs/villager.tscn" id="5_villager"]
+[ext_resource type="SpriteFrames" uid="uid://c1fvsits5mmkn" path="res://assets/resources/npcs/villager_parent_frames.tres" id="6_parent_frames"]
+[ext_resource type="SpriteFrames" uid="uid://bnxtlraieoky7" path="res://assets/resources/npcs/villager_warden_frames.tres" id="7_warden_frames"]
+[ext_resource type="SpriteFrames" uid="uid://k44gvkof7qhf" path="res://assets/resources/npcs/villager_elder_frames.tres" id="8_elder_frames"]
+[ext_resource type="SpriteFrames" uid="uid://ugvdbfhyxqml" path="res://assets/resources/npcs/villager_child_frames.tres" id="9_child_frames"]
+[ext_resource type="Script" uid="uid://bxburnnul5hg7" path="res://scripts/world/zone_transition.gd" id="10_transition"]
+[ext_resource type="Script" uid="uid://csr7v6di7mw60" path="res://scripts/world/eavesdrop_zone.gd" id="11_eavesdrop"]
 [ext_resource type="PackedScene" uid="uid://dn8iabetyanme" path="res://scenes/effects/dread_overlay.tscn" id="12_overlay"]
 [ext_resource type="Script" uid="uid://cf12kgjkd6ugf" path="res://scripts/debug/progression_test.gd" id="13_debug"]
-[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="14_hud"]
-[ext_resource type="Script" path="res://scripts/ui/touch_controls.gd" id="15_touch"]
-[ext_resource type="Texture2D" path="res://assets/sprites/village/village_ground_backdrop.png" id="17_backdrop"]
+[ext_resource type="Script" uid="uid://ctap15jdarwf1" path="res://scripts/ui/hud.gd" id="14_hud"]
+[ext_resource type="Script" uid="uid://cnh1w3wphurkn" path="res://scripts/ui/touch_controls.gd" id="15_touch"]
+[ext_resource type="Texture2D" uid="uid://ft50trkceak7" path="res://assets/sprites/village/village_ground_backdrop.png" id="17_backdrop"]
+[ext_resource type="Texture2D" uid="uid://bdsoj363dv54s" path="res://assets/sprites/village/bench.png" id="tex_bench"]
+[ext_resource type="Texture2D" uid="uid://pljxqacr84uv" path="res://assets/sprites/village/chapel.png" id="tex_chapel"]
+[ext_resource type="Texture2D" uid="uid://cblkqdhw63kq4" path="res://assets/sprites/village/cottage_a.png" id="tex_cottage_a"]
+[ext_resource type="Texture2D" uid="uid://bfpyitrf0dnbg" path="res://assets/sprites/village/cottage_b.png" id="tex_cottage_b"]
+[ext_resource type="Texture2D" uid="uid://41j3yapq5mxd" path="res://assets/sprites/village/cottage_dark.png" id="tex_cottage_dark"]
+[ext_resource type="Texture2D" uid="uid://bhf5hgbxfw0tf" path="res://assets/sprites/village/fence.png" id="tex_fence"]
+[ext_resource type="Texture2D" uid="uid://msj4ht228xe8" path="res://assets/sprites/village/harmony_board.png" id="tex_harmony_board"]
+[ext_resource type="Texture2D" uid="uid://csrmfcgtqny36" path="res://assets/sprites/village/lantern_post.png" id="tex_lantern_post"]
+[ext_resource type="Texture2D" uid="uid://d4gg5qo4nielf" path="res://assets/sprites/village/market_stall.png" id="tex_market_stall"]
+[ext_resource type="Texture2D" uid="uid://d2eyd7idemr8p" path="res://assets/sprites/village/well.png" id="tex_well"]
 
-[ext_resource type="Texture2D" path="res://assets/sprites/village/bench.png" id="tex_bench"]
-[ext_resource type="Texture2D" path="res://assets/sprites/village/chapel.png" id="tex_chapel"]
-[ext_resource type="Texture2D" path="res://assets/sprites/village/cottage_a.png" id="tex_cottage_a"]
-[ext_resource type="Texture2D" path="res://assets/sprites/village/cottage_b.png" id="tex_cottage_b"]
-[ext_resource type="Texture2D" path="res://assets/sprites/village/cottage_dark.png" id="tex_cottage_dark"]
-[ext_resource type="Texture2D" path="res://assets/sprites/village/fence.png" id="tex_fence"]
-[ext_resource type="Texture2D" path="res://assets/sprites/village/harmony_board.png" id="tex_harmony_board"]
-[ext_resource type="Texture2D" path="res://assets/sprites/village/lantern_post.png" id="tex_lantern_post"]
-[ext_resource type="Texture2D" path="res://assets/sprites/village/market_stall.png" id="tex_market_stall"]
-[ext_resource type="Texture2D" path="res://assets/sprites/village/well.png" id="tex_well"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r028r"]
+size = Vector2(543, 87)
 
-[sub_resource type="RectangleShape2D" id="shape_PropCottageA"]
-size = Vector2(100, 16)
-[sub_resource type="RectangleShape2D" id="shape_PropCottageB"]
-size = Vector2(100, 16)
-[sub_resource type="RectangleShape2D" id="shape_PropCottageDark"]
-size = Vector2(100, 16)
-[sub_resource type="RectangleShape2D" id="shape_PropCottagePieter"]
-size = Vector2(100, 16)
-[sub_resource type="RectangleShape2D" id="shape_PropChapel"]
-size = Vector2(110, 18)
-[sub_resource type="CircleShape2D" id="shape_PropWell"]
-radius = 14.0
-[sub_resource type="RectangleShape2D" id="shape_PropMarketStall"]
-size = Vector2(80, 14)
-[sub_resource type="RectangleShape2D" id="shape_PropBench"]
-size = Vector2(40, 8)
-[sub_resource type="RectangleShape2D" id="shape_PropHarmonyBoard"]
-size = Vector2(30, 8)
-[sub_resource type="CircleShape2D" id="shape_PropLanternNE"]
-radius = 4.0
-[sub_resource type="CircleShape2D" id="shape_PropLanternNW"]
-radius = 4.0
-[sub_resource type="CircleShape2D" id="shape_PropLanternSE"]
-radius = 4.0
-[sub_resource type="CircleShape2D" id="shape_PropLanternSW"]
-radius = 4.0
-[sub_resource type="RectangleShape2D" id="shape_PropFenceWestA"]
-size = Vector2(56, 6)
-[sub_resource type="RectangleShape2D" id="shape_PropFenceWestB"]
-size = Vector2(56, 6)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
 
@@ -66,6 +38,51 @@ size = Vector2(32, 960)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_listen"]
 radius = 64.0
+
+[sub_resource type="RectangleShape2D" id="shape_PropCottageA"]
+size = Vector2(100, 48)
+
+[sub_resource type="RectangleShape2D" id="shape_PropCottageB"]
+size = Vector2(100, 45)
+
+[sub_resource type="RectangleShape2D" id="shape_PropCottageDark"]
+size = Vector2(100, 44)
+
+[sub_resource type="RectangleShape2D" id="shape_PropCottagePieter"]
+size = Vector2(100, 44)
+
+[sub_resource type="RectangleShape2D" id="shape_PropChapel"]
+size = Vector2(110, 18)
+
+[sub_resource type="CircleShape2D" id="shape_PropWell"]
+radius = 14.0
+
+[sub_resource type="RectangleShape2D" id="shape_PropMarketStall"]
+size = Vector2(80, 14)
+
+[sub_resource type="RectangleShape2D" id="shape_PropBench"]
+size = Vector2(40, 8)
+
+[sub_resource type="RectangleShape2D" id="shape_PropHarmonyBoard"]
+size = Vector2(30, 8)
+
+[sub_resource type="CircleShape2D" id="shape_PropLanternNE"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="shape_PropLanternNW"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="shape_PropLanternSE"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="shape_PropLanternSW"]
+radius = 4.0
+
+[sub_resource type="RectangleShape2D" id="shape_PropFenceWestA"]
+size = Vector2(56, 6)
+
+[sub_resource type="RectangleShape2D" id="shape_PropFenceWestB"]
+size = Vector2(56, 6)
 
 [node name="VillageGreen" type="Node2D"]
 script = ExtResource("1_zone")
@@ -81,7 +98,14 @@ texture = ExtResource("17_backdrop")
 color = Color(0.38, 0.34, 0.44, 1)
 
 [node name="Borders" type="StaticBody2D" parent="."]
-collision_layer = 1
+
+[node name="TerraceEast" type="CollisionShape2D" parent="Borders"]
+position = Vector2(444, -404)
+shape = SubResource("RectangleShape2D_r028r")
+
+[node name="TerraceWest" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-433.5, -404.5)
+shape = SubResource("RectangleShape2D_r028r")
 
 [node name="Top" type="CollisionShape2D" parent="Borders"]
 position = Vector2(0, -464)
@@ -178,14 +202,13 @@ position = Vector2(610, 30)
 
 [node name="Marta" parent="World" instance=ExtResource("5_villager")]
 position = Vector2(-600, 40)
-npc_id = &"marta_farmer"
 frames = ExtResource("6_parent_frames")
 
 [node name="Pieter" parent="World" instance=ExtResource("5_villager")]
+modulate = Color(0.92, 0.96, 1, 1)
 position = Vector2(-40, -80)
 npc_id = &"pieter_parent"
 frames = ExtResource("6_parent_frames")
-modulate = Color(0.92, 0.96, 1, 1)
 
 [node name="ElderAldwin" parent="World" instance=ExtResource("5_villager")]
 position = Vector2(0, -360)
@@ -208,7 +231,6 @@ move_speed = 70.0
 
 [node name="PropCottageA" type="StaticBody2D" parent="World"]
 position = Vector2(-432, -298)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropCottageA"]
@@ -216,11 +238,11 @@ position = Vector2(0, -52)
 texture = ExtResource("tex_cottage_a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropCottageA"]
+position = Vector2(0, -16)
 shape = SubResource("shape_PropCottageA")
 
 [node name="PropCottageB" type="StaticBody2D" parent="World"]
 position = Vector2(416, -298)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropCottageB"]
@@ -228,11 +250,11 @@ position = Vector2(0, -48)
 texture = ExtResource("tex_cottage_b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropCottageB"]
+position = Vector2(0, -14.5)
 shape = SubResource("shape_PropCottageB")
 
 [node name="PropCottageDark" type="StaticBody2D" parent="World"]
 position = Vector2(-384, 290)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropCottageDark"]
@@ -240,11 +262,11 @@ position = Vector2(0, -48)
 texture = ExtResource("tex_cottage_dark")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropCottageDark"]
+position = Vector2(0, -14)
 shape = SubResource("shape_PropCottageDark")
 
 [node name="PropCottagePieter" type="StaticBody2D" parent="World"]
 position = Vector2(384, 290)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropCottagePieter"]
@@ -253,11 +275,11 @@ texture = ExtResource("tex_cottage_b")
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropCottagePieter"]
+position = Vector2(0, -14)
 shape = SubResource("shape_PropCottagePieter")
 
 [node name="PropChapel" type="StaticBody2D" parent="World"]
 position = Vector2(0, -408)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropChapel"]
@@ -269,7 +291,6 @@ shape = SubResource("shape_PropChapel")
 
 [node name="PropWell" type="StaticBody2D" parent="World"]
 position = Vector2(-40, -112)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropWell"]
@@ -281,7 +302,6 @@ shape = SubResource("shape_PropWell")
 
 [node name="PropMarketStall" type="StaticBody2D" parent="World"]
 position = Vector2(300, -84)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropMarketStall"]
@@ -293,7 +313,6 @@ shape = SubResource("shape_PropMarketStall")
 
 [node name="PropBench" type="StaticBody2D" parent="World"]
 position = Vector2(150, 68)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropBench"]
@@ -305,7 +324,6 @@ shape = SubResource("shape_PropBench")
 
 [node name="PropHarmonyBoard" type="StaticBody2D" parent="World"]
 position = Vector2(64, -352)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropHarmonyBoard"]
@@ -317,7 +335,6 @@ shape = SubResource("shape_PropHarmonyBoard")
 
 [node name="PropLanternNE" type="StaticBody2D" parent="World"]
 position = Vector2(158, -158)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropLanternNE"]
@@ -329,7 +346,6 @@ shape = SubResource("shape_PropLanternNE")
 
 [node name="PropLanternNW" type="StaticBody2D" parent="World"]
 position = Vector2(-158, -158)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropLanternNW"]
@@ -342,7 +358,6 @@ shape = SubResource("shape_PropLanternNW")
 
 [node name="PropLanternSE" type="StaticBody2D" parent="World"]
 position = Vector2(158, 158)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropLanternSE"]
@@ -354,7 +369,6 @@ shape = SubResource("shape_PropLanternSE")
 
 [node name="PropLanternSW" type="StaticBody2D" parent="World"]
 position = Vector2(-158, 158)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropLanternSW"]
@@ -367,7 +381,6 @@ shape = SubResource("shape_PropLanternSW")
 
 [node name="PropFenceWestA" type="StaticBody2D" parent="World"]
 position = Vector2(-560, -16)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropFenceWestA"]
@@ -379,7 +392,6 @@ shape = SubResource("shape_PropFenceWestA")
 
 [node name="PropFenceWestB" type="StaticBody2D" parent="World"]
 position = Vector2(-560, 96)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropFenceWestB"]
