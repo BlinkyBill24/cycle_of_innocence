@@ -40,6 +40,14 @@ func test_unknown_npc_resolves_empty() -> void:
 	assert_true(VillageState.resolve_slot(&"nobody", WorldState.TimeOfDay.DAY, 0).is_empty())
 
 
+func test_search_detail_only_exists_from_stage2() -> void:
+	assert_true(VillageState.resolve_slot(&"warden_oslo", WorldState.TimeOfDay.DAY, 0).is_empty(),
+			"no search before the village fears")
+	assert_true(VillageState.resolve_slot(&"warden_oslo", WorldState.TimeOfDay.DAY, 1).is_empty())
+	var slot := VillageState.resolve_slot(&"warden_oslo", WorldState.TimeOfDay.DAY, 2)
+	assert_eq(slot.marker, &"search_plaza", "stage 2: the village comes looking")
+
+
 # --- suspicion ---
 
 func test_suspicion_threshold_reports_exactly_once() -> void:

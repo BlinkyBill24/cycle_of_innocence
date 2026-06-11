@@ -47,7 +47,19 @@ const SCHEDULES := {
 		WorldState.TimeOfDay.DUSK: {"marker": &"green_bench", "activity": &"play"},
 		WorldState.TimeOfDay.NIGHT: {"marker": &"house_marta", "activity": &"home"},
 	},
+	# Stage-2 search detail: a second warden sweeps the playground — the
+	# village comes looking (his markers live in playground_fringes).
+	&"warden_oslo": {
+		WorldState.TimeOfDay.DAWN: {"marker": &"search_gate", "activity": &"search"},
+		WorldState.TimeOfDay.DAY: {"marker": &"search_plaza", "activity": &"search"},
+		WorldState.TimeOfDay.DUSK: {"marker": &"search_path", "activity": &"search"},
+		WorldState.TimeOfDay.NIGHT: {"marker": &"search_plaza", "activity": &"search"},
+	},
 }
+
+## These routines only BEGIN at stage >= 2 (the inverse of stopping):
+## the search detail exists because the village started to fear.
+const STAGE2_STARTED: Array[StringName] = [&"warden_oslo"]
 
 ## Stage >= 2: children stop playing outside, parents harden their routine.
 const STAGE2_OVERRIDES := {
@@ -100,6 +112,8 @@ func _ready() -> void:
 ## Pure rule, unit-tested: where an NPC is in a given slot, after hollowing
 ## shifts. Empty dictionary = the routine has stopped.
 static func resolve_slot(npc_id: StringName, time_of_day: int, stage: int) -> Dictionary:
+	if stage < 2 and npc_id in STAGE2_STARTED:
+		return {}
 	if stage >= 3 and npc_id in STAGE3_STOPPED:
 		return {}
 	if stage >= 2 and STAGE2_OVERRIDES.has(npc_id):

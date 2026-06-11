@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://zoneplayfringe1"]
+[gd_scene load_steps=45 format=3 uid="uid://zoneplayfringe1"]
 
 [ext_resource type="Script" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -20,6 +20,8 @@
 [ext_resource type="Script" path="res://scripts/world/campfire_light.gd" id="19_campfire"]
 [ext_resource type="Texture2D" path="res://assets/sprites/light/glow_radial.png" id="20_glow"]
 [ext_resource type="Script" path="res://scripts/ui/name_entry.gd" id="21_name_entry"]
+[ext_resource type="PackedScene" uid="uid://villagernpc001" path="res://scenes/npcs/villager.tscn" id="30_villager"]
+[ext_resource type="SpriteFrames" path="res://assets/resources/npcs/villager_warden_frames.tres" id="31_warden_frames"]
 [ext_resource type="Texture2D" path="res://assets/sprites/props/swing_set.png" id="22_swing"]
 [ext_resource type="Texture2D" path="res://assets/sprites/props/slide.png" id="23_slide"]
 [ext_resource type="Texture2D" path="res://assets/sprites/props/roundabout.png" id="24_roundabout"]
@@ -197,6 +199,15 @@ position = Vector2(-300, -180)
 [node name="Briar" parent="World" instance=ExtResource("4_briar")]
 position = Vector2(-335, -155)
 
+[node name="WardenOslo" parent="World" instance=ExtResource("30_villager")]
+position = Vector2(-600, 60)
+npc_id = &"warden_oslo"
+notice_radius = 110.0
+notice_rate = 40.0
+
+[node name="AnimatedSprite2D" parent="World/WardenOslo" index="1"]
+sprite_frames = ExtResource("31_warden_frames")
+
 [node name="TwistedChild" parent="World" instance=ExtResource("5_twisted_child")]
 position = Vector2(540, 130)
 secret_spot_path = NodePath("../../StilledChildKeepsake")
@@ -327,6 +338,15 @@ script = ExtResource("17_touch")
 
 [node name="EntryFromVillage" type="Node2D" parent="." groups=["entry_from_village_edge"]]
 position = Vector2(-640, 0)
+
+[node name="MarkerSearchGate" type="Node2D" parent="." groups=["marker_search_gate"]]
+position = Vector2(-600, 60)
+
+[node name="MarkerSearchPlaza" type="Node2D" parent="." groups=["marker_search_plaza"]]
+position = Vector2(-340, -120)
+
+[node name="MarkerSearchPath" type="Node2D" parent="." groups=["marker_search_path"]]
+position = Vector2(-60, 30)
 
 [node name="NameEntry" type="CanvasLayer" parent="."]
 script = ExtResource("21_name_entry")
