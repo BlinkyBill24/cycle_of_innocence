@@ -58,10 +58,12 @@ TILESETS = {
         "transition_description": "healthy dusk grass sickening into cold shadowed grass",
     },
     # village zone (village-life.md, mood anchor village_dusk_mood.png)
+    # reroll note (playtest 2026-06-11): v1's edge stones read as a raised
+    # curb — the path looked elevated. Flush wording fixes it.
     "village_green": {
         "lower_description": "village green lawn grass at golden sunset, warm and tended, short blades",
-        "upper_description": "old cobblestone path, rounded grey stones with thin moss lines between",
-        "transition_description": "lawn edge meeting cobblestones, a few stray stones in the grass",
+        "upper_description": "old worn cobblestone path laid completely flat and flush with the ground, small rounded stones seen from directly above, no curb, no raised border, no wall",
+        "transition_description": "grass blades growing over and between the outermost flat stones, path perfectly level with the lawn, soft seamless edge",
     },
     "village_yard": {
         "lower_description": "village green lawn grass at golden sunset, warm and tended, short blades",
