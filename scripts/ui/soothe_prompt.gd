@@ -58,22 +58,34 @@ func _ready() -> void:
 
 
 ## Pure display rule, unit-tested: near a target and idle -> hint text;
-## holding -> progress bar; otherwise nothing.
-static func display_state(near: bool, soothing: bool, ratio: float) -> Dictionary:
+## holding -> progress bar; keyless plateau -> the discovery cue (playtest
+## tester-04: "it stops while I hold E but chases me again after" — the
+## designed 60% stall read as a bug without any tell); otherwise nothing.
+static func display_state(near: bool, soothing: bool, ratio: float,
+		stalled: bool = false) -> Dictionary:
+	if soothing and stalled:
+		return {"text": "it calms… but something is missing",
+				"bar": clampf(ratio, 0.0, 1.0), "visible": true, "stalled": true}
 	if soothing:
-		return {"text": "keep holding…", "bar": clampf(ratio, 0.0, 1.0), "visible": true}
+		return {"text": "keep holding…", "bar": clampf(ratio, 0.0, 1.0),
+				"visible": true, "stalled": false}
 	if near:
-		return {"text": "HOLD E — sing to it", "bar": -1.0, "visible": true}
-	return {"text": "", "bar": -1.0, "visible": false}
+		return {"text": "HOLD E — sing to it", "bar": -1.0, "visible": true,
+				"stalled": false}
+	return {"text": "", "bar": -1.0, "visible": false, "stalled": false}
 
 
-func update_state(near: bool, soothing: bool, ratio: float) -> void:
+func update_state(near: bool, soothing: bool, ratio: float,
+		stalled: bool = false) -> void:
 	if _paused:
 		near = false
 		soothing = false
-	var s: Dictionary = display_state(near, soothing, ratio)
+	var s: Dictionary = display_state(near, soothing, ratio, stalled)
 	_label.visible = bool(s["visible"])
 	_label.text = String(s["text"])
 	var bar: float = float(s["bar"])
 	_bar_back.visible = bar >= 0.0
 	_bar_fill.size = Vector2(BAR_SIZE.x * maxf(bar, 0.0), BAR_SIZE.y)
+	# amber when the generic lullaby maxes out — the world holds the rest
+	_bar_fill.color = Color(0.95, 0.78, 0.4, 0.9) if bool(s["stalled"]) \
+			else Color(0.78, 0.86, 1.0, 0.9)

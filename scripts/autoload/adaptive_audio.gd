@@ -82,7 +82,7 @@ func duck(amount_db: float = 10.0) -> void:
 	_duck_db = maxf(_duck_db, amount_db)
 
 
-const THREAT_RADIUS := 220.0
+const THREAT_RADIUS := 160.0  # tester-04: 220 kept danger alive too long past visibility
 
 
 ## Spec gate (mechanics/adaptive-audio.md stem table; playtest tester-03:

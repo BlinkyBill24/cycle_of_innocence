@@ -188,7 +188,11 @@ func _update_soothe_prompt() -> void:
 	if _soothing and _soothe_target != null and is_instance_valid(_soothe_target):
 		# domination (Vessel) reuses the recognition field — one bar serves both
 		var ratio: float = _soothe_target.recognition / EnemyBase.RECOGNITION_MAX
-		_soothe_prompt.update_state(false, true, ratio)
+		var has_key := PlayerData.has_story_flag(_soothe_target.soothe_key_flag)
+		var stalled := not has_key \
+				and PlayerData.get_morality_tier() != PlayerData.MoralityTier.VESSEL \
+				and _soothe_target.recognition >= EnemyBase.GENERIC_PLATEAU - 0.5
+		_soothe_prompt.update_state(false, true, ratio, stalled)
 		return
 	_soothe_prompt.update_state(_nearest_spareable_monster() != null, false, 0.0)
 

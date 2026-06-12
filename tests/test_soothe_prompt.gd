@@ -32,3 +32,14 @@ func test_prompt_node_builds_and_updates() -> void:
 	assert_string_contains(label.text, "holding")
 	prompt.update_state(false, false, 0.0)
 	assert_false(label.visible, "hidden again when out of range")
+
+
+func test_plateau_discovery_cue() -> void:
+	# tester-04: keyless soothe stalls at 60% and re-aggro reads as a bug —
+	# the stall must say the lullaby isn't the whole answer
+	var stalled: Dictionary = SP.display_state(false, true, 0.6, true)
+	assert_string_contains(String(stalled["text"]), "missing")
+	assert_true(bool(stalled["stalled"]))
+	var rising: Dictionary = SP.display_state(false, true, 0.4, false)
+	assert_string_contains(String(rising["text"]), "holding")
+	assert_false(bool(rising["stalled"]))
