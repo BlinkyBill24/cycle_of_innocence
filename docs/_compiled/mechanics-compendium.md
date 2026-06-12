@@ -1665,13 +1665,26 @@ spaces, not modular kitbash* — that is the replay-value stake.
    were 100% off-palette and are now locked to the backdrop's 48 colors.
    Expected casualty: cool accents (chapel roof) went warm-olive — the
    palette has no cool colors by design; polish via item 5 regen if needed.
-4. **Extend foundations + contact ellipses** to the village zone's
-   buildings/props (prop footprints into the geometry-guide step).
+4. ~~Extend foundations + contact ellipses to the village zone~~ — **VERIFIED
+   ALREADY COVERED 2026-06-12**: `PropShadows.apply($World)` runs in BOTH zone
+   scripts (village_green.gd:50), village props follow the StaticBody2D+
+   Sprite2D pattern it targets, and village buildings sit on baked worn
+   foundations since the backdrop lock. The research screenshots predated
+   this (stale vintages).
 5. **Regenerate worst offenders** under rules 1–3: well, fences, the image-3
    house (cool violet-grey props on warm ochre ground; baked daylight on the
    cottage).
-6. **`create_map_object` smoke test** with a real backdrop crop (workflow
-   above).
+6. ~~`create_map_object` smoke test~~ — **PASSED 2026-06-12**: no server-side
+   500 (unlike create-tileset's reference params); style/projection inherited
+   from the backdrop crop; palette only partially inherited → run
+   `tools/palette_lock.py` on every result. **Production recipe**: crop the
+   zone backdrop where the prop will stand → background_image (the MCP path
+   mode hands back a curl command — key comes from `~/.config/pixellab/api_key`,
+   never inline) → object size ≈ crop size × oval fraction (64px crop +
+   fraction 0.72 ≈ 45–60px prop; 128px crop ≈ 75px+ prop — pick crop size for
+   target scale) → trim transparent border → palette-lock → stage in
+   `assets/sprites/village/candidates/` for editor placement (placement/scale
+   is the user's editor pass).
 7. **Editor pass (user)**: missing StaticBody2D on the painted stone wall;
    audit painted features vs collider coverage; check the midday player-glow
    toggle.

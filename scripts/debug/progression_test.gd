@@ -9,10 +9,23 @@ var _label: Label
 
 func _ready() -> void:
 	if show_debug_label:
+		# CanvasLayer so the readout is glued to the screen, not the world —
+		# as a world-space child it scrolled away with the camera.
+		var overlay := CanvasLayer.new()
+		overlay.name = "DebugOverlay"
+		overlay.layer = 101  # above the dialogue balloon (100): always visible
+		add_child(overlay)
 		_label = Label.new()
-		_label.position = Vector2(8, 26)  # below the HUD heart row
-		_label.add_theme_font_size_override("font_size", 11)
-		add_child(_label)
+		_label.add_theme_font_size_override("font_size", 9)
+		_label.add_theme_color_override("font_outline_color", Color.BLACK)
+		_label.add_theme_constant_override("outline_size", 3)
+		_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		overlay.add_child(_label)
+		_label.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+		_label.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+		_label.grow_vertical = Control.GROW_DIRECTION_END
+		_label.offset_top = 4.0
+		_label.offset_right = -6.0
 	_refresh_label()
 	PlayerData.age_advanced.connect(func(_s): _refresh_label())
 	PlayerData.morality_changed.connect(func(_v, _d): _refresh_label())
