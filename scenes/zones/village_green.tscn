@@ -43,40 +43,40 @@ radius = 64.0
 size = Vector2(100, 48)
 
 [sub_resource type="RectangleShape2D" id="shape_PropCottageB"]
-size = Vector2(100, 45)
+size = Vector2(98, 23)
 
 [sub_resource type="RectangleShape2D" id="shape_PropCottageDark"]
-size = Vector2(100, 44)
+size = Vector2(110, 29)
 
 [sub_resource type="RectangleShape2D" id="shape_PropCottagePieter"]
-size = Vector2(100, 44)
+size = Vector2(106, 26)
 
 [sub_resource type="RectangleShape2D" id="shape_PropChapel"]
 size = Vector2(110, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3q7t2"]
-size = Vector2(53, 20)
+size = Vector2(44, 15)
 
 [sub_resource type="RectangleShape2D" id="shape_PropMarketStall"]
-size = Vector2(80, 14)
+size = Vector2(68, 11)
 
 [sub_resource type="RectangleShape2D" id="shape_PropBench"]
-size = Vector2(40, 8)
+size = Vector2(43, 9)
 
 [sub_resource type="RectangleShape2D" id="shape_PropHarmonyBoard"]
-size = Vector2(30, 8)
+size = Vector2(41, 8)
 
 [sub_resource type="CircleShape2D" id="shape_PropLanternNE"]
-radius = 4.0
+radius = 5.0
 
 [sub_resource type="CircleShape2D" id="shape_PropLanternNW"]
-radius = 4.0
+radius = 5.0
 
 [sub_resource type="CircleShape2D" id="shape_PropLanternSE"]
-radius = 4.0
+radius = 5.0
 
 [sub_resource type="CircleShape2D" id="shape_PropLanternSW"]
-radius = 4.0
+radius = 5.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fsl1j"]
 size = Vector2(43, 6)
@@ -162,6 +162,7 @@ script = ExtResource("11_eavesdrop")
 source_npc_id = &"pieter_parent"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EavesdropBench"]
+position = Vector2(-42, 125)
 shape = SubResource("CircleShape2D_listen")
 
 [node name="EavesdropWell" type="Area2D" parent="."]
@@ -178,6 +179,7 @@ script = ExtResource("11_eavesdrop")
 source_npc_id = &"warden_brek"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EavesdropMarket"]
+position = Vector2(-627, -13)
 shape = SubResource("CircleShape2D_listen")
 
 [node name="PlaygroundTransition" type="Area2D" parent="."]
@@ -208,7 +210,7 @@ npc_id = &"pieter_parent"
 frames = ExtResource("6_parent_frames")
 
 [node name="ElderAldwin" parent="World" instance=ExtResource("5_villager")]
-position = Vector2(0, -360)
+position = Vector2(0, -309)
 npc_id = &"elder_aldwin"
 frames = ExtResource("8_elder_frames")
 move_speed = 35.0
@@ -243,11 +245,12 @@ position = Vector2(416, -298)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropCottageB"]
-position = Vector2(0, -48)
+position = Vector2(0, -3)
 texture = ExtResource("tex_cottage_b")
+offset = Vector2(0, -52)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropCottageB"]
-position = Vector2(0, -14.5)
+position = Vector2(-2, -23.5)
 shape = SubResource("shape_PropCottageB")
 
 [node name="PropCottageDark" type="StaticBody2D" parent="World"]
@@ -255,11 +258,12 @@ position = Vector2(-384, 290)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropCottageDark"]
-position = Vector2(0, -48)
+position = Vector2(-3, 19)
 texture = ExtResource("tex_cottage_dark")
+offset = Vector2(0, -52)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropCottageDark"]
-position = Vector2(0, -14)
+position = Vector2(-2, -6.5)
 shape = SubResource("shape_PropCottageDark")
 
 [node name="PropCottagePieter" type="StaticBody2D" parent="World"]
@@ -267,12 +271,13 @@ position = Vector2(384, 290)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropCottagePieter"]
-position = Vector2(0, -48)
+position = Vector2(3, 15)
 texture = ExtResource("tex_cottage_b")
+offset = Vector2(0, -52)
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropCottagePieter"]
-position = Vector2(0, -14)
+position = Vector2(3, -5)
 shape = SubResource("shape_PropCottagePieter")
 
 [node name="PropChapel" type="StaticBody2D" parent="World"]
@@ -280,10 +285,12 @@ position = Vector2(0, -408)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropChapel"]
-position = Vector2(0, -76)
+position = Vector2(1, 96)
 texture = ExtResource("tex_chapel")
+offset = Vector2(0, -80)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropChapel"]
+position = Vector2(0, 73)
 shape = SubResource("shape_PropChapel")
 
 [node name="PropWell" type="StaticBody2D" parent="World"]
@@ -296,7 +303,7 @@ texture = ExtResource("17_r028r")
 offset = Vector2(0, -30)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropWell"]
-position = Vector2(0.5, -30)
+position = Vector2(0, -32.5)
 shape = SubResource("RectangleShape2D_3q7t2")
 
 [node name="PropMarketStall" type="StaticBody2D" parent="World"]
@@ -304,10 +311,12 @@ position = Vector2(300, -84)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropMarketStall"]
-position = Vector2(0, -32)
+position = Vector2(-628, -10)
 texture = ExtResource("tex_market_stall")
+offset = Vector2(0, -36)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropMarketStall"]
+position = Vector2(-629, -14.5)
 shape = SubResource("shape_PropMarketStall")
 
 [node name="PropBench" type="StaticBody2D" parent="World"]
@@ -315,10 +324,12 @@ position = Vector2(150, 68)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropBench"]
-position = Vector2(0, -10)
+position = Vector2(-43, 125)
 texture = ExtResource("tex_bench")
+offset = Vector2(0, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropBench"]
+position = Vector2(-42.5, 120.5)
 shape = SubResource("shape_PropBench")
 
 [node name="PropHarmonyBoard" type="StaticBody2D" parent="World"]
@@ -326,10 +337,12 @@ position = Vector2(64, -352)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropHarmonyBoard"]
-position = Vector2(0, -19)
+position = Vector2(-6, 48)
 texture = ExtResource("tex_harmony_board")
+offset = Vector2(0, -23)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropHarmonyBoard"]
+position = Vector2(-6.5, 43)
 shape = SubResource("shape_PropHarmonyBoard")
 
 [node name="PropLanternNE" type="StaticBody2D" parent="World"]
@@ -337,10 +350,12 @@ position = Vector2(158, -158)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropLanternNE"]
-position = Vector2(0, -25)
+position = Vector2(-10, 16)
 texture = ExtResource("tex_lantern_post")
+offset = Vector2(0, -29)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropLanternNE"]
+position = Vector2(-7, 12)
 shape = SubResource("shape_PropLanternNE")
 
 [node name="PropLanternNW" type="StaticBody2D" parent="World"]
@@ -348,11 +363,13 @@ position = Vector2(-158, -158)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropLanternNW"]
-position = Vector2(0, -25)
+position = Vector2(23, 7)
 texture = ExtResource("tex_lantern_post")
+offset = Vector2(0, -29)
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropLanternNW"]
+position = Vector2(21, 3)
 shape = SubResource("shape_PropLanternNW")
 
 [node name="PropLanternSE" type="StaticBody2D" parent="World"]
@@ -360,10 +377,12 @@ position = Vector2(158, 158)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropLanternSE"]
-position = Vector2(0, -25)
+position = Vector2(-8, 2)
 texture = ExtResource("tex_lantern_post")
+offset = Vector2(0, -29)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropLanternSE"]
+position = Vector2(-5, -2)
 shape = SubResource("shape_PropLanternSE")
 
 [node name="PropLanternSW" type="StaticBody2D" parent="World"]
@@ -371,11 +390,13 @@ position = Vector2(-158, 158)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropLanternSW"]
-position = Vector2(0, -25)
+position = Vector2(2, 2)
 texture = ExtResource("tex_lantern_post")
+offset = Vector2(0, -29)
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropLanternSW"]
+position = Vector2(-1, -2)
 shape = SubResource("shape_PropLanternSW")
 
 [node name="PropFenceWestA" type="StaticBody2D" parent="World"]
