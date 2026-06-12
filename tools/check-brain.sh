@@ -30,7 +30,7 @@ $stale_mirror"
 #     view in tools/ must be "low top-down" unless the line carries an
 #     explicit `# canon-override:` comment. Per-tool API defaults differ, so
 #     an off-canon literal is drift, not preference.
-off_canon=$(grep -rn '"view"\s*:\s*"' tools/*.py 2>/dev/null \
+off_canon=$(grep -rEn '"(tile_)?view"\s*:\s*"' tools/*.py 2>/dev/null \
   | grep -v '"low top-down"' \
   | grep -v "canon-override:")
 [ -n "$off_canon" ] && err "off-canon PixelLab view (rule 5 — add '# canon-override:' if deliberate):

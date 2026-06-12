@@ -190,5 +190,15 @@ Palette note: "inherit the palette" in a prompt is steering at best — the
 palette GUARANTEE is the rule-1 quantize post-pass (`tools/palette_lock.py`),
 never the prompt.
 
-**TODO (user)**: pin 1–2 canon reference crops here (an approved character
-cell + the best prop) next to the scale chart, for use as style/depth refs.
+**Pinned canon references** (2026-06-12, for style/depth refs and the QA
+eyeball gate):
+- `assets/reference/canon_view_character.png` — approved Rowan south idle
+  cell (48px, from the live sheet): the canon eye-height for characters.
+- `assets/reference/canon_view_prop.png` — the canon well (low top-down,
+  palette-locked): flat ~1:3 rim ellipse, front face visible, verticals
+  vertical. Use as `background_image`/depth reference or comparison anchor.
+
+Ratio-glance audit of legacy height-cue assets (2026-06-12): terrace/cliff
+tileset PASS (straight-on fronts under plan tops), chapel roof PASS
+(front-gable facade, no deep roof plane) — the pre-explicit-view tileset era
+needs no depth-i2i rework.

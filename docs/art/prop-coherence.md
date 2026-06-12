@@ -71,6 +71,12 @@ spaces, not modular kitbash* — that is the replay-value stake.
      ellipses, a canon box, and a vertical ruler; every new prop/building/
      repaint passes over it before import. Reject on fat ellipses, converging
      verticals, deep roofs, or ground texture that shrinks toward the top.
+   - **Legacy audit (2026-06-12, ratio glance)**: terrace/cliff tileset PASS,
+     chapel roof PASS — the pre-explicit-view assets already sit on the
+     canon; no depth-i2i rework needed. Pinned references:
+     `assets/reference/canon_view_character.png` + `canon_view_prop.png`
+     ([[art/imagine-prompts]]). Lint also covers the `tile_view` key
+     spelling.
 
 ## Prop generation workflow
 
