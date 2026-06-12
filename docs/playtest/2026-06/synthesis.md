@@ -1,56 +1,63 @@
 ---
 name: Playtest synthesis — June 2026 feel pass
-status: in progress (1 of 3–5 sessions)
+status: in progress (2 of 3–5 sessions)
 protocol: "[[plan/playtest-protocol-2026-06]]"
 ---
 
-# Synthesis (running — do NOT tune from n=1 except defects)
+# Synthesis (running — do NOT tune from n<3 except defects)
 
 ## Sessions
 | # | profile | length | valid beats |
 |---|---|---|---|
-| [[tester-01]] | horror+rpg | ~5 min | 1–2 only (no village, no night, no stage 1) |
+| [[tester-01]] | horror+rpg | ~5 min | 1–2 only |
+| [[tester-02]] | horror+rpg | short, native editor play | 1–2; crashed-out at the village transition |
 
-## Defects fixed immediately (bug class, not tuning — protocol allows)
-- **Soothe affordance** (tester-01 Q3 "broken"): no HOLD hint, no progress
-  feedback outside the debug HUD → `SoothePrompt` shipped (hint near a
-  spareable monster, recognition bar while holding, hidden in dialogue).
-  Re-test with tester-02+.
+## Defects fixed immediately (bug class, not tuning)
+- **Soothe affordance** (t01 Q3): no HOLD hint/progress → `SoothePrompt`
+  shipped. t02 confirms the bar works.
+- **SoothePrompt hint placement** (t02 Q3): degenerate anchor rect put the
+  hint under the HP hearts → explicit bottom-center anchors, verified by
+  screenshot. Re-test with tester-03.
+- **Village "crash"** (t02 Q6): editor paused on load errors —
+  `village_tileset.tres` declared 4 dirt-variant tiles vs the curated
+  1-tile texture; 3 out-of-texture tiles errored exactly as the village
+  scene loaded. Tres + generator fixed; regression test
+  `test_village_scene_loads.gd`. (Desktop CLI run had sailed past it —
+  native editor play is the strictest runtime; keep using it for testers.)
 
 ## Threshold tracker (needs ≥3 valid sessions)
 | Signal | t01 | t02 | t03 | verdict |
 |---|---|---|---|---|
-| Soothe discovered unprompted | ✗ (pre-fix — discount) | | | pending |
-| "Reacting" vs "timer" | n/a (5 min) | | | pending |
-| Doom cites world evidence | n/a (5 min) | | | pending |
-| Interface horror = haunted | n/a (never triggered) | | | pending |
-| Briar pings noticed | ? | | | pending |
-| Audio never "messy" | **✗ — "reggae" when darkness/terror starts** | | | 1 strike |
-| Night worry ≥3 | ✗ (2/5) | | | 1 strike |
-| Would keep playing | **✗ — "want to see something happening"** | | | 1 strike |
+| Soothe discovered unprompted | ✗ (pre-fix) | ~ (bar seen, hint hidden) | | pending — affordance now complete |
+| "Reacting" vs "timer" | n/a | n/a (neither; no village) | | pending |
+| Doom cites world evidence | n/a | n/a | | pending |
+| Interface horror = haunted | n/a | n/a | | pending |
+| Briar pings noticed | ? | ~ ("bark sometimes"; "does not do much else") | | pending |
+| Audio never "messy" | **✗ reggae** | **✗ reggae (same words)** | | **FAILED 2/2 — act** |
+| Night worry ≥3 | ✗ (2/5) | ~ (3/5, "reggae breaks immersion") | | borderline — audio confounds it |
+| Would keep playing | ✗ | ✗ (crash-driven) | | pending — both no's had defect causes |
 
-## Early signals (await confirmation, but already pointed)
-1. **Danger/tense stem reads as REGGAE** — content, not mixing. Strongest
-   single quote of the session. Feeds next-arc 2 (audio content sprint:
-   one composition, stripped mixes) and raises its priority: the current
-   ACE-Step danger track may be unusable regardless of crossfade quality.
-   *(Human task: regenerate stems; agents don't tune audio feel.)*
-2. **First-five-minutes pacing**: "want to see something happening" + dread
-   1/5. The slice's scripted dread beat either isn't early enough or didn't
-   fire in their path. Candidate fix is CONTENT (an authored early beat —
-   fog/wrong-toy/monster glimpse within ~3 min), not knobs. Pairs with
-   next-arc 3 (playground recontext authoring) and the demo-arc design
-   ([[design/market-positioning]]: the demo must hook before the bell).
-3. **Night darkness 2/5** — second independent strike on the darker-dread
-   leftover (slice gate said the same). The knob exists (CanvasModulate
-   floor with dread). Still waiting for n≥3 per protocol, but this one is
-   close to actionable.
-4. Positives worth keeping: choice agency 5/5, opening atmosphere praised,
-   Briar middling-positive at 3/5 in 5 minutes.
+## Actions from the failed threshold
+- **Audio content sprint promoted to NOW** (human): regenerate
+  `playground_tense.ogg` + `playground_danger.ogg` in ACE-Step as one
+  composition / stripped mixes ([[mechanics/adaptive-audio]]). Identical
+  unprompted "reggae" wording from two independent testers; it also
+  confounds the darkness score (t02: night OK *but* music breaks it).
+  Nothing else should be tuned until the stems are replaced — audio
+  contaminates dread, night, and keep-playing answers.
+
+## Early signals (still await n≥3)
+1. First-minutes pacing: t01 "want to see something happening"; t02's best
+   moment was an audio shift while exploring. An authored early dread beat
+   remains the candidate content fix.
+2. Briar reads as cute but passive ("follows, barks sometimes, not much
+   else") — two 3/5s. Watch whether the dig assist + quirks surface at all
+   in longer sessions before adding telegraphs.
+3. Positives held across both: choice agency 5/5 ×2, opening atmosphere
+   praised ×2 (same words — the intro is landing).
 
 ## Process notes
-- 5-minute informal sessions produce invalid clock/doom/interface data —
-  for testers 02+ enforce the protocol's 30–45 min + the 5 beats, or mark
-  answers n/a as here.
-- Debug HUD was correctly off; its absence exposed the soothe affordance gap
-  the dev never sees. Good trade.
+- Tester sessions are running ~5 min informal, not the protocol's 30–45 —
+  beats 3–5 keep going unmeasured. For run 3: session length first.
+- Native editor play exposed a resource error a CLI run survived — keep at
+  least one native-editor tester per round.

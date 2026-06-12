@@ -19,7 +19,7 @@ SETS = {
         ["playground", "fringes", "ritual", "grass_blend"],
     "assets/resources/tiles/village_tileset.tres":
         ["village_green", "village_yard", "village_terrace",
-         ("grass_variants", 6, 1), ("dirt_variants", 4, 1)],
+         ("grass_variants", 6, 1), ("dirt_variants", 1, 1)],  # dirt curated to ONE tile (stones-only)
 }
 
 # variation strips live with the variations pipeline, wang sets with tilesets
