@@ -10,9 +10,10 @@ fail=0
 err() { echo "BRAIN DRIFT: $1"; fail=1; }
 
 # 1. Stale tech terms in living docs (decisions/ and sessions/ are history and exempt;
+#    docs/_compiled/ is generated from them and equally exempt;
 #    lines explaining the replacement are exempt).
 stale=$(grep -rn "Yarn Spinner" docs/ AGENTS.md --include="*.md" 2>/dev/null \
-  | grep -v "docs/decisions/\|docs/sessions/" \
+  | grep -v "docs/decisions/\|docs/sessions/\|docs/_compiled/" \
   | grep -vi "replaced\|dropped\|instead of\|not yarn\|→")
 [ -n "$stale" ] && err "stale 'Yarn Spinner' reference(s):
 $stale"
@@ -20,7 +21,7 @@ $stale"
 # 1b. The rpg-adventure mirror was retired 2026-06-10 — no living doc should
 #     instruct syncing/publishing to it (mentions of the retirement itself are exempt).
 stale_mirror=$(grep -rn "sync-to-rpg-adventure\|publish-standalone" docs/ AGENTS.md CLAUDE.md GROK.md tools/ --include="*.md" --include="*.sh" 2>/dev/null \
-  | grep -v "docs/decisions/\|docs/sessions/\|check-brain.sh" \
+  | grep -v "docs/decisions/\|docs/sessions/\|docs/_compiled/\|check-brain.sh" \
   | grep -vi "removed\|retired\|replaced")
 [ -n "$stale_mirror" ] && err "living doc still references the retired rpg-adventure sync/publish workflow:
 $stale_mirror"
