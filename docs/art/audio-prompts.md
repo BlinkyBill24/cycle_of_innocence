@@ -19,6 +19,15 @@ horror tension underscore, A minor, 70 bpm, low sustained string drones, quiet d
 horror chase underscore, A minor, 70 bpm with urgent double-time percussion feel, pounding low toms, deep sub-bass pulses, sharp string stabs, panicked momentum, instrumental, loopable intensity layer
 ```
 
+**v2 (2026-06-12, playtest fix)**: v1 read as "reggae" to two independent
+testers (failed threshold, [[playtest/2026-06/synthesis]]). Replaced with a
+user-generated track from makebestmusic.com (share nwJvbzvO; raw MP3 kept in
+`stems/raw/playground_danger_makebestmusic_2026-06-12.mp3`). 22.5s, converted
+to OGG, RMS-matched to the v1 stem (×1.58 gain). ⚠️ Loop seam untrimmed (no
+Audacity-style cut yet) and still an independent composition, not an aligned
+stem — both go away in the audio content sprint (one composition, stripped
+mixes).
+
 ## AU1d — `lullaby_motif` (the ritual song — soothe mechanic, stingers)
 ```
 haunting simple childlike lullaby, solo music box, A minor, 70 bpm, slightly detuned and fragile, short repeating 8-bar melody, sparse, melancholic, instrumental
