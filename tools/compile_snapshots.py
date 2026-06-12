@@ -29,6 +29,7 @@ SNAPSHOTS: dict[str, list[str]] = {
     "mechanics-compendium.md": [
         "docs/mechanics/*.md",
         "docs/design/*.md",
+        "docs/art/prop-coherence.md",
     ],
     "decisions.md": [
         "docs/decisions/*.md",
