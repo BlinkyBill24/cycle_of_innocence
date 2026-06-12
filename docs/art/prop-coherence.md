@@ -31,7 +31,10 @@ spaces, not modular kitbash* — that is the replay-value stake.
    force-quantize every prop to it — shipped implementation:
    `tools/palette_lock.py` (nearest-RGB, alpha preserved, `--dry-run`).
    Upgrades the Terranigma-pass desaturation fix into a guarantee. Biggest
-   visual win per minute.
+   visual win per minute. **Authored saturation exemptions**: props whose
+   wrongness IS the design stay unlocked — currently only `toy_duck.png`
+   ("toys stay saturated while the world drains"). Applied to village props
+   2026-06-12, playground props (minus duck) same day.
 2. **Flat-neutral-light authoring**: props carry NO baked time-of-day light
    and NO cast shadows — `CanvasModulate` + lights own time-of-day. (A prop
    repainted to match one scene's light is wrong in every other scene.)

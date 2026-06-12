@@ -63,7 +63,7 @@ vision-cone polish → day/night + hideout → mercy full (unique soothes, Domin
 
 Scope rule adopted: **define "content-complete" per zone** (recontext moments authored, gossip pools written, stems present, props placed) **and burn it down before any new mechanic** — the playtest pass gates each arc.
 
-1. **Structured playtest/feel pass**: clock pacing ("urgency without anxiety treadmill"), interface-horror frustration ceiling, suspicion→alarm tuning, plus slice-gate leftovers (stem overlap, darker dread, bark visibility). Recruit 3–5 outside testers via the NAS/itch web build.
+1. **Structured playtest/feel pass**: clock pacing ("urgency without anxiety treadmill"), interface-horror frustration ceiling, suspicion→alarm tuning, plus slice-gate leftovers (stem overlap, darker dread, bark visibility). Recruit 3–5 outside testers via the NAS/itch web build. **Protocol ready: [[playtest-protocol-2026-06]]** (session script, observation checklist, debrief, pass/fail thresholds → tuning knobs).
 2. **Audio content sprint**: produce playground/fringes stems as *one composition, stripped mixes* so the v2 crossfade graduates to true layering ([[mechanics/adaptive-audio]]).
 3. **Playground recontext authoring**: the 2–3 thesis-statement moments for the first revelation — content, not mechanism ([[mechanics/zone-recontextualization]]).
 4. **Steam timing decision** (user): [[decisions/2026-06-12-steam-timing]] — Coming Soon page lead time compounds; patent re-review rides the same milestone.
