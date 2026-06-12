@@ -181,6 +181,16 @@ spaces, not modular kitbash* — that is the replay-value stake.
    board −10 px, lantern +2 px ×4 instances); **verify colliders in the
    editor** (board and stall changed footprint width).
 
+8. **Rework round 2 (2026-06-12, user feedback "cottages/houses + playground
+   props/trees look off")**: playground props palette-locked (duck exempt,
+   rule 1); buildings REGENERATED after all — the foundation-fight concern
+   was answered by inpainting at the placement-spot crop (the baked
+   foundation is IN the crop, so the model draws the building on it):
+   `candidates/cottage_a_v2/b_v2/dark_v2/chapel_v2` (village) +
+   `props/candidates/dead_tree_a_v2/b_v2` (playground), all canon view,
+   palette-locked, gated PASS. **Note: new buildings are TALLER than the old
+   slabs** (e.g. cottage_a 138×146 vs 128×112) — placement + collider fit is
+   an editor judgment, not a mechanical swap.
 ## Filter test
 
 Serves **horror beats** directly (the warm/cold zone thesis is a palette
