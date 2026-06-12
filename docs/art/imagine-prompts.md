@@ -158,3 +158,37 @@ Every prop prompt from here on inherits these three rules:
 New props go through `create_map_object` with a zone-backdrop crop as
 `background_image` (gated on smoke test) or the proven
 `generate-with-style-v2` fallback — see [[art/prop-coherence]] workflow.
+
+## Projection canon templates (2026-06-12 — rule 5 in [[art/prop-coherence]])
+
+One camera everywhere: **low top-down (~20°), "Zelda perspective"** (tops AND
+front faces visible, verticals vertical, no vanishing points). Defaults are
+never trusted — `view` is always explicit.
+
+**A. Grok ground repaint (production backdrops — the only standing Grok
+pipeline):**
+> top-down plan view of ground surface only; uniform texture scale across the
+> whole image; no objects, no walls, no horizon, no shadows, no perspective;
+> keep the layout exactly as given.
+
+**B. Grok full scene (concept bibles / reference art ONLY — never production
+backdrops):**
+> angled top-down Zelda perspective (slightly elevated 3/4 view as in A Link
+> to the Past / Terranigma), consistent foreshortening on every object, tops
+> and front faces visible, verticals stay vertical, no linear perspective, no
+> horizon, flat neutral light.
+
+**C. `create_map_object` prop call (canonical):**
+`view="low top-down"` (code-enforced canon) + `background_image=<zone
+backdrop crop>` + description:
+> <prop>, transparent background, same angled top-down view, foreshortening
+> and proportions as the background reference; tops and front face visible;
+> flat neutral light, no cast shadows, no baked time-of-day light; scale per
+> the 32 px player chart.
+
+Palette note: "inherit the palette" in a prompt is steering at best — the
+palette GUARANTEE is the rule-1 quantize post-pass (`tools/palette_lock.py`),
+never the prompt.
+
+**TODO (user)**: pin 1–2 canon reference crops here (an approved character
+cell + the best prop) next to the scale chart, for use as style/depth refs.

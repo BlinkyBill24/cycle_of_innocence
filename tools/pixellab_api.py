@@ -20,6 +20,13 @@ from pathlib import Path
 
 BASE = "https://api.pixellab.ai/v1"
 
+# Projection Canon (docs/art/prop-coherence.md rule 5): one camera for the
+# whole game. EVERY generation call that takes a view passes this explicitly —
+# PixelLab per-tool defaults differ (map tools: high top-down; character
+# tools: low top-down). check-brain.sh lints tools/*.py for off-canon views;
+# a deliberate exception needs a `# canon-override:` comment on the line.
+CANON_VIEW = "low top-down"
+
 
 def api_key() -> str:
     key = os.environ.get("PIXELLAB_API_KEY", "")

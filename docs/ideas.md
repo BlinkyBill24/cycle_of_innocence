@@ -119,6 +119,11 @@ Researched-but-not-greenlit candidates worth keeping (source game in parens):
 
 These should feed into zone design, art prompts, and the first few dialogue nodes.
 
+## 📥 Captured this session (projection canon, 2026-06-12)
+
+- **QA overlay layer** (user art task): transparent Aseprite layer with the two canon ellipses, a canon box, and a vertical ruler — the rule-5 import gate for every new prop/building/repaint. ([[art/prop-coherence]])
+- **Bitforge fallback params unconfirmed**: confirm `view`/`oblique_projection` on `generate-with-style-v2` against https://api.pixellab.ai/v2/openapi.json before next relying on the fallback path.
+
 ## 📥 Captured this session (research round 3, 2026-06-12)
 
 - **External playtest cadence**: 3–5 outside testers through the NAS/itch web build at the end of *every* content arc — not just the next one. (Round-3 audit; the rest of its process advice lives in the roadmap "Next arcs" block.)

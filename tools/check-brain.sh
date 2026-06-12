@@ -26,6 +26,16 @@ stale_mirror=$(grep -rn "sync-to-rpg-adventure\|publish-standalone" docs/ AGENTS
 [ -n "$stale_mirror" ] && err "living doc still references the retired rpg-adventure sync/publish workflow:
 $stale_mirror"
 
+# 1c. Projection Canon (docs/art/prop-coherence.md rule 5): every PixelLab
+#     view in tools/ must be "low top-down" unless the line carries an
+#     explicit `# canon-override:` comment. Per-tool API defaults differ, so
+#     an off-canon literal is drift, not preference.
+off_canon=$(grep -rn '"view"\s*:\s*"' tools/*.py 2>/dev/null \
+  | grep -v '"low top-down"' \
+  | grep -v "canon-override:")
+[ -n "$off_canon" ] && err "off-canon PixelLab view (rule 5 — add '# canon-override:' if deliberate):
+$off_canon"
+
 # 2. Shims must still point at AGENTS.md and stay thin.
 grep -q "^@AGENTS.md" CLAUDE.md || err "CLAUDE.md lost its @AGENTS.md import"
 grep -q "AGENTS.md" AGENT_RULES.md || err "AGENT_RULES.md lost its pointer to AGENTS.md"

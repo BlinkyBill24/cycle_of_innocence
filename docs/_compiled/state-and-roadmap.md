@@ -312,6 +312,11 @@ Researched-but-not-greenlit candidates worth keeping (source game in parens):
 
 These should feed into zone design, art prompts, and the first few dialogue nodes.
 
+## 📥 Captured this session (projection canon, 2026-06-12)
+
+- **QA overlay layer** (user art task): transparent Aseprite layer with the two canon ellipses, a canon box, and a vertical ruler — the rule-5 import gate for every new prop/building/repaint. ([[art/prop-coherence]])
+- **Bitforge fallback params unconfirmed**: confirm `view`/`oblique_projection` on `generate-with-style-v2` against https://api.pixellab.ai/v2/openapi.json before next relying on the fallback path.
+
 ## 📥 Captured this session (research round 3, 2026-06-12)
 
 - **External playtest cadence**: 3–5 outside testers through the NAS/itch web build at the end of *every* content arc — not just the next one. (Round-3 audit; the rest of its process advice lives in the roadmap "Next arcs" block.)
@@ -337,6 +342,23 @@ Claude Code (implementation), adapted from the user's space-game design system.
 
 ## What I did
 *(newest first)*
+- **Projection canon integrated** (branch `feature/projection-canon`): new
+  **Rule 5** in [[art/prop-coherence]] — one camera, **low top-down ~20°
+  "Zelda perspective"**, cheated oblique, view ALWAYS explicit (PixelLab
+  per-tool defaults differ: map tools 35°, character tools 20°). Local
+  verification flipped the research's history: every production script
+  already pinned low top-down — the only drift ever was MY same-day
+  candidates (generated high top-down through the viewless item-6 recipe).
+  Both regenerated at canon view + palette-locked + restaged (the canon well
+  is visibly correct: flat rim ellipse, front face, verticals vertical).
+  Enforcement: `CANON_VIEW` in pixellab_api.py + `check-brain.sh` lint
+  (negative-tested) — off-canon views in tools/ now fail the drift check
+  unless `# canon-override:`-commented. Workflow additions: variants via
+  `create_object_state` (never fresh), depth-i2i geometry lock, canon ratio
+  table + QA overlay gate. Prompt templates A/B/C in [[art/imagine-prompts]]
+  (+ user TODO: pin reference crops). Ideas: QA overlay art task, bitforge
+  fallback params unconfirmed. Rejected (vault stance upheld): edit_image
+  prop extraction (rule-2 violation).
 - **Prop-coherence items 4–6 + debug HUD** (branch
   `feature/coherence-pass-debug-hud`, 191/191): Debug readout moved off the
   world and onto a `CanvasLayer` (layer 101, above dialogue) anchored

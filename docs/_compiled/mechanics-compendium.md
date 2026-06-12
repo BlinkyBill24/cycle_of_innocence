@@ -1634,16 +1634,59 @@ spaces, not modular kitbash* — that is the replay-value stake.
 4. **Shadow canon (restated — a cross-model review garbled it)**: procedural
    contact-shadow ellipses for small props; baked worn foundations for
    buildings; **no shadow ellipses on ≥96 px sprites** (they caused floating).
+5. **Projection Canon ("Zelda perspective")** *(research 2026-06-12,
+   [[research/done/2026-06-12-research-projection-canon-angle-consistency]])*:
+   one camera for the whole game — **low top-down (~20°), cheated
+   oblique/mixed projection** (floors in plan view, fronts in elevation; tops
+   AND front faces visible, verticals stay vertical, no vanishing points, no
+   horizon). Perfect geometry is not the goal; **consistent cheating** is.
+   - Every PixelLab call passes `view="low top-down"` **explicitly — defaults
+     are never trusted**: they differ per tool (`create_map_object` /
+     `create_topdown_tileset` default *high top-down* ≈35°; character tools
+     default *low top-down* ≈20°) `[verified 2026-06-12, MCP docs + local
+     schema]`. `check-brain.sh` lints `tools/*.py` for off-canon views
+     (`# canon-override:` comment to exempt deliberately).
+   - **Canon provenance** (stronger than overlay measurement): every
+     production script already pinned `low top-down` at its call site
+     (pixellab_props/village_props/npcs/v2.py) — all approved assets ARE the
+     canon. The only drift ever shipped was the 2026-06-12 candidates,
+     generated at high top-down through the then-viewless item-6 recipe
+     (regenerated same day).
+   - Grok ground repaints stay **angle-neutral**: plan-view texture only,
+     uniform texture density top-to-bottom, no objects, no foreshortening, no
+     shadows (templates in [[art/imagine-prompts]]).
+   - Baked foundation fronts in the geometry-guide step follow the canon
+     ratios below.
+   - **Canon ratio table** (eyeball QA gate; ≈ values):
+     ground circle (well rim, barrel top) ellipse height ≈ **0.34× width**
+     (~1:3; high top-down ≈ 0.57× — reject); box visible top depth : front
+     height ≈ **1:3** (high ≈ 2:3); verticals never converge; buildings show
+     a **thin roof strip, mostly facade** (deep roof plane = wrong camera).
+   - **QA overlay import gate**: transparent Aseprite layer with the canon
+     ellipses, a canon box, and a vertical ruler; every new prop/building/
+     repaint passes over it before import. Reject on fat ellipses, converging
+     verticals, deep roofs, or ground texture that shrinks toward the top.
 
 ## Prop generation workflow
 
-- **New props**: PixelLab `create_map_object` with a crop of the actual zone
-  backdrop as `background_image` (style/palette/light/projection inherited;
-  output stays a transparent sprite for y-sort/collision) `[verified
-  2026-06-12, pixellab.ai/mcp]` — **gated on a smoke test first**: our record
-  shows reference-image params 500ing server-side on `create-tileset`; the
-  proven style path is `generate-with-style-v2`/bitforge, which is the
-  fallback with the same crop.
+- **New props**: PixelLab `create_map_object` with `view="low top-down"`
+  (rule 5 — ALWAYS explicit) + a crop of the actual zone backdrop as
+  `background_image` (style/palette/light inherited; output stays a
+  transparent sprite for y-sort/collision) `[verified 2026-06-12,
+  pixellab.ai/mcp]` — the multi-lock: the view param is weak ("weakly
+  controls", per PixelLab docs), the crop is contextual (and reference params
+  have a known 500 failure mode), so view + crop together converge. Fallback
+  is `generate-with-style-v2`/bitforge with the same crop (confirm its
+  `view`/`oblique_projection` params against the OpenAPI spec before relying
+  on it).
+- **Variants** (recontext / VillageState states of an existing prop): always
+  `create_object_state` on the canon object — inherits view, seed-stable —
+  **never a fresh generation**. `[verified 2026-06-12, MCP docs]`
+- **Geometry lock for resistant props/buildings**: PixelLab **image-to-image
+  (depth)** with an approved canon asset (or 5-minute grey-box) as depth
+  reference, high `depth_strength` — ControlNet-style angle lock inside the
+  locked stack. Buildings first: largest area, strongest pitch signal.
+  `[verified 2026-06-12, pixellab.ai/docs/tools/image-to-image-depth]`
 - **PROPS-ONLY `edit_image` diagnostic**: one repaint pass on a real composited
   screenshot ("repaint the lantern/bench/well to match the ground lighting and
   palette") to set the visual bar before regenerating anything. **Benchmark
@@ -1671,22 +1714,25 @@ spaces, not modular kitbash* — that is the replay-value stake.
    Sprite2D pattern it targets, and village buildings sit on baked worn
    foundations since the backdrop lock. The research screenshots predated
    this (stale vintages).
-5. **Regenerate worst offenders** — candidates staged 2026-06-12:
-   `candidates/well_v2.png` (60px) + `candidates/fence_v2.png` (52×41), both
-   generated via the item-6 recipe against real ground crops and
-   palette-locked. **User decides swaps in the editor placement pass**
-   (collision shapes were sized for the old sprites). Buildings deliberately
-   NOT regenerated: palette lock + baked foundations already ground them, and
-   a regen would fight the foundations painted into the backdrop.
+5. **Regenerate worst offenders** — candidates staged 2026-06-12, then
+   **regenerated same day at canon view** (the first pair was generated at
+   `high top-down` through the then-viewless recipe — the drift rule 5 now
+   prevents): `candidates/well_v2.png` + `candidates/fence_v2.png`, low
+   top-down, real ground crops, palette-locked. **User decides swaps in the
+   editor placement pass** (collision shapes were sized for the old sprites).
+   Buildings deliberately NOT regenerated: palette lock + baked foundations
+   already ground them, and a regen would fight the foundations painted into
+   the backdrop.
 6. ~~`create_map_object` smoke test~~ — **PASSED 2026-06-12**: no server-side
    500 (unlike create-tileset's reference params); style/projection inherited
    from the backdrop crop; palette only partially inherited → run
    `tools/palette_lock.py` on every result. **Production recipe**: crop the
    zone backdrop where the prop will stand → background_image (the MCP path
    mode hands back a curl command — key comes from `~/.config/pixellab/api_key`,
-   never inline) → object size ≈ crop size × oval fraction (64px crop +
-   fraction 0.72 ≈ 45–60px prop; 128px crop ≈ 75px+ prop — pick crop size for
-   target scale) → trim transparent border → palette-lock → stage in
+   never inline) → **`view="low top-down"` explicit (rule 5)** → object size ≈
+   crop size × oval fraction (64px crop + fraction 0.72 ≈ 45–60px prop; 128px
+   crop ≈ 75px+ prop — pick crop size for target scale) → trim transparent
+   border → palette-lock → ratio-table/QA-overlay check → stage in
    `assets/sprites/village/candidates/` for editor placement (placement/scale
    is the user's editor pass).
 7. **Editor pass (user)**: missing StaticBody2D on the painted stone wall;
