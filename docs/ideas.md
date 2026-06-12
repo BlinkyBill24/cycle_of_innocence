@@ -117,3 +117,7 @@ Researched-but-not-greenlit candidates worth keeping (source game in parens):
 - Potential early game moment: Rowan overhears parents celebrating or breathing a sigh of relief ("Thank the Harmony Lottery our little one wasn't picked this time") while knowing the truth.
 
 These should feed into zone design, art prompts, and the first few dialogue nodes.
+
+## 📥 Captured this session (research round 3, 2026-06-12)
+
+- **External playtest cadence**: 3–5 outside testers through the NAS/itch web build at the end of *every* content arc — not just the next one. (Round-3 audit; the rest of its process advice lives in the roadmap "Next arcs" block.)

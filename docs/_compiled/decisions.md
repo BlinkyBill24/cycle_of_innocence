@@ -1,6 +1,6 @@
 # Decisions — architecture/process decision records, oldest first
 > GENERATED 2026-06-12 by tools/compile_snapshots.py — do NOT edit (not here, not in claude.ai). Source of truth is the Obsidian vault in the game repo; this file is replaced wholesale at milestones.
-> Sources: docs/decisions/2026-06-09-cycle-of-innocence-build-plan.md, docs/decisions/2026-06-10-central-brain-agents-md.md, docs/decisions/2026-06-10-new-features-and-ai-setup.md, docs/decisions/2026-06-10-patent-risk-review.md, docs/decisions/2026-06-10-recent-games-research-greenlight.md, docs/decisions/2026-06-10-repo-consolidation-game-only.md, docs/decisions/2026-06-10-slice-implementation-plan.md, docs/decisions/2026-06-10-sprite-tool-pixellab.md, docs/decisions/2026-06-12-web-research-bridge.md
+> Sources: docs/decisions/2026-06-09-cycle-of-innocence-build-plan.md, docs/decisions/2026-06-10-central-brain-agents-md.md, docs/decisions/2026-06-10-new-features-and-ai-setup.md, docs/decisions/2026-06-10-patent-risk-review.md, docs/decisions/2026-06-10-recent-games-research-greenlight.md, docs/decisions/2026-06-10-repo-consolidation-game-only.md, docs/decisions/2026-06-10-slice-implementation-plan.md, docs/decisions/2026-06-10-sprite-tool-pixellab.md, docs/decisions/2026-06-12-adaptisound-rejected.md, docs/decisions/2026-06-12-steam-timing.md, docs/decisions/2026-06-12-web-research-bridge.md
 
 
 ======================================================================
@@ -487,6 +487,136 @@ The skeleton-rig point is decisive: runtime outfit swapping (our AgeMorph alread
 
 ## Related
 [[2026-06-10-recent-games-research-greenlight]] · [[design/ai-production-setup]] · [[design/customization]] · [[mechanics/progression]]
+
+
+======================================================================
+SOURCE: docs/decisions/2026-06-12-adaptisound-rejected.md
+======================================================================
+
+---
+name: "AdaptiSound rejected — hand-rolled AdaptiveAudio is canonical"
+date: "2026-06-12"
+tags: [decision, audio, tech]
+status: active
+related_features: ["[[mechanics/adaptive-audio]]"]
+related_bugs: []
+supersedes: null
+superseded_by: null
+---
+
+# AdaptiSound Rejected — Hand-Rolled AdaptiveAudio Is Canonical
+
+## Context
+
+[[decisions/2026-06-10-recent-games-research-greenlight]] greenlit adaptive
+audio as "FOSS AdaptiSound or hand-rolled," and the slice roadmap carried the
+condition "AdaptiSound only if verified 4.4-compatible." The hand-rolled
+`AdaptiveAudio` autoload shipped for the slice (v2 crossfade after the
+gate-playtest stem clash), but the addon question stayed formally open
+(lookback question in the greenlight record).
+
+Research round 3 ([[research/done/2026-06-12-research-round3-outside-view-and-market]])
+checked it: the AdaptiSound README states **"Version 1.0 does not support WEB
+exports"** and the addon targets Godot 4.3. `[verified 2026-06-12 by web
+research; re-verified locally same day against github.com/MrWalkmanDev/AdaptiSound README]`
+
+## Decision
+
+AdaptiSound is **rejected permanently** — no web export support breaks the hard
+Web constraint (AGENTS.md locked stack) outright. The hand-rolled
+`scripts/autoload/adaptive_audio.gd` (v2 exclusive-crossfade) is the canonical
+adaptive-audio implementation.
+
+## Alternatives
+
+- **Wait for AdaptiSound web support**: rejected — un-dated roadmap promise vs
+  an already-working autoload; addon-pin rule makes external audio middleware a
+  standing upgrade liability.
+- **Other audio middleware**: not searched — nothing found that beats ~100
+  lines we own ([training knowledge]).
+
+## Consequences
+
+- Answers the greenlight record's lookback question: we hand-rolled, and the
+  addon path is closed, not pending.
+- The layered-stem ideal (true aligned stems: one composition, stripped mixes)
+  lands in our own autoload when the audio content sprint produces real stems —
+  no third-party dependency.
+
+## Implementation
+
+- **Commits**: branch `feature/research-bridge` — [[mechanics/adaptive-audio]]
+  Option-1 line replaced, status corrected to implemented; roadmap M3.3
+  annotated resolved.
+
+## Related
+
+[[mechanics/adaptive-audio]] · [[decisions/2026-06-10-recent-games-research-greenlight]] ·
+[[research/done/2026-06-12-research-round3-outside-view-and-market]]
+
+
+======================================================================
+SOURCE: docs/decisions/2026-06-12-steam-timing.md
+======================================================================
+
+---
+name: "Steam timing — Coming Soon page & Next Fest target (USER DECISION PENDING)"
+date: "2026-06-12"
+tags: [decision, marketing, platform]
+status: proposed
+related_features: ["[[design/market-positioning]]"]
+related_bugs: []
+supersedes: null
+superseded_by: null
+---
+
+# Steam Timing — Coming Soon Page & Next Fest Target
+
+> **Status: proposed.** This is the user's call; research round 3 flagged that
+> the decision is *missing*, and wishlist lead times mean silence is itself a
+> decision. Nothing is assumed until this record goes `active`.
+
+## Context
+
+The vault plans an itch web demo + NAS playtest loop but records no Steam
+intent. Round-3 findings ([[research/done/2026-06-12-research-round3-outside-view-and-market]]):
+
+- Wishlists pre-launch are the dominant predictor of month-one sales; pages
+  should exist **6–12 months before launch**. `[verified 2026-06-12]`
+- Steam Next Fest runs **Feb / Jun / Oct**; pick the last fest before launch
+  (2–4 months out); ship the demo **2–4 weeks before** the fest. `[verified 2026-06-12]`
+- **68–88% of fest wishlists come from people who never launch the demo** — the
+  store page does the selling. `[verified 2026-06-12]`
+- The lane earns on Steam (Mouthwashing 500k+ @ $13, five-person team
+  `[verified 2026-06-12]`); web/itch is a discovery channel, not the revenue
+  platform ([[design/market-positioning]]).
+
+## Decision (proposed shape)
+
+If any 2027 demo/launch is plausible: **Steam Coming Soon page in late 2026**,
+public demo targeted at the **Feb or Jun 2027 Next Fest**, demo designed as a
+complete emotional arc ending on the HollowingClock stage 0→1 transition
+([[design/market-positioning]]). At the same milestone: **re-run the patent
+review** per [[decisions/2026-06-10-patent-risk-review]] and settle
+content-warning/store-framing language for the child-sacrifice theme.
+
+## Alternatives
+
+- **itch-only release**: keeps the loop simple, forfeits the platform where
+  comparable titles earn; can still precede Steam, but doesn't replace it.
+- **Decide later**: the default — but every month without a page is unstarted
+  wishlist compounding; "later" should be a chosen date, not drift.
+
+## Consequences
+
+Once active: a marketing surface exists to maintain (capsule, screenshots,
+trailer per the capsule/trailer rules in [[design/market-positioning]]); demo
+scope gets a hard external date; the patent re-review gets its trigger.
+
+## Related
+
+[[design/market-positioning]] · [[decisions/2026-06-10-patent-risk-review]] ·
+[[research/done/2026-06-12-research-round3-outside-view-and-market]]
 
 
 ======================================================================

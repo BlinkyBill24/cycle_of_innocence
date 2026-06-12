@@ -2,7 +2,7 @@
 name: Adaptive Audio (Stem Layers)
 date: 2026-06-10
 tags: [feature, mechanics, audio, horror]
-status: planned
+status: implemented (v2 crossfade 2026-06-10, AdaptiveAudio autoload)
 related_decisions: "[[decisions/2026-06-10-recent-games-research-greenlight]]"
 ---
 
@@ -29,8 +29,8 @@ Layered playback clashed in the gate playtest — the ACE-Step tracks are indepe
 Rules: crossfade by lerp through intermediate states (no hard cuts — escalation must feel *earned*); hideout scenes duck everything but ambient + a warm campfire layer (the safety contrast that makes dread legible); stingers stay separate one-shots (existing `GameEvents.horror_stinger`).
 
 ## Implementation
-- **Option 1 (preferred)**: AdaptiSound addon (FOSS, Godot Asset Library) — declarative track stacks. Verify Godot 4.4 compatibility before adopting (addon pin rule, see AGENTS.md tech stack).
-- **Option 2**: hand-rolled `AdaptiveAudio` autoload (~100 lines): one `AudioStreamPlayer` per stem on its own bus, `_process` lerps `volume_db` toward targets computed from `DreadManager` + `WorldState`.
+- ~~**Option 1 (preferred)**: AdaptiSound addon~~ — **REJECTED 2026-06-12**: README states v1.0 has no web export support (breaks the hard Web constraint); addon targets Godot 4.3. [[decisions/2026-06-12-adaptisound-rejected]]
+- **Option 2 (canonical, shipped)**: hand-rolled `AdaptiveAudio` autoload: one `AudioStreamPlayer` per stem on its own bus, `_process` lerps `volume_db` toward targets computed from `DreadManager` + `WorldState`.
 - Stems must share BPM/key per zone theme; loop-cut in Audacity; OGG export.
 - Mobile: 4 simultaneous OGG streams is cheap; keep stems mono except ambient.
 

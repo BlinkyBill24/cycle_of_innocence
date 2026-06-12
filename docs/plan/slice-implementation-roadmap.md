@@ -51,13 +51,22 @@ Code always proceeds on existing placeholder sprites; assets land when they land
 
 1. **Mercy v1** — hold-to-soothe → Stilled on the Twisted Child ([[mechanics/encounters-mercy]] core loop only).
 2. **Touch input** — virtual stick/buttons ported from `../godot/` sibling; minimal HUD.
-3. **Adaptive audio v1** — hand-rolled 3-stem autoload (AdaptiSound only if verified 4.4-compatible). Spec: [[mechanics/adaptive-audio]].
+3. **Adaptive audio v1** — hand-rolled 3-stem autoload (AdaptiSound only if verified 4.4-compatible). Spec: [[mechanics/adaptive-audio]]. *(Resolved 2026-06-12: AdaptiSound rejected — no web export; hand-rolled shipped. [[decisions/2026-06-12-adaptisound-rejected]])*
 4. **Web export** — preset + NAS deploy (serve.py workflow), <10s load verified.
 5. **SLICE GATE (human)** — playtest: did the choice matter? did dread land? did the bond feel real? Fail → re-scope before any post-slice feature work.
 
 ## Post-slice build order (after gate passes)
 
-vision-cone polish → day/night + hideout → mercy full (unique soothes, Domination) → hollowing clock → companion quirks → interface horror → village life → zone recontextualization. Specs all in `docs/mechanics/`.
+vision-cone polish → day/night + hideout → mercy full (unique soothes, Domination) → hollowing clock → companion quirks → interface horror → village life → zone recontextualization. Specs all in `docs/mechanics/`. **← queue completed 2026-06-11.**
+
+## Next arcs (2026-06-12, research round 3)
+
+Scope rule adopted: **define "content-complete" per zone** (recontext moments authored, gossip pools written, stems present, props placed) **and burn it down before any new mechanic** — the playtest pass gates each arc.
+
+1. **Structured playtest/feel pass**: clock pacing ("urgency without anxiety treadmill"), interface-horror frustration ceiling, suspicion→alarm tuning, plus slice-gate leftovers (stem overlap, darker dread, bark visibility). Recruit 3–5 outside testers via the NAS/itch web build.
+2. **Audio content sprint**: produce playground/fringes stems as *one composition, stripped mixes* so the v2 crossfade graduates to true layering ([[mechanics/adaptive-audio]]).
+3. **Playground recontext authoring**: the 2–3 thesis-statement moments for the first revelation — content, not mechanism ([[mechanics/zone-recontextualization]]).
+4. **Steam timing decision** (user): [[decisions/2026-06-12-steam-timing]] — Coming Soon page lead time compounds; patent re-review rides the same milestone.
 
 ## Working rules (from AGENTS.md, repeated for hand-offs)
 
