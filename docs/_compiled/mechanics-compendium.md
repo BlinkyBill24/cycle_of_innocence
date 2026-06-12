@@ -1671,9 +1671,13 @@ spaces, not modular kitbash* — that is the replay-value stake.
    Sprite2D pattern it targets, and village buildings sit on baked worn
    foundations since the backdrop lock. The research screenshots predated
    this (stale vintages).
-5. **Regenerate worst offenders** under rules 1–3: well, fences, the image-3
-   house (cool violet-grey props on warm ochre ground; baked daylight on the
-   cottage).
+5. **Regenerate worst offenders** — candidates staged 2026-06-12:
+   `candidates/well_v2.png` (60px) + `candidates/fence_v2.png` (52×41), both
+   generated via the item-6 recipe against real ground crops and
+   palette-locked. **User decides swaps in the editor placement pass**
+   (collision shapes were sized for the old sprites). Buildings deliberately
+   NOT regenerated: palette lock + baked foundations already ground them, and
+   a regen would fight the foundations painted into the backdrop.
 6. ~~`create_map_object` smoke test~~ — **PASSED 2026-06-12**: no server-side
    500 (unlike create-tileset's reference params); style/projection inherited
    from the backdrop crop; palette only partially inherited → run
