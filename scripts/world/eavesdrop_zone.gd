@@ -51,6 +51,10 @@ func _float_text(text: String) -> void:
 		_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.8))
 		_label.add_theme_constant_override("outline_size", 3)
 		_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		# draw above the y-sorted world — gossip was hidden behind props/
+		# characters (playtest tester-03)
+		_label.z_as_relative = false
+		_label.z_index = 200
 		add_child(_label)
 	_label.text = "\"%s\"" % text
 	_label.modulate.a = 0.0

@@ -7,11 +7,23 @@ const AA := preload("res://scripts/autoload/adaptive_audio.gd")
 var audio: Node
 
 
+var _threat: Node2D
+
+
 func before_each() -> void:
 	DreadManager.reset()
 	audio = AA.new()
 	add_child_autofree(audio)
 	audio.set_process(false)
+	# the cap_layer gate needs an actual threat for DANGER (tester-03 fix):
+	# put a fake un-stilled enemy on top of a fake player
+	var player := Node2D.new()
+	player.add_to_group("player")
+	add_child_autofree(player)
+	_threat = Node2D.new()
+	_threat.add_to_group("enemy")
+	_threat.set("stilled", false)
+	add_child_autofree(_threat)
 
 
 func after_each() -> void:
@@ -60,3 +72,21 @@ func test_duck_applies_and_recovers() -> void:
 		audio._process(0.1)
 	var recovered: float = audio._players[AA.Layer.AMBIENT].volume_db
 	assert_gt(recovered, ducked, "duck recovers over time")
+
+
+func test_cap_layer_threat_and_daylight_gate() -> void:
+	# tester-03: danger still audible after the monster was Stilled and in
+	# bright daylight — the spec table needs combat/proximity, not dread alone
+	assert_eq(AA.cap_layer(AA.Layer.DANGER, false, false, 0), AA.Layer.TENSE,
+		"no threat, early stage: danger demotes to tense")
+	assert_eq(AA.cap_layer(AA.Layer.DANGER, true, false, 0), AA.Layer.DANGER,
+		"active threat keeps danger")
+	assert_eq(AA.cap_layer(AA.Layer.DANGER, false, false, 2), AA.Layer.DANGER,
+		"stage 2+ keeps danger even without proximity (the world IS the threat)")
+	assert_eq(AA.cap_layer(AA.Layer.TENSE, false, true, 0), AA.Layer.AMBIENT,
+		"bright day without threat: no gloom track")
+	assert_eq(AA.cap_layer(AA.Layer.TENSE, true, true, 0), AA.Layer.TENSE,
+		"threat overrides daylight")
+	assert_eq(AA.cap_layer(AA.Layer.DANGER, false, true, 0), AA.Layer.AMBIENT,
+		"no threat + bright day cascades danger all the way to ambient")
+	assert_eq(AA.cap_layer(AA.Layer.AMBIENT, false, false, 0), AA.Layer.AMBIENT)

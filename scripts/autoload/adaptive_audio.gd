@@ -63,6 +63,9 @@ func _process(delta: float) -> void:
 	else:
 		var base := _active if _active != Layer.HIDEOUT else Layer.AMBIENT
 		target = select_layer(DreadManager.get_presentation_strength(), base)
+		target = cap_layer(target, _threat_active(),
+				WorldState.time_of_day == WorldState.TimeOfDay.DAY,
+				HollowingClock.stage)
 	if target != _active and _dwell >= MIN_DWELL:
 		_active = target as Layer
 		_dwell = 0.0
@@ -77,6 +80,40 @@ func _process(delta: float) -> void:
 ## automatically at DUCK_RECOVERY_DB_PER_S.
 func duck(amount_db: float = 10.0) -> void:
 	_duck_db = maxf(_duck_db, amount_db)
+
+
+const THREAT_RADIUS := 220.0
+
+
+## Spec gate (mechanics/adaptive-audio.md stem table; playtest tester-03:
+## danger kept playing after the monster was Stilled and in bright daylight).
+## Danger needs an actual threat or late hollowing; bright day with no
+## threat stays ambient. Pure, static for testability.
+static func cap_layer(layer: int, threat: bool, bright_day: bool, stage: int) -> int:
+	var capped := layer
+	if capped == Layer.DANGER and not threat and stage < 2:
+		capped = Layer.TENSE
+	if capped == Layer.TENSE and bright_day and not threat:
+		capped = Layer.AMBIENT
+	return capped
+
+
+## An un-stilled, un-dominated enemy near the player = active threat.
+func _threat_active() -> bool:
+	var player := get_tree().get_first_node_in_group("player") as Node2D
+	if player == null:
+		return false
+	for node in get_tree().get_nodes_in_group("enemy"):
+		var enemy := node as Node2D
+		if enemy == null or not is_instance_valid(enemy):
+			continue
+		var stilled_v: Variant = enemy.get("stilled")
+		var dominated_v: Variant = enemy.get("dominated")
+		if stilled_v == true or dominated_v == true:
+			continue
+		if enemy.global_position.distance_to(player.global_position) <= THREAT_RADIUS:
+			return true
+	return false
 
 
 ## Pure + hysteretic: which track should play for this dread strength,

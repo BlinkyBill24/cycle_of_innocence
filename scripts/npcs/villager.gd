@@ -84,6 +84,8 @@ func _show_exclaim(on: bool) -> void:
 		_exclaim.texture = EXCLAIM_TEX
 		_exclaim.position = Vector2(0, -24)
 		_exclaim.scale = Vector2(2, 2)
+		_exclaim.z_as_relative = false
+		_exclaim.z_index = 200  # never hidden behind props (tester-03)
 		add_child(_exclaim)
 	_exclaim.visible = on
 
