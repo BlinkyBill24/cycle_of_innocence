@@ -38,6 +38,16 @@ feedback.
 5. Reach **Hollowing stage 1** (the first bell + Briar whimper) — ideally the
    session ENDS shortly after this beat (it's the planned demo ending).
 
+> **Short-session doom shortcut**: the debug keybinds work even with the
+> debug label hidden. For sessions that can't run 30–45 min, instruct the
+> tester: *"around minute 10–15, when you're outdoors and not in a
+> conversation, press `H` once and keep playing."* `H` queues one Hollowing
+> stage; the bell/whimper fire at the next clean moment (cross a zone gate
+> if nothing happens within ~30 s). The probe stays blind — the tester
+> doesn't know what `H` did, so question 2 (doom 1–10 + evidence) remains
+> valid. `T` advances time of day if the darkness probe needs night.
+> Don't reveal either key's effect until after the debrief.
+
 ## Silent observation checklist (live notes per tester)
 
 | Watch for | Feeds |
