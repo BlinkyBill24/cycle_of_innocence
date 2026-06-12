@@ -1,9 +1,9 @@
-[gd_resource type="TileSet" load_steps=9 format=3]
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://6k1vnwks463q"]
 
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/playground_tiles_32.png" id="tex_playground"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/fringes_tiles_32.png" id="tex_fringes"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/ritual_tiles_32.png" id="tex_ritual"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/grass_blend_tiles_32.png" id="tex_grass_blend"]
+[ext_resource type="Texture2D" uid="uid://ddfvt5yx7iqy7" path="res://assets/sprites/tiles/fringes_tiles_32.png" id="tex_fringes"]
+[ext_resource type="Texture2D" uid="uid://cdjoa21cd5116" path="res://assets/sprites/tiles/grass_blend_tiles_32.png" id="tex_grass_blend"]
+[ext_resource type="Texture2D" uid="uid://c1kh1qoih7qlt" path="res://assets/sprites/tiles/playground_tiles_32.png" id="tex_playground"]
+[ext_resource type="Texture2D" uid="uid://bkiluw3ple0yh" path="res://assets/sprites/tiles/ritual_tiles_32.png" id="tex_ritual"]
 
 [sub_resource type="TileSetAtlasSource" id="atlas_playground"]
 texture = ExtResource("tex_playground")

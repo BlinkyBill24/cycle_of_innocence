@@ -1,53 +1,38 @@
-[gd_scene load_steps=49 format=3 uid="uid://zoneplayfringe1"]
+[gd_scene load_steps=49 format=3 uid="uid://envpq1ay0667"]
 
-[ext_resource type="Script" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
-[ext_resource type="TileSet" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
+[ext_resource type="Script" uid="uid://dw5pp4xyg1cpx" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
+[ext_resource type="TileSet" uid="uid://6k1vnwks463q" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
 [ext_resource type="PackedScene" uid="uid://cfpo0lhe11a3y" path="res://scenes/player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" uid="uid://briarpup00001" path="res://scenes/companions/briar.tscn" id="4_briar"]
 [ext_resource type="PackedScene" uid="uid://covsxjksurfq3" path="res://scenes/enemies/twisted_child.tscn" id="5_twisted_child"]
-[ext_resource type="PackedScene" uid="uid://diggable000001" path="res://scenes/world/diggable_spot.tscn" id="6_diggable"]
+[ext_resource type="PackedScene" uid="uid://b70vr0nx7dism" path="res://scenes/world/diggable_spot.tscn" id="6_diggable"]
 [ext_resource type="PackedScene" uid="uid://dn8iabetyanme" path="res://scenes/effects/dread_overlay.tscn" id="7_dread_overlay"]
 [ext_resource type="Script" uid="uid://cf12kgjkd6ugf" path="res://scripts/debug/progression_test.gd" id="8_progression_test"]
-[ext_resource type="Script" path="res://scripts/world/dread_zone.gd" id="9_dread_zone"]
-[ext_resource type="Script" path="res://scripts/world/zone_transition.gd" id="10_transition"]
-[ext_resource type="Script" path="res://scripts/world/story_dialogue.gd" id="11_story_dialogue"]
-[ext_resource type="Script" path="res://scripts/world/dread_beat.gd" id="12_dread_beat"]
-[ext_resource type="Texture2D" path="res://assets/sprites/enemies/twisted_child_32.png" id="13_monster_tex"]
-[ext_resource type="AudioStream" path="res://assets/audio/sfx/toy_creak_stinger.wav" id="14_stinger"]
-[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="16_hud"]
-[ext_resource type="Script" path="res://scripts/ui/touch_controls.gd" id="17_touch"]
-[ext_resource type="Script" path="res://scripts/world/hideout.gd" id="18_hideout"]
-[ext_resource type="Script" path="res://scripts/world/campfire_light.gd" id="19_campfire"]
-[ext_resource type="Texture2D" path="res://assets/sprites/light/glow_radial.png" id="20_glow"]
-[ext_resource type="Script" path="res://scripts/ui/name_entry.gd" id="21_name_entry"]
-[ext_resource type="PackedScene" uid="uid://villagernpc001" path="res://scenes/npcs/villager.tscn" id="30_villager"]
-[ext_resource type="SpriteFrames" path="res://assets/resources/npcs/villager_warden_frames.tres" id="31_warden_frames"]
-[ext_resource type="Script" path="res://scripts/world/zone_recontext.gd" id="32_recontext"]
-[ext_resource type="Script" path="res://scripts/world/whisper_spot.gd" id="33_whisper"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/playground_ground_backdrop.png" id="34_backdrop"]
-[ext_resource type="Texture2D" path="res://assets/sprites/props/swing_set.png" id="22_swing"]
-[ext_resource type="Texture2D" path="res://assets/sprites/props/slide.png" id="23_slide"]
-[ext_resource type="Texture2D" path="res://assets/sprites/props/roundabout.png" id="24_roundabout"]
-[ext_resource type="Texture2D" path="res://assets/sprites/props/totem_bear.png" id="25_totem_bear"]
-[ext_resource type="Texture2D" path="res://assets/sprites/props/totem_rabbit.png" id="26_totem_rabbit"]
-[ext_resource type="Texture2D" path="res://assets/sprites/props/dead_tree_a.png" id="27_tree_a"]
-[ext_resource type="Texture2D" path="res://assets/sprites/props/dead_tree_b.png" id="28_tree_b"]
-[ext_resource type="Texture2D" path="res://assets/sprites/props/toy_duck.png" id="29_duck"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_whisper"]
-radius = 56.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_prop_wide"]
-size = Vector2(64, 12)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_prop_mid"]
-size = Vector2(40, 12)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_trunk"]
-radius = 7.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_totem"]
-radius = 5.0
+[ext_resource type="Script" uid="uid://c2p3d3lhol1q8" path="res://scripts/world/dread_zone.gd" id="9_dread_zone"]
+[ext_resource type="Script" uid="uid://bxburnnul5hg7" path="res://scripts/world/zone_transition.gd" id="10_transition"]
+[ext_resource type="Script" uid="uid://dpmno5ym2jf0v" path="res://scripts/world/story_dialogue.gd" id="11_story_dialogue"]
+[ext_resource type="Script" uid="uid://btmdvj33b1m2y" path="res://scripts/world/dread_beat.gd" id="12_dread_beat"]
+[ext_resource type="Texture2D" uid="uid://c6qn8evpngymo" path="res://assets/sprites/enemies/twisted_child_32.png" id="13_monster_tex"]
+[ext_resource type="AudioStream" uid="uid://dow0ghby57x1n" path="res://assets/audio/sfx/toy_creak_stinger.wav" id="14_stinger"]
+[ext_resource type="Script" uid="uid://ctap15jdarwf1" path="res://scripts/ui/hud.gd" id="16_hud"]
+[ext_resource type="Script" uid="uid://cnh1w3wphurkn" path="res://scripts/ui/touch_controls.gd" id="17_touch"]
+[ext_resource type="Script" uid="uid://i2hnxthuckaf" path="res://scripts/world/hideout.gd" id="18_hideout"]
+[ext_resource type="Script" uid="uid://c142agwwdc5rg" path="res://scripts/world/campfire_light.gd" id="19_campfire"]
+[ext_resource type="Texture2D" uid="uid://c6eknu52ocg5o" path="res://assets/sprites/light/glow_radial.png" id="20_glow"]
+[ext_resource type="Script" uid="uid://m1xk1ovqods0" path="res://scripts/ui/name_entry.gd" id="21_name_entry"]
+[ext_resource type="Texture2D" uid="uid://cepavmf2fugne" path="res://assets/sprites/props/swing_set.png" id="22_swing"]
+[ext_resource type="Texture2D" uid="uid://dpw6reivtjjjn" path="res://assets/sprites/props/slide.png" id="23_slide"]
+[ext_resource type="Texture2D" uid="uid://c7fcqo4d11j8s" path="res://assets/sprites/props/roundabout.png" id="24_roundabout"]
+[ext_resource type="Texture2D" uid="uid://c8ug2nbm2wgey" path="res://assets/sprites/props/totem_bear.png" id="25_totem_bear"]
+[ext_resource type="Texture2D" uid="uid://q2w3g2ley0ux" path="res://assets/sprites/props/totem_rabbit.png" id="26_totem_rabbit"]
+[ext_resource type="Texture2D" uid="uid://wdklq47hfray" path="res://assets/sprites/props/dead_tree_a.png" id="27_tree_a"]
+[ext_resource type="Texture2D" uid="uid://ceucauocq5iit" path="res://assets/sprites/props/dead_tree_b.png" id="28_tree_b"]
+[ext_resource type="Texture2D" uid="uid://b1axllr1svigx" path="res://assets/sprites/props/toy_duck.png" id="29_duck"]
+[ext_resource type="PackedScene" uid="uid://dppepvssnp72s" path="res://scenes/npcs/villager.tscn" id="30_villager"]
+[ext_resource type="SpriteFrames" uid="uid://bnxtlraieoky7" path="res://assets/resources/npcs/villager_warden_frames.tres" id="31_warden_frames"]
+[ext_resource type="Script" uid="uid://dii0kaxn04mrd" path="res://scripts/world/zone_recontext.gd" id="32_recontext"]
+[ext_resource type="Script" uid="uid://bnho50hs5u7pg" path="res://scripts/world/whisper_spot.gd" id="33_whisper"]
+[ext_resource type="Texture2D" uid="uid://ru00ut6fy12k" path="res://assets/sprites/tiles/playground_ground_backdrop.png" id="34_backdrop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -55,8 +40,17 @@ size = Vector2(1472, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
 size = Vector2(32, 896)
 
+[sub_resource type="OccluderPolygon2D" id="Occluder_h"]
+polygon = PackedVector2Array(-736, -16, 736, -16, 736, 16, -736, 16)
+
+[sub_resource type="OccluderPolygon2D" id="Occluder_v"]
+polygon = PackedVector2Array(-16, -448, 16, -448, 16, 448, -16, 448)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fringes"]
 size = Vector2(640, 832)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_deep"]
+size = Vector2(280, 832)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hideout"]
 size = Vector2(180, 140)
@@ -64,21 +58,27 @@ size = Vector2(180, 140)
 [sub_resource type="CircleShape2D" id="CircleShape2D_fire"]
 radius = 8.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_deep"]
-size = Vector2(280, 832)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_prop_wide"]
+size = Vector2(64, 12)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_beat"]
-size = Vector2(48, 832)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_prop_mid"]
+size = Vector2(40, 12)
 
-[sub_resource type="OccluderPolygon2D" id="Occluder_h"]
-polygon = PackedVector2Array(-736, -16, 736, -16, 736, 16, -736, 16)
+[sub_resource type="CircleShape2D" id="CircleShape2D_totem"]
+radius = 5.0
 
-[sub_resource type="OccluderPolygon2D" id="Occluder_v"]
-polygon = PackedVector2Array(-16, -448, 16, -448, 16, 448, -16, 448)
+[sub_resource type="CircleShape2D" id="CircleShape2D_trunk"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_whisper"]
+radius = 56.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_silhouette"]
 atlas = ExtResource("13_monster_tex")
 region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_beat"]
+size = Vector2(48, 832)
 
 [node name="PlaygroundFringes" type="Node2D"]
 script = ExtResource("1_zone")
@@ -94,7 +94,6 @@ texture = ExtResource("34_backdrop")
 color = Color(0.38, 0.34, 0.44, 1)
 
 [node name="Borders" type="StaticBody2D" parent="."]
-collision_layer = 1
 collision_mask = 0
 
 [node name="Top" type="CollisionShape2D" parent="Borders"]
@@ -164,7 +163,6 @@ color = Color(0.32, 0.22, 0.14, 1)
 polygon = PackedVector2Array(-16, -4, 16, -4, 18, 4, -18, 4)
 
 [node name="Campfire" type="StaticBody2D" parent="Hideout"]
-collision_layer = 1
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hideout/Campfire"]
@@ -185,16 +183,15 @@ color = Color(1, 0.85, 0.4, 0.95)
 polygon = PackedVector2Array(-3, 4, 0, -4, 3, 4, 0, 6)
 
 [node name="FireLight" type="PointLight2D" parent="Hideout/Campfire"]
+color = Color(1, 0.75, 0.45, 1)
+energy = 1.1
 texture = ExtResource("20_glow")
 texture_scale = 1.5
-energy = 1.1
-color = Color(1, 0.75, 0.45, 1)
 script = ExtResource("19_campfire")
 
 [node name="VillageTransition" type="Area2D" parent="."]
 position = Vector2(-690, 0)
 script = ExtResource("10_transition")
-target_zone_id = &"village_edge"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VillageTransition"]
 shape = SubResource("RectangleShape2D_wall_v")
@@ -221,7 +218,6 @@ secret_spot_path = NodePath("../../StilledChildKeepsake")
 
 [node name="SwingSet" type="StaticBody2D" parent="World"]
 position = Vector2(-430, -250)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/SwingSet"]
@@ -233,7 +229,6 @@ shape = SubResource("RectangleShape2D_prop_wide")
 
 [node name="Slide" type="StaticBody2D" parent="World"]
 position = Vector2(-290, -210)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Slide"]
@@ -245,7 +240,6 @@ shape = SubResource("RectangleShape2D_prop_mid")
 
 [node name="Roundabout" type="StaticBody2D" parent="World"]
 position = Vector2(-460, -180)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Roundabout"]
@@ -257,7 +251,6 @@ shape = SubResource("RectangleShape2D_prop_mid")
 
 [node name="TotemBear" type="StaticBody2D" parent="World"]
 position = Vector2(-516, -150)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/TotemBear"]
@@ -269,7 +262,6 @@ shape = SubResource("CircleShape2D_totem")
 
 [node name="TotemRabbit" type="StaticBody2D" parent="World"]
 position = Vector2(-220, -290)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/TotemRabbit"]
@@ -281,7 +273,6 @@ shape = SubResource("CircleShape2D_totem")
 
 [node name="DeadTreeA" type="StaticBody2D" parent="World"]
 position = Vector2(330, -200)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/DeadTreeA"]
@@ -293,7 +284,6 @@ shape = SubResource("CircleShape2D_trunk")
 
 [node name="DeadTreeB" type="StaticBody2D" parent="World"]
 position = Vector2(495, 295)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/DeadTreeB"]
@@ -305,7 +295,6 @@ shape = SubResource("CircleShape2D_trunk")
 
 [node name="DeadTreeA2" type="StaticBody2D" parent="World"]
 position = Vector2(655, -255)
-collision_layer = 1
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/DeadTreeA2"]
@@ -318,8 +307,8 @@ shape = SubResource("CircleShape2D_trunk")
 
 [node name="ToyDuck" type="Sprite2D" parent="World"]
 position = Vector2(-360, -170)
-offset = Vector2(0, -12)
 texture = ExtResource("29_duck")
+offset = Vector2(0, -12)
 
 [node name="DiggableSpotPlayground" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(-368, -200)
@@ -378,35 +367,32 @@ once_flag = &"intro_food_dialogue_done"
 wait_for_flag = &"player_named"
 
 [node name="FogSeamNorth" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(110, -150)
 color = Color(0.55, 0.6, 0.55, 0.45)
 polygon = PackedVector2Array(-120, -60, 60, -90, 160, -20, 120, 70, -40, 90, -150, 20)
-visible = false
 
 [node name="FogSeamSouth" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(140, 170)
 color = Color(0.5, 0.56, 0.52, 0.45)
 polygon = PackedVector2Array(-140, -50, 40, -80, 170, -10, 130, 80, -60, 100, -170, 30)
-visible = false
 
 [node name="GlimpseSilhouette" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.06, 0.04, 0.08, 0.85)
 position = Vector2(250, -20)
 scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_silhouette")
-modulate = Color(0.06, 0.04, 0.08, 0.85)
-visible = false
 
 [node name="BeatStinger" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_stinger")
 volume_db = -2.0
 
-[node name="FirstDreadBeat" type="Area2D" parent="." node_paths=PackedStringArray("silhouette_path", "stinger_player_path")]
+[node name="FirstDreadBeat" type="Area2D" parent="."]
 position = Vector2(72, 0)
 script = ExtResource("12_dread_beat")
-beat_flag = &"first_dread_beat"
-fog_nodes = [NodePath("../FogSeamNorth"), NodePath("../FogSeamSouth")]
-silhouette_path = NodePath("../GlimpseSilhouette")
-stinger_player_path = NodePath("../BeatStinger")
+fog_nodes = Array[NodePath]([NodePath("../FogSeamNorth"), NodePath("../FogSeamSouth")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FirstDreadBeat"]
 shape = SubResource("RectangleShape2D_beat")
