@@ -61,9 +61,12 @@ const BRIAR_CALM_MIN_BOND := 25.0
 const BRIAR_CALM_RANGE := 90.0
 const DOMINATE_RATE_FACTOR := 1.4  # fear is faster than trust — by design
 var _soothing := false
+var _soothe_prompt: SoothePrompt
 var _soothe_target: EnemyBase
 
 func _ready() -> void:
+	_soothe_prompt = SoothePrompt.new()
+	add_child(_soothe_prompt)
 	if animated_sprite:
 		animated_sprite.animation_finished.connect(_on_animation_finished)
 	if PlayerData.spawn_position == Vector2.ZERO:
@@ -92,6 +95,7 @@ func _on_player_data_morality_changed(new_value: float, _delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	_input_grace = maxf(_input_grace - delta, 0.0)
+	_update_soothe_prompt()
 	if movement_state != MovementState.EXPLORING:
 		_decelerate(delta)
 		move_and_slide()
@@ -171,6 +175,22 @@ func _nearest_spareable_monster() -> EnemyBase:
 				best = dist
 				nearest = enemy
 	return nearest
+
+
+## Soothe affordance (playtest tester-01): the hold verb must be readable
+## without the debug HUD — hint when near, progress while holding.
+func _update_soothe_prompt() -> void:
+	if _soothe_prompt == null:
+		return
+	if movement_state != MovementState.EXPLORING:
+		_soothe_prompt.update_state(false, false, 0.0)
+		return
+	if _soothing and _soothe_target != null and is_instance_valid(_soothe_target):
+		# domination (Vessel) reuses the recognition field — one bar serves both
+		var ratio: float = _soothe_target.recognition / EnemyBase.RECOGNITION_MAX
+		_soothe_prompt.update_state(false, true, ratio)
+		return
+	_soothe_prompt.update_state(_nearest_spareable_monster() != null, false, 0.0)
 
 
 func _start_soothe(target: EnemyBase) -> void:
