@@ -974,7 +974,7 @@ The complete per-area AI/tooling stack to take *Cycle of Innocence* from current
 
 | Area | Now (free/FOSS) | Upgrade trigger → paid option |
 |---|---|---|
-| Pixel art (concepts/bibles) | **Grok Imagine** → **Aseprite** cleanup + `tools/pixelize.py` (magenta chroma-key), nearest-neighbor import | — |
+| Pixel art (concepts/bibles) | **Grok Imagine** → pixel cleanup (scripted or GIMP/Pixelorama — no Aseprite installed) + `tools/pixelize.py` (magenta chroma-key), nearest-neighbor import | — |
 | Pixel art (character animation & variants) | Grok placeholders for the slice (functional but clunky) | **TRIGGER FIRED 2026-06-10** (Grok can't grid-align animation sheets) → **PixelLab** ~$12-30/mo pause-able, when variant work starts — skeleton rigs keep pose timing identical across outfit/age variants (see [[decisions/2026-06-10-sprite-tool-pixellab]]) |
 | Pixel art (static tiles/icons) | Grok Imagine | Retro Diffusion ($20 one-time Aseprite Lite) if tileset quality wall fires |
 | Music | **ACE-Step** (Apache 2.0, free web/self-host) for instrumental loops → **Audacity** loop/crossfade, export OGG | Need vocals or signature tracks → Suno Pro $10/mo (commercial license; never use Suno free tier commercially) |
@@ -992,7 +992,7 @@ The complete per-area AI/tooling stack to take *Cycle of Innocence* from current
 - PixelLab API client `tools/pixellab_api.py` (user subscribed 2026-06-10, free tier; key at `~/.config/pixellab/api_key`, never committed; generation needs credit top-up)
 
 ## Workflow rules
-1. **Art**: Imagine prompt batches from [[art/imagine-prompts]] → generate at 2–4× target size → downscale in Aseprite (interpolation: none) → palette discipline pass → import with nearest filter. Always add human Aseprite work on top of AI output (strengthens legal authorship position — no AI tool indemnifies).
+1. **Art**: Imagine prompt batches from [[art/imagine-prompts]] → generate at 2–4× target size → downscale scripted or in GIMP/Pixelorama (interpolation: none; no Aseprite installed) → palette discipline pass → import with nearest filter. Always add human pixel-edit work on top of AI output (strengthens legal authorship position — no AI tool indemnifies).
 2. **Audio**: generate 3–5 ACE-Step candidates per mood, pick, loop in Audacity. Compose as **stems** (ambient/tense/danger sharing BPM/key per zone theme) for the adaptive system ([[../mechanics/adaptive-audio]]). Keep generation prompts/files as provenance receipts.
 3. **Dialogue**: LLM drafts against the story bible; human pass for voice consistency; Dialogue Manager's in-editor test scene to validate branches; nothing generated at runtime.
 4. **Code**: Grok = vision/architecture/prompts; Claude Code/Cursor = implementation via godot-mcp; runtime errors pasted back in text (agents are runtime-blind — test with F5/headless, report, iterate). Agents scaffold; humans balance (damage values, AI difficulty, dread tuning are playtest work).
@@ -1623,9 +1623,10 @@ spaces, not modular kitbash* — that is the replay-value stake.
 ## Rules (apply to every prop, every zone)
 
 1. **Palette hard-lock**: extract each zone backdrop's 48-color palette;
-   force-quantize every prop to it (ImageMagick `-remap` / Aseprite CLI —
-   tool belongs in `tools/`). Upgrades the Terranigma-pass desaturation fix
-   into a guarantee. Biggest visual win per minute.
+   force-quantize every prop to it — shipped implementation:
+   `tools/palette_lock.py` (nearest-RGB, alpha preserved, `--dry-run`).
+   Upgrades the Terranigma-pass desaturation fix into a guarantee. Biggest
+   visual win per minute.
 2. **Flat-neutral-light authoring**: props carry NO baked time-of-day light
    and NO cast shadows — `CanvasModulate` + lights own time-of-day. (A prop
    repainted to match one scene's light is wrong in every other scene.)
@@ -1662,10 +1663,31 @@ spaces, not modular kitbash* — that is the replay-value stake.
      (~1:3; high top-down ≈ 0.57× — reject); box visible top depth : front
      height ≈ **1:3** (high ≈ 2:3); verticals never converge; buildings show
      a **thin roof strip, mostly facade** (deep roof plane = wrong camera).
-   - **QA overlay import gate**: transparent Aseprite layer with the canon
-     ellipses, a canon box, and a vertical ruler; every new prop/building/
-     repaint passes over it before import. Reject on fat ellipses, converging
-     verticals, deep roofs, or ground texture that shrinks toward the top.
+   - **QA overlay import gate (instruments shipped 2026-06-12)**:
+     `assets/reference/qa_overlay_128.png` — green canon ellipses **64×22**
+     and **32×11** (= 0.34, ~20°), red reject ellipse **48×27** (= 0.57,
+     ~35°), canon box **top 7 px / front 21 px** (1:3), double vertical ruler
+     with 8 px ticks — plus `qa_overlay_legend.png` (how to read it) and
+     `tools/gate_sheet.py` (editor-less: composites the overlay onto
+     `candidates/*.png` at 4× NN into one contact sheet). Every new
+     prop/building/repaint passes before import. Reject on fat ellipses,
+     converging verticals, or ground texture that shrinks toward the top.
+   - **Gate instrument note**: pitched roofs legitimately show large slope
+     area at low angles (classic Zelda houses are mostly roof) — **roofs are
+     NOT the pitch instrument; horizontal circles are** (mouths, rims,
+     barrel tops). Don't false-flag the cottage or the stall awning.
+   - **Iconic-prior props** (well, pond, cauldron, basin — anything defined
+     by a round opening): the model's prior is the open mouth seen from
+     above, and `view` alone won't override it ("weakly controls",
+     empirically: param-only well measured 0.51 → FAIL). Carry the angle in
+     the **description content** — side-visible wall, rim as a thin flat
+     ellipse, interior not visible beyond a thin dark sliver — (validated:
+     PASS on roll 1); escalate to image-to-image (depth) with a programmatic
+     grey-box only after 2–3 failed rolls.
+   - **"Edge canon" rule-6 candidate: CLOSED — not needed** (empirical edge
+     check 2026-06-12: 0 semi-transparent pixels, no near-black outline
+     ring on either fence; the pasted-on look was palette/shading/angle).
+     No defringe step; the `outline` param stays as is.
    - **Legacy audit (2026-06-12, ratio glance)**: terrace/cliff tileset PASS,
      chapel roof PASS — the pre-explicit-view assets already sit on the
      canon; no depth-i2i rework needed. Pinned references:
@@ -1720,12 +1742,14 @@ spaces, not modular kitbash* — that is the replay-value stake.
    Sprite2D pattern it targets, and village buildings sit on baked worn
    foundations since the backdrop lock. The research screenshots predated
    this (stale vintages).
-5. **Regenerate worst offenders** — candidates staged 2026-06-12, then
-   **regenerated same day at canon view** (the first pair was generated at
-   `high top-down` through the then-viewless recipe — the drift rule 5 now
-   prevents): `candidates/well_v2.png` + `candidates/fence_v2.png`, low
-   top-down, real ground crops, palette-locked. **User decides swaps in the
-   editor placement pass** (collision shapes were sized for the old sprites).
+5. ~~Regenerate worst offenders~~ — **DONE 2026-06-12** in three rounds:
+   staged at canon view → user placed well_v2 + fence_v2 in the editor
+   (offsets + colliders) → gate caught well_v2 at 0.51 (iconic prior) →
+   prior-busting regen PASS roll 1, replaced in place (44×51 vs 54×60 — well
+   collider needs a nudge). Remaining props (bench, lantern_post,
+   harmony_board, market_stall) batch-regenerated at their placement-spot
+   crops, palette-locked, **all six gated PASS** — staged in `candidates/`
+   awaiting placement.
    Buildings deliberately NOT regenerated: palette lock + baked foundations
    already ground them, and a regen would fight the foundations painted into
    the backdrop.
@@ -1741,9 +1765,10 @@ spaces, not modular kitbash* — that is the replay-value stake.
    border → palette-lock → ratio-table/QA-overlay check → stage in
    `assets/sprites/village/candidates/` for editor placement (placement/scale
    is the user's editor pass).
-7. **Editor pass (user)**: missing StaticBody2D on the painted stone wall;
-   audit painted features vs collider coverage; check the midday player-glow
-   toggle.
+7. **Editor pass (user) — THE ONLY OPEN ITEM**: missing StaticBody2D on the
+   painted stone wall; audit painted features vs collider coverage; check
+   the midday player-glow toggle; nudge the well collider (item-5 in-place
+   regen); place the four new gated candidates.
 
 ## Filter test
 

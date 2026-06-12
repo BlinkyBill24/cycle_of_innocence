@@ -121,7 +121,7 @@ These should feed into zone design, art prompts, and the first few dialogue node
 
 ## 📥 Captured this session (projection canon, 2026-06-12)
 
-- **QA overlay layer** (user art task): transparent Aseprite layer with the two canon ellipses, a canon box, and a vertical ruler — the rule-5 import gate for every new prop/building/repaint. ([[art/prop-coherence]])
+- **QA overlay layer** (user art task): transparent layer with the two canon ellipses, a canon box, and a vertical ruler — the rule-5 import gate for every new prop/building/repaint. ([[art/prop-coherence]]) → **CLOSED 2026-06-12**: shipped as `assets/reference/qa_overlay_128.png` + legend + `tools/gate_sheet.py` (no Aseprite needed).
 - **Bitforge fallback params unconfirmed**: confirm `view`/`oblique_projection` on `generate-with-style-v2` against https://api.pixellab.ai/v2/openapi.json before next relying on the fallback path.
 
 ## 📥 Captured this session (research round 3, 2026-06-12)

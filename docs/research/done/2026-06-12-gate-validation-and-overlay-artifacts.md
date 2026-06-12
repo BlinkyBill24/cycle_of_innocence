@@ -3,7 +3,7 @@ name: Gate validation + QA overlay artifacts (follow-up to projection canon)
 date: 2026-06-12
 source: claude.ai session — computational gate check on user-uploaded screenshots and sprite files; overlay PNGs generated in-session
 prompt: "fence now looks natural, however i would prefer the well to also align to the same angle" + "does claude code know about the gate checks and qa overlay legend?"
-status: inbox
+status: integrated
 related: "[[art/prop-coherence]] (rule 5) · [[art/imagine-prompts]] · research/done/2026-06-12-research-projection-canon-angle-consistency"
 ---
 

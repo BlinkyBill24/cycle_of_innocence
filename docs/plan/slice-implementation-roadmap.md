@@ -18,7 +18,7 @@ Concretizes Phases 0–2 of [[decisions/2026-06-09-cycle-of-innocence-build-plan
 | **Grok** | Art generation A1–A5, dialogue voice review, prompt iteration | `mcp__Grok__generate_image`/`edit_image`/`chat` or Grok CLI; prompts in [[art/imagine-prompts]] |
 | **Codex** | Review gates after M1.2 + M1.3, stuck-state rescue | `codex:rescue` skill from Claude Code |
 | **Cursor** | Human-driven in-editor work: TileMap painting, light/shader tuning, scene composition | reads AGENTS.md natively |
-| **Human** | Aseprite cleanup, ACE-Step/ChipTone audio runs, playtests, branch merges, slice gate verdict | — |
+| **Human** | pixel cleanup (GIMP/Pixelorama/scripted — no Aseprite), ACE-Step/ChipTone audio runs, playtests, branch merges, slice gate verdict | — |
 
 ## M0 — Art & audio production (parallel track — NEVER blocks code)
 

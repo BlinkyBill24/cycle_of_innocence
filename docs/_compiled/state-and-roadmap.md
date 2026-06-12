@@ -30,7 +30,7 @@ SOURCE: AGENTS.md
 - **Dialogue Manager** (nathanhoad, `addons/dialogue_manager/`) for all branching dialogue — conditions/mutations read & write `PlayerData` directly. *(Replaced Yarn Spinner 2026-06-10; see `docs/decisions/2026-06-10-new-features-and-ai-setup.md`.)*
 - **LimboAI** (`addons/limboai/`, v1.6.0 gdextension-4.4) for enemy/companion behavior trees + `NavigationAgent2D` pathfinding. **No runtime LLM calls in the shipped game** (offline mobile, latency, cost).
 - **GUT** (`addons/gut/`, v9.4.0) for unit tests — run `bash tools/run-tests.sh` (headless). ⚠️ Addon versions are pinned to Godot 4.4; bump Godot and addons together.
-- Art: 32×32 pixel (SNES/Zelda + horror), Grok Imagine → Aseprite cleanup → Godot nearest-filter import.
+- Art: 32×32 pixel (SNES/Zelda + horror), Grok Imagine → pixel cleanup (scripted or any layer-capable editor — GIMP/Pixelorama; no Aseprite installed) → Godot nearest-filter import.
 - Autoloads (current): `GameEvents`, `PlayerData`, `DialogueManager` (addon), `DreadManager`, `ZoneManager`, `WorldState`, `HollowingClock`, `VillageState`, `SaveManager`, `Sfx`, `AdaptiveAudio`; (planned): `CompanionManager`, `InputManager`.
 - **PixelLab API** available for character/animation generation: key at `~/.config/pixellab/api_key` (NEVER in repo), client `tools/pixellab_api.py` (generate/rotate; free tier needs credits for generation). Decision: docs/decisions/2026-06-10-sprite-tool-pixellab.md.
 - AI production stack: FOSS-first; see `docs/design/ai-production-setup.md`.
@@ -40,7 +40,7 @@ SOURCE: AGENTS.md
 - **R1 — Branch first.** Never commit to main. `type/short-name` (`feature/…`, `fix/…`, `refactor/…`, `docs/…`). A PreToolUse hook blocks main commits.
 - **R2 — Read before work.** This file + `docs/story/bible.md` + the relevant `docs/mechanics|design/*.md` before any feature work. Grep `docs/decisions/` for prior art; link findings with `[[backlinks]]`.
 - **R3 — Vertical slices.** Every increment F5-playable. Slice definition below.
-- **R4 — Imagine-first assets.** Character/companion bibles before sprite sheets; document every prompt in `docs/art/imagine-prompts.md`; Aseprite post-process; nearest-filter import.
+- **R4 — Imagine-first assets.** Character/companion bibles before sprite sheets; document every prompt in `docs/art/imagine-prompts.md`; pixel post-process (scripted or GIMP/Pixelorama — no Aseprite); nearest-filter import.
 - **R5 — Journal & capture.** Session journal `docs/sessions/YYYY-MM-DD.md` (newest first). Stray ideas → `docs/ideas.md` inbox, never dropped. Run `python3 ../scripts/obsidian/status.py` at checkpoints.
 - **R6 — Commit & push.** After meaningful changes: commit on the feature branch and push to `origin` (github.com/tchintchie/**game** — the only repo; the rpg-adventure mirror was retired 2026-06-10, see `docs/decisions/2026-06-10-repo-consolidation-game-only.md`). The user merges to main. A public standalone repo will be split out when a demo is ready.
 - **R7 — Research bridge.** Web research lives in the claude.ai Project "Cycle of Innocence — Design & Research", grounded in the `docs/_compiled/` snapshots (`python3 tools/compile_snapshots.py`, regenerate + re-upload after milestone merges that touch docs). Results come back ONLY via the `docs/research/` inbox → librarian pass (propose-first; locked decisions get flags, not edits). Convention: `docs/research/README.md`; system: `docs/setup-guide.md`.
@@ -126,7 +126,7 @@ Concretizes Phases 0–2 of [[decisions/2026-06-09-cycle-of-innocence-build-plan
 | **Grok** | Art generation A1–A5, dialogue voice review, prompt iteration | `mcp__Grok__generate_image`/`edit_image`/`chat` or Grok CLI; prompts in [[art/imagine-prompts]] |
 | **Codex** | Review gates after M1.2 + M1.3, stuck-state rescue | `codex:rescue` skill from Claude Code |
 | **Cursor** | Human-driven in-editor work: TileMap painting, light/shader tuning, scene composition | reads AGENTS.md natively |
-| **Human** | Aseprite cleanup, ACE-Step/ChipTone audio runs, playtests, branch merges, slice gate verdict | — |
+| **Human** | pixel cleanup (GIMP/Pixelorama/scripted — no Aseprite), ACE-Step/ChipTone audio runs, playtests, branch merges, slice gate verdict | — |
 
 ## M0 — Art & audio production (parallel track — NEVER blocks code)
 
@@ -314,7 +314,7 @@ These should feed into zone design, art prompts, and the first few dialogue node
 
 ## 📥 Captured this session (projection canon, 2026-06-12)
 
-- **QA overlay layer** (user art task): transparent Aseprite layer with the two canon ellipses, a canon box, and a vertical ruler — the rule-5 import gate for every new prop/building/repaint. ([[art/prop-coherence]])
+- **QA overlay layer** (user art task): transparent layer with the two canon ellipses, a canon box, and a vertical ruler — the rule-5 import gate for every new prop/building/repaint. ([[art/prop-coherence]]) → **CLOSED 2026-06-12**: shipped as `assets/reference/qa_overlay_128.png` + legend + `tools/gate_sheet.py` (no Aseprite needed).
 - **Bitforge fallback params unconfirmed**: confirm `view`/`oblique_projection` on `generate-with-style-v2` against https://api.pixellab.ai/v2/openapi.json before next relying on the fallback path.
 
 ## 📥 Captured this session (research round 3, 2026-06-12)
@@ -342,6 +342,19 @@ Claude Code (implementation), adapted from the user's space-game design system.
 
 ## What I did
 *(newest first)*
+- **Gate-validation note integrated (§1–4, §6)**: rule 5 gained the
+  shipped-instrument spec (qa_overlay_128 ellipse/box dimensions + legend +
+  gate_sheet.py), the **iconic-prior props** addendum (angle in description
+  content; empirics: param-only 0.51 FAIL → prior-busting PASS roll 1), the
+  **gate instrument note** (horizontal circles, not roofs, are the pitch
+  instrument), and the **edge-canon candidate closed** (edges empirically
+  clean — no defringe step). Fix plan: items 1–6 all closed; item 7 (editor
+  audit + place gated candidates + well-collider nudge) is the only open
+  item. **§4 Aseprite sweep**: no Aseprite installed — AGENTS.md (art line +
+  R4), ai-production-setup, roadmap matrix now say scripted/GIMP/Pixelorama;
+  history untouched; auto-memory corrected too. §6 reconciliation: its "pin
+  reference crops still open" was stale — closed in b506284; the web side
+  read a pre-close-out snapshot (self-corrects on merge + re-upload).
 - **Gate-validation work order executed** (§5 of the new inbox note; §1–4/§6
   integrate at the next librarian pass): (1) well regenerated with the
   prior-busting description (cylinder side visible, rim = thin ellipse) at

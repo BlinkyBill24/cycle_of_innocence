@@ -14,7 +14,7 @@ The complete per-area AI/tooling stack to take *Cycle of Innocence* from current
 
 | Area | Now (free/FOSS) | Upgrade trigger → paid option |
 |---|---|---|
-| Pixel art (concepts/bibles) | **Grok Imagine** → **Aseprite** cleanup + `tools/pixelize.py` (magenta chroma-key), nearest-neighbor import | — |
+| Pixel art (concepts/bibles) | **Grok Imagine** → pixel cleanup (scripted or GIMP/Pixelorama — no Aseprite installed) + `tools/pixelize.py` (magenta chroma-key), nearest-neighbor import | — |
 | Pixel art (character animation & variants) | Grok placeholders for the slice (functional but clunky) | **TRIGGER FIRED 2026-06-10** (Grok can't grid-align animation sheets) → **PixelLab** ~$12-30/mo pause-able, when variant work starts — skeleton rigs keep pose timing identical across outfit/age variants (see [[decisions/2026-06-10-sprite-tool-pixellab]]) |
 | Pixel art (static tiles/icons) | Grok Imagine | Retro Diffusion ($20 one-time Aseprite Lite) if tileset quality wall fires |
 | Music | **ACE-Step** (Apache 2.0, free web/self-host) for instrumental loops → **Audacity** loop/crossfade, export OGG | Need vocals or signature tracks → Suno Pro $10/mo (commercial license; never use Suno free tier commercially) |
@@ -32,7 +32,7 @@ The complete per-area AI/tooling stack to take *Cycle of Innocence* from current
 - PixelLab API client `tools/pixellab_api.py` (user subscribed 2026-06-10, free tier; key at `~/.config/pixellab/api_key`, never committed; generation needs credit top-up)
 
 ## Workflow rules
-1. **Art**: Imagine prompt batches from [[art/imagine-prompts]] → generate at 2–4× target size → downscale in Aseprite (interpolation: none) → palette discipline pass → import with nearest filter. Always add human Aseprite work on top of AI output (strengthens legal authorship position — no AI tool indemnifies).
+1. **Art**: Imagine prompt batches from [[art/imagine-prompts]] → generate at 2–4× target size → downscale scripted or in GIMP/Pixelorama (interpolation: none; no Aseprite installed) → palette discipline pass → import with nearest filter. Always add human pixel-edit work on top of AI output (strengthens legal authorship position — no AI tool indemnifies).
 2. **Audio**: generate 3–5 ACE-Step candidates per mood, pick, loop in Audacity. Compose as **stems** (ambient/tense/danger sharing BPM/key per zone theme) for the adaptive system ([[../mechanics/adaptive-audio]]). Keep generation prompts/files as provenance receipts.
 3. **Dialogue**: LLM drafts against the story bible; human pass for voice consistency; Dialogue Manager's in-editor test scene to validate branches; nothing generated at runtime.
 4. **Code**: Grok = vision/architecture/prompts; Claude Code/Cursor = implementation via godot-mcp; runtime errors pasted back in text (agents are runtime-blind — test with F5/headless, report, iterate). Agents scaffold; humans balance (damage values, AI difficulty, dread tuning are playtest work).
