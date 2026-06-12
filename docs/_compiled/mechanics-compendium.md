@@ -1768,7 +1768,10 @@ spaces, not modular kitbash* — that is the replay-value stake.
 7. **Editor pass (user) — THE ONLY OPEN ITEM**: missing StaticBody2D on the
    painted stone wall; audit painted features vs collider coverage; check
    the midday player-glow toggle; nudge the well collider (item-5 in-place
-   regen); place the four new gated candidates.
+   regen). ~~Place the four new gated candidates~~ — texture swaps done
+   mechanically 2026-06-12 (base-anchored offsets; bench/stall same-height,
+   board −10 px, lantern +2 px ×4 instances); **verify colliders in the
+   editor** (board and stall changed footprint width).
 
 ## Filter test
 

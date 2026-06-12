@@ -18,14 +18,14 @@
 [ext_resource type="Texture2D" uid="uid://ft50trkceak7" path="res://assets/sprites/village/village_ground_backdrop.png" id="17_backdrop"]
 [ext_resource type="Texture2D" uid="uid://bpbovkod4h54e" path="res://assets/sprites/village/candidates/well_v2.png" id="17_r028r"]
 [ext_resource type="Texture2D" uid="uid://5gwyaewgifne" path="res://assets/sprites/village/candidates/fence_v2.png" id="22_3q7t2"]
-[ext_resource type="Texture2D" uid="uid://bdsoj363dv54s" path="res://assets/sprites/village/bench.png" id="tex_bench"]
+[ext_resource type="Texture2D" uid="uid://ce6eu4j8ebhnq" path="res://assets/sprites/village/candidates/bench_v2.png" id="tex_bench"]
 [ext_resource type="Texture2D" uid="uid://pljxqacr84uv" path="res://assets/sprites/village/chapel.png" id="tex_chapel"]
 [ext_resource type="Texture2D" uid="uid://cblkqdhw63kq4" path="res://assets/sprites/village/cottage_a.png" id="tex_cottage_a"]
 [ext_resource type="Texture2D" uid="uid://bfpyitrf0dnbg" path="res://assets/sprites/village/cottage_b.png" id="tex_cottage_b"]
 [ext_resource type="Texture2D" uid="uid://41j3yapq5mxd" path="res://assets/sprites/village/cottage_dark.png" id="tex_cottage_dark"]
-[ext_resource type="Texture2D" uid="uid://msj4ht228xe8" path="res://assets/sprites/village/harmony_board.png" id="tex_harmony_board"]
-[ext_resource type="Texture2D" uid="uid://csrmfcgtqny36" path="res://assets/sprites/village/lantern_post.png" id="tex_lantern_post"]
-[ext_resource type="Texture2D" uid="uid://d4gg5qo4nielf" path="res://assets/sprites/village/market_stall.png" id="tex_market_stall"]
+[ext_resource type="Texture2D" uid="uid://di6gslejp5iec" path="res://assets/sprites/village/candidates/harmony_board_v2.png" id="tex_harmony_board"]
+[ext_resource type="Texture2D" uid="uid://do1w1pty3wkcs" path="res://assets/sprites/village/candidates/lantern_post_v2.png" id="tex_lantern_post"]
+[ext_resource type="Texture2D" uid="uid://cne0e22o6o2ss" path="res://assets/sprites/village/candidates/market_stall_v2.png" id="tex_market_stall"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r028r"]
 size = Vector2(543, 87)
@@ -326,7 +326,7 @@ position = Vector2(64, -352)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropHarmonyBoard"]
-position = Vector2(0, -24)
+position = Vector2(0, -19)
 texture = ExtResource("tex_harmony_board")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropHarmonyBoard"]
@@ -337,7 +337,7 @@ position = Vector2(158, -158)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropLanternNE"]
-position = Vector2(0, -24)
+position = Vector2(0, -25)
 texture = ExtResource("tex_lantern_post")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropLanternNE"]
@@ -348,7 +348,7 @@ position = Vector2(-158, -158)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropLanternNW"]
-position = Vector2(0, -24)
+position = Vector2(0, -25)
 texture = ExtResource("tex_lantern_post")
 flip_h = true
 
@@ -360,7 +360,7 @@ position = Vector2(158, 158)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropLanternSE"]
-position = Vector2(0, -24)
+position = Vector2(0, -25)
 texture = ExtResource("tex_lantern_post")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropLanternSE"]
@@ -371,7 +371,7 @@ position = Vector2(-158, 158)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropLanternSW"]
-position = Vector2(0, -24)
+position = Vector2(0, -25)
 texture = ExtResource("tex_lantern_post")
 flip_h = true
 

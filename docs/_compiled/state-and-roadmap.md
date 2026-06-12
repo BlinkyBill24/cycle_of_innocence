@@ -342,6 +342,15 @@ Claude Code (implementation), adapted from the user's space-game design system.
 
 ## What I did
 *(newest first)*
+- **Gated candidates placed** (branch `fix/place-gated-candidates`,
+  191/191): village_green.tscn retargeted to the four gated candidates
+  (bench, harmony_board, lantern_post ×4 instances, market_stall) with
+  base-anchored sprite offsets (board −10 px height, lantern +2 px;
+  bench/stall same height = pure swaps); UIDs from the candidate imports.
+  Composite-at-scene-anchors sanity check looks right. Remaining for the
+  user: item-7 editor audit incl. collider verify on board/stall (footprint
+  width changed) + well-collider nudge. Preview mock left on old paths
+  (editor is placement truth; mock approximates).
 - **Gate-validation note integrated (§1–4, §6)**: rule 5 gained the
   shipped-instrument spec (qa_overlay_128 ellipse/box dimensions + legend +
   gate_sheet.py), the **iconic-prior props** addendum (angle in description
