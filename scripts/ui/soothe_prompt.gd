@@ -16,26 +16,35 @@ var _paused := false
 
 func _ready() -> void:
 	layer = 15  # HUD layer — under dialogue (100), over the world
+	# explicit anchors only — a preset/grow combo once left the label with a
+	# degenerate rect that rendered at the top-left under the HP hearts
+	# (playtest tester-02). Bottom-center strip: hearts are top-left, debug
+	# top-right, touch buttons bottom corners, so this band stays free.
 	_label = Label.new()
 	_label.add_theme_font_size_override("font_size", 11)
 	_label.add_theme_color_override("font_outline_color", Color.BLACK)
 	_label.add_theme_constant_override("outline_size", 3)
 	_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	add_child(_label)
-	_label.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
-	_label.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	_label.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	_label.offset_bottom = -42.0
+	_label.anchor_left = 0.0
+	_label.anchor_right = 1.0
+	_label.anchor_top = 1.0
+	_label.anchor_bottom = 1.0
+	_label.offset_left = 0.0
+	_label.offset_right = 0.0
+	_label.offset_top = -64.0
+	_label.offset_bottom = -46.0
 	_bar_back = ColorRect.new()
 	_bar_back.color = Color(0, 0, 0, 0.55)
 	add_child(_bar_back)
-	_bar_back.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
-	_bar_back.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	_bar_back.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	_bar_back.anchor_left = 0.5
+	_bar_back.anchor_right = 0.5
+	_bar_back.anchor_top = 1.0
+	_bar_back.anchor_bottom = 1.0
 	_bar_back.offset_left = -BAR_SIZE.x / 2.0
 	_bar_back.offset_right = BAR_SIZE.x / 2.0
-	_bar_back.offset_bottom = -32.0
-	_bar_back.offset_top = -32.0 - BAR_SIZE.y
+	_bar_back.offset_top = -42.0 - BAR_SIZE.y
+	_bar_back.offset_bottom = -42.0
 	_bar_fill = ColorRect.new()
 	_bar_fill.color = Color(0.78, 0.86, 1.0, 0.9)  # the recognition-tint blue
 	_bar_back.add_child(_bar_fill)

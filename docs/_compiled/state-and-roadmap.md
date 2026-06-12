@@ -473,6 +473,19 @@ Claude Code (implementation), adapted from the user's space-game design system.
 
 ## What I did
 *(newest first)*
+- **Tester-02 follow-up — two defects fixed for run 3** (branch
+  `fix/playtest-tester02`, 194/194): (1) the village "crash" root-caused —
+  `village_tileset.tres` declared 4 dirt-variant tiles vs the curated
+  1-tile texture; the 3 out-of-texture tiles errored exactly when the
+  village scene loaded and the EDITOR paused on it (native play = strictest
+  runtime; my CLI auto-walk repro sailed past). Tres + generator fixed,
+  regression test added. (2) SoothePrompt hint was invisible/misplaced
+  (degenerate preset/grow rect — t02 saw it behind the hearts) → explicit
+  bottom-center anchors, verified by in-game screenshot. Captured
+  tester-02 verbatim; synthesis updated — **audio threshold FAILED 2/2**
+  (identical "reggae" wording): stem regen (human, ACE-Step) promoted to
+  before-any-tuning. Repro tooling: temporary auto-walk autoload (skip name
+  entry, click dialogue during CUTSCENE, steer west) — removed after use.
 - **First real playtest data + soothe affordance fix** (branch
   `fix/playtest-tester01-followup`, 193/193): tester-01 (SJ, ~5 min)
   captured verbatim in `docs/playtest/2026-06/tester-01.md` + running
