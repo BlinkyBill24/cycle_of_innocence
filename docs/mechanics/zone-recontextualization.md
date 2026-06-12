@@ -25,6 +25,7 @@ Revelations don't just unlock dialogue — they change how **existing zones func
   3. **Access**: a door/path that "was always there" becomes usable (knowledge IS the key — no fetch-item).
   4. **Inhabitants**: spawn-table swaps (a Stilled monster waits where its house stood, see [[mechanics/encounters-mercy]]).
 - Companions react on first recontextualized visit (Briar whines at the spot he was rescued — bond moment for free).
+- **Stage-keyed variant** (research 2026-06-12): the same group mechanism can key on `HollowingClock.stage` instead of a revelation (e.g. `recontext_stage_2` poster swaps) — doom presentation reuses this rail; see [[mechanics/hollowing-clock]].
 
 ## Content plan (v1)
 3 zones × 2-3 revelations each ≈ **8-10 authored recontext moments**, anchored on the big bible twists (monsters-are-children, elders-are-survivors, Rowan-is-the-vessel). The playground gets the full treatment (it's the thesis statement: safety → horror → grief).

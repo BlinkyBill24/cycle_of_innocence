@@ -54,5 +54,14 @@ Mechanizes the story bible's "delayed alarm" beat: the village does not yet know
 - Consequences live now: **Frenzy (3) un-stills every Stilled monster** (no betrayal cost — the Hunger's doing; `spared_` history kept); **Alarm (2) spawns the emergency-ritual child** in the deep fringes (`spareable=false` — the player could not save it); night dread floor 20 + 5×stage; enemy detection radius ×(1 + 0.1×stage).
 - Persisted in saves (stage, points, pending, consumed milestones). Dialogue can gate on `HollowingClock.stage` directly.
 
+## Doom legibility roadmap (research 2026-06-12, within the no-timer-UI rule)
+- **Bell pattern language**: the chapel bell rings a different pattern per stage — attentive players can literally count the doom. Layers with (doesn't duplicate) the existing advance toll; cheap (SFX variants + stage switch).
+- **Stage-keyed poster swaps**: village notice-boards/posters swap content by stage, reusing the recontext-group pattern keyed to `HollowingClock.stage` instead of a revelation ([[mechanics/zone-recontextualization]]).
+- **Journal of observed signs**: consultable entries in the Growth/Memory screen, gated on the player *witnessing* the world change ("Mrs. Alden's bench was empty today.") — diegetic, hidden-state-safe, doubles as memorial; NG+ pre-seeds dread-tinged lines via `$knew_it_was_coming` ([[mechanics/progression]]).
+- **Anti-pattern (flagged)**: any always-on-screen indicator, however diegetic-skinned (e.g. a corner candle burning down) — still a meter, still implies continuous time, still competes with the companions' early-warning job. Fails the filter.
+- Corruption-spread-across-zone-maps (parked 2026-06-10 idea) stays parked until playtests say the world reads too slowly — art-cost item; bells/posters/journal buy legibility first.
+
+*Source: [[research/done/2026-06-12-test-answer]]* `[training knowledge — design reasoning grounded in vault snapshots, no external claims]`
+
 ## Related
 - [[story/bible]] · [[story/endings]] · [[mechanics/encounters-mercy]] · [[mechanics/day-night-hideout]] · [[mechanics/horror-and-dread]]

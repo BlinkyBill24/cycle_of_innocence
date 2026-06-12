@@ -82,7 +82,7 @@ No traditional skill trees or XP levels. Unlocks come from:
 - **Ruthless / Vessel**: Corrupted strikes, intimidation that breaks enemy morale, force companions into high-risk moves, temporary power boosts at personal cost.
 - **Hybrid**: Creative or tragic combinations (e.g., using a corrupted companion's power in a redemptive way).
 
-**Menu**: "Growth" or "Memory" screen showing current age, morality, companion status, and unlocked abilities. Simple and thematic.
+**Menu**: "Growth" or "Memory" screen showing current age, morality, companion status, and unlocked abilities. Simple and thematic. **Journal of observed signs** (research 2026-06-12): entries appear only when the player witnessed the corresponding world change — Rowan's inference, not game state ([[mechanics/hollowing-clock]] doom legibility); NG+ pre-seeds via `$knew_it_was_coming`.
 
 ## NG+ & Knowledge Carry-Over
 
