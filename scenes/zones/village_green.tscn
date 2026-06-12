@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bq5l6scrtss13"]
+[gd_scene load_steps=45 format=3 uid="uid://bq5l6scrtss13"]
 
 [ext_resource type="Script" uid="uid://djr7o5g0hpu7q" path="res://scripts/world/village_green.gd" id="1_zone"]
 [ext_resource type="TileSet" uid="uid://bxgr7vd1tapr8" path="res://assets/resources/tiles/village_tileset.tres" id="2_tileset"]
@@ -16,16 +16,16 @@
 [ext_resource type="Script" uid="uid://ctap15jdarwf1" path="res://scripts/ui/hud.gd" id="14_hud"]
 [ext_resource type="Script" uid="uid://cnh1w3wphurkn" path="res://scripts/ui/touch_controls.gd" id="15_touch"]
 [ext_resource type="Texture2D" uid="uid://ft50trkceak7" path="res://assets/sprites/village/village_ground_backdrop.png" id="17_backdrop"]
+[ext_resource type="Texture2D" uid="uid://bpbovkod4h54e" path="res://assets/sprites/village/candidates/well_v2.png" id="17_r028r"]
+[ext_resource type="Texture2D" uid="uid://5gwyaewgifne" path="res://assets/sprites/village/candidates/fence_v2.png" id="22_3q7t2"]
 [ext_resource type="Texture2D" uid="uid://bdsoj363dv54s" path="res://assets/sprites/village/bench.png" id="tex_bench"]
 [ext_resource type="Texture2D" uid="uid://pljxqacr84uv" path="res://assets/sprites/village/chapel.png" id="tex_chapel"]
 [ext_resource type="Texture2D" uid="uid://cblkqdhw63kq4" path="res://assets/sprites/village/cottage_a.png" id="tex_cottage_a"]
 [ext_resource type="Texture2D" uid="uid://bfpyitrf0dnbg" path="res://assets/sprites/village/cottage_b.png" id="tex_cottage_b"]
 [ext_resource type="Texture2D" uid="uid://41j3yapq5mxd" path="res://assets/sprites/village/cottage_dark.png" id="tex_cottage_dark"]
-[ext_resource type="Texture2D" uid="uid://bhf5hgbxfw0tf" path="res://assets/sprites/village/fence.png" id="tex_fence"]
 [ext_resource type="Texture2D" uid="uid://msj4ht228xe8" path="res://assets/sprites/village/harmony_board.png" id="tex_harmony_board"]
 [ext_resource type="Texture2D" uid="uid://csrmfcgtqny36" path="res://assets/sprites/village/lantern_post.png" id="tex_lantern_post"]
 [ext_resource type="Texture2D" uid="uid://d4gg5qo4nielf" path="res://assets/sprites/village/market_stall.png" id="tex_market_stall"]
-[ext_resource type="Texture2D" uid="uid://d2eyd7idemr8p" path="res://assets/sprites/village/well.png" id="tex_well"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r028r"]
 size = Vector2(543, 87)
@@ -54,8 +54,8 @@ size = Vector2(100, 44)
 [sub_resource type="RectangleShape2D" id="shape_PropChapel"]
 size = Vector2(110, 18)
 
-[sub_resource type="CircleShape2D" id="shape_PropWell"]
-radius = 14.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3q7t2"]
+size = Vector2(53, 20)
 
 [sub_resource type="RectangleShape2D" id="shape_PropMarketStall"]
 size = Vector2(80, 14)
@@ -78,11 +78,8 @@ radius = 4.0
 [sub_resource type="CircleShape2D" id="shape_PropLanternSW"]
 radius = 4.0
 
-[sub_resource type="RectangleShape2D" id="shape_PropFenceWestA"]
-size = Vector2(56, 6)
-
-[sub_resource type="RectangleShape2D" id="shape_PropFenceWestB"]
-size = Vector2(56, 6)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fsl1j"]
+size = Vector2(43, 6)
 
 [node name="VillageGreen" type="Node2D"]
 script = ExtResource("1_zone")
@@ -295,10 +292,12 @@ collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropWell"]
 position = Vector2(0, -20)
-texture = ExtResource("tex_well")
+texture = ExtResource("17_r028r")
+offset = Vector2(0, -30)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropWell"]
-shape = SubResource("shape_PropWell")
+position = Vector2(0.5, -30)
+shape = SubResource("RectangleShape2D_3q7t2")
 
 [node name="PropMarketStall" type="StaticBody2D" parent="World"]
 position = Vector2(300, -84)
@@ -385,21 +384,25 @@ collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropFenceWestA"]
 position = Vector2(0, -8)
-texture = ExtResource("tex_fence")
+texture = ExtResource("22_3q7t2")
+offset = Vector2(0, -21)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropFenceWestA"]
-shape = SubResource("shape_PropFenceWestA")
+position = Vector2(-0.5, -11)
+shape = SubResource("RectangleShape2D_fsl1j")
 
 [node name="PropFenceWestB" type="StaticBody2D" parent="World"]
-position = Vector2(-560, 96)
+position = Vector2(-501, 105)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/PropFenceWestB"]
 position = Vector2(0, -8)
-texture = ExtResource("tex_fence")
+texture = ExtResource("22_3q7t2")
+offset = Vector2(0, -21)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropFenceWestB"]
-shape = SubResource("shape_PropFenceWestB")
+position = Vector2(-0.5, -11)
+shape = SubResource("RectangleShape2D_fsl1j")
 
 [node name="DreadOverlay" parent="." instance=ExtResource("12_overlay")]
 
