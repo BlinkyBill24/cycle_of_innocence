@@ -337,6 +337,19 @@ Claude Code (implementation), adapted from the user's space-game design system.
 
 ## What I did
 *(newest first)*
+- **Prop-coherence fix plan items 2–3** (branch
+  `fix/zone-coherence-camera-palette`, 189/189): (2) `ZoneRoot` now clamps the
+  player Camera2D to the `GroundBackdrop` rect (+16px bleed) on zone enter —
+  pure static funcs `sprite_world_rect`/`camera_limits`, unit-tested; zones
+  without a backdrop reset limits so clamps can't leak across transitions.
+  (3) New `tools/palette_lock.py`: all 10 village props were **100%
+  off-palette** (confirming the research) and are now quantized to the
+  backdrop's 48 colors — before/after on real ground verified visually; cool
+  accents went warm (palette has no cool colors; item-5 regen if any prop
+  reads muddy in-game). Test debugging: code-added Camera2D gets an @-mangled
+  name (test must set `name`); ZoneRoot's deferred calls must be drained
+  before autofree; ZoneManager state restored in before/after_each — an
+  unflushed deferred had broken `test_zone_manager` mid-suite.
 - **Art-tooling research integrated** (screenshot review + Grok cross-check):
   verdict — compositing gap, not tooling gap; whole stack reaffirmed. New
   [[art/prop-coherence]] (rules: palette hard-lock to zone backdrop, flat

@@ -60,10 +60,16 @@ spaces, not modular kitbash* — that is the replay-value stake.
 1. ~~Remove courtyard decal instances~~ — **already clean in repo** (no
    decal/courtyard/set-piece nodes in any scene; the reviewed screenshots were
    stale vintages).
-2. **Clamp Camera2D limits to backdrop rects** (or add bleed margin) —
-   confirmed missing (no `limit_*` anywhere); kills the grey void. *(code,
-   trivial)*
-3. **Palette hard-lock pass** over existing village props (rule 1 tool).
+2. ~~Clamp Camera2D limits to backdrop rects~~ — **DONE 2026-06-12**
+   (branch `fix/zone-coherence-camera-palette`): `ZoneRoot` clamps the player
+   camera to the `GroundBackdrop` rect + 16px bleed on zone enter, and resets
+   limits in zones without a backdrop so clamps never leak across transitions.
+3. ~~Palette hard-lock pass over existing village props~~ — **DONE
+   2026-06-12** (same branch): new `tools/palette_lock.py` (PIL,
+   nearest-RGB remap, alpha preserved, `--dry-run`); all 10 village props
+   were 100% off-palette and are now locked to the backdrop's 48 colors.
+   Expected casualty: cool accents (chapel roof) went warm-olive — the
+   palette has no cool colors by design; polish via item 5 regen if needed.
 4. **Extend foundations + contact ellipses** to the village zone's
    buildings/props (prop footprints into the geometry-guide step).
 5. **Regenerate worst offenders** under rules 1–3: well, fences, the image-3
