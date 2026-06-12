@@ -175,6 +175,7 @@ Scope rule adopted: **define "content-complete" per zone** (recontext moments au
 2. **Audio content sprint**: produce playground/fringes stems as *one composition, stripped mixes* so the v2 crossfade graduates to true layering ([[mechanics/adaptive-audio]]).
 3. **Playground recontext authoring**: the 2–3 thesis-statement moments for the first revelation — content, not mechanism ([[mechanics/zone-recontextualization]]).
 4. **Steam timing decision** (user): [[decisions/2026-06-12-steam-timing]] — Coming Soon page lead time compounds; patent re-review rides the same milestone.
+5. **Village zone coherence conversion**: execute the [[art/prop-coherence]] fix plan (camera clamps, palette hard-lock, foundations, prop regen, `create_map_object` smoke test) inside the content-complete-per-zone rule — no new mechanics ride along. *Ordering note (user's call): plan items 2–3 (camera clamp + palette pass) are cheap and arguably belong BEFORE arc 1's external playtest — an incoherent village muddies dread feedback.*
 
 ## Working rules (from AGENTS.md, repeated for hand-offs)
 
@@ -232,6 +233,7 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 
 - Human-centric party as primary bonds (replaced by animals per revision).
 - Any direct reuse of Mote cozy mechanics, diorama framing, or season/vine systems.
+- Extra art vendors — Ludo.ai tilesets, Leonardo/Midjourney "tilemap export" (2026-06-12 art-tooling research): Ludo adds nothing layout-level [verified 2026-06-12]; Leonardo/MJ first-party tilemap export likely doesn't exist [unverified]; all three would add vendors to the locked art lane without capability we lack. ([[art/prop-coherence]])
 
 ## 📥 Captured this session (story fleshing)
 
@@ -335,6 +337,18 @@ Claude Code (implementation), adapted from the user's space-game design system.
 
 ## What I did
 *(newest first)*
+- **Art-tooling research integrated** (screenshot review + Grok cross-check):
+  verdict — compositing gap, not tooling gap; whole stack reaffirmed. New
+  [[art/prop-coherence]] (rules: palette hard-lock to zone backdrop, flat
+  neutral light, scale chart, shadow-canon split; gated `create_map_object`
+  workflow + PROPS-ONLY edit_image as benchmark-only) and prop authoring rules
+  appended to [[art/imagine-prompts]] (lamp/fence/well ratios PROVISIONAL).
+  Local verification corrected the plan: courtyard decals already gone from
+  all scenes (screenshots were stale vintages) and Camera2D limits confirmed
+  missing (the grey-void fix is real). Roadmap: next-arc 5 = village zone
+  coherence conversion, with ordering note (camera clamp + palette pass
+  arguably before the external playtest). Ideas-rejected: extra art vendors
+  (Ludo/Leonardo/MJ). Lullaby-as-tense-motif was already canon — no action.
 - **Research round 3 integrated** (outside-view audit + market/tech): new
   decision [[decisions/2026-06-12-adaptisound-rejected]] (README: no web
   export — re-verified locally; hand-rolled AdaptiveAudio canonical;

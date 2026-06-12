@@ -40,6 +40,7 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 
 - Human-centric party as primary bonds (replaced by animals per revision).
 - Any direct reuse of Mote cozy mechanics, diorama framing, or season/vine systems.
+- Extra art vendors — Ludo.ai tilesets, Leonardo/Midjourney "tilemap export" (2026-06-12 art-tooling research): Ludo adds nothing layout-level [verified 2026-06-12]; Leonardo/MJ first-party tilemap export likely doesn't exist [unverified]; all three would add vendors to the locked art lane without capability we lack. ([[art/prop-coherence]])
 
 ## 📥 Captured this session (story fleshing)
 

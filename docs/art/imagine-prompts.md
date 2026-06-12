@@ -140,3 +140,21 @@ dirt paths — NO cobble). Drove two decisions:
   anchor on crops of this sheet via generate-with-style-v2 (style_images)
   or create-image-bitforge (style_image) — the tileset endpoint's reference
   params 500 server-side, but the image endpoints' style refs work.
+
+## Prop authoring rules (2026-06-12 — full plan: [[art/prop-coherence]])
+
+Every prop prompt from here on inherits these three rules:
+
+1. **Flat neutral light, no cast shadows** — CanvasModulate + lights own
+   time-of-day; baked light makes a prop wrong in every other scene.
+2. **Palette hard-lock** — quantize the result to the target zone backdrop's
+   48-color palette before import (never ship a prop on its own palette).
+3. **Scale chart** — player = 32 px reference; door ≈ 1.3× player
+   (research-pinned). Lamp ≈ 1.5×, fence ≈ 0.6×, well ≈ 1.2× player are
+   PROVISIONAL — confirm against the editor placement pass, then pin. State
+   the target size in the prompt AND verify against a backdrop crop before
+   placement.
+
+New props go through `create_map_object` with a zone-backdrop crop as
+`background_image` (gated on smoke test) or the proven
+`generate-with-style-v2` fallback — see [[art/prop-coherence]] workflow.
