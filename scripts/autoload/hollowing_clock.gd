@@ -89,12 +89,35 @@ func _fire_pending() -> void:
 func _world_lurches() -> void:
 	_apply_night_scaling()
 	DreadManager.add_dread(STAGE_DREAD_HIT, &"hollowing")
-	Sfx.play(&"bell_toll", -2.0, 0.01)  # distant village bells — read the world
+	# Bell pattern language (doom-legibility roadmap): the chapel tolls once per
+	# stage reached, so an attentive player can COUNT the doom from the sound
+	# alone — no UI. Spaced tolls; a single distant bell is just a bell.
+	_ring_bells(stage)
 	Sfx.play(&"whimper", -8.0)  # Briar feels it first (early-warning system)
 	stage_advanced.emit(stage)
 	if GameEvents:
 		GameEvents.hollowing_stage_advanced.emit(stage)
 		GameEvents.horror_stinger.emit(&"hollowing_stage")
+
+
+const BELL_GAP := 0.85  # seconds between tolls (slow, funereal, countable)
+
+
+## Ring the chapel bell `count` times, spaced. Pure scheduling — testable via
+## bell_pattern() below; the audio is fire-and-forget timers.
+func _ring_bells(count: int) -> void:
+	for i in maxi(count, 1):
+		var delay := bell_pattern(i)
+		if delay <= 0.0:
+			Sfx.play(&"bell_toll", -2.0, 0.01)
+		else:
+			get_tree().create_timer(delay).timeout.connect(
+					func() -> void: Sfx.play(&"bell_toll", -2.0, 0.01))
+
+
+## Toll i's offset from the start of the peal (i = 0-based). Static + pure.
+static func bell_pattern(i: int) -> float:
+	return float(i) * BELL_GAP
 
 
 ## Night danger scales with stage (day-night-hideout.md interaction).

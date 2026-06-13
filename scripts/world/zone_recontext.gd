@@ -4,13 +4,22 @@ extends Node
 ## `recontext_<revelation_id>` exist only once the revelation is KNOWN;
 ## `recontext_not_<revelation_id>` only while it is NOT. Applied on zone
 ## enter and live on revelation unlock — same scene, new truth.
+##
+## STAGE-KEYED variant (hollowing-clock doom-legibility roadmap): groups
+## `recontext_stage_<n>` exist only once the HollowingClock has reached stage n
+## (`recontext_not_stage_<n>` only before it) — the same rail carries doom
+## presentation (poster swaps, the warden's lantern) keyed to the net closing.
+## Re-applied live on stage advance.
 
 const GROUP_PREFIX := "recontext_"
 const NOT_PREFIX := "recontext_not_"
+const STAGE_PREFIX := "recontext_stage_"
+const NOT_STAGE_PREFIX := "recontext_not_stage_"
 
 
 func _ready() -> void:
 	GameEvents.revelation_unlocked.connect(func(_id: StringName) -> void: apply())
+	GameEvents.hollowing_stage_advanced.connect(func(_s: int) -> void: apply())
 	apply.call_deferred()
 
 
@@ -48,13 +57,28 @@ func _apply_node(node: Node) -> void:
 	var active := true
 	for group in node.get_groups():
 		var name := String(group)
-		if name.begins_with(NOT_PREFIX):
+		# stage prefixes MUST be checked before the revelation prefixes —
+		# "recontext_stage_2" also begins with "recontext_" / its NOT variant
+		# also begins with "recontext_not_".
+		if name.begins_with(NOT_STAGE_PREFIX):
+			active = active and not _stage_reached(name.trim_prefix(NOT_STAGE_PREFIX))
+		elif name.begins_with(STAGE_PREFIX):
+			active = active and _stage_reached(name.trim_prefix(STAGE_PREFIX))
+		elif name.begins_with(NOT_PREFIX):
 			active = active and not PlayerData.is_revelation_known(
 					StringName(name.trim_prefix(NOT_PREFIX)))
 		elif name.begins_with(GROUP_PREFIX):
 			active = active and PlayerData.is_revelation_known(
 					StringName(name.trim_prefix(GROUP_PREFIX)))
 	set_node_active(node, active)
+
+
+## True once the hollowing clock has reached the given stage number.
+static func _stage_reached(stage_str: String) -> bool:
+	if not stage_str.is_valid_int():
+		push_warning("ZoneRecontext: bad stage group suffix '%s'" % stage_str)
+		return false
+	return HollowingClock.stage >= stage_str.to_int()
 
 
 ## Visibility + collision + processing in one switch, unit-tested.

@@ -95,12 +95,14 @@ synthesis's density verdict.
 5. **One witnessed recontextualization beat + its first Journal entry** — story
    + replay. The player *sees* the playground flip; one diegetic "observed sign"
    fires. Thesis statement for the spine + proof-of-concept for the Journal.
-   ✅ **Journal built 2026-06-13** (`Journal` autoload + `JournalPanel`, toggle
-   J): witnessed-only, idempotent, save round-trips, LORE/DOOM kinds (the
-   memory-aid-not-checklist rule enforced — no API to add an unwitnessed
-   entry). Dig fragments fire LORE entries now; the **witnessed-recontext beat
-   that fires a DOOM entry** is the remaining authoring step (pairs with the
-   hollowing-clock doom-legibility roadmap).
+   ✅ **Built 2026-06-13.** `Journal` autoload + `JournalPanel` (now the
+   Growth/Memory menu, toggle J): witnessed-only, idempotent, save round-trips,
+   LORE/DOOM kinds (the memory-aid-not-checklist rule enforced — no API to add
+   an unwitnessed entry). The **first DOOM beat** is authored: after the first
+   bell (stage 1), a `recontext_stage_1` lottery notice appears and, on
+   approach, both whispers and logs a DOOM entry. NG+ recontextualization of
+   the dig fragments is wired too (`DiggableSpot.lore_text_recontext` gated on
+   a revelation carried into NG+).
 
 ## After the early arc proves out
 

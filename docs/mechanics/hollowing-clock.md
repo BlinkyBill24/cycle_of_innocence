@@ -55,9 +55,9 @@ Mechanizes the story bible's "delayed alarm" beat: the village does not yet know
 - Persisted in saves (stage, points, pending, consumed milestones). Dialogue can gate on `HollowingClock.stage` directly.
 
 ## Doom legibility roadmap (research 2026-06-12, within the no-timer-UI rule)
-- **Bell pattern language**: the chapel bell rings a different pattern per stage — attentive players can literally count the doom. Layers with (doesn't duplicate) the existing advance toll; cheap (SFX variants + stage switch).
-- **Stage-keyed poster swaps**: village notice-boards/posters swap content by stage, reusing the recontext-group pattern keyed to `HollowingClock.stage` instead of a revelation ([[mechanics/zone-recontextualization]]).
-- **Journal of observed signs**: consultable entries in the Growth/Memory screen, gated on the player *witnessing* the world change ("Mrs. Alden's bench was empty today.") — diegetic, hidden-state-safe, doubles as memorial; NG+ pre-seeds dread-tinged lines via `$knew_it_was_coming` ([[mechanics/progression]]).
+- **Bell pattern language** ✅ **built 2026-06-13**: `_world_lurches()` now tolls the chapel bell **once per stage reached**, spaced ~0.85 s (`bell_pattern(i)`, pure/tested) — attentive players can literally *count* the doom from the sound alone. No UI.
+- **Stage-keyed poster swaps** ✅ **rail built 2026-06-13**: `recontext_stage_<n>` groups (see [[mechanics/zone-recontextualization]]) appear at stage n. First authored: a fresh lottery notice that pins itself over the old one after the first bell (a `WhisperSpot` that also logs a Journal DOOM entry).
+- **Journal of observed signs** ✅ **built 2026-06-13** ([[mechanics/progression]], [[design/secrets-and-discovery]]): consultable DOOM entries in the Growth/Memory screen (toggle J), gated on the player *witnessing* the world change — diegetic, hidden-state-safe, doubles as memorial; NG+ pre-seeds dread-tinged lines via `$knew_it_was_coming`.
 - **Anti-pattern (flagged)**: any always-on-screen indicator, however diegetic-skinned (e.g. a corner candle burning down) — still a meter, still implies continuous time, still competes with the companions' early-warning job. Fails the filter.
 - Corruption-spread-across-zone-maps (parked 2026-06-10 idea) stays parked until playtests say the world reads too slowly — art-cost item; bells/posters/journal buy legibility first.
 

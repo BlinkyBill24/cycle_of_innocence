@@ -12,6 +12,12 @@ extends Area2D
 ## Optional distinct id for the journal entry; defaults to spot_id so each
 ## spot writes at most one lore entry, idempotently.
 @export var lore_sign_id: StringName = &""
+## NG+/recontextualization: once `recontext_revelation` is known (carried into
+## NG+, so true from minute one of a replay), the dig yields THIS fragment
+## instead — the same object, read with knowledge. The buried toy stops being
+## a sad curiosity and becomes a specific murdered child.
+@export_multiline var lore_text_recontext: String = ""
+@export var recontext_revelation: StringName = &""
 
 var revealed := false
 
@@ -20,15 +26,25 @@ func _ready() -> void:
 	add_to_group("diggable")
 
 
+## Pick the fragment to log: the recontextualized one once its revelation is
+## known, else the plain one. Static + pure for testability.
+static func choose_lore(plain: String, recontext: String, reveal_id: StringName) -> String:
+	if not recontext.is_empty() and reveal_id != &"" \
+			and PlayerData.is_revelation_known(reveal_id):
+		return recontext
+	return plain
+
+
 ## Returns true only on the first reveal (assist rewards key off this).
 func reveal() -> bool:
 	if revealed:
 		return false
 	revealed = true
 	PlayerData.set_story_flag(StringName("dug_" + String(spot_id)))
-	if not lore_text.is_empty():
+	var fragment := choose_lore(lore_text, lore_text_recontext, recontext_revelation)
+	if not fragment.is_empty():
 		var sign_id := lore_sign_id if lore_sign_id != &"" else spot_id
-		Journal.witness(sign_id, lore_text, Journal.Kind.LORE)
+		Journal.witness(sign_id, fragment, Journal.Kind.LORE)
 	if GameEvents:
 		GameEvents.diggable_revealed.emit(spot_id)
 	var marker := get_node_or_null("Marker") as CanvasItem

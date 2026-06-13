@@ -84,3 +84,46 @@ func test_playground_carries_the_sandbox_whisper() -> void:
 			if group == "recontext_monsters_are_children":
 				found = true
 	assert_true(found, "first authored recontext moment is wired")
+
+
+# --- stage-keyed groups (doom-legibility roadmap) -------------------------
+
+func _make_zone_with_stage_sign(group: String) -> Array:
+	var zone := Node2D.new()
+	add_child_autofree(zone)
+	var recontext: ZoneRecontext = load("res://scripts/world/zone_recontext.gd").new()
+	zone.add_child(recontext)
+	var sign := Area2D.new()
+	sign.add_to_group(group)
+	zone.add_child(sign)
+	return [recontext, sign]
+
+
+func test_stage_group_hidden_until_stage_reached() -> void:
+	HollowingClock.reset()
+	var pair := _make_zone_with_stage_sign("recontext_stage_1")
+	await wait_physics_frames(1)
+	var sign := pair[1] as Area2D
+	assert_false(sign.visible, "stage-1 sign absent at stage 0")
+	HollowingClock.add_alarm(HollowingClock.ALARM_THRESHOLD)  # -> stage 1
+	await wait_physics_frames(1)
+	assert_true(sign.visible, "stage-1 sign appears once the bell has rung")
+	HollowingClock.reset()
+
+
+func test_not_stage_group_inverts() -> void:
+	HollowingClock.reset()
+	var pair := _make_zone_with_stage_sign("recontext_not_stage_1")
+	await wait_physics_frames(1)
+	var sign := pair[1] as Area2D
+	assert_true(sign.visible, "pre-stage-1 decor present at stage 0")
+	HollowingClock.add_alarm(HollowingClock.ALARM_THRESHOLD)
+	await wait_physics_frames(1)
+	assert_false(sign.visible, "pre-stage-1 decor gone once stage 1 hits")
+	HollowingClock.reset()
+
+
+func test_stage_reached_pure() -> void:
+	HollowingClock.reset()
+	assert_false(ZoneRecontext._stage_reached("2"))
+	assert_false(ZoneRecontext._stage_reached("bad"), "non-int suffix is inactive")

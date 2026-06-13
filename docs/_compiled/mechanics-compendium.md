@@ -410,9 +410,9 @@ Mechanizes the story bible's "delayed alarm" beat: the village does not yet know
 - Persisted in saves (stage, points, pending, consumed milestones). Dialogue can gate on `HollowingClock.stage` directly.
 
 ## Doom legibility roadmap (research 2026-06-12, within the no-timer-UI rule)
-- **Bell pattern language**: the chapel bell rings a different pattern per stage — attentive players can literally count the doom. Layers with (doesn't duplicate) the existing advance toll; cheap (SFX variants + stage switch).
-- **Stage-keyed poster swaps**: village notice-boards/posters swap content by stage, reusing the recontext-group pattern keyed to `HollowingClock.stage` instead of a revelation ([[mechanics/zone-recontextualization]]).
-- **Journal of observed signs**: consultable entries in the Growth/Memory screen, gated on the player *witnessing* the world change ("Mrs. Alden's bench was empty today.") — diegetic, hidden-state-safe, doubles as memorial; NG+ pre-seeds dread-tinged lines via `$knew_it_was_coming` ([[mechanics/progression]]).
+- **Bell pattern language** ✅ **built 2026-06-13**: `_world_lurches()` now tolls the chapel bell **once per stage reached**, spaced ~0.85 s (`bell_pattern(i)`, pure/tested) — attentive players can literally *count* the doom from the sound alone. No UI.
+- **Stage-keyed poster swaps** ✅ **rail built 2026-06-13**: `recontext_stage_<n>` groups (see [[mechanics/zone-recontextualization]]) appear at stage n. First authored: a fresh lottery notice that pins itself over the old one after the first bell (a `WhisperSpot` that also logs a Journal DOOM entry).
+- **Journal of observed signs** ✅ **built 2026-06-13** ([[mechanics/progression]], [[design/secrets-and-discovery]]): consultable DOOM entries in the Growth/Memory screen (toggle J), gated on the player *witnessing* the world change — diegetic, hidden-state-safe, doubles as memorial; NG+ pre-seeds dread-tinged lines via `$knew_it_was_coming`.
 - **Anti-pattern (flagged)**: any always-on-screen indicator, however diegetic-skinned (e.g. a corner candle burning down) — still a meter, still implies continuous time, still competes with the companions' early-warning job. Fails the filter.
 - Corruption-spread-across-zone-maps (parked 2026-06-10 idea) stays parked until playtests say the world reads too slowly — art-cost item; bells/posters/journal buy legibility first.
 
@@ -773,7 +773,7 @@ No traditional skill trees or XP levels. Unlocks come from:
 - **Ruthless / Vessel**: Corrupted strikes, intimidation that breaks enemy morale, force companions into high-risk moves, temporary power boosts at personal cost.
 - **Hybrid**: Creative or tragic combinations (e.g., using a corrupted companion's power in a redemptive way).
 
-**Menu**: "Growth" or "Memory" screen showing current age, morality, companion status, and unlocked abilities. Simple and thematic. **Journal of observed signs** (research 2026-06-12; ✅ v1 built 2026-06-13 — `Journal` autoload + `JournalPanel`, toggle **J**): entries appear only when the player witnessed the corresponding world change — Rowan's inference, not game state ([[mechanics/hollowing-clock]] doom legibility); NG+ pre-seeds via `$knew_it_was_coming` (hook reserved, not yet auto-populated). LORE entries (dug keepsakes) and DOOM entries (observed signs of the net closing) share one witnessed-only, idempotent, save-round-tripped store. Currently standalone panel; folds into this Growth/Memory menu later. **Hard rule** (secrets research 2026-06-13, [[design/secrets-and-discovery]]): this is a **memory aid for witnessed things, never a quest log / checklist** — the Outer Wilds ship-log / Obra Dinn logbook line (logbook only inscribes a fate once deduced; Lorelei's "photographic memory" stores what you saw but never solves for you). Hold that line. `[verified 2026-06-13]`
+**Menu**: "Growth" or "Memory" screen showing current age, morality, companion status, and unlocked abilities. Simple and thematic. **Journal of observed signs** (research 2026-06-12; ✅ v1 built 2026-06-13 — `Journal` autoload + `JournalPanel`, toggle **J**): entries appear only when the player witnessed the corresponding world change — Rowan's inference, not game state ([[mechanics/hollowing-clock]] doom legibility); NG+ pre-seeds via `$knew_it_was_coming` (hook reserved, not yet auto-populated). LORE entries (dug keepsakes) and DOOM entries (observed signs of the net closing) share one witnessed-only, idempotent, save-round-tripped store. **The panel is now the Growth/Memory menu** (2026-06-13): a stats header (name · morality tier · Briar bond) over the observed-signs list, toggle J. **Hard rule** (secrets research 2026-06-13, [[design/secrets-and-discovery]]): this is a **memory aid for witnessed things, never a quest log / checklist** — the Outer Wilds ship-log / Obra Dinn logbook line (logbook only inscribes a fate once deduced; Lorelei's "photographic memory" stores what you saw but never solves for you). Hold that line. `[verified 2026-06-13]`
 
 ## NG+ & Knowledge Carry-Over
 
@@ -944,6 +944,8 @@ Revelations don't just unlock dialogue — they change how **existing zones func
 3 zones × 2-3 revelations each ≈ **8-10 authored recontext moments**, anchored on the big bible twists (monsters-are-children, elders-are-survivors, Rowan-is-the-vessel). The playground gets the full treatment (it's the thesis statement: safety → horror → grief).
 
 **Direct shipped model** (secrets research 2026-06-13, [[design/secrets-and-discovery]]): **Void Stranger** (System Erasure, 2023) — new knowledge recontextualizes already-visited floors, with a second-run ARG layer that makes old rooms yield new interactions. The closest mechanical analogue to this spine. `[verified 2026-06-13]` **Scope caution for a solo dev**: a few *deep* flips beat many shallow toggles — Void Stranger / Outer Wilds / Animal Well all achieve recontext at scale via small, dense worlds, not many zones. Keep node count conservative.
+
+**Stage-keyed variant** (✅ built 2026-06-13): `ZoneRecontext` now also toggles `recontext_stage_<n>` / `recontext_not_stage_<n>` groups by `HollowingClock.stage` (re-applied live on stage advance) — the same rail carries **doom presentation** (poster swaps, a fresh lottery notice appearing after the first bell) keyed to the net closing, per the [[mechanics/hollowing-clock]] doom-legibility roadmap. A `WhisperSpot` in such a group, with a `journal_text`, both speaks and records the sign as a Journal DOOM entry.
 
 ## Data model / tech
 - Naming convention: nodes grouped `recontext_<revelation_id>`; a 20-line `ZoneRecontext` helper applies visibility on `zone_entered` + live on `GameEvents.revelation_unlocked`.
@@ -1693,12 +1695,14 @@ synthesis's density verdict.
 5. **One witnessed recontextualization beat + its first Journal entry** — story
    + replay. The player *sees* the playground flip; one diegetic "observed sign"
    fires. Thesis statement for the spine + proof-of-concept for the Journal.
-   ✅ **Journal built 2026-06-13** (`Journal` autoload + `JournalPanel`, toggle
-   J): witnessed-only, idempotent, save round-trips, LORE/DOOM kinds (the
-   memory-aid-not-checklist rule enforced — no API to add an unwitnessed
-   entry). Dig fragments fire LORE entries now; the **witnessed-recontext beat
-   that fires a DOOM entry** is the remaining authoring step (pairs with the
-   hollowing-clock doom-legibility roadmap).
+   ✅ **Built 2026-06-13.** `Journal` autoload + `JournalPanel` (now the
+   Growth/Memory menu, toggle J): witnessed-only, idempotent, save round-trips,
+   LORE/DOOM kinds (the memory-aid-not-checklist rule enforced — no API to add
+   an unwitnessed entry). The **first DOOM beat** is authored: after the first
+   bell (stage 1), a `recontext_stage_1` lottery notice appears and, on
+   approach, both whispers and logs a DOOM entry. NG+ recontextualization of
+   the dig fragments is wired too (`DiggableSpot.lore_text_recontext` gated on
+   a revelation carried into NG+).
 
 ## After the early arc proves out
 

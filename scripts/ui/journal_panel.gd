@@ -1,10 +1,11 @@
 class_name JournalPanel
 extends CanvasLayer
-## Minimal viewer for the Journal of observed signs (secrets-and-discovery #5).
-## Toggled with J. A memory aid for WITNESSED things — it lists what Rowan has
-## seen (lore fragments, doom signs), newest first, and never shows a to-do or
-## an undiscovered entry. Folds into the Growth/Memory menu later
-## (docs/mechanics/progression.md); standalone panel for now.
+## Growth / Memory menu (docs/mechanics/progression.md), toggled with J. A
+## stats header (age, morality tier, Briar's bond) over the Journal of observed
+## signs — a memory aid for WITNESSED things only (secrets-and-discovery #5):
+## lore fragments + doom signs, newest first, never a to-do or undiscovered
+## entry. The Journal half holds the line; the header is the "Growth" screen
+## the progression doc always called for.
 
 const KIND_TINT := {
 	0: Color(0.86, 0.84, 0.76),  # LORE — bone white
@@ -13,6 +14,7 @@ const KIND_TINT := {
 
 var _root: Panel
 var _list: VBoxContainer
+var _stats: Label
 var _open := false
 
 
@@ -34,8 +36,8 @@ func _build() -> void:
 	add_child(dim)
 	_root = Panel.new()
 	_root.set_anchors_preset(Control.PRESET_CENTER)
-	_root.custom_minimum_size = Vector2(340, 260)
-	_root.size = Vector2(340, 260)
+	_root.custom_minimum_size = Vector2(340, 300)
+	_root.size = Vector2(340, 300)
 	_root.position = -_root.size / 2.0
 	add_child(_root)
 	var margin := MarginContainer.new()
@@ -44,8 +46,15 @@ func _build() -> void:
 		margin.add_theme_constant_override("margin_" + side, 14)
 	_root.add_child(margin)
 	var col := VBoxContainer.new()
-	col.add_theme_constant_override("separation", 8)
+	col.add_theme_constant_override("separation", 6)
 	margin.add_child(col)
+	# Growth header (age / morality / bond) — the "Memory" screen stats
+	_stats = Label.new()
+	_stats.add_theme_font_size_override("font_size", 11)
+	_stats.add_theme_color_override("font_color", Color(0.72, 0.78, 0.72))
+	col.add_child(_stats)
+	var sep := HSeparator.new()
+	col.add_child(sep)
 	var title := Label.new()
 	title.text = "What I Have Seen"
 	title.add_theme_font_size_override("font_size", 16)
@@ -68,6 +77,7 @@ func toggle() -> void:
 
 
 func _refresh() -> void:
+	_refresh_stats()
 	for child in _list.get_children():
 		child.queue_free()
 	var entries := Journal.entries_newest_first()
@@ -87,6 +97,15 @@ func _refresh() -> void:
 		line.add_theme_color_override("font_color",
 			KIND_TINT.get(int(e["kind"]), Color.WHITE))
 		_list.add_child(line)
+
+
+func _refresh_stats() -> void:
+	var age := String(PlayerData.AgeStage.keys()[PlayerData.age_stage]).capitalize()
+	var tier := String(PlayerData.get_morality_tier_name()).capitalize()
+	var briar: Dictionary = PlayerData.get_companion(PlayerData.BRIAR_ID)
+	var bond := int(briar.get("bond", 0.0))
+	_stats.text = "%s  ·  %s (%d)  ·  Briar bond %d" % [
+		PlayerData.custom_name, tier, int(PlayerData.morality), bond]
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -8,6 +8,12 @@ extends Area2D
 @export var spot_id: StringName = &"unnamed_whisper"
 @export_multiline var text: String = ""
 @export var dread_on_hear: float = 0.0
+## Optional Journal payload: when set, witnessing the whisper also records an
+## observed-sign entry (secrets-and-discovery / doom legibility). The floating
+## whisper is atmosphere; this is Rowan's recorded inference. DOOM by default
+## (a sign of the net closing) — set to LORE for a perception fragment.
+@export_multiline var journal_text: String = ""
+@export_enum("Lore", "Doom") var journal_kind: int = 1
 
 var _label: Label
 
@@ -27,6 +33,8 @@ func _on_body_entered(body: Node2D) -> void:
 	PlayerData.set_story_flag(flag)
 	if dread_on_hear > 0.0:
 		DreadManager.add_dread(dread_on_hear, &"whisper")
+	if not journal_text.is_empty():
+		Journal.witness(StringName("sign_" + String(spot_id)), journal_text, journal_kind)
 	_float_text()
 
 
