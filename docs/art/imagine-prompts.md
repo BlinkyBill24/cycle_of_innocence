@@ -287,6 +287,46 @@ wasn't scary (goofy grin + neat tattoo-runes). Corrected prompts below.
 - `monster_ghost_girl_bible.png`: "...the pale translucent ghost of a small girl from a previous offering, a faded simple ritual dress, hair drifting as if underwater, hollow sorrowful glowing eyes, a semi-transparent lower half trailing into mist, holding a faded ribbon or a small toy, more melancholy and eerie than gruesome, 4 views plus drift/reach/fade, limited 18-color palette ghostly washed blues and bone-whites with one faint wrong accent..."
 - `monster_evil_warden_bible.png`: "...a malevolent village Warden enforcer who hunts escaped children, tall gaunt figure in a long grimy oilskin coat and wide-brim hat, face lost in shadow with a faint wrong glow where the eyes should be, carrying a hooked lantern pole and a stitched festival armband gone foul, a menacing implacable hunter silhouette, 4-8 views plus stalking-search and lantern-raise lunge, limited 22-color palette cold slate blues and oilskin browns with one sickly festival-yellow and one wrong red accent..." *(the monstrous/horror counterpart to the human `villager_warden_bible.png` patrol figure)*
 
+## Batch-3 PixelLab character pass — bibles → 8-dir characters (2026-06-13, branch feature/bible-concept-art-batch3)
+
+Ran the proven `create-character-pro` (`method=create_from_concept`) pipeline on
+10 of the 15 batch-3 bibles to produce animatable 8-direction characters (the
+"character sheets" for the later `animate` step). The other 5 bibles (Echo
+**egg, hatchling, adult, corrupted** + **grasping-roots**) are NOT directional
+characters — birds/objects have no PixelLab template — so they're deferred to the
+object/animation path (`create_map_object` + `animate_object`), not character
+rotation.
+
+Wiring lives in `tools/pixellab_v2.py` (`REFS`/`DESCRIPTIONS`/`TEMPLATE_IDS`/
+`STYLE_CELLS` extended; new `_pro` ids in `state.json`). Per-char neutral concept
+crop (quadrupeds → SIDE panel, humanoids → FRONT) → magenta key + despill +
+`_largest_blob` → `create-character-pro` with the approved Rowan/Briar clean cell
+as style reference, `view=low top-down`, 32px. Templates: `mannequin`
+(rowan_teen, rowan_adult, crawler, ghost_girl, evil_warden), `dog` (briar_adult,
+briar_corrupt), `horse` (storm_young, storm_adult, storm_corrupt). Strips saved
+to `assets/reference/pixellab_v2/<char>_pro_preview.png`.
+
+**Two pipeline regressions found & fixed this pass** (the first 10-char batch had
+artifacts the user flagged):
+1. **Backdrop box** — the dog/horse templates paint a solid box behind the
+   subject unless an explicit negative is sent. The current `create_pro` had
+   dropped the `style_description` "no backdrop/box/kennel…" negative from the
+   2026-06-11 briar note; **restored it.** (Fixed the tan/white boxes behind both
+   dogs.)
+2. **Magenta halo bleed** — the corrupted/glow bibles blend their glow/mist into
+   the `#FF00FF` key as a pink/purple halo the strict despill missed, which then
+   propagates as speckled background pixels. Added `_strip_magenta_fringe`
+   (drop any pixel where R−G>40 AND B−G>40) to concept extraction. (Fixed the
+   crawler/storm_corrupt noise.)
+   Also de-translucent-ified the ghost description (it rendered near-invisible).
+3. Drive-by: `preview()`/`_fetch_frame()` now send a browser `User-Agent` — the
+   Backblaze CDN started 403-ing UA-less rotation fetches.
+
+7 of 10 (both dogs, all 3 horses, crawler, ghost) were regenerated after the
+fixes; the old artifacted characters were deleted from the PixelLab account.
+**Next step (later):** `animate` the stored characters → `sheets-pro` → `.tres`,
+same as the existing rowan/briar/twisted rows.
+
 ## Inventory item icons (2026-06-13 — branch feature/inventory-item-art)
 
 First inventory item ICONS. These are **UI sprites, not world props**, so they

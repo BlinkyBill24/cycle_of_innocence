@@ -68,5 +68,45 @@
   "anim_job_stare_south_north": "queued",
   "anim_job_stare_east_west": "queued",
   "anim_job_dusk_press_east": "queued"
+ },
+ "rowan_teen_pro": {
+  "create_job": "87dc4c0c-7dfe-4295-a2de-91aea8f4bd45",
+  "character_id": "9f196032-d1fd-4a3d-9f50-0ce84dfcd048"
+ },
+ "rowan_adult_pro": {
+  "create_job": "d1400eac-a974-4950-8d4d-e31c659a5885",
+  "character_id": "21c06e01-1fd9-42d2-aa11-72e2bb06c7f3"
+ },
+ "evil_warden_pro": {
+  "create_job": "27d98fc5-9c60-4caa-9fd1-21bf0dbcd20f",
+  "character_id": "f21da93b-89b3-450e-9263-47800c7c07dd"
+ },
+ "briar_adult_pro": {
+  "create_job": "378847b6-35b8-46ad-b326-9d16aacfc6db",
+  "character_id": "16cf2fc4-3728-494a-a609-0215a07fb65b"
+ },
+ "briar_corrupt_pro": {
+  "create_job": "4384db99-a2db-4862-acb1-9f13dbdba306",
+  "character_id": "84c82802-f9e1-43e8-b561-ab75970b5b9b"
+ },
+ "storm_young_pro": {
+  "create_job": "5b637aae-f8ec-4fd7-bc74-2a359f8f3900",
+  "character_id": "4bcdb9b6-fbfc-445d-8a7f-939afb69324e"
+ },
+ "storm_adult_pro": {
+  "create_job": "ddd3d47c-34ac-458b-afa3-e3c49936f2f8",
+  "character_id": "f14165a1-9524-4678-ac7d-15eb24453568"
+ },
+ "storm_corrupt_pro": {
+  "create_job": "ec63de1b-f501-42df-94ee-973b6dbad780",
+  "character_id": "dc638d14-917a-4abf-b5fa-b561e8163b45"
+ },
+ "crawler_pro": {
+  "create_job": "9ec4fd45-a882-4c3f-844d-cf9f5d198d7d",
+  "character_id": "a434953a-14cb-4dbb-b31c-4199ef143e31"
+ },
+ "ghost_girl_pro": {
+  "create_job": "246d9708-1a55-4d16-9dec-2111ff7c928f",
+  "character_id": "75938078-2806-4454-bdf4-4a7bd65a60a7"
  }
 }

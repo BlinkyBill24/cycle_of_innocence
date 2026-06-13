@@ -41,15 +41,44 @@ REFS = {
     "rowan": ("assets/reference/protagonist_child_bible.png", 85, 119, 512, 785, "south", False),
     "briar": ("assets/reference/companion_dog_pup_bible.png", 256, 205, 785, 956, "south", True),
     "twisted": ("assets/reference/monster_twisted_child_bible.png", 102, 205, 512, 990, "west", True),
+    # --- batch 3 (2026-06-13): protagonist stages, companion adult/corrupt forms, new monsters ---
+    # boxes pick ONE neutral panel per bible (quadrupeds -> SIDE profile, humanoids -> FRONT);
+    # magenta key + _largest_blob isolates the single figure inside the box.
+    "rowan_teen": ("assets/reference/protagonist_teen_bible.png", 40, 90, 520, 620, "south", False),
+    "rowan_adult": ("assets/reference/protagonist_adult_bible.png", 20, 110, 450, 690, "south", False),
+    "briar_adult": ("assets/reference/companion_dog_adult_bible.png", 1210, 140, 2280, 660, "east", False),
+    "briar_corrupt": ("assets/reference/companion_dog_corrupted_bible.png", 1220, 150, 2300, 650, "east", False),
+    "storm_young": ("assets/reference/companion_horse_young_bible.png", 1230, 150, 2260, 730, "east", False),
+    "storm_adult": ("assets/reference/companion_horse_adult_bible.png", 1220, 150, 2310, 730, "east", False),
+    "storm_corrupt": ("assets/reference/companion_horse_corrupted_bible.png", 1230, 150, 2340, 740, "east", False),
+    "crawler": ("assets/reference/monster_fetus_crawler_bible.png", 1800, 130, 2360, 840, "south", False),
+    "ghost_girl": ("assets/reference/monster_ghost_girl_bible.png", 35, 95, 540, 710, "south", False),
+    "evil_warden": ("assets/reference/monster_evil_warden_bible.png", 40, 110, 720, 800, "south", False),
 }
 
 DESCRIPTIONS = {
     "rowan": "small 9 year old village child, messy dark purple-brown hair, pale skin, big sad eyes, grey rough-spun knee-length tunic with faded red hand print on chest, bare feet",
     "briar": "small Belgian Malinois puppy, short fawn tan coat, black mask on muzzle, large dark upright ears, torn left ear, small bell collar, lean young build",
     "twisted": "small hunched creature in tattered grey rags, faded carnival clown neck ruff, face hidden in shadow, overly long thin fingers, dragging a tiny wooden duck pull toy on a string",
+    "rowan_teen": "lean teenage version of the same escaped village child, around 15 years old, taller, messy dark hair, haunted wary eyes, patched layered travel clothes over a torn tunic, a cloth wrap on one forearm, wrapped feet",
+    "rowan_adult": "hardened adult version of the same character, early twenties, tall and gaunt, resolute face, a layered scavenged traveler's cloak and worn gear over a scarred body, dark tied-back hair",
+    "briar_adult": "adult Belgian Malinois, athletic lean working dog, short fawn-tan coat, black mask on the muzzle, dark erect pointed ears, a few healed scars, alert noble posture",
+    "briar_corrupt": "corrupted nightmare hound, matted patchy dark fur, glowing wrong-colored eyes, faint glowing veins under the skin, hunched aggressive build",
+    "storm_young": "young adolescent colt, lanky gangly legs, knobbly knees, soft fuzzy coat, short stubby mane, big nervous eyes, faint ritual brand on the flank, muted grey-dun",
+    "storm_adult": "strong adult draft warhorse, muscular grounded build, weathered glossy muted dun coat, full ordinary mane and tail, one small braid with a bone charm, a few faded scars",
+    "storm_corrupt": "horrifying corrupted undead warhorse, gaunt skeletal body, exposed ribs, rotted peeling hide, hollow eye sockets with a cold ember glow, lipless muzzle with too-many teeth, necrotic brand-burns",
+    "crawler": "small pale pitiable larval creature born of a failed ritual, underdeveloped curled body, oversized smooth head, thin too-long grasping limbs, faint glow under translucent skin",
+    "ghost_girl": "pale spectral girl, a clearly visible solid pale-blue figure with a faint ghostly glow, simple faded ritual dress, drifting hair, hollow sorrowful glowing eyes, holding a faded toy",
+    "evil_warden": "malevolent village Warden enforcer, tall gaunt figure in a long grimy oilskin coat and wide-brim hat, face lost in shadow with a faint wrong glow for eyes, carrying a hooked lantern pole",
 }
 
-TEMPLATE_IDS = {"rowan": "mannequin", "briar": "dog", "twisted": "mannequin"}
+TEMPLATE_IDS = {
+    "rowan": "mannequin", "briar": "dog", "twisted": "mannequin",
+    "rowan_teen": "mannequin", "rowan_adult": "mannequin",
+    "briar_adult": "dog", "briar_corrupt": "dog",
+    "storm_young": "horse", "storm_adult": "horse", "storm_corrupt": "horse",
+    "crawler": "mannequin", "ghost_girl": "mannequin", "evil_warden": "mannequin",
+}
 
 ## Redesign pass (2026-06-11): create-character-pro with the Grok bible as
 ## concept_image and a crisp cell from the Grok pixel sheets as style
@@ -59,6 +88,18 @@ STYLE_CELLS = {
     "rowan": ("assets/reference/protagonist_child_sheet_clean.png", 0, 0),
     "briar": ("assets/reference/companion_briar_sheet_clean.png", 0, 0),
     "twisted": ("assets/reference/protagonist_child_sheet_clean.png", 0, 0),
+    # batch 3 has no clean Grok pixel sheets yet — reuse the approved Rowan/Briar
+    # cells to carry the rendering STYLE; concept_image + description carry design.
+    "rowan_teen": ("assets/reference/protagonist_child_sheet_clean.png", 0, 0),
+    "rowan_adult": ("assets/reference/protagonist_child_sheet_clean.png", 0, 0),
+    "briar_adult": ("assets/reference/companion_briar_sheet_clean.png", 0, 0),
+    "briar_corrupt": ("assets/reference/companion_briar_sheet_clean.png", 0, 0),
+    "storm_young": ("assets/reference/companion_briar_sheet_clean.png", 0, 0),
+    "storm_adult": ("assets/reference/companion_briar_sheet_clean.png", 0, 0),
+    "storm_corrupt": ("assets/reference/companion_briar_sheet_clean.png", 0, 0),
+    "crawler": ("assets/reference/protagonist_child_sheet_clean.png", 0, 0),
+    "ghost_girl": ("assets/reference/protagonist_child_sheet_clean.png", 0, 0),
+    "evil_warden": ("assets/reference/protagonist_child_sheet_clean.png", 0, 0),
 }
 STYLE_CELL_SIZE = 296  # 1776x2368 sheets are 6x8 grids
 
@@ -191,6 +232,21 @@ def _despill_magenta(img: Image.Image) -> Image.Image:
     return Image.fromarray(arr, "RGBA")
 
 
+def _strip_magenta_fringe(img: Image.Image) -> Image.Image:
+    """Wider near-magenta cleanup for concept crops: the batch-3 corrupted
+    glows/mist blend with the #FF00FF key into pink/purple halos that the
+    strict despill misses, and that halo propagates into the generation as
+    speckled background pixels. Drop any pixel where red AND blue clearly
+    exceed green (magenta-family) — safe for skin/brown/grey/green/ghost-blue."""
+    import numpy as np
+    arr = np.asarray(img.convert("RGBA")).copy()
+    r = arr[:, :, 0].astype(int)
+    g = arr[:, :, 1].astype(int)
+    b = arr[:, :, 2].astype(int)
+    arr[((r - g) > 40) & ((b - g) > 40), 3] = 0
+    return Image.fromarray(arr, "RGBA")
+
+
 def make_style_ref(char: str) -> Path:
     """One sheet cell -> clean native-32 pixel art -> 4x nearest (crisp 128px
     style reference, under the API's 168px cap)."""
@@ -228,6 +284,8 @@ def make_concept(char: str) -> Path:
             img["base64"] if isinstance(img, dict) else img))).convert("RGBA")
     else:
         keyed = pixelize.key_background(crop)
+        keyed = _despill_magenta(keyed)        # strict pink despill
+        keyed = _strip_magenta_fringe(keyed)   # wider halo strip (corrupted glows)
     bbox = keyed.getchannel("A").getbbox()
     if bbox:
         keyed = keyed.crop(bbox)
@@ -258,6 +316,11 @@ def create_pro(only: str | None = None) -> None:
             "concept_image": b64(make_concept(char)),
             "reference_image": b64(make_style_ref(char)),
             "no_background": True,
+            # the dog/horse templates paint a backdrop box without an explicit
+            # negative (2026-06-11 briar note); restored for batch 3.
+            "style_description": "single isolated character sprite, fully "
+            "transparent empty background, no backdrop, no ground tile, no box, "
+            "no kennel, no frame, no platform, nothing behind the character",
         }
         if getattr(create_pro, "seed", 0):
             payload["seed"] = create_pro.seed
@@ -285,8 +348,10 @@ def preview(char_key: str) -> None:
     order = ["south", "south-east", "east", "north-east", "north", "north-west", "west", "south-west"]
     for direction in sorted(rot_urls, key=lambda d: order.index(d) if d in order else 99):
         url = rot_urls[direction]
-        # storage URLs are public and reject the API bearer header
-        with urllib.request.urlopen(url, timeout=120) as resp:
+        # storage URLs are public (no API bearer) but the Backblaze CDN 403s a
+        # missing User-Agent — send a browser UA.
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=120) as resp:
             frames.append(Image.open(io.BytesIO(resp.read())).convert("RGBA"))
     if not frames:
         print(f"{char_key}: no rotation images in response — keys: {list(info.keys())}")
@@ -494,7 +559,8 @@ def _collect_from_api(char: str) -> dict:
 
 def _fetch_frame(url: str) -> Image.Image:
     import io
-    with urllib.request.urlopen(url, timeout=120) as resp:
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=120) as resp:
         return Image.open(io.BytesIO(resp.read())).convert("RGBA")
 
 
