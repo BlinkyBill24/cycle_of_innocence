@@ -24,6 +24,9 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - Strong emphasis on "no Mote reuse" — document guardrails in GROK.md and local handbook.
 
 ## 📥 Captured this session
+- Weapon combat wiring: `sturdy_stick`/`slingshot`/`sling_stones` exist as items+art but `use_kind=NONE`. Needs a combat-facing UseKind (EQUIP/THROW) + player_controller hook so the stick swings and the slingshot consumes a stone. Ties into [[mechanics/combat]].
+- Item world-placement pass: berries + weapons aren't placed in any zone yet (ForageSpot exists; or a small loot table). Dig-up items (bone, locket) are placed.
+- Dig-up loot variety: `DiggableSpot.dig_item` is a single id — a weighted table or per-NG+ swap (like `lore_text_recontext`) could make repeat digs less samey.
 - Inventory v1.1: shared "one modal at a time" guard — Journal + Inventory panels both sit at layer 60; v1 mitigation is force-close-on-foreign-pause, but a single modal-stack arbiter would be cleaner. From [[decisions/2026-06-13-inventory-system]].
 - Inventory touch parity hardening: the v1 "BAG" button opens the satchel, but slot interaction (feed/inspect) on touch isn't designed yet — needs a touch pass before the mobile demo.
 - Item effect extensibility: `use_kind` enum reserves HEAL / REDUCE_DREAD; first utility consumable (bandage / clean lantern oil) will exercise the non-FEED dispatch + the `consumed_on_use=false` reusable-tool path (whistle/lantern).

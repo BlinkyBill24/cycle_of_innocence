@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDef" load_steps=3 format=3 uid="uid://b8slingshot01"]
+
+[ext_resource type="Script" uid="uid://cnh5esvabvxfq" path="res://scripts/items/item_def.gd" id="1_itemdef"]
+[ext_resource type="Texture2D" uid="uid://d0hf8iwcu2nm8" path="res://assets/sprites/items/slingshot.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_itemdef")
+id = &"slingshot"
+display_name = "Slingshot"
+category = 2
+icon = ExtResource("2_icon")
+description = "A whittled slingshot. Useless without stones."
+distorted_description = "A small machine for keeping the world at a distance."
+stackable = false
+max_stack = 1
+discardable = true
+companion_id = &""
+use_kind = 0
+bond_delta = 0.0
+morality_delta = 0.0
+consumed_on_use = false
