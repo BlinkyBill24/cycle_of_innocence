@@ -31,7 +31,7 @@ position = Vector2(-24, 124)
 position = Vector2(0, 110)
 
 [node name="SpawnFromBasement" type="Marker2D" parent="." groups=["spawn_from_basement"]]
-position = Vector2(120, 30)
+position = Vector2(122, -80)
 
 [node name="ExitDoor" type="Area2D" parent="." groups=["interior_door"]]
 position = Vector2(0, 140)
@@ -45,7 +45,7 @@ prompt_text = "Step outside"
 shape = SubResource("RectangleShape2D_door")
 
 [node name="StairsDown" type="Area2D" parent="."]
-position = Vector2(120, -10)
+position = Vector2(121, -79)
 collision_mask = 2
 script = ExtResource("5_door")
 target_scene_path = "res://scenes/zones/cottage_basement.tscn"
