@@ -147,8 +147,28 @@ func _update_footsteps(delta: float) -> void:
 		return
 	_footstep_timer -= delta
 	if _footstep_timer <= 0.0:
-		Sfx.play(&"footstep", -10.0, 0.12)
+		Sfx.play(footstep_sound(_current_surface()), -10.0, 0.12)
 		_footstep_timer = 0.34
+
+
+## Surface under the player's feet — the last gravel/path SurfaceZone entered,
+## else grass (the default ground). Rough; zone placement is an editor pass.
+func _current_surface() -> StringName:
+	for node in get_tree().get_nodes_in_group("surface_zone"):
+		var zone := node as SurfaceZone
+		if zone and zone.has_player():
+			return zone.surface
+	return &"grass"
+
+
+## Map a surface name to its Sfx key. Static + pure (testable). Unknown
+## surfaces fall back to grass (the `footstep` key).
+static func footstep_sound(surface: StringName) -> StringName:
+	match surface:
+		&"gravel", &"path", &"sand":
+			return &"footstep_gravel"
+		_:
+			return &"footstep"
 
 
 const ASSIST_RANGE := 48.0

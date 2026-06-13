@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://envpq1ay0667"]
+[gd_scene load_steps=58 format=3 uid="uid://envpq1ay0667"]
 
 [ext_resource type="Script" uid="uid://dw5pp4xyg1cpx" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" uid="uid://6k1vnwks463q" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -35,6 +35,7 @@
 [ext_resource type="Script" uid="uid://bnho50hs5u7pg" path="res://scripts/world/whisper_spot.gd" id="33_whisper"]
 [ext_resource type="Texture2D" uid="uid://ru00ut6fy12k" path="res://assets/sprites/tiles/playground_ground_backdrop.png" id="34_backdrop"]
 [ext_resource type="Texture2D" uid="uid://msj4ht228xe8" path="res://assets/sprites/village/harmony_board.png" id="41_notice"]
+[ext_resource type="Script" path="res://scripts/world/surface_zone.gd" id="42_surface"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -89,6 +90,9 @@ radius = 18.4391
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_whisper"]
 radius = 56.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_surface"]
+size = Vector2(360, 360)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_silhouette"]
 atlas = ExtResource("13_monster_tex")
@@ -463,6 +467,15 @@ quantity = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DriedMeatForage"]
 shape = SubResource("CircleShape2D_forage")
+
+[node name="PlazaGravel" type="Area2D" parent="." groups=["surface_zone"]]
+position = Vector2(-120, -40)
+collision_mask = 2
+script = ExtResource("42_surface")
+surface = &"sand"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlazaGravel"]
+shape = SubResource("RectangleShape2D_surface")
 
 [node name="Marker" type="Polygon2D" parent="DriedMeatForage"]
 color = Color(0.78, 0.55, 0.35, 0.9)

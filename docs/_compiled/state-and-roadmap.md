@@ -437,6 +437,10 @@ Gate passed; polish items from the verdict (address during post-slice audio/feel
 
 *(Secrets research 2026-06-13 deepened the first three of these with sourced backing — Animal Well "each tool teaches a singular fact, discoverable through play not text"; Crow Country ships a combat-free Exploration Mode + 15 optional non-combat secrets; Lorelei keeps all knowledge in-game + randomizes solutions. All folded into [[design/secrets-and-discovery]].)*
 
+## 📥 Captured this session (footstep surfaces, 2026-06-13)
+
+- **SurfaceZone editor pass**: the per-surface footstep hook ships with ONE rough `PlazaGravel` zone in the playground — author the real surface map in the editor (path band, ritual sand, wood on the play equipment). Add `SurfaceZone` Area2Ds, set `surface` (gravel/path/sand → gravel sound; anything else → grass). Pairs with the SFX session's `footstep_gravel` wiring.
+
 ## 📥 Captured this session (secrets research, 2026-06-13)
 
 Synthesized in [[design/secrets-and-discovery]]; raw captures here for the inbox trail.
@@ -504,6 +508,7 @@ Rework the playground props (except trees) — fix off perspective + wrong scale
 
 ## What I did
 *(newest first)*
+- **Per-surface footsteps (rough hook)** (worktree `worktree-footstep-surface`, suite 238): footsteps now switch sound by ground. New `SurfaceZone` Area2D (group `surface_zone`, `@export surface`) tracks player overlap; player `_current_surface()` returns the entered zone's surface else `&"grass"`, and pure `footstep_sound()` maps gravel/path/sand→`footstep_gravel`, everything else→grass `footstep` (3 GUT tests). Default ground stays grass; one rough `PlazaGravel` zone (`surface=&"sand"`) dropped over the central plaza as a starting estimate — **placement is the user's editor pass** (add/resize SurfaceZones, set `surface`). Boot clean.
 - **Stale-checkout diagnosis + `tools/sync.sh`**: the "I merged but still see no poster / silent bell" report was NOT lost work — the editor checkout `test/` was **5 commits behind origin/main** (PRs merged on GitHub but never pulled locally), so it had none of the poster/bell changes and its scene had no Poster node. Synced it (stash collider edit → ff to origin/main → pop → reimport) and added **`tools/sync.sh`**: pull latest + reimport before F5, auto-stashing uncommitted editor edits. Documented in AGENTS.md working loop. Recurring root cause of the parallel-session confusion.
 - **Real SFX via ElevenLabs** (worktree `feature/sfx-elevenlabs` off main, suite 235): first real sound effects, replacing the synth placeholders. New tool `tools/gen_elevenlabs_sfx.py` — ElevenLabs text-to-sound-effects, requests PCM (`output_format=pcm_44100`) and wraps it as **mono 16-bit WAV** via stdlib `wave` (downmix from stereo; no ffmpeg here; lighter for the Web constraint). Free-tier-aware: generates sequentially, stops on 401/402/429. Key at `~/.config/elevenlabs/api_key` (NEVER in repo; added to AGENTS tech stack). **Replaced in place** (keep filenames → `Sfx.gd` keys unchanged): `briar_bark`, `briar_whimper`, `briar_dig`, `footstep_grass`, `hit_thud`, `attack_swing`. **New**: `footstep_gravel`, `found`, `owl_hoot` (registered in `Sfx.gd` as `footstep_gravel`/`found`/`owl`) + `crickets` (ambient bed, left as a file). 10 clips, all generated in one pass (credits held). Full suite **235 green** (Sfx autoload preloads all → a bad file would fail loudly).
   - **Follow-up:** `crickets`/`owl_hoot` want loop-enabled import + wiring as ambient beds (AdaptiveAudio or looping players); `footstep_gravel` needs a per-surface hook in the player so gravel-vs-grass is chosen by ground. User exposed the API key in chat → recommend rotating it.

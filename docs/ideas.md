@@ -102,6 +102,10 @@ Gate passed; polish items from the verdict (address during post-slice audio/feel
 
 *(Secrets research 2026-06-13 deepened the first three of these with sourced backing — Animal Well "each tool teaches a singular fact, discoverable through play not text"; Crow Country ships a combat-free Exploration Mode + 15 optional non-combat secrets; Lorelei keeps all knowledge in-game + randomizes solutions. All folded into [[design/secrets-and-discovery]].)*
 
+## 📥 Captured this session (footstep surfaces, 2026-06-13)
+
+- **SurfaceZone editor pass**: the per-surface footstep hook ships with ONE rough `PlazaGravel` zone in the playground — author the real surface map in the editor (path band, ritual sand, wood on the play equipment). Add `SurfaceZone` Area2Ds, set `surface` (gravel/path/sand → gravel sound; anything else → grass). Pairs with the SFX session's `footstep_gravel` wiring.
+
 ## 📥 Captured this session (secrets research, 2026-06-13)
 
 Synthesized in [[design/secrets-and-discovery]]; raw captures here for the inbox trail.
