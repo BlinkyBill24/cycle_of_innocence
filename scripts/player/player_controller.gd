@@ -137,6 +137,11 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact") and movement_state == MovementState.EXPLORING:
 		_on_interact_pressed()
 
+	# recall: ask the companion to (re-)point at what it last sought. Decoupled —
+	# the companion / quest decide the target (docs/mechanics/companion-pointer.md).
+	if Input.is_action_just_pressed("recall_companion") and movement_state == MovementState.EXPLORING:
+		GameEvents.companion_recalled.emit()
+
 func _decelerate(delta: float) -> void:
 	velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
@@ -300,8 +305,6 @@ func _stop_soothe() -> void:
 
 func _try_companion_assist() -> void:
 	var companion := get_tree().get_first_node_in_group("companion") as CompanionBase
-	if companion == null:
-		return
 	var nearest: DiggableSpot = null
 	var nearest_revealed: DiggableSpot = null
 	var best := ASSIST_RANGE
@@ -317,12 +320,18 @@ func _try_companion_assist() -> void:
 		elif spot.revealed and dist < best_revealed:
 			best_revealed = dist
 			nearest_revealed = spot
-	if nearest:
-		companion.command_dig(nearest)
-	elif nearest_revealed:
-		# standing on dug-up earth: answer the press so silence never reads as
-		# a bug — there is just nothing left buried here (playtest 2026-06-11)
-		companion.signal_nothing_to_dig()
+	if companion:
+		if nearest:
+			companion.command_dig(nearest)
+		elif nearest_revealed:
+			# standing on dug-up earth: answer the press so silence never reads as
+			# a bug — there is just nothing left buried here (playtest 2026-06-11)
+			companion.signal_nothing_to_dig()
+	elif nearest:
+		# no-missable fallback (Fable model, docs/mechanics/companion-pointer.md):
+		# with no dog to dig, Rowan uncovers it by hand — content is never gated
+		# behind the companion alone.
+		nearest.reveal()
 
 ## PixelLab characters have true 4-direction rows (incl. west) — no mirroring.
 ## Returns [animation_name, flip_h]; pure for testability.

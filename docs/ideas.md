@@ -42,6 +42,9 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - **Guiding-wind environmental cue** (R7 2026-06-13): a subtle diegetic directional reinforcement for Briar-seek without UI — leaf/dread-fog drift, or a doom bell growing louder toward the target (Ghost of Tsushima's wind, our flavor). Reinforces, never replaces, Briar.
 - **Whistle-to-recall-and-re-point** (R7 2026-06-13): the reserved reusable whistle tool (see Item effect extensibility above) doubles as the Briar-seek *recall* — re-triggers her tell so the cue is never a one-shot. Folds into [[mechanics/companion-pointer]].
 - **Player-triggered re-hint escalation** (R7 2026-06-13): if the player keeps missing a clue, escalate Briar's insistence **only when recalled**, never auto-interrupt (avoids Okami/Issun's "breaks into a cutscene to point at the obvious").
+- **Hollow House — world entrance** (hollow-house slice 2026-06-13): the quest scene is bootable standalone but has no in-world door yet. Add a `DoorTransition` into `hollow_house` from the village + a `spawn_from_hollow_house` marker in `playground_fringes` so the exit lands somewhere authored. Editor pass.
+- **Hollow House — real art + audio** (2026-06-13): graybox placeholders shipped — real interior tiles/props, a dedicated `seek_tell` Briar animation (currently reuses dig/stare/trot), and a real `briar_seek` bark (ElevenLabs, when credits reset; placeholder yip in place). Pixel/audio pass.
+- **Recall input touch parity** (2026-06-13): the new `recall_companion` action (C) needs a touch control before the mobile demo — fold into the touch-controls pass alongside the satchel BAG button.
 *From plan creation + initial setup (2026-04). Move to Unsorted or Ready after review.*
 
 - Protagonist as escaped sacrifice + animal companions (dog/ bird / horse) as primary found family and mechanical helpers.

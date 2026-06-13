@@ -82,6 +82,39 @@ accessible-interiors transition, Briar-seek + fallback, DreadManager + adaptive
 audio, companion fear, zone-recontext + Journal DOOM gate, save/reload inside the
 house. Then → **Phase 2 external playtest** (thresholds in the decision record).
 
+## Built — pass 1 (2026-06-13, branch `feature/hollow-house`)
+Graybox slice on existing systems only; suite 262 green, headless boot clean.
+- **Scene** `scenes/zones/hollow_house.tscn` (`InteriorRoot`, `dread_baseline 8`):
+  closed floorplan — hub + a left room (doom-signals) + a right room (the ledger)
+  behind one diegetic gate, with doorway gaps so it's traversable.
+- **Briar-seek** (`CompanionBase.command_seek` + a `Seek` HSM state): lead →
+  look-back loop → exclusive tell + new `briar_seek` SFX; eagerness scales with
+  bond, hesitation/refusal with corruption; re-points on **recall (C)** via
+  `GameEvents.companion_recalled`. Pure `pick_seek_target` unit-tested.
+- **No-missable fallback**: `_try_companion_assist` now lets Rowan dig by hand
+  when Briar's absent (Fable model); the ledger `DiggableSpot` carries a `Glint`
+  affordance. Reveal is companion-agnostic (unit-tested).
+- **Knowledge gate** `HollowHouseQuest`: the recontext beat fires only when the
+  ledger is found **and** ≥2 `sign_hollow_*` DOOM entries are witnessed (either
+  order) → unlock `hollow_house_truth` (ZoneRecontext swaps nodes) + one stinger
+  + dread spike + a DOOM Journal entry + one balloon. Pure gate unit-tested.
+- **Gate** `GatedDoor`: a stuck door Briar scratches open (digs the paired
+  `hollow_door_scratch` spot) — one gate, not a key-hunt.
+- **Horror**: `DeepDread` zone (level 55) in the ledger room makes Briar cower
+  *before* the reveal (foreshadowing); `FearEmitter` ramps the dread stem by
+  proximity to the ledger (pure curve unit-tested); one stinger reserved for the
+  turn.
+- **New assets** (graybox placeholders): `briar_seek.wav`, `hollow_house_floor`,
+  `gate_panel`, `clue_glint`, `hollow_house_ledger` icon + ItemDef, the
+  `hollow_house_book.dialogue` balloon.
+
+> **F5 checks the human must do** (agents are runtime-blind): Briar-seek cue
+> readability (does she clearly lead? does recall-C re-point?), the dread ramp
+> into the ledger room, stinger timing on the reveal, and end-to-end traversal
+> (hub → witness 2 signs → scratch the gate → seek/dig the ledger → recontext).
+> **Art is graybox** — real interior tiles/props + a real `seek_tell` animation
+> and `briar_seek` bark are the PixelLab/ElevenLabs pass.
+
 ## Out of scope (defer)
 Age-progression/long-arc systems, new mechanics, the zone-wide art pass (Phase 3,
 after playtest validates the beats), and any "detective vision" sense (ideas
