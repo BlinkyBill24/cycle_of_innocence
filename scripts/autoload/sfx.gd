@@ -20,6 +20,12 @@ const STREAMS := {
 }
 const POOL_SIZE := 8
 
+## Per-sound base mix trim in dB, ADDED to the call-site volume_db — lets a hot
+## source be tamed in one place (no asset re-encode, no per-call-site edits).
+const VOLUMES := {
+	&"bark": -8.0,  # ElevenLabs bark ran hot; pull it down everywhere it plays
+}
+
 var _players: Array[AudioStreamPlayer] = []
 
 
@@ -38,16 +44,17 @@ func play(name: StringName, volume_db: float = 0.0, pitch_jitter: float = 0.06) 
 	if stream == null:
 		push_warning("Sfx: unknown sound '%s'" % name)
 		return
+	var out_db: float = volume_db + float(VOLUMES.get(name, 0.0))
 	for player in _players:
 		if not player.playing:
 			player.stream = stream
-			player.volume_db = volume_db
+			player.volume_db = out_db
 			player.pitch_scale = 1.0 + randf_range(-pitch_jitter, pitch_jitter)
 			player.play()
 			return
 	# pool exhausted: steal the first player
 	_players[0].stream = stream
-	_players[0].volume_db = volume_db
+	_players[0].volume_db = out_db
 	_players[0].play()
 
 
