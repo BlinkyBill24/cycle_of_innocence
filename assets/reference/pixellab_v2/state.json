@@ -105,9 +105,7 @@
  },
  "storm_young_pro": {
   "create_job": "5b637aae-f8ec-4fd7-bc74-2a359f8f3900",
-  "character_id": "4bcdb9b6-fbfc-445d-8a7f-939afb69324e",
-  "anim_job_idle_south": "queued",
-  "anim_job_spook_east": "queued"
+  "character_id": "4bcdb9b6-fbfc-445d-8a7f-939afb69324e"
  },
  "storm_corrupt_pro": {
   "create_job": "ec63de1b-f501-42df-94ee-973b6dbad780",
@@ -134,11 +132,11 @@
   "anim_job_fade_south": "queued"
  },
  "briar_adult_pro": {
-  "create_job": "dfa5b9a4-cadd-4ead-8eba-66412e27fef4",
-  "character_id": "7ff7abb1-67bf-43e7-85b3-32b1068ef528"
+  "create_job": "dbe9feb6-192d-46f3-9b93-5fff566a5b26",
+  "character_id": "c665dc31-fcf0-422b-890a-31669eb80ed5"
  },
  "storm_adult_pro": {
-  "create_job": "3cc412c5-a69c-41e6-9d6f-b3718cba4b97",
-  "character_id": "9f95add6-752b-40f9-8ade-b024d4e83d0e"
+  "create_job": "5e6040a3-3adf-4533-9026-18f08da4a9f4",
+  "character_id": "118f6f69-d358-4c52-a836-bb22df9df6ca"
  }
 }
