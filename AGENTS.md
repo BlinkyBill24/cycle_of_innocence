@@ -88,6 +88,6 @@ Conventions: typed GDScript; signals for decoupling (extend `GameEvents`); state
 
 1. Plan against the bible + mechanics docs (R2).
 2. Implement in small F5-testable steps; agents are runtime-blind — run the game/tests, paste errors back, iterate.
-3. Test: `bash tools/run-tests.sh`; manual F5 for feel. Humans tune balance/difficulty/dread — agents don't.
+3. Test: `bash tools/run-tests.sh`; manual F5 for feel. Humans tune balance/difficulty/dread — agents don't. **Before any F5 in the shared `test/` checkout, run `bash tools/sync.sh`** — merging a PR on GitHub does NOT update the working copy, so a stale checkout shows old code (auto-stashes local editor edits, fast-forwards, reimports).
 4. Asset work: prompts per `docs/art/imagine-prompts.md` style rules (32×32, limited palette, no AA, transparent bg; age/growth/corruption variants).
 5. Close: journal, ideas, status, sync, commit (checklist above).
