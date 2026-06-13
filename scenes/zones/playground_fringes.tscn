@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://envpq1ay0667"]
+[gd_scene load_steps=53 format=3 uid="uid://envpq1ay0667"]
 
 [ext_resource type="Script" uid="uid://dw5pp4xyg1cpx" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" uid="uid://6k1vnwks463q" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -14,17 +14,17 @@
 [ext_resource type="Script" uid="uid://btmdvj33b1m2y" path="res://scripts/world/dread_beat.gd" id="12_dread_beat"]
 [ext_resource type="Texture2D" uid="uid://c6qn8evpngymo" path="res://assets/sprites/enemies/twisted_child_32.png" id="13_monster_tex"]
 [ext_resource type="AudioStream" uid="uid://dow0ghby57x1n" path="res://assets/audio/sfx/toy_creak_stinger.wav" id="14_stinger"]
+[ext_resource type="Texture2D" uid="uid://dfcc5kar4xprx" path="res://assets/sprites/props/candidates/slide_v2.png" id="15_7f4f8"]
 [ext_resource type="Script" uid="uid://ctap15jdarwf1" path="res://scripts/ui/hud.gd" id="16_hud"]
 [ext_resource type="Script" uid="uid://cnh1w3wphurkn" path="res://scripts/ui/touch_controls.gd" id="17_touch"]
+[ext_resource type="Texture2D" uid="uid://blyvh5tlw8rsl" path="res://assets/sprites/props/candidates/totem_rabbit_v2.png" id="18_7f4f8"]
 [ext_resource type="Script" uid="uid://i2hnxthuckaf" path="res://scripts/world/hideout.gd" id="18_hideout"]
 [ext_resource type="Script" uid="uid://c142agwwdc5rg" path="res://scripts/world/campfire_light.gd" id="19_campfire"]
 [ext_resource type="Texture2D" uid="uid://c6eknu52ocg5o" path="res://assets/sprites/light/glow_radial.png" id="20_glow"]
 [ext_resource type="Script" uid="uid://m1xk1ovqods0" path="res://scripts/ui/name_entry.gd" id="21_name_entry"]
 [ext_resource type="Texture2D" uid="uid://cepavmf2fugne" path="res://assets/sprites/props/swing_set.png" id="22_swing"]
-[ext_resource type="Texture2D" uid="uid://dpw6reivtjjjn" path="res://assets/sprites/props/slide.png" id="23_slide"]
 [ext_resource type="Texture2D" uid="uid://c7fcqo4d11j8s" path="res://assets/sprites/props/roundabout.png" id="24_roundabout"]
 [ext_resource type="Texture2D" uid="uid://c8ug2nbm2wgey" path="res://assets/sprites/props/totem_bear.png" id="25_totem_bear"]
-[ext_resource type="Texture2D" uid="uid://q2w3g2ley0ux" path="res://assets/sprites/props/totem_rabbit.png" id="26_totem_rabbit"]
 [ext_resource type="Texture2D" uid="uid://wdklq47hfray" path="res://assets/sprites/props/dead_tree_a.png" id="27_tree_a"]
 [ext_resource type="Texture2D" uid="uid://ceucauocq5iit" path="res://assets/sprites/props/dead_tree_b.png" id="28_tree_b"]
 [ext_resource type="Texture2D" uid="uid://b1axllr1svigx" path="res://assets/sprites/props/toy_duck.png" id="29_duck"]
@@ -59,16 +59,28 @@ size = Vector2(180, 140)
 radius = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_prop_wide"]
-size = Vector2(64, 12)
+size = Vector2(66, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4qd4"]
+size = Vector2(32, 15.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1uty"]
+size = Vector2(20.5, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_prop_mid"]
-size = Vector2(40, 12)
+size = Vector2(40, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_totem"]
-radius = 5.0
+radius = 9.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7f4f8"]
+size = Vector2(46, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sy06x"]
+size = Vector2(25, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_trunk"]
-radius = 7.0
+radius = 18.4391
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_whisper"]
 radius = 56.0
@@ -225,18 +237,25 @@ position = Vector2(0, -26)
 texture = ExtResource("22_swing")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/SwingSet"]
+position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_prop_wide")
 
 [node name="Slide" type="StaticBody2D" parent="World"]
-position = Vector2(-290, -210)
+position = Vector2(-278, -210)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Slide"]
-position = Vector2(0, -26)
-texture = ExtResource("23_slide")
+position = Vector2(-23, -23)
+texture = ExtResource("15_7f4f8")
+offset = Vector2(0, -38.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Slide"]
-shape = SubResource("RectangleShape2D_prop_mid")
+position = Vector2(-11, -45.75)
+shape = SubResource("RectangleShape2D_e4qd4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Slide"]
+position = Vector2(-41.25, -30.5)
+shape = SubResource("RectangleShape2D_t1uty")
 
 [node name="Roundabout" type="StaticBody2D" parent="World"]
 position = Vector2(-460, -180)
@@ -247,6 +266,7 @@ position = Vector2(0, -18)
 texture = ExtResource("24_roundabout")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Roundabout"]
+position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_prop_mid")
 
 [node name="TotemBear" type="StaticBody2D" parent="World"]
@@ -266,9 +286,10 @@ collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/TotemRabbit"]
 position = Vector2(0, -20)
-texture = ExtResource("26_totem_rabbit")
+texture = ExtResource("18_7f4f8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/TotemRabbit"]
+position = Vector2(0, 13)
 shape = SubResource("CircleShape2D_totem")
 
 [node name="DeadTreeA" type="StaticBody2D" parent="World"]
@@ -280,7 +301,8 @@ position = Vector2(0, -44)
 texture = ExtResource("27_tree_a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/DeadTreeA"]
-shape = SubResource("CircleShape2D_trunk")
+position = Vector2(-1, -8)
+shape = SubResource("RectangleShape2D_7f4f8")
 
 [node name="DeadTreeB" type="StaticBody2D" parent="World"]
 position = Vector2(495, 295)
@@ -291,7 +313,8 @@ position = Vector2(0, -36)
 texture = ExtResource("28_tree_b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/DeadTreeB"]
-shape = SubResource("CircleShape2D_trunk")
+position = Vector2(0.5, -5)
+shape = SubResource("RectangleShape2D_sy06x")
 
 [node name="DeadTreeA2" type="StaticBody2D" parent="World"]
 position = Vector2(655, -255)
