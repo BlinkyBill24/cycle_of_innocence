@@ -36,7 +36,7 @@ position = Vector2(-150, -90)
 position = Vector2(0, 140)
 collision_mask = 2
 script = ExtResource("5_door")
-target_scene_path = "res://scenes/zones/village_green.tscn"
+target_scene_path = "res://scenes/zones/playground_fringes.tscn"
 spawn_id = &"from_cottage"
 prompt_text = "Step outside"
 
