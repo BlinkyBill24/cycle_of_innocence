@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemDef" load_steps=2 format=3 uid="uid://b8driedmeat001"]
+
+[ext_resource type="Script" uid="uid://cnh5esvabvxfq" path="res://scripts/items/item_def.gd" id="1_itemdef"]
+
+[resource]
+script = ExtResource("1_itemdef")
+id = &"dried_meat"
+display_name = "Dried Meat"
+category = 1
+description = "A strip of dried meat. Briar's ribs show through his scruff."
+distorted_description = "Protein. The body that runs needs fuel."
+stackable = true
+max_stack = 9
+discardable = true
+companion_id = &"briar"
+use_kind = 1
+bond_delta = 8.0
+morality_delta = -3.0
+consumed_on_use = true

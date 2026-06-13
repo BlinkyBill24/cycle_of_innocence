@@ -36,3 +36,9 @@ signal cutscene_started(id: StringName)
 signal cutscene_finished(id: StringName)
 
 signal journal_entry_added(sign_id: StringName)  # observed-sign witnessed (Journal)
+
+signal item_acquired(item_id: StringName, quantity: int)
+signal item_used(item_id: StringName)
+signal item_discarded(item_id: StringName)
+signal item_add_failed(item_id: StringName, reason: StringName)  # reason: &"inventory_full" / &"unknown_item"
+signal inventory_changed

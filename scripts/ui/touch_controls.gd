@@ -41,6 +41,20 @@ func _build_ui() -> void:
 	interact.position = Vector2(-170, -76)
 	root.add_child(interact)
 
+	# Satchel open button (touch parity). Opens the modal; the panel's own
+	# SlotButtons handle feed/inspect on touch from there. A plain Control button
+	# (not action injection) so it can't be reached by any input-degradation path.
+	var bag := Button.new()
+	bag.text = "BAG"
+	bag.custom_minimum_size = Vector2(60, 60)
+	bag.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	bag.position = Vector2(-72, 12)
+	bag.focus_mode = Control.FOCUS_NONE
+	bag.pressed.connect(func() -> void:
+		if InventoryPanel:
+			InventoryPanel.open_via_touch())
+	root.add_child(bag)
+
 
 func _process(_delta: float) -> void:
 	var out := _stick.get_output() if _stick else Vector2.ZERO

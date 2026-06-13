@@ -38,6 +38,14 @@ var companions: Dictionary = {}
 var known_revelations: Array[StringName] = []
 var appearance_flags: Array[StringName] = []  # e.g. "ritual_scar", "marked", "hardened"
 var story_flags: Array[StringName] = []  # choice-matrix flags, e.g. "food_shared"
+
+## Inventory run-state. Each slot is {id: StringName, quantity: int}, max 10.
+## Mirrors known_revelations save/load/reset idiom. Verbs live in Inventory
+## (scripts/items/inventory.gd) — this is pure storage, no inventory methods here.
+var inventory: Array[Dictionary] = []
+## Deferred Journal/Memory stub — saved but never shown in the slice (LORE category).
+var lore_items: Array[StringName] = []
+
 var spared_count: int = 0  # encounters-mercy.md: choice-matrix/endings inputs
 var dominated_count: int = 0
 
@@ -64,6 +72,8 @@ func reset_to_defaults() -> void:
 	known_revelations.clear()
 	appearance_flags.clear()
 	story_flags.clear()
+	inventory.clear()
+	lore_items.clear()
 	spared_count = 0
 	dominated_count = 0
 	custom_name = "Rowan"
@@ -250,6 +260,8 @@ func get_save_data() -> Dictionary:
 		"known_revelations": known_revelations.duplicate(),
 		"appearance_flags": appearance_flags.duplicate(),
 		"story_flags": story_flags.duplicate(),
+		"inventory": inventory.duplicate(true),
+		"lore_items": lore_items.duplicate(),
 		"spared_count": spared_count,
 		"dominated_count": dominated_count,
 		"custom_name": custom_name,
@@ -274,6 +286,17 @@ func apply_save_data(data: Dictionary) -> void:
 	appearance_flags.assign(Array(data.get("appearance_flags", [])).map(
 		func(v: Variant) -> StringName: return StringName(v)))
 	story_flags.assign(Array(data.get("story_flags", [])).map(
+		func(v: Variant) -> StringName: return StringName(v)))
+	# Inventory: JSON coerces StringName->String and int->float, so re-wrap explicitly.
+	inventory = []
+	var saved_inv: Array = data.get("inventory", [])
+	for row: Variant in saved_inv:
+		var r: Dictionary = row
+		inventory.append({
+			"id": StringName(str(r.get("id", ""))),
+			"quantity": int(r.get("quantity", 1)),
+		})
+	lore_items.assign(Array(data.get("lore_items", [])).map(
 		func(v: Variant) -> StringName: return StringName(v)))
 	spared_count = int(data.get("spared_count", 0))
 	dominated_count = int(data.get("dominated_count", 0))

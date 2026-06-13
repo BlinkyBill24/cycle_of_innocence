@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemDef" load_steps=2 format=3 uid="uid://c7ritualfrag01"]
+
+[ext_resource type="Script" uid="uid://cnh5esvabvxfq" path="res://scripts/items/item_def.gd" id="1_itemdef"]
+
+[resource]
+script = ExtResource("1_itemdef")
+id = &"ritual_fragment"
+display_name = "Ritual Fragment"
+category = 0
+description = "A shard of painted clay from the playground altar. It hums against your palm."
+distorted_description = "A piece of the machine. It knows your name and the lottery number that was meant for you."
+stackable = false
+max_stack = 1
+discardable = false
+companion_id = &""
+use_kind = 0
+bond_delta = 0.0
+morality_delta = 0.0
+consumed_on_use = false

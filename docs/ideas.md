@@ -24,6 +24,10 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - Strong emphasis on "no Mote reuse" — document guardrails in GROK.md and local handbook.
 
 ## 📥 Captured this session
+- Inventory v1.1: shared "one modal at a time" guard — Journal + Inventory panels both sit at layer 60; v1 mitigation is force-close-on-foreign-pause, but a single modal-stack arbiter would be cleaner. From [[decisions/2026-06-13-inventory-system]].
+- Inventory touch parity hardening: the v1 "BAG" button opens the satchel, but slot interaction (feed/inspect) on touch isn't designed yet — needs a touch pass before the mobile demo.
+- Item effect extensibility: `use_kind` enum reserves HEAL / REDUCE_DREAD; first utility consumable (bandage / clean lantern oil) will exercise the non-FEED dispatch + the `consumed_on_use=false` reusable-tool path (whistle/lantern).
+- Morality-flavored item *effects* (not just descriptions): the "kind herb soothes / ruthless prep poisons" idea from [[mechanics/inventory]] is still unbuilt — v1 only swaps description text.
 - Quirk journal UI: let the player pin one observed line per discovered quirk (companion-quirks.md diagnosis loop) — fold into the interface-horror/UI pass.
 - Plateau discovery cue: when generic soothe stalls at 60, the monster could glance toward its buried key (environmental hint without UI). *(2026-06-12: stall now shows "it calms… but something is missing" + amber bar; the monster-glance environmental cue is still the richer follow-up. Backed by secrets research → [[design/secrets-and-discovery]].)*
 - Faction-aware hitboxes before multi-enemy zones: a Dominated thrall's lunge currently uses the player-hurting hitbox layer — fine with one enemy, needs factions later.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://envpq1ay0667"]
+[gd_scene load_steps=55 format=3 uid="uid://envpq1ay0667"]
 
 [ext_resource type="Script" uid="uid://dw5pp4xyg1cpx" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" uid="uid://6k1vnwks463q" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bxburnnul5hg7" path="res://scripts/world/zone_transition.gd" id="10_transition"]
 [ext_resource type="Script" uid="uid://dpmno5ym2jf0v" path="res://scripts/world/story_dialogue.gd" id="11_story_dialogue"]
 [ext_resource type="Script" uid="uid://btmdvj33b1m2y" path="res://scripts/world/dread_beat.gd" id="12_dread_beat"]
+[ext_resource type="Script" uid="uid://cxs6e70fumff8" path="res://scripts/world/forage_spot.gd" id="40_forage"]
 [ext_resource type="Texture2D" uid="uid://c6qn8evpngymo" path="res://assets/sprites/enemies/twisted_child_32.png" id="13_monster_tex"]
 [ext_resource type="AudioStream" uid="uid://dow0ghby57x1n" path="res://assets/audio/sfx/toy_creak_stinger.wav" id="14_stinger"]
 [ext_resource type="Texture2D" uid="uid://dfcc5kar4xprx" path="res://assets/sprites/props/candidates/slide_v2.png" id="15_7f4f8"]
@@ -57,6 +58,9 @@ size = Vector2(180, 140)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fire"]
 radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_forage"]
+radius = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_prop_wide"]
 size = Vector2(66, 12)
@@ -336,6 +340,8 @@ offset = Vector2(0, -12)
 [node name="DiggableSpotPlayground" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(-368, -200)
 lore_text = "A stuffed rabbit, one button eye gone. Stitched onto its foot, a small cloth tag: \"Mara — Harmony 71.\""
+lore_text_recontext = "Mara's rabbit. She was the one before you — Harmony 71, the number that meant chosen. The toy is all the playground kept of her."
+recontext_revelation = &"monsters_are_children"
 
 [node name="DiggableSpotFringes" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(260, 110)
@@ -383,6 +389,17 @@ dread_on_hear = 8.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SandboxWhisper"]
 shape = SubResource("CircleShape2D_whisper")
 
+[node name="LotteryPostStage1" type="Area2D" parent="." groups=["recontext_stage_1"]]
+position = Vector2(-150, -150)
+script = ExtResource("33_whisper")
+spot_id = &"new_lottery_notice"
+text = "A fresh lottery notice, pinned over the old one. The paste is still wet."
+dread_on_hear = 6.0
+journal_text = "They posted a new lottery notice already. So soon after the last."
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LotteryPostStage1"]
+shape = SubResource("CircleShape2D_whisper")
+
 [node name="NameEntry" type="CanvasLayer" parent="."]
 script = ExtResource("21_name_entry")
 
@@ -422,3 +439,17 @@ fog_nodes = Array[NodePath]([NodePath("../FogSeamNorth"), NodePath("../FogSeamSo
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FirstDreadBeat"]
 shape = SubResource("RectangleShape2D_beat")
+
+[node name="DriedMeatForage" type="Area2D" parent="."]
+position = Vector2(-200, -150)
+collision_mask = 2
+script = ExtResource("40_forage")
+item_id = &"dried_meat"
+quantity = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DriedMeatForage"]
+shape = SubResource("CircleShape2D_forage")
+
+[node name="Marker" type="Polygon2D" parent="DriedMeatForage"]
+color = Color(0.78, 0.55, 0.35, 0.9)
+polygon = PackedVector2Array(0, -7, 6, 0, 0, 7, -6, 0)
