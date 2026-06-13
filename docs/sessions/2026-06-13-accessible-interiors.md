@@ -14,6 +14,22 @@ between floors) on the existing ZoneManager + ZoneRoot rails.
 
 ## What I did
 *(newest first)*
+- **Playtest fixes + real placement** (branch `chore/export-localhost`, off
+  merged main; web build re-exported to localhost:8081):
+  - **Entrance moved to a real village house**: the cottage is now entered via
+    a `DoorTransition` on `PropCottageA` (Marta's house) in `village_green` —
+    it already lines up with the interior's `marker_marta` spot. Added a
+    `spawn_from_cottage` return marker; cottage `ExitDoor` repointed to
+    `village_green`. The temporary playground test door was reverted.
+  - **Stairs were unfindable** (invisible `Area2D`s sitting in the graybox
+    wall-band): added `stairs_down`/`stairs_up` placeholder sprites and moved
+    `StairsDown` onto open floor `(120,-10)` with a matching arrival marker, so
+    the prompts trigger where the player can see to stand.
+  - **Dark-interior prompt fix**: the door prompt rendered in world space, so
+    the basement `DarkTint` crushed it to black. Moved it to a follow_viewport
+    `CanvasLayer` (separate canvas, immune to world CanvasModulate).
+  - Suite **250** green; reach: playground → walk west edge → village → Marta's
+    house (NW) → cottage → stairs → basement → up → exit back to the village.
 - **Accessible Interiors system** (suite 247, full enter→floor→save smoke green):
   built on the *existing* transition/camera rails per the goal, not a parallel
   mechanism. Spec → [[mechanics/accessible-interiors]].
