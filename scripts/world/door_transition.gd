@@ -26,6 +26,9 @@ enum Mode { INTERACT, ENTER }
 
 var _player_inside := false
 var _label: Label
+## The prompt lives on its own CanvasLayer (follow_viewport) so a dark interior's
+## CanvasModulate (e.g. the basement DarkTint) can't crush it to invisibility.
+var _label_layer: CanvasLayer
 
 
 func _ready() -> void:
@@ -83,20 +86,26 @@ func target_path() -> String:
 
 func _show_prompt(text: String) -> void:
 	if _label == null:
+		# own CanvasLayer that tracks the camera — a separate canvas, so the
+		# world's CanvasModulate (dark interiors) does not dim the prompt.
+		_label_layer = CanvasLayer.new()
+		_label_layer.follow_viewport_enabled = true
+		add_child(_label_layer)
 		_label = Label.new()
 		_label.add_theme_font_size_override("font_size", 10)
 		_label.add_theme_color_override("font_color", Color(0.9, 0.88, 0.8))
 		_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
 		_label.add_theme_constant_override("outline_size", 3)
 		_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		_label.z_as_relative = false
-		_label.z_index = 200
-		add_child(_label)
+		_label_layer.add_child(_label)
 	_label.text = text
-	_label.position = Vector2(-_label.size.x / 2.0, -34)
+	# positioned in world coords (the layer follows the viewport), anchored over
+	# the door regardless of where the camera is.
+	_label.position = global_position + Vector2(-_label.size.x / 2.0, -34.0)
 	_label.visible = true
+	_label_layer.visible = true
 
 
 func _hide_prompt() -> void:
-	if _label:
-		_label.visible = false
+	if _label_layer:
+		_label_layer.visible = false
