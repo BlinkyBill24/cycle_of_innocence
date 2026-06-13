@@ -1,6 +1,6 @@
 # Project State & Roadmap — canonical brain (AGENTS.md), roadmap, ideas inbox, latest session journals
-> GENERATED 2026-06-12 by tools/compile_snapshots.py — do NOT edit (not here, not in claude.ai). Source of truth is the Obsidian vault in the game repo; this file is replaced wholesale at milestones.
-> Sources: AGENTS.md, docs/plan/playtest-protocol-2026-06.md, docs/plan/slice-implementation-roadmap.md, docs/ideas.md, docs/sessions/2026-06-12.md, docs/sessions/2026-06-11.md
+> GENERATED 2026-06-13 by tools/compile_snapshots.py — do NOT edit (not here, not in claude.ai). Source of truth is the Obsidian vault in the game repo; this file is replaced wholesale at milestones.
+> Sources: AGENTS.md, docs/plan/playtest-protocol-2026-06.md, docs/plan/slice-implementation-roadmap.md, docs/ideas.md, docs/sessions/2026-06-13.md, docs/sessions/2026-06-12.md
 
 
 ======================================================================
@@ -359,7 +359,7 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 
 ## 📥 Captured this session
 - Quirk journal UI: let the player pin one observed line per discovered quirk (companion-quirks.md diagnosis loop) — fold into the interface-horror/UI pass.
-- Plateau discovery cue: when generic soothe stalls at 60, the monster could glance toward its buried key (environmental hint without UI).
+- Plateau discovery cue: when generic soothe stalls at 60, the monster could glance toward its buried key (environmental hint without UI). *(2026-06-12: stall now shows "it calms… but something is missing" + amber bar; the monster-glance environmental cue is still the richer follow-up. Backed by secrets research → [[design/secrets-and-discovery]].)*
 - Faction-aware hitboxes before multi-enemy zones: a Dominated thrall's lunge currently uses the player-hurting hitbox layer — fine with one enemy, needs factions later.
 *From plan creation + initial setup (2026-04). Move to Unsorted or Ready after review.*
 
@@ -424,6 +424,17 @@ Gate passed; polish items from the verdict (address during post-slice audio/feel
 - **Ritual-symbol literacy** (Lorelei and the Laser Eyes): the player gradually learns to *read* the cult's symbols; late-game environmental text becomes legible. Cheap flavor layer on zone-recontextualization.
 - **Transformation phases mid-fight** (Look Outside): corrupted companion boss variants could evolve phases during the encounter — reserve for the Briar tragedy fight if corruption path is taken.
 
+*(Secrets research 2026-06-13 deepened the first three of these with sourced backing — Animal Well "each tool teaches a singular fact, discoverable through play not text"; Crow Country ships a combat-free Exploration Mode + 15 optional non-combat secrets; Lorelei keeps all knowledge in-game + randomizes solutions. All folded into [[design/secrets-and-discovery]].)*
+
+## 📥 Captured this session (secrets research, 2026-06-13)
+
+Synthesized in [[design/secrets-and-discovery]]; raw captures here for the inbox trail.
+
+- **Obra-Dinn confirmation buffer** ("confirm in threes"): for any deduction-style cult secret, require N confirmations before the game locks it in — blocks brute-force guessing. Copied since by Golden Idol / Roottrees. Reserve for after the early arc proves out.
+- **Replay/failure as the key** (Inscryption): the safe code is only visible after the player has died at least once — failure itself unlocks. Candidate flavor for NG+ / death-gated reveals; pairs with the existing NG+ echoes.
+- **Second-read VillageState gossip**: author gossip lines that read differently once a revelation is known (Undertale-style foreshadowing-that-only-reads-post-twist; In Stars and Time loop-locked re-interaction). Cheap replay layer on the existing stage-keyed gossip pools.
+- **"Three players at once" layering** (Animal Well): clean critical path / optional explorer layer / reserved NG+/community layer — density under constraint. The structural target once the early secrets arc lands.
+
 ## 📥 Captured this session (central brain, 2026-06-10)
 
 - Karpathy LLM-wiki pattern: later, consider an auto-synthesized `wiki/` layer over raw docs (graphify skill could seed it) so agents read compounding summaries instead of raw files.
@@ -461,6 +472,56 @@ These should feed into zone design, art prompts, and the first few dialogue node
 ## 📥 Captured this session (research round 3, 2026-06-12)
 
 - **External playtest cadence**: 3–5 outside testers through the NAS/itch web build at the end of *every* content arc — not just the next one. (Round-3 audit; the rest of its process advice lives in the roadmap "Next arcs" block.)
+
+
+======================================================================
+SOURCE: docs/sessions/2026-06-13.md
+======================================================================
+
+---
+name: Session 2026-06-13
+date: 2026-06-13
+tags: [session, cycle-of-innocence, art]
+branch: feature/zelda-fable-v01
+commits: []
+---
+
+# Session 2026-06-13
+
+## Focus
+Rework the playground props (except trees) — fix off perspective + wrong scale.
+
+## What I did
+*(newest first)*
+- **Secrets & discovery research integrated** (branch `docs/secrets-discovery-research` off main; librarian pass on the R7 inbox): new design doc [[design/secrets-and-discovery]] is the actionable spec for the *secrets* pillar of the locked next arc (the [[playtest/2026-06/synthesis]] "content drought" verdict). Model = **knowledge-as-key, not item-keys** (validates the ZoneManager recontext spine); 4 binding rules (no-wiki / no-collectible-checklist / Journal-is-memory-aid / nothing-permanently-missable); early-playground priority list of 5 authored beats.
+  - **Librarian catch**: the research's "prototype Stilled-leads-to-keepsake now (novel)" is stale — mechanism is already implemented ([[mechanics/encounters-mercy]] 2026-06-11). Reconciled to "mechanism exists; **legibility unvalidated** (no tester reached it)" + flagged as genuinely novel (no shipped template, Spiritfarer nearest).
+  - Enriched in place: zone-recontext (Void Stranger direct model + solo-dev scope caution), encounters-mercy (originality flag), progression (Journal = memory-aid-not-checklist hard rule), companions (interest-point/gaze hint system + dig-to-lore). ideas.md: annotated 4 existing stubs with sourced backing, added Obra-Dinn confirmation buffer / Inscryption replay-as-key / second-read gossip / Animal Well layering.
+  - No decision record (per user; rules live in the design doc), no bible edits. Research file → `research/done/`, snapshots recompiled, check-brain green.
+- **Playground props regen v2** (see [[art/prop-coherence]] item 9,
+  [[art/imagine-prompts]] log): regenerated all 6 non-tree props
+  (swing_set, slide, roundabout, totem_bear, totem_rabbit, toy_duck) at canon
+  **low top-down** via `create_map_object` + placement-spot backdrop crops
+  (world→bg px = `x+704, y+416`), replacing the legacy description-only pixflux
+  set whose `view` weakly controlled (slide was isometric, roundabout ellipse
+  too round). Pipeline: crop → generate → trim → `palette_lock.py` → gate.
+  - Re-rolls: **roundabout** (iconic round prior, 0.74→0.58 ratio via
+    wide-short crop + "width ≈ 3× depth") and **totem_bear** ("no grass" to
+    drop a baked ground base, rule 2).
+  - **toy_duck** kept its saturation exemption (rule 1): basic mode, no crop,
+    NOT palette-locked → stays vivid yellow against the drained world.
+  - Staged `assets/sprites/props/candidates/*_v2.png`, all gated PASS,
+    `--headless --import` clean. Sizes changed (swing 96×64→68×84, roundabout
+    64×48→64×37) so **collider/offset fit is the editor pass** — left as
+    candidates, not swapped into `playground_fringes.tscn` (per the
+    no-mechanical-swap rule for resized props).
+
+## Open / next
+- Editor pass (user): place the 6 `_v2` candidates into
+  `scenes/zones/playground_fringes.tscn`, retune StaticBody2D colliders +
+  Sprite2D y-offsets for the new footprints, F5 check on the warm ground.
+
+## Related
+[[art/prop-coherence]] · [[art/imagine-prompts]] · [[sessions/2026-06-12]]
 
 
 ======================================================================
@@ -718,52 +779,3 @@ Claude Code (implementation), adapted from the user's space-game design system.
 ## Related
 [[setup-guide]] · [[decisions/2026-06-12-web-research-bridge]] ·
 [[sessions/2026-06-11]]
-
-
-======================================================================
-SOURCE: docs/sessions/2026-06-11.md
-======================================================================
-
----
-name: Session 2026-06-11
-date: 2026-06-11
-tags: [session, cycle-of-innocence]
-branch: docs/session-close-2026-06-10
-commits: []
----
-
-# Session 2026-06-11
-
-## Focus
-Playtest fixes (dialogue input leak, stilled-child dig steal, Briar pronoun) + name entry at game start. Earlier: close-out of the long 2026-06-10 session (spanned midnight).
-
-## What I did
-*(newest first)*
-- **Backdrop art direction LOCKED** (branches `feature/playground-backdrop` + terranigma-pass follow-ups, 184/184): user feedback killed tile-variant scatter ("stickers") and the courtyard scene-decal in favor of the production model that works — **painted ground backdrops + individually cropped collision props on top**. Pipeline: painter layout → geometry guide (building footprints darkened) → Grok `edit_image` repaint (GROUND ONLY) → LANCZOS fit + 48-color quantize → one backdrop Sprite2D above the tilemap. Both zones converted; village buildings sit on baked worn foundations (shadow ellipses removed ≥96px sprites — they caused floating; glow_radial has no alpha so shadows are procedural now). Playground east went cold-blue — the bible's warm/cold contrast for free. User now places props/hitboxes in the Godot editor (StaticBody2D=walls vs Area2D=detectors — terrace walls re-homed from the user's Area2D to Borders). Editor is source of truth for placement; mocks approximate from here.
-- **Terranigma pass** (branch `feature/terranigma-pass`, 184/184): all four art-direction levers — (1) variation tiles via `create-tiles-pro` style-anchored on our OWN ground tiles (TilesProStyleImage = raw base64+w+h; results embedded as rgba_bytes in the job payload, storage URLs 403; curation filter keeps full-coverage palette-close tiles — wood-plank impostors rejected), 6 grass variants ~28% scatter + stones-only dirt ~7%; (2) terrace rim via grass→cliff tileset (transition-as-elevation as a FEATURE), yards shifted, DIRT/TERRACE separation tested; (3) organic lanes — sine wobble + hash-frayed edges; (4) painted set-piece: Grok scene → `image-to-pixelart-pro` → chapel courtyard ground decal (lanterns/flower beds/paving/bench — the quality benchmark). Also: prop blending fixes (desaturation toward ground palette + procedural contact-shadow ellipses — glow_radial has no alpha falloff, black-modulate = rectangle).
-- **Village furnished + FF7 dialogue + tier-2 pipeline** (branches `refactor/pixellab-tier2`, `feature/village-polish`, `feature/ff7-responses`, 181/181): PixelLab upgraded to tier 2 → slot-aware job pool (`pixellab_jobs.py`, 8 in flight), parallel runner; village tilesets + all 10 props rendered. User reference (farming-village sheet) → ALL village paths are packed dirt (cobble shelved — create-tileset models transitions as ELEVATION; reference-image params 500 server-side, working style-ref path is generate-with-style-v2/bitforge). Village furnished via `place_village_props.py` (guarded one-shot) + `preview_village_map.py` mock. Caught-eavesdropping ×2.5 notice rate. Dialogue: choices now INSIDE the box FF7-style (box grows only for choices); bugfix — moving the menu left the `response_selected` [connection] on the old path, choices fired into the void (regression test asserts wiring + story-flag advance). Villagers-invisible-on-web fixed earlier the same way (frames as root @export — child overrides die in binary scene conversion). Local web workflow: `tools/serve_web.py` (NAS down).
-- **Zone recontextualization v1** (branch `feature/zone-recontext`, 174/174): the knowledge-gated-world mechanism from [[mechanics/zone-recontextualization]] — `recontext_<revelation_id>` groups toggle visibility+collision+processing on zone enter and live on unlock (`recontext_not_*` inverts). New `WhisperSpot` (one-shot world line, story-flagged, optional dread). First authored moment: post-`monsters_are_children` the sandbox whispers about the handprints (+8 dread). Also: web build exported to `exports/web/` (NAS deploy awaits user go-ahead — permission gate).
-- **Warden search detail** (branch `feature/warden-search`, merged): `STAGE2_STARTED` routines — Warden Oslo only exists from hollowing stage 2, sweeping playground markers with a wide lantern radius. The village comes looking.
-- **Village green zone + real transitions** (merged): ZoneManager scene switching with `entry_from_<zone>` gate placement (return-gate + companion-teleport playtest fixes), Wang-painted village scene with markers/villagers/eavesdrops, placeholder ground atlases until renders land.
-- **Village-life core + villager art** (branches `feature/village-art-bibles` + `feature/villager-sheets`, 162/162): Grok bibles for 4 human archetypes (farmer parent w/ head-swap corner, Warden, Elder "Father Aldwin" — rerolled European-rural, kept the embroidered lottery numbers — and the bright village child) + village-at-sunset mood anchor; prompts + moderation notes in [[art/imagine-prompts]]. PixelLab `create-character-pro` ×4 with the LIVE in-game Rowan cell as style ref (v1 adults had black backdrop slabs — `style_description` negative fixed it, same as the Briar redesign). While walk/idle anims rendered (trial tier = 2 slots; first 16-job flood failed server-side, requeued sequentially): built the village-life core — `VillageState` autoload (5 authored villagers × 4 slots, stage-2 hardening, stage-3 stopped routines, suspicion→alarm once per villager, time decay, stage-keyed gossip with intel lines, save round-trip), `Villager` NPC (walks slot markers via `marker_<name>` groups, notices Rowan → suspicion, absent when its marker isn't in the zone), `EavesdropZone` (floating ambient gossip, no input lock).
-- **Interface horror v1 + plaza spawn** (branch `feature/interface-horror`, 150/150): the queued fourth-wall feature ([[mechanics/interface-horror]], status → implemented). (A) Control degradation: `DreadManager.interface_pressure()` (pure rule: dread ≥85 or morality ≥70 ramp ×intensity, HARD-off below 0.4 intensity); player spikes = 0.8–2s of 1–3 frame input lag + one eaten attack press + walk hitch, 9s cooldown, FPS<45 skip, frozen in cutscenes. (B) Dialogue distortion: Vessel-tier variants in escape_food — the spoken line comes out wrong (`[shake]`+violet cue, always visible), Briar reacts to what was said; mutations identical, agency intact. Also: spawn moved onto the ritual plaza (Rowan wakes at the site), and `PlayerData.spawn_position` is now actually set (scene spawn initially, hideout rest re-anchors it — death previously teleported to (0,0) on the path).
-- **Playground cluster** (branch `fix/playground-prop-cluster`, playtest feedback): props were scattered across the map — now ONE scene. Sand patch enlarged into the plaza (vertex rect (-16,-9,10,5), still a full WARM row clear of the path band), all equipment stands ON it (swing/slide/roundabout), totems stake its SW/NE edges, the duck moved out of the fringe onto the sand — landing right beside the relocated `playground_buried_toy` dig spot (now at the sandbox, where the soothe-key story always said it was). Mock PROPS table kept in sync.
-- **Zone art: props + y-sort** (branch `feature/zone-art-props`, 139/139 + headless boot smoke): 8 props via `create-image-pixflux` (~7¢, `tools/pixellab_props.py`): rusty swing set (one seat dangling), leaning slide, rusted roundabout, stitched bear/rabbit totems on stakes, two dead-tree variants, the wooden duck (kept innocently bright — toys stay saturated while the world drains). Placed as `StaticBody2D`+`Sprite2D` with base-anchored collision in a new y-sorted `World` container (Player/Briar/TwistedChild reparented; emergency-child spawn follows). Duck sits by the keepsake in the deep fringes. Mock preview now overlays props (`PROPS` table mirrors the tscn). Learned: pixflux minimum canvas is 32×32.
-- **Zone art: real terrain tilesets** (branch `feature/zone-art-tilesets`, 139/139): replaced the 5 flat placeholder ground tiles with four PixelLab Wang transition tilesets (`/create-tileset`, 32px, 16 tiles each, ~6¢ total): playground grass→path, cold grass→dead floor, grass→ritual sand, and a warm→cold grass blend for the fringe seam. New `tools/pixellab_tilesets.py` (queue/status/download orders tiles by corner bitmask + sidecar corner map), `tools/gen_zone_tileset_tres.py` (builds the 4-source TileSet), `tools/preview_zone_map.py` (full-zone PNG mock = approval artifact, mirrors the GDScript painter exactly). `playground_fringes.gd` repainted via corner-vertex Wang fields (pure static funcs, unit-tested: no cell ever mixes terrains without a transition set; path dies 2 vertices before the fringe seam — village reach ends, a free dread beat). Learned: `create-tileset` reference images 500 server-side; color_image must be exactly 64×64; first grass_blend rendered the transition as dirt (rerolled with "no soil" wording); sin*cos blobs → periodic crosses, block-hash → 90° slabs, settled on smoothed value noise.
-- **Animation audit + gap fill** (branch `feature/anim-gap-fill`): audited every animation the code can request vs the three sheets — all 37 existed, but two were never played and two quirks had no visual. Wired Rowan's `hurt` (was red-flash only) and the dominated thrall's `lunge` (was walking through its strikes, new `_thrall_lunge_anim` hold). Generated two new Briar animations via the PixelLab v2 pipeline (`animate-character` v3, character 372cf8d9): 4-dir `stare` (long-stare quirk now stares instead of sitting) and `dusk_press` (dusk bond quirk now leans into Rowan's legs; head_bump fallback). New `_pose_hold` keeps quirk poses from being overwritten by locomotion. Prompts documented in [[art/imagine-prompts]]. Also registered the PixelLab MCP server (`claude mcp add pixellab`) for future sessions.
-- **Creature glued to player after lunge** (same branch, 130/130): at the 60%-recognition plateau the creature creeps to the standoff ring while the player is locked soothing; the post-release lunge always ends at body contact (player r10 + enemy r8 = 18px) which is INSIDE the standoff band (22.1px) — the old logic froze there and every following lunge was point-blank, so it never detached. `_chase_update` now backs out to the hover ring whenever closer than 0.8×attack_range before it may bite again (with a pinned-against-wall exception so it can't be cornered into harmlessness). Regression-tested both directions (backs out at contact / still attacks from the ring).
-- **Compact dialogue balloon + ROWAN name bug** (branch `fix/name-replacement-and-balloon`, 128/128 tests): playtest follow-up — (1) custom name showed as ROWAN: the `{{PlayerData.custom_name}}` replacement itself works; my "verification" test had never actually run because GUT silently skips test scripts whose `class_name` isn't in the stale global class cache (headless runs don't reimport) **while still reporting all-green**. `tools/run-tests.sh` now runs `godot --headless --import` first and hard-fails on "Ignoring script"; new end-to-end test asserts the balloon's speaker label shows the chosen name. The in-game ROWAN was the same staleness: the compiled .dialogue from before the merge — self-heals once the editor reimports. (2) Dialogue box took half the screen: new project-owned compact balloon `scenes/ui/dialogue_balloon.tscn` (108px tall vs 219, font 14 vs 20, side insets, thin subclass of the addon's balloon script — addon untouched); `StoryDialogue` uses it and `dialogue_manager/runtime/balloon_path` makes it the project default.
-- **Playtest fixes + name entry** (branch `fix/playtest-dialogue-dig-gender`, 120/120 tests): (1) post-dialogue punch — Space closes the balloon AND is bound to attack; added a 0.15s input-grace window when leaving CUTSCENE/DREAD_LOCK (`player_controller.gd`). (2) "dog refuses to dig" — root cause was the Stilled child's lead behavior calling `reveal()` itself on arrival at the keepsake; it now stops *beside* the spot (arrive distance 20) and waits, leaving the dig + bond reward to Briar; plus Briar answers a dig request on already-dug earth with a soft bark + hop (`signal_nothing_to_dig`) so silence never reads as a bug ([[mechanics/encounters-mercy]] updated). (3) Briar pronoun: last stray "she" code comment fixed — he's male everywhere ([[characters/companions]] already had him male). (4) Name entry at new-game start: `NameEntry` CanvasLayer (flag `player_named`, never asks twice, save round-trip tested), `StoryDialogue.wait_for_flag` gates the intro dialogue, and `escape_food.dialogue` speaker is now `{{PlayerData.custom_name}}` (Dialogue Manager character replacements, covered by test).
-- **New sheets live in-game**: assembled 48px-cell sheets (60px pro canvas would amputate lunges at 32) via API-driven folder auto-mapping (`animation_type` + `animation_group_id[:8]` suffix = ZIP folder; `PRO_GROUP_PINS` disambiguates rerolls); Briar sit + lie_down rerolled (lying reads only in side view at this scale), growl west re-queued after a dropped render. Rowan 14 rows (real 4-dir idles), Briar 14 (growl ×4, lie_down, head_bump), Twisted 9 (hurt, crumble, duck-dragging walks). Verified with rendered X11 capture; 114/114; total PixelLab spend this pass ≈ $1.20.
-- **Character redesign + animation expansion** (branch `feature/art-character-redesign`): rebuilt all three characters with PixelLab `create-character-pro` — Grok bible crop as concept + crisp Grok-pixel-sheet cell as style reference, 8 directions, ~$0.10 each (total spend so far ~$0.50 of $8 balance, no top-up needed). User approved all three. Queued full animation batch incl. NEW: Briar growl ×4-dir/lie_down/head_bump/sit, Twisted hurt/crumble. Game code already wired behind has_animation guards (directional growl on pings, lie-down calm anchor, head-bump, crumble). 114/114.
-- **Companion quirks** (branch `feature/companion-quirks`, 114/114 tests): authored quirk catalogue + threshold acquisition on PlayerData; Briar's pool of 4 live (scent growl TRUE ping / long stare → head-bump when bond earned / phantom guard FALSE ping / dusk press comfort); Empath insight tell rule (Innocent+bond sees which growls are real, Vessel sees nothing); quirks freeze in dialogue, persist in saves, new growl SFX; debug label lists acquired quirks.
-- **Hollowing clock** (branch `feature/hollowing-clock`, 101/101 tests): `HollowingClock` autoload — 5 stages, story milestones + Alarm noise (kills/betrayal/domination accelerate, stilling delays), queue rule (never mid-dialogue/hideout), bell+whimper+dread on each stage. Consequences: Frenzy un-stills all Stilled monsters (the designed mercy-undo, no betrayal cost), Alarm spawns the unsaveable emergency-ritual child in the deep fringes, night floor +5/stage, detection +10%/stage. Saved/loaded; debug key H; dialogue can gate on `HollowingClock.stage`.
-- Session close: refreshed the stale "Next session" plan in [[sessions/2026-06-10]] (Yarn-Spinner / rpg-adventure-mirror era references removed), flagged the two redundant remote branches behind closed PR #35 for the user to delete on GitHub (`feature/art-pixellab-batch`, `feature/pixel3d-pipeline` — both fully cherry-picked/superseded on main), updated auto-memory with post-slice progress.
-- Merged by user today/overnight: PR #37 (world-loop playtest fixes: action-driven time, betrayal-on-hit, real load/reset) and PR #38 (full mercy: soothe keys + plateau, Briar aura, Stilled leading, Domination). Suite at 89/89.
-
-## Next session
-- **Interface horror** (docs/mechanics/interface-horror.md) — next in the post-slice order; then village life → zone recontextualization.
-- Zone art pass remains unblocked.
-
-## Related
-- [[sessions/2026-06-10]] · [[mechanics/encounters-mercy]] · [[mechanics/hollowing-clock]]

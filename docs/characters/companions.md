@@ -31,9 +31,11 @@ All companions have:
 
 **Abilities** (evolve with bond):
 - Tracking (scent for hidden paths, buried bodies, or lies told by humans)
-- Digging (reveal old ritual sites, escape tunnels, or evidence of previous cycles)
+- Digging (reveal old ritual sites, escape tunnels, or evidence of previous cycles) — **dig-to-lore** (secrets research 2026-06-13): Briar whines at disturbed ground → dig → buried toy = lore fragment that recontextualizes post-revelation/NG+. Fable II's treasure-detecting dog is the precedent (the Fable reboot *dropped* the dog — a signal the mechanic has costs, so keep it bonded-emotional, not a metal detector). `[verified 2026-06-13]`
 - Melee assist (grows from distracting enemies to powerful takedowns)
 - “Guardian Howl” (late game morale boost or fear effect on lesser horrors)
+
+**Interest-point / gaze hint system** (secrets research 2026-06-13, [[design/secrets-and-discovery]]): companions orient toward recontext nodes and secrets the way Elizabeth (BioShock Infinite) and Trico (The Last Guardian) steer the player's eye — Briar's ear-perk/growl/dig-paw, Echo circling, **Storm balking at a threshold to telegraph a horror beat**. No UI marker; oriented **imperfectly and animal-distractible** on purpose (Trico's "level of interest" AI) so it reads as a creature, not an arrow. `[verified 2026-06-13; BioShock interest-points is secondhand design analysis]`
 
 **Bond / Corruption Mechanics**:
 - Early game: Sharing food or comforting Briar during the first horror night has huge bond impact.

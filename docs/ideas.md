@@ -25,7 +25,7 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 
 ## 📥 Captured this session
 - Quirk journal UI: let the player pin one observed line per discovered quirk (companion-quirks.md diagnosis loop) — fold into the interface-horror/UI pass.
-- Plateau discovery cue: when generic soothe stalls at 60, the monster could glance toward its buried key (environmental hint without UI).
+- Plateau discovery cue: when generic soothe stalls at 60, the monster could glance toward its buried key (environmental hint without UI). *(2026-06-12: stall now shows "it calms… but something is missing" + amber bar; the monster-glance environmental cue is still the richer follow-up. Backed by secrets research → [[design/secrets-and-discovery]].)*
 - Faction-aware hitboxes before multi-enemy zones: a Dominated thrall's lunge currently uses the player-hurting hitbox layer — fine with one enemy, needs factions later.
 *From plan creation + initial setup (2026-04). Move to Unsorted or Ready after review.*
 
@@ -89,6 +89,17 @@ Gate passed; polish items from the verdict (address during post-slice audio/feel
 - **Puzzle-only progression guarantee** (Crow Country): accessibility stretch goal — the critical path never *requires* combat (mercy/stealth always viable). Audit when zones are built.
 - **Ritual-symbol literacy** (Lorelei and the Laser Eyes): the player gradually learns to *read* the cult's symbols; late-game environmental text becomes legible. Cheap flavor layer on zone-recontextualization.
 - **Transformation phases mid-fight** (Look Outside): corrupted companion boss variants could evolve phases during the encounter — reserve for the Briar tragedy fight if corruption path is taken.
+
+*(Secrets research 2026-06-13 deepened the first three of these with sourced backing — Animal Well "each tool teaches a singular fact, discoverable through play not text"; Crow Country ships a combat-free Exploration Mode + 15 optional non-combat secrets; Lorelei keeps all knowledge in-game + randomizes solutions. All folded into [[design/secrets-and-discovery]].)*
+
+## 📥 Captured this session (secrets research, 2026-06-13)
+
+Synthesized in [[design/secrets-and-discovery]]; raw captures here for the inbox trail.
+
+- **Obra-Dinn confirmation buffer** ("confirm in threes"): for any deduction-style cult secret, require N confirmations before the game locks it in — blocks brute-force guessing. Copied since by Golden Idol / Roottrees. Reserve for after the early arc proves out.
+- **Replay/failure as the key** (Inscryption): the safe code is only visible after the player has died at least once — failure itself unlocks. Candidate flavor for NG+ / death-gated reveals; pairs with the existing NG+ echoes.
+- **Second-read VillageState gossip**: author gossip lines that read differently once a revelation is known (Undertale-style foreshadowing-that-only-reads-post-twist; In Stars and Time loop-locked re-interaction). Cheap replay layer on the existing stage-keyed gossip pools.
+- **"Three players at once" layering** (Animal Well): clean critical path / optional explorer layer / reserved NG+/community layer — density under constraint. The structural target once the early secrets arc lands.
 
 ## 📥 Captured this session (central brain, 2026-06-10)
 

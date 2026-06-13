@@ -1,5 +1,5 @@
 # Decisions — architecture/process decision records, oldest first
-> GENERATED 2026-06-12 by tools/compile_snapshots.py — do NOT edit (not here, not in claude.ai). Source of truth is the Obsidian vault in the game repo; this file is replaced wholesale at milestones.
+> GENERATED 2026-06-13 by tools/compile_snapshots.py — do NOT edit (not here, not in claude.ai). Source of truth is the Obsidian vault in the game repo; this file is replaced wholesale at milestones.
 > Sources: docs/decisions/2026-06-09-cycle-of-innocence-build-plan.md, docs/decisions/2026-06-10-central-brain-agents-md.md, docs/decisions/2026-06-10-new-features-and-ai-setup.md, docs/decisions/2026-06-10-patent-risk-review.md, docs/decisions/2026-06-10-recent-games-research-greenlight.md, docs/decisions/2026-06-10-repo-consolidation-game-only.md, docs/decisions/2026-06-10-slice-implementation-plan.md, docs/decisions/2026-06-10-sprite-tool-pixellab.md, docs/decisions/2026-06-12-adaptisound-rejected.md, docs/decisions/2026-06-12-steam-timing.md, docs/decisions/2026-06-12-web-research-bridge.md
 
 

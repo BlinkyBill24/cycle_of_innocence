@@ -23,6 +23,7 @@ Most monsters are former sacrificed children ([[story/bible]] twist #1). Encount
    - **Companion assist**: Briar at high bond lies down non-threateningly (+Recognition aura); Echo mirrors the monster's old name-call; Storm's calm presence slows monster aggression.
    - **Tokens**: offering a Memory/Lore item tied to that monster's past (links [[mechanics/inventory]] Memory items to gameplay) gives a large boost.
 3. At Recognition ≥ threshold the monster becomes **Stilled**: stops attacking, follows light, may lead Rowan to a secret (its old home, a buried toy → lore fragment).
+   > **Originality flag** (secrets research 2026-06-13, [[design/secrets-and-discovery]]): the combat-pacify-*then-guide-to-keepsake* variant is **novel — no shipped game provides a proven template** (Spiritfarer's pacify→reveal→lead-to-resolution is the nearest analogue). Strength for originality; risk because there's nothing to copy. **Legibility is unvalidated** — no tester in the 4-session feel pass reached this beat. Validate "does the player grasp 'follow me'?" before authoring more; fall back to companion-modeled following if not. `[verified 2026-06-13]`
 4. Stilled monsters persist per save. They re-aggro only if attacked or if the [[mechanics/hollowing-clock]] advances a stage (the Hunger reasserts its grip — escalation undoes mercy, which is the horror).
 
 ## Morality & corruption hooks

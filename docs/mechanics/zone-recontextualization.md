@@ -30,6 +30,8 @@ Revelations don't just unlock dialogue — they change how **existing zones func
 ## Content plan (v1)
 3 zones × 2-3 revelations each ≈ **8-10 authored recontext moments**, anchored on the big bible twists (monsters-are-children, elders-are-survivors, Rowan-is-the-vessel). The playground gets the full treatment (it's the thesis statement: safety → horror → grief).
 
+**Direct shipped model** (secrets research 2026-06-13, [[design/secrets-and-discovery]]): **Void Stranger** (System Erasure, 2023) — new knowledge recontextualizes already-visited floors, with a second-run ARG layer that makes old rooms yield new interactions. The closest mechanical analogue to this spine. `[verified 2026-06-13]` **Scope caution for a solo dev**: a few *deep* flips beat many shallow toggles — Void Stranger / Outer Wilds / Animal Well all achieve recontext at scale via small, dense worlds, not many zones. Keep node count conservative.
+
 ## Data model / tech
 - Naming convention: nodes grouped `recontext_<revelation_id>`; a 20-line `ZoneRecontext` helper applies visibility on `zone_entered` + live on `GameEvents.revelation_unlocked`.
 - NG+ interaction: revelations carried into NG+ mean zones start recontextualized — the run *feels* different from minute one (replay hook from [[mechanics/progression]] NG+ echoes, no extra work).
