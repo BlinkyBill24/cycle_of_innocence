@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://cottagebsmt01"]
+
+[ext_resource type="Script" path="res://scripts/world/interior_root.gd" id="1_interior"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/cottage_basement_floor.png" id="2_floor"]
+[ext_resource type="PackedScene" uid="uid://cfpo0lhe11a3y" path="res://scenes/player/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://briarpup00001" path="res://scenes/companions/briar.tscn" id="4_briar"]
+[ext_resource type="Script" path="res://scripts/world/door_transition.gd" id="5_door"]
+[ext_resource type="Texture2D" uid="uid://c6eknu52ocg5o" path="res://assets/sprites/light/glow_radial.png" id="6_glow"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
+size = Vector2(40, 40)
+
+[sub_resource type="OccluderPolygon2D" id="Occluder_walls"]
+polygon = PackedVector2Array(-192, -128, 192, -128, 192, 128, -192, 128)
+
+[node name="CottageBasement" type="Node2D"]
+script = ExtResource("1_interior")
+zone_id = &"cottage_basement"
+dread_baseline = 45.0
+
+[node name="GroundBackdrop" type="Sprite2D" parent="."]
+texture = ExtResource("2_floor")
+
+[node name="DarkTint" type="CanvasModulate" parent="."]
+color = Color(0.22, 0.22, 0.3, 1)
+
+[node name="WallOccluder" type="LightOccluder2D" parent="."]
+occluder = SubResource("Occluder_walls")
+
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="World" instance=ExtResource("3_player")]
+position = Vector2(-120, -70)
+
+[node name="Briar" parent="World" instance=ExtResource("4_briar")]
+position = Vector2(-144, -56)
+
+[node name="AmbientLight" type="PointLight2D" parent="."]
+position = Vector2(-120, -70)
+color = Color(0.7, 0.72, 0.85, 1)
+energy = 0.85
+texture = ExtResource("6_glow")
+texture_scale = 1.8
+
+[node name="SpawnFromAbove" type="Marker2D" parent="." groups=["spawn_from_above"]]
+position = Vector2(-120, -70)
+
+[node name="StairsUp" type="Area2D" parent="."]
+position = Vector2(-120, -96)
+collision_mask = 2
+script = ExtResource("5_door")
+target_scene_path = "res://scenes/zones/cottage_ground.tscn"
+spawn_id = &"from_basement"
+prompt_text = "Go up"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StairsUp"]
+shape = SubResource("RectangleShape2D_door")
+
+[node name="RecontextRemains" type="Sprite2D" parent="." groups=["recontext_monsters_are_children"]]
+position = Vector2(90, 50)
+texture = ExtResource("6_glow")
+modulate = Color(0.5, 0.1, 0.1, 0.6)
+scale = Vector2(0.4, 0.4)

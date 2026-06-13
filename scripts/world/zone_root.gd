@@ -15,6 +15,10 @@ const LIMIT_OFF := 10000000
 
 
 func _ready() -> void:
+	# record the live scene path so saves reload THIS scene (incl. interiors),
+	# not just whatever booted (accessible-interiors).
+	if not scene_file_path.is_empty():
+		ZoneManager.current_scene_path = scene_file_path
 	ZoneManager.enter_zone(zone_id)
 	ZoneManager.place_player_at_entry.call_deferred(self)
 	_clamp_camera_to_backdrop.call_deferred()

@@ -17,11 +17,16 @@ func has_save(slot: int = 0) -> bool:
 
 
 func save_game(slot: int = 0) -> bool:
+	var player := get_tree().get_first_node_in_group("player") as Node2D
 	var data := {
 		"version": SAVE_VERSION,
 		"player": PlayerData.get_save_data(),
 		"dread": DreadManager.dread,
 		"zone_id": ZoneManager.current_zone_id,
+		# scene path + exact position so an interior FLOOR reloads to itself,
+		# at the spot you saved (accessible-interiors).
+		"scene_path": ZoneManager.current_scene_path,
+		"player_pos": [player.global_position.x, player.global_position.y] if player else null,
 		"world": WorldState.get_save_data(),
 		"hollowing": HollowingClock.get_save_data(),
 		"village": VillageState.get_save_data(),
@@ -56,12 +61,27 @@ func load_game(slot: int = 0, reload_scene: bool = true) -> bool:
 	Journal.apply_save_data(data.get("journal", {}))
 	DreadManager.reset()
 	DreadManager.add_dread(float(data.get("dread", 0.0)), &"load")
-	ZoneManager.enter_zone(StringName(str(data.get("zone_id", PlayerData.last_zone_id))))
+	var zone_id := StringName(str(data.get("zone_id", PlayerData.last_zone_id)))
+	# set zone state directly (no enter_zone, so no arriving_from is recorded) —
+	# the arriving ZoneRoot's enter_zone(same id) is then a no-op, and
+	# restore_position places the player at the exact saved spot.
+	ZoneManager.current_zone_id = zone_id
+	PlayerData.last_zone_id = zone_id
+	var saved_path := str(data.get("scene_path", ""))
+	if saved_path.is_empty():
+		saved_path = ZoneManager.ZONE_SCENES.get(zone_id, "")
+	ZoneManager.current_scene_path = saved_path
+	var ppos: Variant = data.get("player_pos", null)
+	if ppos is Array and (ppos as Array).size() == 2:
+		ZoneManager.restore_position = Vector2(float(ppos[0]), float(ppos[1]))
 	game_loaded.emit(slot)
 	if reload_scene:
-		# rebuild the live world to match the save (enemies re-check their
-		# flags on spawn; one-shot beats/dialogues respect their story flags)
-		get_tree().reload_current_scene.call_deferred()
+		# load the SAVED floor/zone (interior-aware) — not just whatever scene
+		# happens to be live — so a basement save reloads in the basement.
+		if not saved_path.is_empty() and ResourceLoader.exists(saved_path):
+			get_tree().change_scene_to_file.call_deferred(saved_path)
+		else:
+			get_tree().reload_current_scene.call_deferred()
 	return true
 
 
