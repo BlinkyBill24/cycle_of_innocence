@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://envpq1ay0667"]
+[gd_scene load_steps=62 format=3 uid="uid://envpq1ay0667"]
 
 [ext_resource type="Script" uid="uid://dw5pp4xyg1cpx" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" uid="uid://6k1vnwks463q" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -204,9 +204,9 @@ autoplay = "burn"
 
 [node name="FireLight" type="PointLight2D" parent="Hideout/Campfire"]
 color = Color(1, 0.75, 0.45, 1)
-energy = 1.1
+energy = 0.6
 texture = ExtResource("20_glow")
-texture_scale = 1.5
+texture_scale = 0.95
 script = ExtResource("19_campfire")
 
 [node name="VillageTransition" type="Area2D" parent="."]

@@ -1,6 +1,6 @@
 # Project State & Roadmap — canonical brain (AGENTS.md), roadmap, ideas inbox, latest session journals
 > GENERATED 2026-06-13 by tools/compile_snapshots.py — do NOT edit (not here, not in claude.ai). Source of truth is the Obsidian vault in the game repo; this file is replaced wholesale at milestones.
-> Sources: AGENTS.md, docs/plan/playtest-protocol-2026-06.md, docs/plan/slice-implementation-roadmap.md, docs/ideas.md, docs/sessions/2026-06-13.md, docs/sessions/2026-06-13-pixellab-fx-props.md
+> Sources: AGENTS.md, docs/plan/playtest-protocol-2026-06.md, docs/plan/slice-implementation-roadmap.md, docs/ideas.md, docs/sessions/README.md, docs/sessions/2026-06-13.md
 
 
 ======================================================================
@@ -42,7 +42,7 @@ SOURCE: AGENTS.md
 - **R2 — Read before work.** This file + `docs/story/bible.md` + the relevant `docs/mechanics|design/*.md` before any feature work. Grep `docs/decisions/` for prior art; link findings with `[[backlinks]]`.
 - **R3 — Vertical slices.** Every increment F5-playable. Slice definition below.
 - **R4 — Imagine-first assets.** Character/companion bibles before sprite sheets; document every prompt in `docs/art/imagine-prompts.md`; pixel post-process (scripted or GIMP/Pixelorama — no Aseprite); nearest-filter import.
-- **R5 — Journal & capture.** Session journal `docs/sessions/YYYY-MM-DD.md` (newest first). Stray ideas → `docs/ideas.md` inbox, never dropped. Run `python3 ../scripts/obsidian/status.py` at checkpoints.
+- **R5 — Journal & capture.** **Each session writes its OWN journal file** `docs/sessions/YYYY-MM-DD-<slug>.md` (slug = your branch/feature, e.g. `2026-06-13-footstep-surface.md`); newest entries first within your file. **NEVER append to a shared daily file or edit another session's file** — that shared-file append is what kept causing parallel-session merge conflicts (per-session files never collide). Read a whole day with `python3 tools/session_digest.py [YYYY-MM-DD]`. Convention: `docs/sessions/README.md`. Stray ideas → `docs/ideas.md` inbox, never dropped. Run `python3 ../scripts/obsidian/status.py` at checkpoints.
 - **R6 — Commit & push.** After meaningful changes: commit on the feature branch and push to `origin` (github.com/tchintchie/**game** — the only repo; the rpg-adventure mirror was retired 2026-06-10, see `docs/decisions/2026-06-10-repo-consolidation-game-only.md`). The user merges to main. A public standalone repo will be split out when a demo is ready.
 - **R7 — Research bridge.** Web research lives in the claude.ai Project "Cycle of Innocence — Design & Research", grounded in the `docs/_compiled/` snapshots (`python3 tools/compile_snapshots.py`, regenerate + re-upload after milestone merges that touch docs). Results come back ONLY via the `docs/research/` inbox → librarian pass (propose-first; locked decisions get flags, not edits). Convention: `docs/research/README.md`; system: `docs/setup-guide.md`.
 
@@ -491,6 +491,55 @@ These should feed into zone design, art prompts, and the first few dialogue node
 
 
 ======================================================================
+SOURCE: docs/sessions/README.md
+======================================================================
+
+---
+name: Session Journals — convention
+tags: [meta, sessions]
+---
+
+# Session Journals
+
+**One file per session, never a shared file.** Parallel agent/editor sessions
+kept colliding on a single `YYYY-MM-DD.md` (everyone appended to the same "What
+I did" list → merge conflict on every sync). Per-session files never collide.
+
+## Naming
+
+`docs/sessions/YYYY-MM-DD-<slug>.md` — `<slug>` is your session's branch or
+feature, e.g.:
+- `2026-06-13-footstep-surface.md`
+- `2026-06-13-bark-volume.md`
+- `2026-06-13-secrets-research.md`
+
+## Rules (R5)
+
+- Write **only your own** file. Never append to another session's file, and
+  never to a bare `YYYY-MM-DD.md` (those are legacy/pre-2026-06-13).
+- Newest entries first within your file.
+- Use the template `docs/_templates/session.md` (its `name`/`branch` fields
+  identify the session).
+- Commit your journal file on your feature branch like any other change.
+
+## Reading a whole day
+
+```bash
+python3 tools/session_digest.py            # today, all sessions
+python3 tools/session_digest.py 2026-06-13 # a specific day
+```
+
+It concatenates every `YYYY-MM-DD-*.md` (and any legacy bare file) into one
+read, newest-modified first.
+
+## Legacy
+
+Bare `YYYY-MM-DD.md` files (≤ 2026-06-13) predate this convention — left as
+history, not edited further. The parent-vault pointer journals in
+`../../docs/sessions/` (monorepo root) stay as-is.
+
+
+======================================================================
 SOURCE: docs/sessions/2026-06-13.md
 ======================================================================
 
@@ -555,49 +604,3 @@ Rework the playground props (except trees) — fix off perspective + wrong scale
 
 ## Related
 [[art/prop-coherence]] · [[art/imagine-prompts]] · [[sessions/2026-06-12]]
-
-
-======================================================================
-SOURCE: docs/sessions/2026-06-13-pixellab-fx-props.md
-======================================================================
-
----
-name: "Session 2026-06-13 — PixelLab FX & prop sprites"
-date: "2026-06-13"
-tags: [session, cycle-of-innocence, art]
-branch: worktree-pixellab-fx-props
-commits: []
----
-
-# Session 2026-06-13 — PixelLab FX & prop sprites
-
-## Focus
-Replace primitive Polygon2D placeholders (campfire, dig spots, fog) with real
-PixelLab sprites.
-
-## What I did
-*(newest first)*
-- **Campfire / dig spot / fog sprites via PixelLab** (suite 238, boot clean):
-  swapped three sets of crude Polygon2D primitives for real art.
-  - **Dig spot** (static): `create_map_object` dug-earth, palette-locked →
-    Sprite2D `Marker` in `diggable_spot.tscn` (all 3 dig spots updated at once).
-  - **Campfire** (animated): 9-frame `AnimatedSprite2D` (`campfire_frames.tres`)
-    replacing the Stones/Flames/FlameCore polygons; `FireLight` PointLight2D
-    kept for the warm glow. User picked PixelLab object `a8ee2399` over my
-    auto-pick — swapped in.
-  - **Fog** (animated): 9-frame drifting `AnimatedSprite2D` replacing
-    FogSeamNorth/South polygons — kept the node names + a base `modulate.a` so
-    `dread_beat`'s NodePath fade-in still works.
-  - **FX palette exemption** recorded ([[art/prop-coherence]] rule 1): campfire
-    (emissive) + fog (translucent) NOT palette-locked, like `toy_duck`.
-  - Pipeline: `create_1_direction_object` → pick candidate → `animate_object`
-    v3 (9 frames) → download frames → union-bbox crop + horizontal sheet →
-    hand-built SpriteFrames `.tres` (AtlasTexture regions). Prompts in
-    [[art/imagine-prompts]].
-  - ⚠️ **Scene-merge note**: built off origin/main, so my playground scene edits
-    (campfire/fog nodes) don't have the user's concurrent editor pass (poster→v2,
-    glow removed, collision added — different nodes). Expect a `load_steps` +
-    ext-resource reconcile at merge; my changes don't touch the poster node.
-
-## Related
-[[art/imagine-prompts]] · [[art/prop-coherence]]

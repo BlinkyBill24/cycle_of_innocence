@@ -14,6 +14,14 @@ PixelLab sprites.
 
 ## What I did
 *(newest first)*
+- **Committed the user's editor pass + rebased FX on top + tamed FireLight**:
+  extracted the user's uncommitted playground editor pass (poster→harmony_board_v2,
+  glow removed, poster collision bumper, DeadTreeA2 rect collider) into a clean
+  commit `feature/playground-editor-pass` off main, then rebased this FX branch
+  onto it — scene auto-merged (editor pass touches the poster node, FX touches
+  campfire/fog → no clash; only load_steps reconciled to 62). FireLight bloom
+  reduced (energy 1.1→0.6, scale 1.5→0.95, now `@export`-tunable) so the new
+  campfire sprite reads instead of washing out the hideout.
 - **Campfire / dig spot / fog sprites via PixelLab** (suite 238, boot clean):
   swapped three sets of crude Polygon2D primitives for real art.
   - **Dig spot** (static): `create_map_object` dug-earth, palette-locked →
