@@ -16,6 +16,7 @@ extends Area2D
 @export_enum("Lore", "Doom") var journal_kind: int = 1
 
 var _label: Label
+var _fired := false
 
 
 func _ready() -> void:
@@ -25,11 +26,33 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("player"):
+	if body.is_in_group("player"):
+		_trigger()
+
+
+## A recontext-gated whisper (e.g. recontext_stage_1) is process-disabled until
+## its condition flips — and an Area2D does NOT emit body_entered for a body
+## already inside it when monitoring resumes (playtest 2026-06-13: the stage-1
+## doom sign never fired its journal entry). So poll for an overlapping player
+## once active; this only runs while the node is enabled.
+func _physics_process(_delta: float) -> void:
+	if _fired:
+		set_physics_process(false)
+		return
+	for body in get_overlapping_bodies():
+		if body.is_in_group("player"):
+			_trigger()
+			return
+
+
+func _trigger() -> void:
+	if _fired:
 		return
 	var flag := StringName("whispered_" + String(spot_id))
 	if PlayerData.has_story_flag(flag):
+		_fired = true
 		return
+	_fired = true
 	PlayerData.set_story_flag(flag)
 	if dread_on_hear > 0.0:
 		DreadManager.add_dread(dread_on_hear, &"whisper")

@@ -34,6 +34,7 @@
 [ext_resource type="Script" uid="uid://dii0kaxn04mrd" path="res://scripts/world/zone_recontext.gd" id="32_recontext"]
 [ext_resource type="Script" uid="uid://bnho50hs5u7pg" path="res://scripts/world/whisper_spot.gd" id="33_whisper"]
 [ext_resource type="Texture2D" uid="uid://ru00ut6fy12k" path="res://assets/sprites/tiles/playground_ground_backdrop.png" id="34_backdrop"]
+[ext_resource type="Texture2D" uid="uid://msj4ht228xe8" path="res://assets/sprites/village/harmony_board.png" id="41_notice"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -399,6 +400,10 @@ journal_text = "They posted a new lottery notice already. So soon after the last
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LotteryPostStage1"]
 shape = SubResource("CircleShape2D_whisper")
+
+[node name="Poster" type="Sprite2D" parent="LotteryPostStage1"]
+texture = ExtResource("41_notice")
+offset = Vector2(0, -16)
 
 [node name="NameEntry" type="CanvasLayer" parent="."]
 script = ExtResource("21_name_entry")

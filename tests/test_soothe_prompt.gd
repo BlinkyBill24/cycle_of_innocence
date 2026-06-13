@@ -43,3 +43,15 @@ func test_plateau_discovery_cue() -> void:
 	var rising: Dictionary = SP.display_state(false, true, 0.4, false)
 	assert_string_contains(String(rising["text"]), "holding")
 	assert_false(bool(rising["stalled"]))
+
+
+func test_too_far_gone_cue_for_unspareable_monster() -> void:
+	# the emergency-ritual child can't be soothed by design — the prompt must
+	# say so instead of staying silent (playtest 2026-06-13: read as broken)
+	var s: Dictionary = SP.display_state(false, false, 0.0, false, true)
+	assert_true(bool(s["visible"]))
+	assert_string_contains(String(s["text"]), "too far gone")
+	assert_lt(float(s["bar"]), 0.0, "no progress bar — it cannot be soothed")
+	# a spareable target in range still takes priority over the cue
+	var s2: Dictionary = SP.display_state(true, false, 0.0, false, true)
+	assert_string_contains(String(s2["text"]), "HOLD E")

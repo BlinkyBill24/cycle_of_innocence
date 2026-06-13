@@ -103,16 +103,24 @@ func _world_lurches() -> void:
 const BELL_GAP := 0.85  # seconds between tolls (slow, funereal, countable)
 
 
+const BELL_DB := 6.0  # the doom signal must carry over ambient/danger music
+                       # (playtest 2026-06-13: −2 dB was "barely noticeable")
+
+
 ## Ring the chapel bell `count` times, spaced. Pure scheduling — testable via
 ## bell_pattern() below; the audio is fire-and-forget timers.
 func _ring_bells(count: int) -> void:
+	# duck the adaptive music under the whole peal so the tolls cut through
+	AdaptiveAudio.duck(14.0)
 	for i in maxi(count, 1):
 		var delay := bell_pattern(i)
 		if delay <= 0.0:
-			Sfx.play(&"bell_toll", -2.0, 0.01)
+			Sfx.play(&"bell_toll", BELL_DB, 0.01)
 		else:
 			get_tree().create_timer(delay).timeout.connect(
-					func() -> void: Sfx.play(&"bell_toll", -2.0, 0.01))
+					func() -> void:
+						AdaptiveAudio.duck(14.0)  # keep it ducked across the gaps
+						Sfx.play(&"bell_toll", BELL_DB, 0.01))
 
 
 ## Toll i's offset from the start of the peal (i = 0-based). Static + pure.

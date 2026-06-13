@@ -91,3 +91,31 @@ func test_dig_logs_recontextualized_fragment_on_ngplus() -> void:
 	assert_eq(entries.size(), 1)
 	assert_string_contains(str(entries[0]["text"]), "the one before you",
 		"NG+ dig logs the recontextualized fragment")
+
+
+func test_whisper_fires_for_already_overlapping_player() -> void:
+	# recontext-gated whispers are disabled until the stage flips; an Area2D
+	# does NOT emit body_entered for a body already inside when re-enabled.
+	# The overlap poll must catch it (playtest 2026-06-13: doom sign never fired).
+	var spot: WhisperSpot = WhisperScript.new()
+	spot.spot_id = &"already_inside"
+	spot.text = "."
+	spot.journal_text = "logged via overlap poll"
+	var shape := CollisionShape2D.new()
+	var circ := CircleShape2D.new()
+	circ.radius = 40.0
+	shape.shape = circ
+	spot.add_child(shape)
+	add_child_autofree(spot)
+	# a player body sitting ON the spot, never "entering" it
+	var player := CharacterBody2D.new()
+	player.add_to_group("player")
+	player.collision_layer = 2
+	var pshape := CollisionShape2D.new()
+	pshape.shape = CircleShape2D.new()
+	player.add_child(pshape)
+	add_child_autofree(player)
+	player.global_position = spot.global_position
+	await wait_physics_frames(3)
+	assert_true(Journal.has_entry(&"sign_already_inside"),
+		"overlap poll fired the journal entry for an already-present player")

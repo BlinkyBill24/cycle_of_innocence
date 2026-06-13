@@ -178,6 +178,18 @@ func _nearest_spareable_monster() -> EnemyBase:
 	return nearest
 
 
+## An UNspareable, live monster in soothe range — the emergency-ritual child.
+## Drives the "too far gone" cue so its un-soothability reads as the intended
+## horror beat, not a broken verb (playtest 2026-06-13).
+func _unspareable_monster_near() -> bool:
+	for node in get_tree().get_nodes_in_group("enemy"):
+		var enemy := node as EnemyBase
+		if enemy and not enemy.spareable and not enemy.stilled \
+				and global_position.distance_to(enemy.global_position) < SOOTHE_RANGE:
+			return true
+	return false
+
+
 ## Soothe affordance (playtest tester-01): the hold verb must be readable
 ## without the debug HUD — hint when near, progress while holding.
 func _update_soothe_prompt() -> void:
@@ -195,7 +207,9 @@ func _update_soothe_prompt() -> void:
 				and _soothe_target.recognition >= EnemyBase.GENERIC_PLATEAU - 0.5
 		_soothe_prompt.update_state(false, true, ratio, stalled)
 		return
-	_soothe_prompt.update_state(_nearest_spareable_monster() != null, false, 0.0)
+	var spareable_near := _nearest_spareable_monster() != null
+	var too_far_gone := not spareable_near and _unspareable_monster_near()
+	_soothe_prompt.update_state(spareable_near, false, 0.0, false, too_far_gone)
 
 
 func _start_soothe(target: EnemyBase) -> void:

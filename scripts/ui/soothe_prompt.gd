@@ -57,12 +57,13 @@ func _ready() -> void:
 			_paused = false)
 
 
-## Pure display rule, unit-tested: near a target and idle -> hint text;
-## holding -> progress bar; keyless plateau -> the discovery cue (playtest
-## tester-04: "it stops while I hold E but chases me again after" — the
-## designed 60% stall read as a bug without any tell); otherwise nothing.
+## Pure display rule, unit-tested: near a spareable target and idle -> hint;
+## holding -> progress bar; keyless plateau -> discovery cue (tester-04);
+## near an UNSPAREABLE monster (the emergency-ritual child) -> the horror beat
+## made legible (playtest 2026-06-13: "the second one always attacks" read as
+## a broken soothe — it is the cost of delay, unsaveable by design); else none.
 static func display_state(near: bool, soothing: bool, ratio: float,
-		stalled: bool = false) -> Dictionary:
+		stalled: bool = false, too_far_gone: bool = false) -> Dictionary:
 	if soothing and stalled:
 		return {"text": "it calms… but something is missing",
 				"bar": clampf(ratio, 0.0, 1.0), "visible": true, "stalled": true}
@@ -72,20 +73,24 @@ static func display_state(near: bool, soothing: bool, ratio: float,
 	if near:
 		return {"text": "HOLD E — sing to it", "bar": -1.0, "visible": true,
 				"stalled": false}
+	if too_far_gone:
+		return {"text": "it is too far gone to hear you", "bar": -1.0,
+				"visible": true, "stalled": true}  # amber, no bar — cannot be soothed
 	return {"text": "", "bar": -1.0, "visible": false, "stalled": false}
 
 
 func update_state(near: bool, soothing: bool, ratio: float,
-		stalled: bool = false) -> void:
+		stalled: bool = false, too_far_gone: bool = false) -> void:
 	if _paused:
 		near = false
 		soothing = false
-	var s: Dictionary = display_state(near, soothing, ratio, stalled)
+		too_far_gone = false
+	var s: Dictionary = display_state(near, soothing, ratio, stalled, too_far_gone)
 	_label.visible = bool(s["visible"])
 	_label.text = String(s["text"])
 	var bar: float = float(s["bar"])
 	_bar_back.visible = bar >= 0.0
 	_bar_fill.size = Vector2(BAR_SIZE.x * maxf(bar, 0.0), BAR_SIZE.y)
-	# amber when the generic lullaby maxes out — the world holds the rest
+	# amber when the generic lullaby maxes out OR the monster can't be soothed
 	_bar_fill.color = Color(0.95, 0.78, 0.4, 0.9) if bool(s["stalled"]) \
 			else Color(0.78, 0.86, 1.0, 0.9)
