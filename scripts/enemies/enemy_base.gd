@@ -177,6 +177,7 @@ func _patrol_enter() -> void:
 
 func _patrol_update(delta: float) -> void:
 	if can_see_player():
+		Sfx.play(&"monster_creep")  # stalk cue the moment it notices Rowan
 		hsm.dispatch(&"spotted")
 		return
 	if global_position.distance_to(_wander_target) < 4.0:
@@ -224,6 +225,7 @@ func _chase_update(_delta: float) -> void:
 
 
 func _attack_enter() -> void:
+	Sfx.play(&"monster_attack")
 	var player := get_player()
 	_lunge_dir = global_position.direction_to(player.global_position) if player else _facing
 	_cooldown = attack_cooldown
@@ -242,6 +244,7 @@ func _attack_update(delta: float) -> void:
 
 
 func _hurt_enter() -> void:
+	Sfx.play(&"monster_hurt")
 	_hurt_timer = hurt_seconds
 	if sprite.sprite_frames and sprite.sprite_frames.has_animation("hurt"):
 		sprite.play("hurt")

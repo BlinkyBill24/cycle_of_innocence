@@ -39,6 +39,12 @@ SFX = {
     "found":          (2.0, 0.5, "a soft warm discovery chime, a gentle bell sparkle, something important found"),
     "owl_hoot":       (3.0, 0.5, "an owl hooting at night, two slow eerie hoots in a quiet forest"),
     "crickets":       (5.0, 0.4, "crickets chirping steadily at night, calm continuous nocturnal ambience"),
+    # --- batch 2: ambience + monster (avoid moderation-tripping words in prompts) ---
+    "campfire_crackle":(5.0, 0.4, "a campfire crackling and popping, burning wood embers, steady cozy fire, loopable"),
+    "church_bell":    (3.0, 0.5, "a single deep church bell tolling once, resonant brass, a distant village chapel"),
+    "monster_attack": (1.5, 0.6, "a sudden monstrous shriek and lunge, aggressive guttural creature attack"),
+    "monster_creep":  (4.0, 0.45, "eerie unsettling creature noises, low distorted groans and wet clicking in the dark"),
+    "monster_hurt":   (1.5, 0.6, "a small twisted creature wailing in pain, a distorted pained cry"),
 }
 
 
@@ -88,10 +94,15 @@ def generate(name: str, secs: float, influence: float, text: str) -> bool:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--only")
+    ap.add_argument("--force", action="store_true",
+                    help="regenerate even if the .wav already exists")
     args = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     for name, (secs, infl, text) in SFX.items():
         if args.only and name != args.only:
+            continue
+        if not args.only and not args.force and (OUT / f"{name}.wav").exists():
+            print(f"  · {name} (exists, skip)", flush=True)
             continue
         if not generate(name, secs, infl, text):
             print(f"\nSTOPPED at {name} (auth/quota/rate). Saved files are good; "

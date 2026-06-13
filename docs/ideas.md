@@ -24,6 +24,7 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - Strong emphasis on "no Mote reuse" — document guardrails in GROK.md and local handbook.
 
 ## 📥 Captured this session
+- Monster + ambient SFX wiring: batch-2 sounds exist but nothing calls them — `twisted_child` → `monster_attack` (lunge), `monster_hurt` (hurt/crumble), `monster_creep` (stalk ambient); `campfire_crackle` → `AudioStreamPlayer2D` on the Hideout campfire (loop already enabled); `church_bell` → village chapel toll.
 - Ambient SFX beds: `crickets.wav` + `owl_hoot.wav` exist but aren't wired — loop-enable the import and drive them from AdaptiveAudio (night/dread layer) so the fringe feels alive. Owl could also fire as an occasional dread stinger.
 - Per-surface footsteps: `footstep_grass` + `footstep_gravel` both exist; player_controller should pick by ground type (tile/zone) instead of always grass. Tiny state hook.
 - SFX coverage gaps (next ElevenLabs batch when credits reset): monster vocalizations (twisted-child stalk/lunge), item pickup vs the "found" stinger, bond-up chime, UI open/close (satchel/journal), water/fog ambience.
