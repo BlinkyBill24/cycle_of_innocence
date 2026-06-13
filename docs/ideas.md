@@ -38,6 +38,10 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - Quirk journal UI: let the player pin one observed line per discovered quirk (companion-quirks.md diagnosis loop) — fold into the interface-horror/UI pass.
 - Plateau discovery cue: when generic soothe stalls at 60, the monster could glance toward its buried key (environmental hint without UI). *(2026-06-12: stall now shows "it calms… but something is missing" + amber bar; the monster-glance environmental cue is still the richer follow-up. Backed by secrets research → [[design/secrets-and-discovery]].)*
 - Faction-aware hitboxes before multi-enemy zones: a Dominated thrall's lunge currently uses the player-hurting hitbox layer — fine with one enemy, needs factions later.
+- **Detective / "focus" vision sense** *(borderline — flagged, R7 2026-06-13)*: an RDR2-Eagle-Eye-style player highlight (slow-move + short-range gated). **Only revisit if playtests show players hard-stuck** — it risks undercutting dread and duplicating [[mechanics/companion-pointer]] Briar-seek. Fails the four-pillar filter as-is. From [[research/done/2026-06-13-companion-pointer-investigation-design]].
+- **Guiding-wind environmental cue** (R7 2026-06-13): a subtle diegetic directional reinforcement for Briar-seek without UI — leaf/dread-fog drift, or a doom bell growing louder toward the target (Ghost of Tsushima's wind, our flavor). Reinforces, never replaces, Briar.
+- **Whistle-to-recall-and-re-point** (R7 2026-06-13): the reserved reusable whistle tool (see Item effect extensibility above) doubles as the Briar-seek *recall* — re-triggers her tell so the cue is never a one-shot. Folds into [[mechanics/companion-pointer]].
+- **Player-triggered re-hint escalation** (R7 2026-06-13): if the player keeps missing a clue, escalate Briar's insistence **only when recalled**, never auto-interrupt (avoids Okami/Issun's "breaks into a cutscene to point at the obvious").
 *From plan creation + initial setup (2026-04). Move to Unsorted or Ready after review.*
 
 - Protagonist as escaped sacrifice + animal companions (dog/ bird / horse) as primary found family and mechanical helpers.

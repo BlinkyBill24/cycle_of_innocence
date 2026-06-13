@@ -93,6 +93,26 @@ Additional options:
 - Adaptive music system (layers that fade in/out based on dread + zone + companion state).
 - Environmental storytelling: ritual remnants, old child-sized footprints, scratched warnings that only make sense after certain revelations.
 
+## Small-interior dread toolkit (cheap, transferable) `[verified 2026-06-13]`
+
+For an authored interior beat ([[design/hollow-house-quest]]), dread is built
+from layered low-cost techniques that map onto existing systems:
+
+- **Fear emitter (audio-first).** Scale the [[mechanics/adaptive-audio]] dread
+  stem (and stinger readiness) by **proximity to the threat or the hidden truth**
+  — Dead Space's tools scaled music/SFX by distance to threats/key events. A low
+  drone under the bed reads as unease better than a melodic score.
+- **Darkness defines legibility.** A dark interior where Briar + a small light
+  radius reveal what's legible ([[mechanics/vision-and-darkness]]) — the dark
+  hides the clue *and* the dread; chiaroscuro lets the player project fear into
+  the unlit negative space.
+- **Companion fear as foreshadowing.** Briar refusing a room / staring at an
+  empty corner ([[mechanics/companion-quirks]]) is a free diegetic amplifier —
+  and *foreshadows* a [[mechanics/zone-recontextualization]] reveal (she fears
+  the room before the player learns why; pays off again on NG+).
+- **Stinger reserved for the turn.** Hold the single audio stinger for the
+  recontextualization beat (the truth reframing the space), not for cheap scares.
+
 ## How Horror Serves the Story
 
 Every horror element should ultimately point back to the central conspiracy:

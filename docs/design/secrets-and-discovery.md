@@ -45,7 +45,11 @@ on replay/NG+ — beats a long list. `[verified 2026-06-13]`
 3. **Journal is a memory aid, never a quest log.** It records what the player
    *witnessed*, never a to-do list — the Outer Wilds ship-log / Obra Dinn
    logbook line. Already half-stated in [[mechanics/progression]]; hold it.
-   `[verified 2026-06-13]`
+   **Beware the tracker itself:** Gaynor (Gone Home) and Barlow (Her Story) both
+   warn that a visible progress tracker *creates* the checklist compulsion you
+   wanted to avoid — Barlow: "the 'database program' that allowed you to see your
+   progress would fuel the need to tick all the boxes." The Journal shows what
+   was *understood*, never "x/y found". `[verified 2026-06-13]`
 4. **Nothing story-critical is permanently missable.** Documented quit-trigger
    for single-playthrough RPG players; lore stays re-findable or NG+-surfaced.
    `[verified 2026-06-13]`
@@ -53,6 +57,25 @@ on replay/NG+ — beats a long list. `[verified 2026-06-13]`
 Plus the existing guarantee, now sourced: **critical path never requires
 combat** (Crow Country ships a combat-free Exploration Mode; mercy/stealth always
 viable). `[verified 2026-06-13]`
+
+## Investigation structure (compact clue-hunt) `[verified 2026-06-13]`
+
+When a secret becomes a *room to search* (e.g. [[design/hollow-house-quest]]),
+the Gone Home / Obra Dinn playbook applies:
+
+- **Closed floorplan, hub + rooms** — a small linear space reads as non-linear
+  (Gone Home's "successful illusion"); a hub presents several paths at once.
+- **Lock-and-key sparingly** — Gaynor cut keys back because granular gating felt
+  "gamey… whose house would be like that?". One or two diegetic gates max (a door
+  Briar scratches open, a floorboard key she digs up), never a key-hunt.
+- **Deduction-gating, not collection-gating** — Obra Dinn confirms fates only in
+  **sets of three** "to deter guesswork"; Her Story caps each search at 5 of 271
+  clips with "no prescribed list". Advance on *understanding*, not exhausting an
+  inventory. (Caveat: the rule-of-three weakens as the pool shrinks — a mitigation,
+  not a lock.)
+- **No pixel-hunt on the critical path** — required interactables get the
+  consistent 32×32 glint/outline language + a companion tell ([[mechanics/companion-pointer]]);
+  reserve unmarked/obscure spots for *optional lore only*.
 
 ## Telegraphing that a secret EXISTS (without spoiling it)
 

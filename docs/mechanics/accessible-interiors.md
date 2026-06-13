@@ -50,7 +50,7 @@ On placement, companions are snapped beside the player (offset `Vector2(-20, 14)
 **Reference scene:** `scenes/zones/cottage_ground.tscn` (`zone_id = cottage_ground`, `dread_baseline = 0.0`): `GroundBackdrop`, `SpawnDefault` + `SpawnFromBasement`, an `ExitDoor` (`spawn_id = from_cottage`, "Step outside") and `StairsDown` (`spawn_id = from_above`, "Go down"), a `marker_marta` NPC spot, and a `recontext_monsters_are_children` sign.
 
 ## Design tiers
-- **Tier A — full authored interior**: unique backdrop, NPCs, secrets, recontext, a dread/lighting plan. Reserve for story-load-bearing spaces (Rowan's home, the lottery hall, a cave reveal).
+- **Tier A — full authored interior**: unique backdrop, NPCs, secrets, recontext, a dread/lighting plan. Reserve for story-load-bearing spaces (Rowan's home, the lottery hall, a cave reveal). **First Tier-A delivery: [[design/hollow-house-quest]]** — the investigation micro-quest that proves this system as *content*.
 - **Tier B — shared template**: a stock hut/room reused with swapped decor — interiority without bespoke art.
 - **Tier C — locked façade**: `DoorTransition.locked = true` + a diegetic `locked_reason`. The honest non-interior.
 - **Rule: flag, don't author empty floors.** A locked door beats a bare room. **A few deep interiors beat many shallow ones** (same conservative-node-count logic as [[mechanics/zone-recontextualization]] — Void Stranger / Animal Well scale via dense, not numerous, space). Keep interior count small and each one meaningful.

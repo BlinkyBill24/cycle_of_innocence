@@ -28,6 +28,8 @@ Layered playback clashed in the gate playtest — the ACE-Step tracks are indepe
 
 Rules: crossfade by lerp through intermediate states (no hard cuts — escalation must feel *earned*); hideout scenes duck everything but ambient + a warm campfire layer (the safety contrast that makes dread legible); stingers stay separate one-shots (existing `GameEvents.horror_stinger`).
 
+**Fear-emitter hook** (authored interiors — [[design/hollow-house-quest]]) `[verified 2026-06-13]`: inside a dread interior the danger-stem target can scale by **proximity to the threat or the hidden truth**, not just the global dread number (Dead Space's "scale music/SFX by distance to threats/key events"). Cheap to add — feed a per-zone proximity value into the danger-stem target alongside `DreadManager`; the single recontext stinger stays reserved for the reveal.
+
 ## Implementation
 - ~~**Option 1 (preferred)**: AdaptiSound addon~~ — **REJECTED 2026-06-12**: README states v1.0 has no web export support (breaks the hard Web constraint); addon targets Godot 4.3. [[decisions/2026-06-12-adaptisound-rejected]]
 - **Option 2 (canonical, shipped)**: hand-rolled `AdaptiveAudio` autoload: one `AudioStreamPlayer` per stem on its own bus, `_process` lerps `volume_db` toward targets computed from `DreadManager` + `WorldState`.

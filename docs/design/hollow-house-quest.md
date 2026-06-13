@@ -1,0 +1,91 @@
+---
+name: Hollow House — Investigation Micro-Quest (Vertical Slice)
+date: 2026-06-13
+tags: [design, quest, vertical-slice, horror, secrets, companions]
+status: draft
+related_decisions: "[[decisions/2026-06-13-next-phase-hollow-house-slice]]"
+source: "[[research/done/2026-06-13-companion-pointer-investigation-design]] (R7 bridge)"
+related: "[[mechanics/accessible-interiors]] · [[design/secrets-and-discovery]] · [[mechanics/zone-recontextualization]] · [[mechanics/companion-pointer]] · [[mechanics/hollowing-clock]]"
+---
+
+# Hollow House — the Investigation Micro-Quest
+
+The first **Tier-A authored interior** ([[mechanics/accessible-interiors]] tiers)
+and the concrete vehicle for the **secrets** pillar of the locked next arc
+(*early-game authored beat + doom signals + secrets*) that the
+[[playtest/2026-06/synthesis]] surfaced ("not enough action or secrets"). It is
+the **vertical slice that makes a playtest meaningful**: the smallest artifact
+that exercises every shipped system together. Sequencing & rationale live in
+[[decisions/2026-06-13-next-phase-hollow-house-slice]]; sourcing in
+[[research/done/2026-06-13-companion-pointer-investigation-design]].
+
+> Reliability markers preserved from source: `[verified 2026-06-13]` /
+> `[training knowledge]`.
+
+## The shape (Gone Home, compressed)
+A **closed floorplan** — entry hub + 2–3 small rooms off it, **one** diegetic gate
+— so a tiny linear space reads as non-linear (Gone Home's "successful illusion")
+`[verified 2026-06-13]`. ~10–20 minutes, a handful of beats. One **"beautiful
+room"** gets disproportionate polish to show the game's ceiling.
+
+**Beat spine:** arrive → enter → first dread beat + Briar reaction → search
+(3–6 clues) → find the hidden book/truth → **recontextualization beat** → exit
+changed. Edith Finch vignette discipline: short, digestible, with breathing room.
+
+## Content budget
+- **1 core revelation** (a hidden book/truth about this house's lost child) +
+  **3–6 environmental clues**. Core story tells fully if all its pieces are found;
+  peripheral lore sits "along a spectrum" of optionality (Gaynor) `[verified 2026-06-13]`.
+- **One** diegetic gate max — a stuck door Briar scratches open, or a floorboard
+  key she digs up. **Not** a key-hunt ("whose house would be like that?") `[verified 2026-06-13]`.
+
+## Binding rules inherited (see [[design/secrets-and-discovery]])
+1. **Knowledge-gated, not item-gated.** The quest completes when Rowan has
+   **witnessed N doom-signals** (a Journal LORE/DOOM threshold), not when an
+   inventory checklist is full. Reading the book **recontextualizes** signals the
+   player already saw ([[mechanics/zone-recontextualization]] state change + new
+   DOOM Journal entry) — the *aha*, not a fetch.
+2. **Journal = memory, never a counter.** In-character "what Rowan noticed"
+   entries; **no "x/y clues found"** (tracker-UI compulsion warning — Gaynor &
+   Barlow) `[verified 2026-06-13]`.
+3. **Nothing story-critical permanently missable.** Every required clue has a
+   no-Briar fallback affordance ([[mechanics/companion-pointer]]).
+4. **No-wiki / no pixel-hunt on the critical path.** Required interactables use
+   the consistent 32×32 glint/outline language; obscure spots are *optional lore
+   only*.
+5. **Critical path never requires combat** — mercy/avoidance always viable
+   ([[mechanics/encounters-mercy]]).
+
+## System wiring (existing systems only)
+| Beat | System |
+|---|---|
+| Find the hidden book/clues | [[mechanics/inventory]] DiggableSpot (+ItemDef) + shimmer fallback |
+| Briar leads to a clue | [[mechanics/companion-pointer]] `seek_target` (+ no-missable fallback) |
+| Dread rises with depth | DreadManager + [[mechanics/adaptive-audio]] (proximity "fear-emitter" volume curve on the dread stem) |
+| Briar fears the *room* | [[mechanics/companion-quirks]] fear behavior — **foreshadows** the recontext |
+| The truth reframes the space | [[mechanics/zone-recontextualization]] state change + DOOM Journal entry + single stinger |
+| Doom-signal foreshadowing | [[mechanics/hollowing-clock]] bells/posters as the witnessed signals |
+| Persist / replay | SaveManager (interior floor persistence) + NG+ recontextualized lore |
+
+## Horror pacing (small interior)
+- **Audio-first** — low drone under the bed; the **dread stem scales by proximity
+  to the hidden truth** (Dead Space "fear emitter") `[verified 2026-06-13]`; a
+  **single stinger** reserved for the recontext beat.
+- **Darkness defines legibility** — Briar + a small light radius reveal; the dark
+  hides the clue *and* the dread ([[mechanics/vision-and-darkness]]).
+- **Briar as the unique amplifier** — she fears the room *before* the player
+  learns why; her earlier dread pays off at the reveal (and again on NG+).
+
+## Exit criteria (Phase-1 done)
+Playable start-to-finish on Linux **and** Web export, with all six systems firing:
+accessible-interiors transition, Briar-seek + fallback, DreadManager + adaptive
+audio, companion fear, zone-recontext + Journal DOOM gate, save/reload inside the
+house. Then → **Phase 2 external playtest** (thresholds in the decision record).
+
+## Out of scope (defer)
+Age-progression/long-arc systems, new mechanics, the zone-wide art pass (Phase 3,
+after playtest validates the beats), and any "detective vision" sense (ideas
+inbox — only if playtests show players hard-stuck).
+
+## Related
+[[mechanics/accessible-interiors]] · [[design/secrets-and-discovery]] · [[mechanics/companion-pointer]] · [[mechanics/zone-recontextualization]] · [[mechanics/hollowing-clock]] · [[mechanics/encounters-mercy]] · [[decisions/2026-06-13-next-phase-hollow-house-slice]] · [[story/bible]]

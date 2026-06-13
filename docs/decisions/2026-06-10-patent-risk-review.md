@@ -40,8 +40,23 @@ US 10,926,179 claims **procedurally generated** NPC evolution: hierarchies/ranks
 ## Enforcement reality (2026)
 No documented mechanic-patent suit by a major publisher against a small indie. The notable cases are Nintendo v. Pocketpair (mid-sized, throw-capture specific — Pocketpair removed sphere-throwing; USPTO re-exam pressuring Nintendo's US position) and Nintendo v. Colopl (mobile giant). Risk for a solo EU dev with this design profile is minimal; the discipline above is cheap insurance.
 
+## Research cross-check (2026-06-13) — flag, not a re-decision
+The R7 bridge [[research/done/2026-06-13-companion-pointer-investigation-design]]
+independently re-verified the two live patents that brush our design; the verdict
+above is **unchanged** (authored-not-procedural + balloon dialogue keep us clear).
+Recorded for provenance:
+- **BioWare dialogue wheel — US 8,082,499** ("Graphical interface for interactive
+  dialog", filed 2007, granted 2011, **expires 2029**). Matches our row. `[verified 2026-06-13]`
+- **WB Nemesis — US 10,926,179** (granted Feb 23 2021). ⚠️ **Discrepancy to
+  verify:** the new research states "valid to **2035**"; our table says "→ Aug
+  **2036**." Re-confirm the exact expiry at the demo/marketing milestone — does
+  not change the verdict either way. `[verified 2026-06-13]`
+- New this round: **Briar-seek** ([[mechanics/companion-pointer]]) audited against
+  the same Nemesis frame — authored behavior on one fixed character, no procedural
+  generation/hierarchy/rank → clear, same discipline as [[mechanics/companion-quirks]].
+
 ## Lookback Questions
-- At demo/marketing milestone: any new patents (esp. Palworld-case fallout)? Nemesis still standing unchanged?
+- At demo/marketing milestone: any new patents (esp. Palworld-case fallout)? Nemesis still standing unchanged? **Confirm the Nemesis expiry (2035 vs 2036).**
 - Did any post-slice feature drift toward procedural companion generation (would change the analysis)?
 
 ## Related
