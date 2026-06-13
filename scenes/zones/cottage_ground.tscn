@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cottagegrnd001"]
+[gd_scene load_steps=8 format=3 uid="uid://cottagegrnd001"]
 
 [ext_resource type="Script" path="res://scripts/world/interior_root.gd" id="1_interior"]
 [ext_resource type="Texture2D" path="res://assets/sprites/interiors/cottage_ground_floor.png" id="2_floor"]
 [ext_resource type="PackedScene" uid="uid://cfpo0lhe11a3y" path="res://scenes/player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" uid="uid://briarpup00001" path="res://scenes/companions/briar.tscn" id="4_briar"]
 [ext_resource type="Script" path="res://scripts/world/door_transition.gd" id="5_door"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/stairs_down.png" id="6_stairs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
 size = Vector2(40, 40)
@@ -30,13 +31,13 @@ position = Vector2(-24, 124)
 position = Vector2(0, 110)
 
 [node name="SpawnFromBasement" type="Marker2D" parent="." groups=["spawn_from_basement"]]
-position = Vector2(-150, -90)
+position = Vector2(120, 30)
 
 [node name="ExitDoor" type="Area2D" parent="." groups=["interior_door"]]
 position = Vector2(0, 140)
 collision_mask = 2
 script = ExtResource("5_door")
-target_scene_path = "res://scenes/zones/playground_fringes.tscn"
+target_scene_path = "res://scenes/zones/village_green.tscn"
 spawn_id = &"from_cottage"
 prompt_text = "Step outside"
 
@@ -44,12 +45,15 @@ prompt_text = "Step outside"
 shape = SubResource("RectangleShape2D_door")
 
 [node name="StairsDown" type="Area2D" parent="."]
-position = Vector2(-150, -118)
+position = Vector2(120, -10)
 collision_mask = 2
 script = ExtResource("5_door")
 target_scene_path = "res://scenes/zones/cottage_basement.tscn"
 spawn_id = &"from_above"
 prompt_text = "Go down"
+
+[node name="StairsSprite" type="Sprite2D" parent="StairsDown"]
+texture = ExtResource("6_stairs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StairsDown"]
 shape = SubResource("RectangleShape2D_door")

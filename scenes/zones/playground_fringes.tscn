@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://envpq1ay0667"]
+[gd_scene load_steps=62 format=3 uid="uid://envpq1ay0667"]
 
 [ext_resource type="Script" uid="uid://dw5pp4xyg1cpx" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" uid="uid://6k1vnwks463q" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -39,10 +39,6 @@
 [ext_resource type="Script" path="res://scripts/world/surface_zone.gd" id="42_surface"]
 [ext_resource type="SpriteFrames" path="res://assets/resources/fx/campfire_frames.tres" id="43_campfire_fx"]
 [ext_resource type="SpriteFrames" path="res://assets/resources/fx/fog_frames.tres" id="44_fog_fx"]
-[ext_resource type="Script" path="res://scripts/world/door_transition.gd" id="45_door"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cottagedoor"]
-size = Vector2(40, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -219,20 +215,6 @@ script = ExtResource("10_transition")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VillageTransition"]
 shape = SubResource("RectangleShape2D_wall_v")
-
-[node name="CottageDoor" type="Area2D" parent="." groups=["interior_door"]]
-position = Vector2(-180, -200)
-collision_mask = 2
-script = ExtResource("45_door")
-target_scene_path = "res://scenes/zones/cottage_ground.tscn"
-spawn_id = &"default"
-prompt_text = "Enter cottage"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CottageDoor"]
-shape = SubResource("RectangleShape2D_cottagedoor")
-
-[node name="SpawnFromCottage" type="Marker2D" parent="." groups=["spawn_from_cottage"]]
-position = Vector2(-180, -160)
 
 [node name="World" type="Node2D" parent="."]
 y_sort_enabled = true
