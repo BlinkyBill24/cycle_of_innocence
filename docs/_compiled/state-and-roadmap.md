@@ -1,6 +1,6 @@
 # Project State & Roadmap — canonical brain (AGENTS.md), roadmap, ideas inbox, latest session journals
 > GENERATED 2026-06-13 by tools/compile_snapshots.py — do NOT edit (not here, not in claude.ai). Source of truth is the Obsidian vault in the game repo; this file is replaced wholesale at milestones.
-> Sources: AGENTS.md, docs/plan/playtest-protocol-2026-06.md, docs/plan/slice-implementation-roadmap.md, docs/ideas.md, docs/sessions/2026-06-13.md, docs/sessions/2026-06-12.md
+> Sources: AGENTS.md, docs/plan/playtest-protocol-2026-06.md, docs/plan/slice-implementation-roadmap.md, docs/ideas.md, docs/sessions/README.md, docs/sessions/2026-06-13.md
 
 
 ======================================================================
@@ -42,7 +42,7 @@ SOURCE: AGENTS.md
 - **R2 — Read before work.** This file + `docs/story/bible.md` + the relevant `docs/mechanics|design/*.md` before any feature work. Grep `docs/decisions/` for prior art; link findings with `[[backlinks]]`.
 - **R3 — Vertical slices.** Every increment F5-playable. Slice definition below.
 - **R4 — Imagine-first assets.** Character/companion bibles before sprite sheets; document every prompt in `docs/art/imagine-prompts.md`; pixel post-process (scripted or GIMP/Pixelorama — no Aseprite); nearest-filter import.
-- **R5 — Journal & capture.** Session journal `docs/sessions/YYYY-MM-DD.md` (newest first). Stray ideas → `docs/ideas.md` inbox, never dropped. Run `python3 ../scripts/obsidian/status.py` at checkpoints.
+- **R5 — Journal & capture.** **Each session writes its OWN journal file** `docs/sessions/YYYY-MM-DD-<slug>.md` (slug = your branch/feature, e.g. `2026-06-13-footstep-surface.md`); newest entries first within your file. **NEVER append to a shared daily file or edit another session's file** — that shared-file append is what kept causing parallel-session merge conflicts (per-session files never collide). Read a whole day with `python3 tools/session_digest.py [YYYY-MM-DD]`. Convention: `docs/sessions/README.md`. Stray ideas → `docs/ideas.md` inbox, never dropped. Run `python3 ../scripts/obsidian/status.py` at checkpoints.
 - **R6 — Commit & push.** After meaningful changes: commit on the feature branch and push to `origin` (github.com/tchintchie/**game** — the only repo; the rpg-adventure mirror was retired 2026-06-10, see `docs/decisions/2026-06-10-repo-consolidation-game-only.md`). The user merges to main. A public standalone repo will be split out when a demo is ready.
 - **R7 — Research bridge.** Web research lives in the claude.ai Project "Cycle of Innocence — Design & Research", grounded in the `docs/_compiled/` snapshots (`python3 tools/compile_snapshots.py`, regenerate + re-upload after milestone merges that touch docs). Results come back ONLY via the `docs/research/` inbox → librarian pass (propose-first; locked decisions get flags, not edits). Convention: `docs/research/README.md`; system: `docs/setup-guide.md`.
 
@@ -359,6 +359,7 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - Strong emphasis on "no Mote reuse" — document guardrails in GROK.md and local handbook.
 
 ## 📥 Captured this session
+- Monster + ambient SFX wiring: batch-2 sounds exist but nothing calls them — `twisted_child` → `monster_attack` (lunge), `monster_hurt` (hurt/crumble), `monster_creep` (stalk ambient); `campfire_crackle` → `AudioStreamPlayer2D` on the Hideout campfire (loop already enabled); `church_bell` → village chapel toll.
 - Ambient SFX beds: `crickets.wav` + `owl_hoot.wav` exist but aren't wired — loop-enable the import and drive them from AdaptiveAudio (night/dread layer) so the fringe feels alive. Owl could also fire as an occasional dread stinger.
 - Per-surface footsteps: `footstep_grass` + `footstep_gravel` both exist; player_controller should pick by ground type (tile/zone) instead of always grass. Tiny state hook.
 - SFX coverage gaps (next ElevenLabs batch when credits reset): monster vocalizations (twisted-child stalk/lunge), item pickup vs the "found" stinger, bond-up chime, UI open/close (satchel/journal), water/fog ambience.
@@ -490,6 +491,55 @@ These should feed into zone design, art prompts, and the first few dialogue node
 
 
 ======================================================================
+SOURCE: docs/sessions/README.md
+======================================================================
+
+---
+name: Session Journals — convention
+tags: [meta, sessions]
+---
+
+# Session Journals
+
+**One file per session, never a shared file.** Parallel agent/editor sessions
+kept colliding on a single `YYYY-MM-DD.md` (everyone appended to the same "What
+I did" list → merge conflict on every sync). Per-session files never collide.
+
+## Naming
+
+`docs/sessions/YYYY-MM-DD-<slug>.md` — `<slug>` is your session's branch or
+feature, e.g.:
+- `2026-06-13-footstep-surface.md`
+- `2026-06-13-bark-volume.md`
+- `2026-06-13-secrets-research.md`
+
+## Rules (R5)
+
+- Write **only your own** file. Never append to another session's file, and
+  never to a bare `YYYY-MM-DD.md` (those are legacy/pre-2026-06-13).
+- Newest entries first within your file.
+- Use the template `docs/_templates/session.md` (its `name`/`branch` fields
+  identify the session).
+- Commit your journal file on your feature branch like any other change.
+
+## Reading a whole day
+
+```bash
+python3 tools/session_digest.py            # today, all sessions
+python3 tools/session_digest.py 2026-06-13 # a specific day
+```
+
+It concatenates every `YYYY-MM-DD-*.md` (and any legacy bare file) into one
+read, newest-modified first.
+
+## Legacy
+
+Bare `YYYY-MM-DD.md` files (≤ 2026-06-13) predate this convention — left as
+history, not edited further. The parent-vault pointer journals in
+`../../docs/sessions/` (monorepo root) stay as-is.
+
+
+======================================================================
 SOURCE: docs/sessions/2026-06-13.md
 ======================================================================
 
@@ -508,6 +558,7 @@ Rework the playground props (except trees) — fix off perspective + wrong scale
 
 ## What I did
 *(newest first)*
+- **SFX batch 2 — ambience + monster, now wired** (worktree `feature/sfx-batch2`): 5 more ElevenLabs SFX per user request: `campfire_crackle` (ambient loop — import set to `loop_mode=1`), `church_bell` (single chapel toll, distinct from the doom `hollowing_bell`), `monster_attack`, `monster_creep`, `monster_hurt`. The 4 one-shots registered in `Sfx.gd`; campfire left as a loop file. Extended `tools/gen_elevenlabs_sfx.py` with the new entries + a **skip-existing guard** (`--force` to override) so reruns don't waste credits. Monster prompts worded to avoid moderation trips ("twisted creature", not "child"). **Monster sounds wired into `enemy_base.gd`**: `monster_creep` on `spotted` (aggro/stalk cue), `monster_attack` on lunge (`_attack_enter`), `monster_hurt` on `_hurt_enter` — single-fire at the right state transitions. Campfire/chapel wiring left as follow-ups (ideas.md). Levels are default; easy to trim via the `Sfx.VOLUMES` map (like the bark) if any read too loud.
 - **Per-surface footsteps (rough hook)** (worktree `worktree-footstep-surface`, suite 238): footsteps now switch sound by ground. New `SurfaceZone` Area2D (group `surface_zone`, `@export surface`) tracks player overlap; player `_current_surface()` returns the entered zone's surface else `&"grass"`, and pure `footstep_sound()` maps gravel/path/sand→`footstep_gravel`, everything else→grass `footstep` (3 GUT tests). Default ground stays grass; one rough `PlazaGravel` zone (`surface=&"sand"`) dropped over the central plaza as a starting estimate — **placement is the user's editor pass** (add/resize SurfaceZones, set `surface`). Boot clean.
 - **Bark volume trim** (worktree `fix/bark-volume`, suite 235): user reported the dog bark "way too loud". Added a per-sound `VOLUMES` mix-trim map to `Sfx.gd` (added to the call-site `volume_db` in `play()`), `bark = -8 dB` — tames it everywhere it plays (hideout 0→-8, companion -6→-14) without re-encoding the WAV or editing call sites; one number to re-tune. (The ElevenLabs SFX were generated at full scale; bark is the punchiest.)
 - **Stale-checkout diagnosis + `tools/sync.sh`**: the "I merged but still see no poster / silent bell" report was NOT lost work — the editor checkout `test/` was **5 commits behind origin/main** (PRs merged on GitHub but never pulled locally), so it had none of the poster/bell changes and its scene had no Poster node. Synced it (stash collider edit → ff to origin/main → pop → reimport) and added **`tools/sync.sh`**: pull latest + reimport before F5, auto-stashing uncommitted editor edits. Documented in AGENTS.md working loop. Recurring root cause of the parallel-session confusion.
@@ -553,260 +604,3 @@ Rework the playground props (except trees) — fix off perspective + wrong scale
 
 ## Related
 [[art/prop-coherence]] · [[art/imagine-prompts]] · [[sessions/2026-06-12]]
-
-
-======================================================================
-SOURCE: docs/sessions/2026-06-12.md
-======================================================================
-
----
-name: Session 2026-06-12
-date: 2026-06-12
-tags: [session, cycle-of-innocence]
-branch: feature/research-bridge
-commits: []
----
-
-# Session 2026-06-12
-
-## Focus
-Web research bridge: shared brain between the claude.ai Project (research) and
-Claude Code (implementation), adapted from the user's space-game design system.
-
-## What I did
-*(newest first)*
-- **Tester-04 (new person, first bell-valid session)** (branch
-  `fix/playtest-tester04`, 196/196): doom probe finally returned real data —
-  **3/10 WITH evidence** (warden after the bell): the one shipped doom
-  signal is the one that landed, validating the doom-legibility roadmap.
-  "Reacting vaguely" beats the previous "neither"s. Fixed the new
-  affordance gap: keyless soothe plateau read as a bug ("stops while I hold
-  E, chases again after") → stalled cue in SoothePrompt ("it calms… but
-  something is missing" + amber bar at the 60% stall). THREAT_RADIUS
-  220→160 (danger lingered past visibility). Content drought now 4/4
-  ("not enough action or secrets") — next dev arc locked: early-game
-  authored beat + doom signals + secrets.
-
-- **Tester-03 follow-up** (branch `fix/playtest-tester03`, 195/195): the
-  fix→verify loop works — soothe now "haunted" (was broken ×2), danger stem
-  "really good" (was reggae ×2). Two new defects fixed: (1) danger layer
-  ignored threat state (played after Stilled + in daylight) → new pure
-  `cap_layer` gate (danger needs an un-stilled enemy ≤220px or stage ≥2;
-  bright day without threat → ambient), tests updated with a threat fixture
-  (learned: `bool(null)` has no constructor — null-safe Variant compares);
-  (2) gossip text + villager "!" were occluded by y-sorted world →
-  z_index 200 absolute. Synthesis headline (3/3 testers, defects excluded):
-  **content drought, not systems** — "nothing to do except waiting for
-  sounds"; next dev arc = early-game authored beat + doom legibility
-  world-visuals; combat feel/SFX, Briar telegraphs, villager brush-off
-  interactions captured. Tester-04 should be a new person, 30–45 min.
-
-- **Danger stem v2 swapped in** (branch `fix/danger-stem-swap`, 194/194):
-  downloaded the user's makebestmusic.com track (share page embeds the MP3
-  publicly), converted MP3→OGG via a venv `soundfile` (no ffmpeg on box),
-  RMS-matched to the old stem (×1.58) with peak limiting, replaced
-  `playground_danger.ogg`; raw MP3 archived in `stems/raw/`, provenance in
-  [[art/audio-prompts]]. Caveats noted: untrimmed loop seam + still not an
-  aligned stem — audio content sprint still owns the real fix. The "reggae"
-  v1 is gone for test run 3.
-- **Tester-02 follow-up — two defects fixed for run 3** (branch
-  `fix/playtest-tester02`, 194/194): (1) the village "crash" root-caused —
-  `village_tileset.tres` declared 4 dirt-variant tiles vs the curated
-  1-tile texture; the 3 out-of-texture tiles errored exactly when the
-  village scene loaded and the EDITOR paused on it (native play = strictest
-  runtime; my CLI auto-walk repro sailed past). Tres + generator fixed,
-  regression test added. (2) SoothePrompt hint was invisible/misplaced
-  (degenerate preset/grow rect — t02 saw it behind the hearts) → explicit
-  bottom-center anchors, verified by in-game screenshot. Captured
-  tester-02 verbatim; synthesis updated — **audio threshold FAILED 2/2**
-  (identical "reggae" wording): stem regen (human, ACE-Step) promoted to
-  before-any-tuning. Repro tooling: temporary auto-walk autoload (skip name
-  entry, click dialogue during CUTSCENE, steer west) — removed after use.
-- **First real playtest data + soothe affordance fix** (branch
-  `fix/playtest-tester01-followup`, 193/193): tester-01 (SJ, ~5 min)
-  captured verbatim in `docs/playtest/2026-06/tester-01.md` + running
-  [[playtest/2026-06/synthesis]]. The Q3 "broken" verdict was a genuine
-  defect, fixed now: **`SoothePrompt`** (CanvasLayer 15) — "HOLD E — sing to
-  it" near a spareable monster, recognition bar while holding (plateau stall
-  at 60% becomes visible = free discovery hint), hidden in dialogue; the
-  hold verb previously had ZERO on-screen communication outside the
-  tester-disabled debug HUD. Early signals (await n≥3 per protocol): danger
-  stem reads as **reggae** (`playground_danger.ogg`/`playground_tense.ogg` —
-  human regen, raises audio-sprint priority), first-5-min pacing ("want to
-  see something happening" → authored early dread beat, content not knobs),
-  night 2/5 (second strike on darker-dread). Positives: choices 5/5, opening
-  atmosphere praised. Clock/doom answers marked n/a (5-min session never
-  reached stage 1) — enforce session length for testers 02+.
-- **Playtest protocol + prop rework round 2** (branch `fix/prop-rework`):
-  (1) [[plan/playtest-protocol-2026-06]] drafted — session script (5 beats,
-  ends on the stage-0→1 bell = demo ending validation), silent-observation
-  checklist, verbatim debrief, pass/fail thresholds mapped to tuning knobs,
-  per-tester capture template under `docs/playtest/2026-06/`; linked from
-  roadmap arc 1. Debug HUD OFF for testers. (2) User feedback "cottages/
-  houses + playground props/trees look off": playground props palette-locked
-  (were 100% off-palette like the village; **toy_duck exempt** — authored
-  saturation rule). Buildings regenerated after all — inpainting at the
-  placement-spot crop answers the foundation-fight concern (foundation is in
-  the crop): cottage_a/b/dark + chapel + 2 dead trees, all canon view,
-  palette-locked, **gated PASS**, staged as candidates. New buildings are
-  TALLER than the old slabs → placement/colliders = user editor judgment.
-  Also committed the user's village collider audit (item 7 progress).
-  PixelLab: ~7 generations; v2 status GET endpoint 404s — poll via MCP
-  get_map_object, not the REST status URL.
-- **Gated candidates placed** (branch `fix/place-gated-candidates`,
-  191/191): village_green.tscn retargeted to the four gated candidates
-  (bench, harmony_board, lantern_post ×4 instances, market_stall) with
-  base-anchored sprite offsets (board −10 px height, lantern +2 px;
-  bench/stall same height = pure swaps); UIDs from the candidate imports.
-  Composite-at-scene-anchors sanity check looks right. Remaining for the
-  user: item-7 editor audit incl. collider verify on board/stall (footprint
-  width changed) + well-collider nudge. Preview mock left on old paths
-  (editor is placement truth; mock approximates).
-- **Gate-validation note integrated (§1–4, §6)**: rule 5 gained the
-  shipped-instrument spec (qa_overlay_128 ellipse/box dimensions + legend +
-  gate_sheet.py), the **iconic-prior props** addendum (angle in description
-  content; empirics: param-only 0.51 FAIL → prior-busting PASS roll 1), the
-  **gate instrument note** (horizontal circles, not roofs, are the pitch
-  instrument), and the **edge-canon candidate closed** (edges empirically
-  clean — no defringe step). Fix plan: items 1–6 all closed; item 7 (editor
-  audit + place gated candidates + well-collider nudge) is the only open
-  item. **§4 Aseprite sweep**: no Aseprite installed — AGENTS.md (art line +
-  R4), ai-production-setup, roadmap matrix now say scripted/GIMP/Pixelorama;
-  history untouched; auto-memory corrected too. §6 reconciliation: its "pin
-  reference crops still open" was stale — closed in b506284; the web side
-  read a pre-close-out snapshot (self-corrects on merge + re-upload).
-- **Gate-validation work order executed** (§5 of the new inbox note; §1–4/§6
-  integrate at the next librarian pass): (1) well regenerated with the
-  prior-busting description (cylinder side visible, rim = thin ellipse) at
-  its actual placement-spot crop — **PASS on roll 1**, no depth-i2i needed;
-  the iconic-prior diagnosis was right. (2) New `tools/gate_sheet.py` —
-  editor-less rule-5 gate: qa_overlay_128 composited onto candidates/ at 4×
-  NN into one contact sheet. (3) Remaining village props batch-regenerated
-  at their placement-spot crops (bench, lantern_post, harmony_board,
-  market_stall), palette-locked, staged, **all gated PASS** before
-  placement. Also committed the user's editor swaps (well_v2/fence_v2 in
-  village_green.tscn) + the web-generated QA overlay artifacts. ⚠️ well_v2
-  was replaced in place (44×51 vs 54×60) — collider may need a nudge in the
-  editor.
-- **Projection canon close-out** (researcher's next-steps, same branch):
-  lint extended to the `tile_view` key spelling (negative-tested);
-  ratio-glance audit of the two legacy height-cue assets — terrace/cliff
-  tileset PASS, chapel roof PASS (no depth-i2i rework needed, recorded in
-  rule 5); canon reference crops pinned (`assets/reference/
-  canon_view_character.png` = Rowan south idle cell, `canon_view_prop.png` =
-  canon well) closing the imagine-prompts TODO. Remaining user tasks: editor
-  pass (place candidates, item-7 audit) + QA overlay layer in Aseprite.
-  Bitforge OpenAPI check deferred until the fallback is actually needed
-  (captured in ideas). Next dev arc: structured playtest/feel pass — prop
-  coherence is maintenance-mode behind the gate.
-- **Projection canon integrated** (branch `feature/projection-canon`): new
-  **Rule 5** in [[art/prop-coherence]] — one camera, **low top-down ~20°
-  "Zelda perspective"**, cheated oblique, view ALWAYS explicit (PixelLab
-  per-tool defaults differ: map tools 35°, character tools 20°). Local
-  verification flipped the research's history: every production script
-  already pinned low top-down — the only drift ever was MY same-day
-  candidates (generated high top-down through the viewless item-6 recipe).
-  Both regenerated at canon view + palette-locked + restaged (the canon well
-  is visibly correct: flat rim ellipse, front face, verticals vertical).
-  Enforcement: `CANON_VIEW` in pixellab_api.py + `check-brain.sh` lint
-  (negative-tested) — off-canon views in tools/ now fail the drift check
-  unless `# canon-override:`-commented. Workflow additions: variants via
-  `create_object_state` (never fresh), depth-i2i geometry lock, canon ratio
-  table + QA overlay gate. Prompt templates A/B/C in [[art/imagine-prompts]]
-  (+ user TODO: pin reference crops). Ideas: QA overlay art task, bitforge
-  fallback params unconfirmed. Rejected (vault stance upheld): edit_image
-  prop extraction (rule-2 violation).
-- **Prop-coherence items 4–6 + debug HUD** (branch
-  `feature/coherence-pass-debug-hud`, 191/191): Debug readout moved off the
-  world and onto a `CanvasLayer` (layer 101, above dialogue) anchored
-  **top-right**, font 9 + black outline, grows leftward — always on screen
-  now (it was a world-space label that scrolled away; verified with a real
-  X11 game capture). Item 4 verified already covered (`PropShadows.apply`
-  runs in both zones; village buildings on baked foundations — research
-  screenshots were stale). Item 6 smoke test PASSED: `create_map_object`
-  with a backdrop crop works (no 500); style/projection inherited, palette
-  partial → palette-lock every result; size control = crop size × oval
-  fraction; recipe recorded in [[art/prop-coherence]]. Item 5 partial:
-  new well + fence candidates generated against real ground crops,
-  palette-locked, staged in `assets/sprites/village/candidates/` for the
-  user's editor placement pass (buildings deliberately NOT regenerated —
-  the palette lock + baked foundations already ground them).
-- **Prop-coherence fix plan items 2–3** (branch
-  `fix/zone-coherence-camera-palette`, 189/189): (2) `ZoneRoot` now clamps the
-  player Camera2D to the `GroundBackdrop` rect (+16px bleed) on zone enter —
-  pure static funcs `sprite_world_rect`/`camera_limits`, unit-tested; zones
-  without a backdrop reset limits so clamps can't leak across transitions.
-  (3) New `tools/palette_lock.py`: all 10 village props were **100%
-  off-palette** (confirming the research) and are now quantized to the
-  backdrop's 48 colors — before/after on real ground verified visually; cool
-  accents went warm (palette has no cool colors; item-5 regen if any prop
-  reads muddy in-game). Test debugging: code-added Camera2D gets an @-mangled
-  name (test must set `name`); ZoneRoot's deferred calls must be drained
-  before autofree; ZoneManager state restored in before/after_each — an
-  unflushed deferred had broken `test_zone_manager` mid-suite.
-- **Art-tooling research integrated** (screenshot review + Grok cross-check):
-  verdict — compositing gap, not tooling gap; whole stack reaffirmed. New
-  [[art/prop-coherence]] (rules: palette hard-lock to zone backdrop, flat
-  neutral light, scale chart, shadow-canon split; gated `create_map_object`
-  workflow + PROPS-ONLY edit_image as benchmark-only) and prop authoring rules
-  appended to [[art/imagine-prompts]] (lamp/fence/well ratios PROVISIONAL).
-  Local verification corrected the plan: courtyard decals already gone from
-  all scenes (screenshots were stale vintages) and Camera2D limits confirmed
-  missing (the grey-void fix is real). Roadmap: next-arc 5 = village zone
-  coherence conversion, with ordering note (camera clamp + palette pass
-  arguably before the external playtest). Ideas-rejected: extra art vendors
-  (Ludo/Leonardo/MJ). Lullaby-as-tense-motif was already canon — no action.
-- **Research round 3 integrated** (outside-view audit + market/tech): new
-  decision [[decisions/2026-06-12-adaptisound-rejected]] (README: no web
-  export — re-verified locally; hand-rolled AdaptiveAudio canonical;
-  [[mechanics/adaptive-audio]] status corrected planned→implemented) and new
-  **proposed** decision [[decisions/2026-06-12-steam-timing]] (USER CALL:
-  Coming Soon late 2026 + 2027 Next Fest demo if 2027 is plausible — wishlist
-  lead time compounds). New [[design/market-positioning]] (draft): F&H-wave
-  counter-positioning ("Undertale's mercy in Silent Hill's village — and you
-  grow up inside it"), capsule rule (sell horror tone, never retro-RPG), demo
-  ends on the stage 0→1 bell, platform split (Web=shop window, Android=mobile
-  product, Steam=revenue) + verified Godot web-export facts. Roadmap gained
-  "Next arcs" (playtest pass w/ external testers → audio content sprint →
-  playground recontext authoring → Steam decision) + the scope rule:
-  content-complete per zone before any new mechanic. Ideas: external-playtest
-  cadence every arc. Round verdict: hold locks, stop building systems, start
-  filling them.
-- **First inbox round-trip (bridge verified)**: the §B4 verification answer came
-  back grounded — every cited number/rule checked out against the vault, and it
-  correctly treated the no-timer-UI presentation rule as locked. Librarian pass
-  integrated its three new ideas into the docs: **doom legibility roadmap** in
-  [[mechanics/hollowing-clock]] (bell pattern language, stage-keyed poster
-  swaps, journal of observed signs, flagged anti-pattern: no always-on
-  diegetic-skinned meter; corruption-spread stays parked), stage-keyed
-  recontext-group variant noted in [[mechanics/zone-recontextualization]],
-  observed-signs journal added to the Growth/Memory screen in
-  [[mechanics/progression]]. Inbox file stamped with provenance and moved to
-  `research/done/`; snapshots recompiled.
-- **Research bridge built** (branch `feature/research-bridge`): adapted
-  [[setup-guide]] from the space-game system to this project (no vault
-  restructure, git stays active). New `tools/compile_snapshots.py` → 4
-  replace-only snapshots in `docs/_compiled/` (story-compendium,
-  mechanics-compendium, decisions, state-and-roadmap incl. AGENTS.md + latest
-  journals) for upload as claude.ai project knowledge. Return path:
-  `docs/research/` inbox (provenance frontmatter + [verified]/[training
-  knowledge] markers, convention in `docs/research/README.md`) → librarian
-  pass → `research/done/`. New **R7** in AGENTS.md anchors the loop;
-  `check-brain.sh` now exempts the generated `docs/_compiled/` from stale-term
-  checks. Decision: [[decisions/2026-06-12-web-research-bridge]].
-  **User to-do**: create the claude.ai Project per setup-guide §B4 (instructions
-  text ready there), upload the 4 snapshots, run the §B4 verification question.
-- Pulled merged `chore/import-uids` into main; deleted the local branch.
-  Established that the greenlit post-slice feature queue is complete — next-arc
-  candidates: playtest/feel pass (recommended), story/content pass, Echo
-  companion, inventory loop.
-
-## Next session
-- User: claude.ai Project setup (setup-guide §B4) + snapshot upload; first
-  research run through the new loop as a smoke test.
-- Then: structured playtest + feel pass (audio stem overlap, darker dread,
-  bark visibility — slice-gate leftovers), which picks the next dev arc.
-
-## Related
-[[setup-guide]] · [[decisions/2026-06-12-web-research-bridge]] ·
-[[sessions/2026-06-11]]
