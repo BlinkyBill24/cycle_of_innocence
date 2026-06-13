@@ -1,0 +1,94 @@
+{
+  "group_id": null,
+  "states": [
+    {
+      "character": {
+        "id": "dc638d14-917a-4abf-b5fa-b561e8163b45",
+        "name": "horrifying corrupted undead warhorse, gaunt skeletal body, exposed ribs, rotted peeling hide, hollow eye sockets with a cold ember glow, lipless muzzle with too-many teeth, necrotic brand-burns",
+        "prompt": "horrifying corrupted undead warhorse, gaunt skeletal body, exposed ribs, rotted peeling hide, hollow eye sockets with a cold ember glow, lipless muzzle with too-many teeth, necrotic brand-burns",
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "template_id": "horse",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-06-13T16:33:59.668144+00:00"
+      },
+      "folder": "horrifying_corrupted_undead_warhorse_gaunt_skeleta",
+      "frames": {
+        "rotations": {
+          "south": "horrifying_corrupted_undead_warhorse_gaunt_skeleta/rotations/south.png",
+          "south-east": "horrifying_corrupted_undead_warhorse_gaunt_skeleta/rotations/south-east.png",
+          "east": "horrifying_corrupted_undead_warhorse_gaunt_skeleta/rotations/east.png",
+          "north-east": "horrifying_corrupted_undead_warhorse_gaunt_skeleta/rotations/north-east.png",
+          "north": "horrifying_corrupted_undead_warhorse_gaunt_skeleta/rotations/north.png",
+          "north-west": "horrifying_corrupted_undead_warhorse_gaunt_skeleta/rotations/north-west.png",
+          "west": "horrifying_corrupted_undead_warhorse_gaunt_skeleta/rotations/west.png",
+          "south-west": "horrifying_corrupted_undead_warhorse_gaunt_skeleta/rotations/south-west.png"
+        },
+        "animations": {
+          "gaunt_undead_horse_standing_rigid_breathing_heavil": {
+            "south": [
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_standing_rigid_breathing_heavil/south/frame_000.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_standing_rigid_breathing_heavil/south/frame_001.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_standing_rigid_breathing_heavil/south/frame_002.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_standing_rigid_breathing_heavil/south/frame_003.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_standing_rigid_breathing_heavil/south/frame_004.png"
+            ]
+          },
+          "skeletal_horse_rearing_up_violently_in_a_terrifyin": {
+            "east": [
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/skeletal_horse_rearing_up_violently_in_a_terrifyin/east/frame_000.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/skeletal_horse_rearing_up_violently_in_a_terrifyin/east/frame_001.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/skeletal_horse_rearing_up_violently_in_a_terrifyin/east/frame_002.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/skeletal_horse_rearing_up_violently_in_a_terrifyin/east/frame_003.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/skeletal_horse_rearing_up_violently_in_a_terrifyin/east/frame_004.png"
+            ]
+          },
+          "gaunt_horse_staggering_in_pain": {
+            "south": [
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_horse_staggering_in_pain/south/frame_000.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_horse_staggering_in_pain/south/frame_001.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_horse_staggering_in_pain/south/frame_002.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_horse_staggering_in_pain/south/frame_003.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_horse_staggering_in_pain/south/frame_004.png"
+            ]
+          },
+          "gaunt_undead_horse_stalking_forward_menacingly": {
+            "east": [
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/east/frame_000.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/east/frame_001.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/east/frame_002.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/east/frame_003.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/east/frame_004.png"
+            ],
+            "north": [
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/north/frame_000.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/north/frame_001.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/north/frame_002.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/north/frame_003.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/north/frame_004.png"
+            ],
+            "south": [
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/south/frame_000.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/south/frame_001.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/south/frame_002.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/south/frame_003.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/south/frame_004.png"
+            ],
+            "west": [
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/west/frame_000.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/west/frame_001.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/west/frame_002.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/west/frame_003.png",
+              "horrifying_corrupted_undead_warhorse_gaunt_skeleta/animations/gaunt_undead_horse_stalking_forward_menacingly/west/frame_004.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.0",
+  "export_date": "2026-06-13T18:39:59.050206"
+}

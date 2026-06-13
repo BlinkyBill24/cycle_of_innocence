@@ -472,6 +472,163 @@ SHEET_ROWS = {
         ],
         "aliases": {},
     },
+    # --- batch 3 (2026-06-13): sheet layouts for the new characters ---
+    "rowan_teen_pro": {
+        "out": "assets/sprites/player/rowan_teen_32.png",
+        "tres": "assets/resources/player/rowan_teen_frames.tres",
+        "rows": [
+            ("walk_down", "walk", "south", "loop", 8),
+            ("walk_up", "walk", "north", "loop", 8),
+            ("walk_right", "walk", "east", "loop", 8),
+            ("walk_left", "walk", "west", "loop", 8),
+            ("idle_down", "breathing-idle", "south", "loop", 5),
+            ("idle_up", "breathing-idle", "north", "loop", 5),
+            ("idle_right", "breathing-idle", "east", "loop", 5),
+            ("idle_left", "breathing-idle", "west", "loop", 5),
+            ("attack_down", "cross-punch", "south", "once", 12),
+            ("attack_up", "cross-punch", "north", "once", 12),
+            ("attack_right", "cross-punch", "east", "once", 12),
+            ("attack_left", "cross-punch", "west", "once", 12),
+            ("hurt", "taking-punch", "south", "once", 10),
+            ("crouch", "crouching", "south", "once", 8),
+        ],
+        "aliases": {},
+    },
+    "rowan_adult_pro": {
+        "out": "assets/sprites/player/rowan_adult_32.png",
+        "tres": "assets/resources/player/rowan_adult_frames.tres",
+        "rows": [
+            ("walk_down", "walk", "south", "loop", 8),
+            ("walk_up", "walk", "north", "loop", 8),
+            ("walk_right", "walk", "east", "loop", 8),
+            ("walk_left", "walk", "west", "loop", 8),
+            ("idle_down", "breathing-idle", "south", "loop", 5),
+            ("idle_up", "breathing-idle", "north", "loop", 5),
+            ("idle_right", "breathing-idle", "east", "loop", 5),
+            ("idle_left", "breathing-idle", "west", "loop", 5),
+            ("attack_down", "cross-punch", "south", "once", 12),
+            ("attack_up", "cross-punch", "north", "once", 12),
+            ("attack_right", "cross-punch", "east", "once", 12),
+            ("attack_left", "cross-punch", "west", "once", 12),
+            ("hurt", "taking-punch", "south", "once", 10),
+            ("crouch", "crouching", "south", "once", 8),
+        ],
+        "aliases": {},
+    },
+    "briar_adult_pro": {
+        "out": "assets/sprites/companions/briar_adult_32.png",
+        "tres": "assets/resources/companions/briar_adult_frames.tres",
+        "rows": [
+            ("trot_down", "walk-4-frames", "south", "loop", 8),
+            ("trot_up", "walk-4-frames", "north", "loop", 8),
+            ("trot_right", "walk-4-frames", "east", "loop", 8),
+            ("trot_left", "walk-4-frames", "west", "loop", 8),
+            ("sit", "sit", "south", "loop", 4),
+            ("bark", "bark", "east", "loop", 8),
+            ("growl_down", "growl", "south", "loop", 6),
+            ("growl_up", "growl", "north", "loop", 6),
+            ("growl_right", "growl", "east", "loop", 6),
+            ("growl_left", "growl", "west", "loop", 6),
+            ("dig", "dig", "east", "loop", 10),
+        ],
+        "aliases": {},
+    },
+    "briar_corrupt_pro": {
+        "out": "assets/sprites/enemies/briar_corrupt_32.png",
+        "tres": "assets/resources/enemies/briar_corrupt_frames.tres",
+        "rows": [
+            ("walk_down", "walk-4-frames", "south", "loop", 8),
+            ("walk_up", "walk-4-frames", "north", "loop", 8),
+            ("walk_right", "walk-4-frames", "east", "loop", 8),
+            ("walk_left", "walk-4-frames", "west", "loop", 8),
+            ("idle", "idle", "south", "loop", 4),
+            ("lunge", "lunge", "east", "once", 10),
+            ("hurt", "hurt", "south", "once", 10),
+        ],
+        "aliases": {},
+    },
+    "storm_young_pro": {
+        "out": "assets/sprites/companions/storm_young_32.png",
+        "tres": "assets/resources/companions/storm_young_frames.tres",
+        "rows": [
+            ("walk_down", "walk", "south", "loop", 8),
+            ("walk_up", "walk", "north", "loop", 8),
+            ("walk_right", "walk", "east", "loop", 8),
+            ("walk_left", "walk", "west", "loop", 8),
+            ("idle", "idle", "south", "loop", 5),
+            ("spook", "spook", "east", "once", 10),
+        ],
+        "aliases": {},
+    },
+    "storm_adult_pro": {
+        "out": "assets/sprites/companions/storm_adult_32.png",
+        "tres": "assets/resources/companions/storm_adult_frames.tres",
+        "rows": [
+            ("walk_down", "walk", "south", "loop", 8),
+            ("walk_up", "walk", "north", "loop", 8),
+            ("walk_right", "walk", "east", "loop", 8),
+            ("walk_left", "walk", "west", "loop", 8),
+            ("idle", "idle", "south", "loop", 5),
+            ("canter", "canter", "east", "loop", 8),
+        ],
+        "aliases": {},
+    },
+    "storm_corrupt_pro": {
+        "out": "assets/sprites/enemies/storm_corrupt_32.png",
+        "tres": "assets/resources/enemies/storm_corrupt_frames.tres",
+        "rows": [
+            ("walk_down", "walk", "south", "loop", 7),
+            ("walk_up", "walk", "north", "loop", 7),
+            ("walk_right", "walk", "east", "loop", 7),
+            ("walk_left", "walk", "west", "loop", 7),
+            ("idle", "idle", "south", "loop", 4),
+            ("rear", "rear", "east", "once", 10),
+            ("hurt", "hurt", "south", "once", 10),
+        ],
+        "aliases": {},
+    },
+    "crawler_pro": {
+        "out": "assets/sprites/enemies/crawler_32.png",
+        "tres": "assets/resources/enemies/crawler_frames.tres",
+        "rows": [
+            ("walk_down", "crouched-walking", "south", "loop", 7),
+            ("walk_up", "crouched-walking", "north", "loop", 7),
+            ("walk_right", "crouched-walking", "east", "loop", 7),
+            ("walk_left", "crouched-walking", "west", "loop", 7),
+            ("idle", "breathing-idle", "south", "loop", 4),
+            ("lunge", "lunge", "east", "once", 10),
+            ("hurt", "taking-punch", "south", "once", 10),
+        ],
+        "aliases": {},
+    },
+    "ghost_girl_pro": {
+        "out": "assets/sprites/enemies/ghost_girl_32.png",
+        "tres": "assets/resources/enemies/ghost_girl_frames.tres",
+        "rows": [
+            ("float_down", "float", "south", "loop", 6),
+            ("float_up", "float", "north", "loop", 6),
+            ("float_right", "float", "east", "loop", 6),
+            ("float_left", "float", "west", "loop", 6),
+            ("idle", "breathing-idle", "south", "loop", 4),
+            ("reach", "reach", "east", "once", 8),
+            ("fade", "fade", "south", "once", 6),
+        ],
+        "aliases": {},
+    },
+    "evil_warden_pro": {
+        "out": "assets/sprites/enemies/evil_warden_32.png",
+        "tres": "assets/resources/enemies/evil_warden_frames.tres",
+        "rows": [
+            ("walk_down", "walk", "south", "loop", 8),
+            ("walk_up", "walk", "north", "loop", 8),
+            ("walk_right", "walk", "east", "loop", 8),
+            ("walk_left", "walk", "west", "loop", 8),
+            ("idle", "breathing-idle", "south", "loop", 4),
+            ("attack", "attack", "east", "once", 10),
+            ("hurt", "taking-punch", "south", "once", 10),
+        ],
+        "aliases": {},
+    },
     "rowan": {
         "out": "assets/sprites/player/child_sheet_32.png",
         "tres": "assets/resources/player/rowan_child_frames.tres",
@@ -638,7 +795,9 @@ def pro_anim_map(char: str) -> dict:
     chronological, so later groups (rerolls) override earlier ones."""
     st = state()
     info = call(f"characters/{st[char]['character_id']}", method="GET")
-    anim_root = next((OUT / "chars" / char).glob("*/animations"))
+    anim_root = next((OUT / "chars" / char).glob("*/animations"), None)
+    if anim_root is None:
+        return {}  # no animations downloaded (e.g. a wedged record) -> sheet skipped
     folders = [f for f in anim_root.iterdir() if f.is_dir()]
     mapping: dict = {}
     for group in info.get("animations") or []:
@@ -840,6 +999,70 @@ ANIMATIONS = {
         ("hurt", "taking-punch", None, ["south"]),
         ("crumble", None, "slowly collapsing into a limp heap of rags and dust", ["south"]),
     ],
+    # --- batch 3 (2026-06-13): first animation pass for the new character sheets.
+    # mannequin/dog use known template ids; horse has no template listing so all
+    # horse motion is v3 action_description (skeleton-agnostic). ---
+    "rowan_teen_pro": [
+        ("walk", "walk", None, ["south", "north", "east", "west"]),
+        ("idle", "breathing-idle", None, ["south", "north", "east", "west"]),
+        ("attack", "cross-punch", None, ["south", "north", "east", "west"]),
+        ("hurt", "taking-punch", None, ["south"]),
+        ("crouch", "crouching", None, ["south"]),
+    ],
+    "rowan_adult_pro": [
+        ("walk", "walk", None, ["south", "north", "east", "west"]),
+        ("idle", "breathing-idle", None, ["south", "north", "east", "west"]),
+        ("attack", "cross-punch", None, ["south", "north", "east", "west"]),
+        ("hurt", "taking-punch", None, ["south"]),
+        ("crouch", "crouching", None, ["south"]),
+    ],
+    "briar_adult_pro": [
+        ("walk", "walk-4-frames", None, ["south", "north", "east", "west"]),
+        ("sit", None, "sitting down attentively, tail curled around paws", ["south"]),
+        ("bark", "bark", None, ["east"]),
+        ("growl", None, "growling with hackles raised, head low, body tense, fixed stare", ["south", "north", "east", "west"]),
+        ("dig", None, "digging energetically in the dirt with front paws", ["east"]),
+    ],
+    "briar_corrupt_pro": [
+        ("walk", "walk-4-frames", None, ["south", "north", "east", "west"]),
+        ("idle", "idle", None, ["south"]),
+        ("lunge", None, "lunging forward to attack, jaws wide open, snarling viciously", ["east"]),
+        ("hurt", None, "recoiling and flinching back in pain", ["south"]),
+    ],
+    "storm_young_pro": [
+        ("walk", None, "young horse walking at a steady nervous pace", ["south", "north", "east", "west"]),
+        ("idle", None, "young horse standing idle, ears flicking and tail swishing", ["south"]),
+        ("spook", None, "young horse rearing up startled on its hind legs", ["east"]),
+    ],
+    "storm_adult_pro": [
+        ("walk", None, "strong horse walking steadily and powerfully", ["south", "north", "east", "west"]),
+        ("idle", None, "horse standing calmly idle, tail swishing", ["south"]),
+        ("canter", None, "horse cantering forward at speed", ["east"]),
+    ],
+    "storm_corrupt_pro": [
+        ("walk", None, "gaunt undead horse stalking forward menacingly", ["south", "north", "east", "west"]),
+        ("idle", None, "gaunt undead horse standing rigid, breathing heavily", ["south"]),
+        ("rear", None, "skeletal horse rearing up violently in a terrifying charge", ["east"]),
+        ("hurt", None, "gaunt horse staggering in pain", ["south"]),
+    ],
+    "crawler_pro": [
+        ("walk", "crouched-walking", None, ["south", "north", "east", "west"]),
+        ("idle", "breathing-idle", None, ["south"]),
+        ("lunge", None, "lunging forward with thin grasping limbs outstretched", ["east"]),
+        ("hurt", "taking-punch", None, ["south"]),
+    ],
+    "ghost_girl_pro": [
+        ("float", None, "drifting slowly forward as if floating, lower body trailing into mist", ["south", "north", "east", "west"]),
+        ("idle", "breathing-idle", None, ["south"]),
+        ("reach", None, "reaching out sorrowfully with both arms", ["east"]),
+        ("fade", None, "slowly fading and dissipating into a wisp of mist", ["south"]),
+    ],
+    "evil_warden_pro": [
+        ("walk", "walk", None, ["south", "north", "east", "west"]),
+        ("idle", "breathing-idle", None, ["south"]),
+        ("attack", None, "swinging a hooked lantern pole down in a heavy overhead strike", ["east"]),
+        ("hurt", "taking-punch", None, ["south"]),
+    ],
     "rowan": [
         ("walk", "walk", None, ["south", "north", "east", "west"]),
         ("idle", "breathing-idle", None, ["south"]),
@@ -901,8 +1124,16 @@ def animate(only: str | None) -> None:
                         save_state(st)
                         break
                     except RuntimeError as e:
-                        if "429" in str(e):
+                        msg = str(e)
+                        if "429" in msg:
                             time.sleep(75)
+                            continue
+                        # transient: the rotation-image lookup / server can 404 or
+                        # 5xx right after create even when rotations exist (verified
+                        # eventual-consistency 2026-06-13). Retry; let 400/422 raise.
+                        if any(f"{code} on animate" in msg for code in (404, 500, 502, 503)):
+                            print(f"{char}/{name} {chunk}: transient {msg[:48]}… retry")
+                            time.sleep(10)
                             continue
                         raise
     print("balance:", call("balance", method="GET"))
@@ -918,7 +1149,13 @@ def download() -> None:
             continue
         dest = OUT / "chars" / char
         dest.mkdir(parents=True, exist_ok=True)
-        data = get_bytes(f"characters/{cid}/zip")
+        try:
+            data = get_bytes(f"characters/{cid}/zip")
+        except Exception as e:
+            # a character whose record is wedged backend-side (no animations /
+            # zip 404) must not abort the whole download
+            print(f"{char}: SKIP zip export ({repr(e)[:60]})")
+            continue
         with zipfile.ZipFile(io.BytesIO(data)) as zf:
             zf.extractall(dest)
         names = [n for n in sorted(Path(dest).rglob("*")) if n.is_file()]
