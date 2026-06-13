@@ -191,6 +191,22 @@ spaces, not modular kitbash* — that is the replay-value stake.
    palette-locked, gated PASS. **Note: new buildings are TALLER than the old
    slabs** (e.g. cottage_a 138×146 vs 128×112) — placement + collider fit is
    an editor judgment, not a mechanical swap.
+
+9. **Playground props regen (2026-06-13, user feedback "props perspective +
+   scale off")**: the 5 playground props (swing/slide/roundabout/bear-totem/
+   rabbit-totem) had only ever been palette-locked, never regenerated — the
+   legacy set was description-only pixflux where `view` weakly controls, so the
+   slide read isometric and the roundabout ellipse was too round. Regenerated
+   all 6 (incl. duck) at canon low top-down via `create_map_object` + a
+   placement-spot backdrop crop (world→bg px = `x+704, y+416`), oval inpainting
+   → trim → palette-lock → gate. Two re-rolls needed: **roundabout** (iconic
+   round prior — first roll ~0.74 ratio; a wide-short crop + "width ≈ 3× depth"
+   wording got it to ~0.58) and **totem_bear** ("no grass" to kill a baked
+   ground base, rule 2). **Duck stays exempt** (rule 1): generated in basic
+   mode with NO backdrop crop and NOT palette-locked, so it keeps its vivid
+   yellow against the drained world. Staged `props/candidates/*_v2.png`, gated
+   PASS; sizes differ from legacy (swing 96×64→68×84, roundabout 64×48→64×37)
+   so collider/offset fit is the editor pass — NOT a mechanical texture swap.
 ## Filter test
 
 Serves **horror beats** directly (the warm/cold zone thesis is a palette

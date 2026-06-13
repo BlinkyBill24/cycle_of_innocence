@@ -202,3 +202,42 @@ Ratio-glance audit of legacy height-cue assets (2026-06-12): terrace/cliff
 tileset PASS (straight-on fronts under plan tops), chapel roof PASS
 (front-gable facade, no deep roof plane) — the pre-explicit-view tileset era
 needs no depth-i2i rework.
+
+## Playground props rework v2 (2026-06-13 — perspective/scale regen)
+
+User feedback: playground props (minus trees) read with **off perspective +
+wrong scale** — the legacy set was made via description-only pixflux where
+`view` only weakly controls, so the slide came out isometric and the
+roundabout ellipse too round. Regenerated all six at canon **low top-down**
+via `create_map_object` + a placement-spot crop of `playground_ground_backdrop.png`
+(world→backdrop px = `x+704, y+416`), oval inpainting, trim → `palette_lock.py`
+→ gate. Staged in `assets/sprites/props/candidates/*_v2.png` for the editor
+placement pass (sizes changed → colliders/offsets are an editor judgment).
+
+- **swing_set** (crop 128×112, oval 0.8): "rusty playground swing set, metal
+  A-frame legs, two hanging chain swings, one seat broken and dangling from a
+  single chain, faded peeling red paint, low top-down ~20 degree angle, upright
+  legs stay vertical, ground footprint slightly foreshortened, post-ritual horror edge"
+- **slide** (crop 88×88, oval 0.78): "small old playground slide, faded blue
+  metal, rusted ladder with vertical uprights, slide ramp descending, seen from
+  a low top-down ~20 degree angle, slightly leaning, post-ritual horror edge"
+- **roundabout** (re-roll, wide-short crop 96×52, oval 0.9 — iconic round
+  prior): "rusted playground merry-go-round roundabout seen nearly edge-on from
+  a low ~20 degree angle: the circular metal platform is a very shallow flat
+  ellipse, its width roughly three times its visible front-to-back depth, a
+  short central pole with bent handlebars, faded peeling paint, no tall ring"
+  *(first roll at 104×80 came back ~0.74 ratio = too round; the wide-short
+  crop + thrice-the-depth wording busted the prior to ~0.58)*
+- **totem_bear** (re-roll, narrow crop 48×72, oval 0.88): "hand-stitched teddy
+  bear lashed upright to a thin wooden stake driven into bare ground, crude
+  thick stitches, mismatched button eyes, slightly leaning, no grass, low
+  top-down ~20 degree view, stake stays vertical" *(first roll baked a grass
+  base — rule-2 violation; "no grass" trimmed it to a small tuft)*
+- **totem_rabbit** (crop 56×84, oval 0.85): "hand-stitched rabbit doll nailed
+  to a wooden pole driven into the ground, long ears sagging, crude patchwork
+  fabric, one button eye missing, low top-down ~20 degree view, pole stays vertical"
+- **toy_duck** (basic mode, NO backdrop crop — **saturation exemption, rule 1**):
+  "small abandoned wooden duck pull toy on a flat wheeled base with a frayed
+  pull string, vivid saturated yellow paint with an orange beak, low top-down
+  ~20 degree view, slight ground foreshortening" — NOT palette-locked; stays
+  the lone saturated toy while the world drains.
