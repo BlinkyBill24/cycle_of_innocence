@@ -353,12 +353,19 @@ records: survived **3 clean recreations + ~90 min of retries** across a healthy
 window; each record accepts an occasional *single* animate call then reverts to
 the 404 wall, so their movesets never fill. Every sibling on the same template
 (briar_corrupt, storm_young/corrupt) animates fine → not template/config. Base
-8-dir sheets already on main. **Next ideas (not blind retry):** regenerate the
-*base* char from a FRONT concept crop or smaller `size` (both failures are bulky
-adult side-view quadrupeds — possibly a malformed south rotation at that framing),
-or report the two character ids to PixelLab. Also confirmed: newly-created
-characters have a **multi-minute create→animate consistency lag** — wait well
-past rotation-ready before animating.
+8-dir sheets already on main. Also confirmed: newly-created characters have a
+**multi-minute create→animate consistency lag** — wait well past rotation-ready
+before animating.
+
+**Option-1 tried & DISPROVEN (2026-06-13):** regenerated both *base* characters
+from a FRONT concept crop (clean head-on busts) instead of SIDE — **failed
+identically.** Across **4 fresh records each** (side + front crops, outage +
+healthy windows), both characters accept exactly *one* animate call (the first
+probe, walk-south) then 404 every subsequent call — so the defect is
+**crop-independent**, concept-specific, and PixelLab-backend-side. Not worth more
+local retries. **Recommended:** report the two failing concepts/ids to PixelLab
+support, or leave `briar_adult`/`storm_adult` static (base 8-dir sheets are
+usable as-is). All broken records have been deleted from the account.
 
 Hardening added this pass: `animate()` retries transient 404/5xx (not just 429);
 `download()` skips a char whose zip 404s instead of aborting the batch;
