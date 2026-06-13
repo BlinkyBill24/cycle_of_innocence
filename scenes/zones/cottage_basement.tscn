@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cottagebsmt01"]
+[gd_scene load_steps=10 format=3 uid="uid://cottagebsmt01"]
 
 [ext_resource type="Script" path="res://scripts/world/interior_root.gd" id="1_interior"]
 [ext_resource type="Texture2D" path="res://assets/sprites/interiors/cottage_basement_floor.png" id="2_floor"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://briarpup00001" path="res://scenes/companions/briar.tscn" id="4_briar"]
 [ext_resource type="Script" path="res://scripts/world/door_transition.gd" id="5_door"]
 [ext_resource type="Texture2D" uid="uid://c6eknu52ocg5o" path="res://assets/sprites/light/glow_radial.png" id="6_glow"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/stairs_up.png" id="7_stairs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
 size = Vector2(40, 40)
@@ -53,6 +54,9 @@ script = ExtResource("5_door")
 target_scene_path = "res://scenes/zones/cottage_ground.tscn"
 spawn_id = &"from_basement"
 prompt_text = "Go up"
+
+[node name="StairsSprite" type="Sprite2D" parent="StairsUp"]
+texture = ExtResource("7_stairs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StairsUp"]
 shape = SubResource("RectangleShape2D_door")

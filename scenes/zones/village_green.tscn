@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://bq5l6scrtss13"]
+[gd_scene load_steps=47 format=3 uid="uid://bq5l6scrtss13"]
 
 [ext_resource type="Script" uid="uid://djr7o5g0hpu7q" path="res://scripts/world/village_green.gd" id="1_zone"]
 [ext_resource type="TileSet" uid="uid://bxgr7vd1tapr8" path="res://assets/resources/tiles/village_tileset.tres" id="2_tileset"]
@@ -26,6 +26,10 @@
 [ext_resource type="Texture2D" uid="uid://di6gslejp5iec" path="res://assets/sprites/village/candidates/harmony_board_v2.png" id="tex_harmony_board"]
 [ext_resource type="Texture2D" uid="uid://do1w1pty3wkcs" path="res://assets/sprites/village/candidates/lantern_post_v2.png" id="tex_lantern_post"]
 [ext_resource type="Texture2D" uid="uid://cne0e22o6o2ss" path="res://assets/sprites/village/candidates/market_stall_v2.png" id="tex_market_stall"]
+[ext_resource type="Script" path="res://scripts/world/door_transition.gd" id="door_transition"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_martadoor"]
+size = Vector2(36, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r028r"]
 size = Vector2(543, 87)
@@ -189,6 +193,20 @@ target_zone_id = &"playground_fringes"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlaygroundTransition"]
 shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="MartaHouseDoor" type="Area2D" parent="." groups=["interior_door"]]
+position = Vector2(-432, -258)
+collision_mask = 2
+script = ExtResource("door_transition")
+target_scene_path = "res://scenes/zones/cottage_ground.tscn"
+spawn_id = &"default"
+prompt_text = "Enter Marta's house"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MartaHouseDoor"]
+shape = SubResource("RectangleShape2D_martadoor")
+
+[node name="SpawnFromCottage" type="Marker2D" parent="." groups=["spawn_from_cottage"]]
+position = Vector2(-432, -232)
 
 [node name="World" type="Node2D" parent="."]
 y_sort_enabled = true
