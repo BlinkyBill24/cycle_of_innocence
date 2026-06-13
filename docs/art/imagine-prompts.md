@@ -242,6 +242,48 @@ placement pass (sizes changed → colliders/offsets are an editor judgment).
   ~20 degree view, slight ground foreshortening" — NOT palette-locked; stays
   the lone saturated toy while the world drains.
 
+## Bible concept-art batch 3 — protagonist stages, full companion sets, new monsters (2026-06-13, branch feature/bible-concept-art-batch3)
+
+Grok Imagine (`grok-imagine-image-quality`, 2k, magenta `#FF00FF` chroma-key),
+locked bible format (top-down reference sheet, multi-view, palette swatches,
+limited palette, no AA). These are **concept bibles for human pixel-cleanup**,
+not production sprites — next step is keyed crop → PixelLab `create_from_concept`
+(see the 2026-06-11 PixelLab redesign note above) per character.
+
+Moderation: all 15 passed first try. The two risky sheets (fetus-crawler,
+ghost-girl) used the proven "more tragic/melancholy than gory" wording from the
+twisted-child bible — the horror is in the *context*, not graphic content.
+Transient note: the x.ai endpoint had a DNS blip on the first call (IPv6-only
+resolution failed; IPv4 fine) — a plain retry fixed it.
+
+Saved to `assets/reference/`. Briar **pup** already existed
+(`companion_dog_pup_bible.png`) so only adult+corrupted were generated.
+
+### Protagonist — late teen + adult (morality-neutral base; tint variants via image_edit later)
+- `protagonist_teen_bible.png`: "...the same escaped protagonist now a lean teenager around 15-16, taller leggier silhouette, the same haunted watchful eyes grown harder and warier, weathered patched travel clothes layered over the remains of an old ritual-torn tunic, a makeshift wrap on one forearm, wrapped feet, hair longer and unkempt, 4-8 views..., A-pose plus a wary ready stance, limited 24-color palette desaturated rural tones with one wrong red accent..."
+- `protagonist_adult_bible.png`: "...now a hardened adult in their early twenties, tall worn silhouette, gaunt resolute face carrying years of survival, layered scavenged traveler's cloak and gear over a scarred body, the old ritual scar still faintly visible, longer tied-back hair, ..., A-pose plus a grounded combat-ready stance, ... one wrong red accent..."
+
+### Briar (hound) — adult + corrupted (pup already on disk)
+- `companion_dog_adult_bible.png`: **Briar is a Belgian Malinois** (user spec 2026-06-13 — regenerated). "...the grown adult form of a loyal hound that is a Belgian Malinois, athletic lean muscled working dog, short fawn-tan coat with a distinct black mask and black-tipped sable overlay, dark erect pointed ears, the torn ear and old flank nick now healed scars, noble protective posture, 4-view grid (front/side plus a tracking sniff and a guard stance), limited 20-color palette fawn-tan and black with earthy browns and one warm bond glow..."
+- `companion_dog_corrupted_bible.png`: "...the corrupted nightmare form of a once-loyal hound, matted patchy fur, glowing wrong-colored eyes, faint exposed 'veins' of dark Hunger-stuff glowing under the skin, hunched aggressive hackles-raised stance, more tragic than gory, ... one wrong red accent..."
+
+### Echo (bird) — full set: egg → hatchling → adult → corrupted
+- `companion_bird_egg_bible.png`: "...a single mysterious bird egg, pale speckled raptor egg with faint wrong markings, shown in a small nest of twigs with one scrap of faded ritual cloth, 3 views (whole egg, first hairline crack, egg in the nest), limited 16-color palette muted greys and bone-whites with one faint sickly accent..."
+- `companion_bird_hatchling_bible.png`: "...a small ragged newly-hatched bird, scrawny raven or pale raptor chick, oversized eyes that look far too knowing, patchy down feathers, unsteady but sharp, 4-view grid (front/side plus hop and first-flutter), limited 18-color palette muted greys and charcoal with one pale highlight..."
+- `companion_bird_adult_bible.png`: "...a sleek striking adult raven or pale raptor, glossy sharp feathers, an intelligent piercing eye, poised and a little cruel, flight poses, 4-view grid (perched front/side plus wings-spread glide and diving harass), limited 20-color palette deep blacks and charcoals with one cold bone-pale highlight..."
+- `companion_bird_corrupted_bible.png`: "...feathers fallen out in mangy patches, too many or wrong-placed eyes, an unsettling extra detail, clutching a small grim trinket 'gift' in its claws, a ragged ominous flight pose, more wrong than gory, ... one wrong red accent..."
+
+### Storm (mount) — full set: young/wary → adult/regal → corrupted pale-rider
+- `companion_horse_young_bible.png`: "...a powerful but haunted horse, scarred and wary, old faded ritual 'ward' brands on its flank, ribs slightly showing, a flighty distrustful posture with ears pinned back, 4-view grid (front/side plus rearing-spook and balking), limited 22-color palette muted greys and duns with faint pale brand-scar marks..."
+- `companion_horse_adult_bible.png`: "...now strong and almost regal after good care, glossy coat, calm steady powerful stance, small protective braids and hand-made tokens woven into mane and tail, healed brands, 4-view grid (front/side plus canter and steady-guard), limited 22-color palette warm duns and greys with one warm bond accent in the braids..."
+- `companion_horse_corrupted_bible.png`: "...emaciated in places, milky or faintly burning eyes, ward brands spread like glowing infection across the hide, a ragged mane, a dreadful 'pale rider' presence, more haunting than gory, 4-view grid (front/side plus rear and charge), limited 22-color palette ashen pale greys and sick ember glow with one wrong red accent..."
+
+### New monsters
+- `monster_fetus_crawler_bible.png`: "...a small pitiable larval crawling creature born from a failed ritual, pale underdeveloped curled body, an oversized smooth head, thin too-long grasping limbs, a faint glow under translucent skin, blind groping movement, stylized and tragic rather than gory, 4 views plus idle-curl/crawl/reach, limited 18-color palette pale fleshy greys and sick translucent tones with one faint wrong red accent..." *(rendered as "LARVAL WRETCH — FAILED RITUAL")*
+- `monster_grasping_roots_bible.png`: "...animated tangled tree roots that erupt from the ground to grab and ensnare, gnarled bark-skinned tendrils with grasping clawed tips, soil and ritual debris clinging, shown as a set of states (dormant cracked ground, bursting up, coiled grabbing, retreating), limited 20-color palette cold dark browns and root-greys with one sickly Hunger-glow accent in the cracks..." *(hazard/creature sheet — states, not directional views)*
+- `monster_ghost_girl_bible.png`: "...the pale translucent ghost of a small girl from a previous offering, a faded simple ritual dress, hair drifting as if underwater, hollow sorrowful glowing eyes, a semi-transparent lower half trailing into mist, holding a faded ribbon or a small toy, more melancholy and eerie than gruesome, 4 views plus drift/reach/fade, limited 18-color palette ghostly washed blues and bone-whites with one faint wrong accent..."
+- `monster_evil_warden_bible.png`: "...a malevolent village Warden enforcer who hunts escaped children, tall gaunt figure in a long grimy oilskin coat and wide-brim hat, face lost in shadow with a faint wrong glow where the eyes should be, carrying a hooked lantern pole and a stitched festival armband gone foul, a menacing implacable hunter silhouette, 4-8 views plus stalking-search and lantern-raise lunge, limited 22-color palette cold slate blues and oilskin browns with one sickly festival-yellow and one wrong red accent..." *(the monstrous/horror counterpart to the human `villager_warden_bible.png` patrol figure)*
+
 ## Inventory item icons (2026-06-13 — branch feature/inventory-item-art)
 
 First inventory item ICONS. These are **UI sprites, not world props**, so they
