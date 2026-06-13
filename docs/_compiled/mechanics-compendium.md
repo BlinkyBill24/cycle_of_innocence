@@ -773,7 +773,7 @@ No traditional skill trees or XP levels. Unlocks come from:
 - **Ruthless / Vessel**: Corrupted strikes, intimidation that breaks enemy morale, force companions into high-risk moves, temporary power boosts at personal cost.
 - **Hybrid**: Creative or tragic combinations (e.g., using a corrupted companion's power in a redemptive way).
 
-**Menu**: "Growth" or "Memory" screen showing current age, morality, companion status, and unlocked abilities. Simple and thematic. **Journal of observed signs** (research 2026-06-12): entries appear only when the player witnessed the corresponding world change — Rowan's inference, not game state ([[mechanics/hollowing-clock]] doom legibility); NG+ pre-seeds via `$knew_it_was_coming`. **Hard rule** (secrets research 2026-06-13, [[design/secrets-and-discovery]]): this is a **memory aid for witnessed things, never a quest log / checklist** — the Outer Wilds ship-log / Obra Dinn logbook line (logbook only inscribes a fate once deduced; Lorelei's "photographic memory" stores what you saw but never solves for you). Hold that line. `[verified 2026-06-13]`
+**Menu**: "Growth" or "Memory" screen showing current age, morality, companion status, and unlocked abilities. Simple and thematic. **Journal of observed signs** (research 2026-06-12; ✅ v1 built 2026-06-13 — `Journal` autoload + `JournalPanel`, toggle **J**): entries appear only when the player witnessed the corresponding world change — Rowan's inference, not game state ([[mechanics/hollowing-clock]] doom legibility); NG+ pre-seeds via `$knew_it_was_coming` (hook reserved, not yet auto-populated). LORE entries (dug keepsakes) and DOOM entries (observed signs of the net closing) share one witnessed-only, idempotent, save-round-tripped store. Currently standalone panel; folds into this Growth/Memory menu later. **Hard rule** (secrets research 2026-06-13, [[design/secrets-and-discovery]]): this is a **memory aid for witnessed things, never a quest log / checklist** — the Outer Wilds ship-log / Obra Dinn logbook line (logbook only inscribes a fate once deduced; Lorelei's "photographic memory" stores what you saw but never solves for you). Hold that line. `[verified 2026-06-13]`
 
 ## NG+ & Knowledge Carry-Over
 
@@ -1674,8 +1674,11 @@ synthesis's density verdict.
    disturbed ground → dig → buried toy = lore fragment; recontextualizes
    post-revelation/NG+ as a specific child's. Hits the cross-use rule (dig =
    puzzle + combat interrupt + lore) + Fable II precedent + second-read.
-   **Highest priority.** *(Mechanism partly exists — Briar dig + the keepsake
-   spot are built; the dig-to-lore-fragment framing is the authoring gap.)*
+   **Highest priority.** ✅ **v1 built 2026-06-13** (`feature/journal-and-dig-lore`):
+   `DiggableSpot` gained a `lore_text` payload that writes a witnessed Journal
+   entry; the playground's three dig spots author specific lost-children
+   fragments (the rabbit "Mara — Harmony 71", the too-small shoe, the warm
+   wooden duck at the keepsake). NG+ recontextualization still to author.
 2. **One illegible cult symbol, placed prominently** — story + replay + horror.
    Cheapest high-leverage "more here"; becomes legible late via symbol literacy.
 3. **Companion-gaze signpost to a recontext node** — companion arc + horror.
@@ -1690,6 +1693,12 @@ synthesis's density verdict.
 5. **One witnessed recontextualization beat + its first Journal entry** — story
    + replay. The player *sees* the playground flip; one diegetic "observed sign"
    fires. Thesis statement for the spine + proof-of-concept for the Journal.
+   ✅ **Journal built 2026-06-13** (`Journal` autoload + `JournalPanel`, toggle
+   J): witnessed-only, idempotent, save round-trips, LORE/DOOM kinds (the
+   memory-aid-not-checklist rule enforced — no API to add an unwitnessed
+   entry). Dig fragments fire LORE entries now; the **witnessed-recontext beat
+   that fires a DOOM entry** is the remaining authoring step (pairs with the
+   hollowing-clock doom-legibility roadmap).
 
 ## After the early arc proves out
 
@@ -1926,6 +1935,22 @@ spaces, not modular kitbash* — that is the replay-value stake.
    palette-locked, gated PASS. **Note: new buildings are TALLER than the old
    slabs** (e.g. cottage_a 138×146 vs 128×112) — placement + collider fit is
    an editor judgment, not a mechanical swap.
+
+9. **Playground props regen (2026-06-13, user feedback "props perspective +
+   scale off")**: the 5 playground props (swing/slide/roundabout/bear-totem/
+   rabbit-totem) had only ever been palette-locked, never regenerated — the
+   legacy set was description-only pixflux where `view` weakly controls, so the
+   slide read isometric and the roundabout ellipse was too round. Regenerated
+   all 6 (incl. duck) at canon low top-down via `create_map_object` + a
+   placement-spot backdrop crop (world→bg px = `x+704, y+416`), oval inpainting
+   → trim → palette-lock → gate. Two re-rolls needed: **roundabout** (iconic
+   round prior — first roll ~0.74 ratio; a wide-short crop + "width ≈ 3× depth"
+   wording got it to ~0.58) and **totem_bear** ("no grass" to kill a baked
+   ground base, rule 2). **Duck stays exempt** (rule 1): generated in basic
+   mode with NO backdrop crop and NOT palette-locked, so it keeps its vivid
+   yellow against the drained world. Staged `props/candidates/*_v2.png`, gated
+   PASS; sizes differ from legacy (swing 96×64→68×84, roundabout 64×48→64×37)
+   so collider/offset fit is the editor pass — NOT a mechanical texture swap.
 ## Filter test
 
 Serves **horror beats** directly (the warm/cold zone thesis is a palette

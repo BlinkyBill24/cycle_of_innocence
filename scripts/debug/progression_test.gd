@@ -63,8 +63,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			WorldState.advance_time()
 		KEY_H:
 			HollowingClock.add_alarm(HollowingClock.ALARM_THRESHOLD)
-		KEY_J:
+		KEY_R:
 			# replay story dialogues with CURRENT stats (vessel distortion QA)
+			# (moved off J 2026-06-13 — J now opens the Journal)
 			for node in get_tree().get_nodes_in_group("story_dialogue"):
 				(node as StoryDialogue).replay()
 		KEY_K:
@@ -77,6 +78,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			DreadManager.reset()
 			WorldState.reset()
 			HollowingClock.reset()
+			Journal.reset()
 			get_tree().reload_current_scene()
 
 
@@ -98,7 +100,7 @@ func _refresh_label() -> void:
 		+ _enemy_line()
 		+ "Keys: 1/2 morality ±15 | 3 teen 4 adult 5 child\n"
 		+ "6 bond+10 | 7 corruption+15 | 8 revelation | 9 dread+20 | 0 reset\n"
-		+ "K save | L load(after K) | J replay intro | T time | H hollow+1 | E interact"
+		+ "K save | L load(after K) | R replay intro | T time | H hollow+1 | E interact | J journal"
 	)
 
 

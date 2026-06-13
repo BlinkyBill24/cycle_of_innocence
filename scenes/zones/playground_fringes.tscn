@@ -335,14 +335,17 @@ offset = Vector2(0, -12)
 
 [node name="DiggableSpotPlayground" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(-368, -200)
+lore_text = "A stuffed rabbit, one button eye gone. Stitched onto its foot, a small cloth tag: \"Mara — Harmony 71.\""
 
 [node name="DiggableSpotFringes" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(260, 110)
 spot_id = &"fringes_buried_memory"
+lore_text = "A child's shoe, far too small to have walked this far alone. The mud around it has not dried in a long time."
 
 [node name="StilledChildKeepsake" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(615, 55)
 spot_id = &"stilled_child_keepsake"
+lore_text = "A wooden duck, its paint flaked to grey. Scratched into the base by a small hand: \"don't let them take me.\" It is still warm."
 
 [node name="DreadOverlay" parent="." instance=ExtResource("7_dread_overlay")]
 

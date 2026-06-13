@@ -34,3 +34,5 @@ signal exploration_resumed
 
 signal cutscene_started(id: StringName)
 signal cutscene_finished(id: StringName)
+
+signal journal_entry_added(sign_id: StringName)  # observed-sign witnessed (Journal)

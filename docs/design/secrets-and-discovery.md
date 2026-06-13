@@ -76,8 +76,11 @@ synthesis's density verdict.
    disturbed ground → dig → buried toy = lore fragment; recontextualizes
    post-revelation/NG+ as a specific child's. Hits the cross-use rule (dig =
    puzzle + combat interrupt + lore) + Fable II precedent + second-read.
-   **Highest priority.** *(Mechanism partly exists — Briar dig + the keepsake
-   spot are built; the dig-to-lore-fragment framing is the authoring gap.)*
+   **Highest priority.** ✅ **v1 built 2026-06-13** (`feature/journal-and-dig-lore`):
+   `DiggableSpot` gained a `lore_text` payload that writes a witnessed Journal
+   entry; the playground's three dig spots author specific lost-children
+   fragments (the rabbit "Mara — Harmony 71", the too-small shoe, the warm
+   wooden duck at the keepsake). NG+ recontextualization still to author.
 2. **One illegible cult symbol, placed prominently** — story + replay + horror.
    Cheapest high-leverage "more here"; becomes legible late via symbol literacy.
 3. **Companion-gaze signpost to a recontext node** — companion arc + horror.
@@ -92,6 +95,12 @@ synthesis's density verdict.
 5. **One witnessed recontextualization beat + its first Journal entry** — story
    + replay. The player *sees* the playground flip; one diegetic "observed sign"
    fires. Thesis statement for the spine + proof-of-concept for the Journal.
+   ✅ **Journal built 2026-06-13** (`Journal` autoload + `JournalPanel`, toggle
+   J): witnessed-only, idempotent, save round-trips, LORE/DOOM kinds (the
+   memory-aid-not-checklist rule enforced — no API to add an unwitnessed
+   entry). Dig fragments fire LORE entries now; the **witnessed-recontext beat
+   that fires a DOOM entry** is the remaining authoring step (pairs with the
+   hollowing-clock doom-legibility roadmap).
 
 ## After the early arc proves out
 

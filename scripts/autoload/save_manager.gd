@@ -25,6 +25,7 @@ func save_game(slot: int = 0) -> bool:
 		"world": WorldState.get_save_data(),
 		"hollowing": HollowingClock.get_save_data(),
 		"village": VillageState.get_save_data(),
+		"journal": Journal.get_save_data(),
 	}
 	var file := FileAccess.open(save_path(slot), FileAccess.WRITE)
 	if file == null:
@@ -52,6 +53,7 @@ func load_game(slot: int = 0, reload_scene: bool = true) -> bool:
 	WorldState.apply_save_data(data.get("world", {}))
 	HollowingClock.apply_save_data(data.get("hollowing", {}))
 	VillageState.apply_save_data(data.get("village", {}))
+	Journal.apply_save_data(data.get("journal", {}))
 	DreadManager.reset()
 	DreadManager.add_dread(float(data.get("dread", 0.0)), &"load")
 	ZoneManager.enter_zone(StringName(str(data.get("zone_id", PlayerData.last_zone_id))))
