@@ -1,0 +1,97 @@
+{
+  "group_id": null,
+  "states": [
+    {
+      "character": {
+        "id": "a434953a-14cb-4dbb-b31c-4199ef143e31",
+        "name": "small pale pitiable larval creature born of a failed ritual, underdeveloped curled body, oversized smooth head, thin too-long grasping limbs, faint glow under translucent skin",
+        "prompt": "small pale pitiable larval creature born of a failed ritual, underdeveloped curled body, oversized smooth head, thin too-long grasping limbs, faint glow under translucent skin",
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-06-13T16:34:01.015652+00:00"
+      },
+      "folder": "small_pale_pitiable_larval_creature_born_of_a_fail",
+      "frames": {
+        "rotations": {
+          "south": "small_pale_pitiable_larval_creature_born_of_a_fail/rotations/south.png",
+          "south-east": "small_pale_pitiable_larval_creature_born_of_a_fail/rotations/south-east.png",
+          "east": "small_pale_pitiable_larval_creature_born_of_a_fail/rotations/east.png",
+          "north-east": "small_pale_pitiable_larval_creature_born_of_a_fail/rotations/north-east.png",
+          "north": "small_pale_pitiable_larval_creature_born_of_a_fail/rotations/north.png",
+          "north-west": "small_pale_pitiable_larval_creature_born_of_a_fail/rotations/north-west.png",
+          "west": "small_pale_pitiable_larval_creature_born_of_a_fail/rotations/west.png",
+          "south-west": "small_pale_pitiable_larval_creature_born_of_a_fail/rotations/south-west.png"
+        },
+        "animations": {
+          "lunging_forward_with_thin_grasping_limbs_outstretc": {
+            "east": [
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/lunging_forward_with_thin_grasping_limbs_outstretc/east/frame_000.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/lunging_forward_with_thin_grasping_limbs_outstretc/east/frame_001.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/lunging_forward_with_thin_grasping_limbs_outstretc/east/frame_002.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/lunging_forward_with_thin_grasping_limbs_outstretc/east/frame_003.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/lunging_forward_with_thin_grasping_limbs_outstretc/east/frame_004.png"
+            ]
+          },
+          "animating": {
+            "south": [
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/animating/south/frame_000.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/animating/south/frame_001.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/animating/south/frame_002.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/animating/south/frame_003.png"
+            ]
+          },
+          "taking_a_punch": {
+            "south": [
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/taking_a_punch/south/frame_000.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/taking_a_punch/south/frame_001.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/taking_a_punch/south/frame_002.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/taking_a_punch/south/frame_004.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/taking_a_punch/south/frame_005.png"
+            ]
+          },
+          "walking_while_crouched": {
+            "east": [
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/east/frame_000.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/east/frame_001.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/east/frame_002.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/east/frame_003.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/east/frame_004.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/east/frame_005.png"
+            ],
+            "south": [
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/south/frame_000.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/south/frame_001.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/south/frame_002.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/south/frame_003.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/south/frame_004.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/south/frame_005.png"
+            ],
+            "west": [
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/west/frame_000.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/west/frame_001.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/west/frame_002.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/west/frame_003.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/west/frame_004.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/west/frame_005.png"
+            ],
+            "north": [
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/north/frame_000.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/north/frame_001.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/north/frame_002.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/north/frame_003.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/north/frame_004.png",
+              "small_pale_pitiable_larval_creature_born_of_a_fail/animations/walking_while_crouched/north/frame_005.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.0",
+  "export_date": "2026-06-13T18:40:17.798660"
+}

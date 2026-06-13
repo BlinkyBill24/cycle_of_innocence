@@ -1,0 +1,93 @@
+{
+  "group_id": null,
+  "states": [
+    {
+      "character": {
+        "id": "75938078-2806-4454-bdf4-4a7bd65a60a7",
+        "name": "pale spectral girl, a clearly visible solid pale-blue figure with a faint ghostly glow, simple faded ritual dress, drifting hair, hollow sorrowful glowing eyes, holding a faded toy",
+        "prompt": "pale spectral girl, a clearly visible solid pale-blue figure with a faint ghostly glow, simple faded ritual dress, drifting hair, hollow sorrowful glowing eyes, holding a faded toy",
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-06-13T16:34:02.390511+00:00"
+      },
+      "folder": "pale_spectral_girl_a_clearly_visible_solid_pale-bl",
+      "frames": {
+        "rotations": {
+          "south": "pale_spectral_girl_a_clearly_visible_solid_pale-bl/rotations/south.png",
+          "south-east": "pale_spectral_girl_a_clearly_visible_solid_pale-bl/rotations/south-east.png",
+          "east": "pale_spectral_girl_a_clearly_visible_solid_pale-bl/rotations/east.png",
+          "north-east": "pale_spectral_girl_a_clearly_visible_solid_pale-bl/rotations/north-east.png",
+          "north": "pale_spectral_girl_a_clearly_visible_solid_pale-bl/rotations/north.png",
+          "north-west": "pale_spectral_girl_a_clearly_visible_solid_pale-bl/rotations/north-west.png",
+          "west": "pale_spectral_girl_a_clearly_visible_solid_pale-bl/rotations/west.png",
+          "south-west": "pale_spectral_girl_a_clearly_visible_solid_pale-bl/rotations/south-west.png"
+        },
+        "animations": {
+          "slowly_fading_and_dissipating_into_a_wisp_of_mist": {
+            "south": [
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/slowly_fading_and_dissipating_into_a_wisp_of_mist/south/frame_000.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/slowly_fading_and_dissipating_into_a_wisp_of_mist/south/frame_001.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/slowly_fading_and_dissipating_into_a_wisp_of_mist/south/frame_002.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/slowly_fading_and_dissipating_into_a_wisp_of_mist/south/frame_003.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/slowly_fading_and_dissipating_into_a_wisp_of_mist/south/frame_004.png"
+            ]
+          },
+          "reaching_out_sorrowfully_with_both_arms": {
+            "east": [
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/reaching_out_sorrowfully_with_both_arms/east/frame_000.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/reaching_out_sorrowfully_with_both_arms/east/frame_001.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/reaching_out_sorrowfully_with_both_arms/east/frame_002.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/reaching_out_sorrowfully_with_both_arms/east/frame_003.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/reaching_out_sorrowfully_with_both_arms/east/frame_004.png"
+            ]
+          },
+          "animating": {
+            "south": [
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/animating/south/frame_000.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/animating/south/frame_001.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/animating/south/frame_002.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/animating/south/frame_003.png"
+            ]
+          },
+          "drifting_slowly_forward_as_if_floating_lower_body": {
+            "west": [
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/west/frame_000.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/west/frame_001.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/west/frame_002.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/west/frame_003.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/west/frame_004.png"
+            ],
+            "south": [
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/south/frame_000.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/south/frame_001.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/south/frame_002.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/south/frame_003.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/south/frame_004.png"
+            ],
+            "north": [
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/north/frame_000.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/north/frame_001.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/north/frame_002.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/north/frame_003.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/north/frame_004.png"
+            ],
+            "east": [
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/east/frame_000.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/east/frame_001.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/east/frame_002.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/east/frame_003.png",
+              "pale_spectral_girl_a_clearly_visible_solid_pale-bl/animations/drifting_slowly_forward_as_if_floating_lower_body/east/frame_004.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.0",
+  "export_date": "2026-06-13T18:40:29.599032"
+}

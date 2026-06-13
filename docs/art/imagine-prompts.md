@@ -327,6 +327,35 @@ fixes; the old artifacted characters were deleted from the PixelLab account.
 **Next step (later):** `animate` the stored characters → `sheets-pro` → `.tres`,
 same as the existing rowan/briar/twisted rows.
 
+### Animation pass — 8-dir characters → animated sheets + .tres (2026-06-13, branch feature/charsheet-animations)
+
+`ANIMATIONS` + `SHEET_ROWS` authored for all 10 (`tools/pixellab_v2.py`):
+players/companions/monsters get walk·idle·attack·hurt plus signatures (Briar
+bark/growl/dig, Storm spook/canter/rear, warden lantern-strike, ghost
+reach/fade). Mannequin/dog use known template ids; **all horse motion is v3
+`action_description`** (no horse template listing exists — `GET` on the
+template-animation endpoints 404s, and the char `skeletons` field is null).
+Pipeline: `animate` (queue per char) → `download` (zip → frames) → `sheets-pro`
+(assemble `assets/sprites/<grp>/<char>_32.png` + `assets/resources/<grp>/<char>_frames.tres`).
+
+**Delivered 7/10 game-ready** this pass: `rowan_teen`, `rowan_adult` (player),
+`briar_corrupt`, `storm_corrupt`, `crawler`, `ghost_girl`, `evil_warden` (enemies).
+
+**3 deferred — blocked by a PixelLab `animate-character` backend degradation**,
+NOT a config error: `briar_adult`, `storm_adult` (0 animations), and
+`storm_young` (only walk-west missing). Symptom: `animate-character` returns
+`404 "Character rotation image not found for direction: south"` even though the
+rotation images exist and are publicly fetchable; reproduced across two clean
+recreations and ~25 min of retries with the subscription **generation counter
+frozen** (nothing rendering) — i.e. service-side. **Retry path** (when the
+service recovers): `animate --only <char>` → `download` → `sheets-pro`; the tool
+resumes via `state.json` markers. Their base 8-dir character sheets already
+shipped on main, so only the animated `.tres` is outstanding.
+
+Hardening added this pass: `animate()` retries transient 404/5xx (not just 429);
+`download()` skips a char whose zip 404s instead of aborting the batch;
+`pro_anim_map()` skips a char with no downloaded animations dir (no `StopIteration`).
+
 ## Inventory item icons (2026-06-13 — branch feature/inventory-item-art)
 
 First inventory item ICONS. These are **UI sprites, not world props**, so they

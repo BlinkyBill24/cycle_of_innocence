@@ -1,0 +1,183 @@
+{
+  "group_id": null,
+  "states": [
+    {
+      "character": {
+        "id": "9f196032-d1fd-4a3d-9f50-0ce84dfcd048",
+        "name": "lean teenage version of the same escaped village child, around 15 years old, taller, messy dark hair, haunted wary eyes, patched layered travel clothes over a torn tunic, a cloth wrap on one forearm, wrapped feet",
+        "prompt": "lean teenage version of the same escaped village child, around 15 years old, taller, messy dark hair, haunted wary eyes, patched layered travel clothes over a torn tunic, a cloth wrap on one forearm, wrapped feet",
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "template_id": "mannequin",
+        "directions": 8,
+        "view": "low top-down",
+        "created_at": "2026-06-13T16:22:13.412084+00:00"
+      },
+      "folder": "lean_teenage_version_of_the_same_escaped_village_c",
+      "frames": {
+        "rotations": {
+          "south": "lean_teenage_version_of_the_same_escaped_village_c/rotations/south.png",
+          "south-east": "lean_teenage_version_of_the_same_escaped_village_c/rotations/south-east.png",
+          "east": "lean_teenage_version_of_the_same_escaped_village_c/rotations/east.png",
+          "north-east": "lean_teenage_version_of_the_same_escaped_village_c/rotations/north-east.png",
+          "north": "lean_teenage_version_of_the_same_escaped_village_c/rotations/north.png",
+          "north-west": "lean_teenage_version_of_the_same_escaped_village_c/rotations/north-west.png",
+          "west": "lean_teenage_version_of_the_same_escaped_village_c/rotations/west.png",
+          "south-west": "lean_teenage_version_of_the_same_escaped_village_c/rotations/south-west.png"
+        },
+        "animations": {
+          "walking": {
+            "east": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/east/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/east/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/east/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/east/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/east/frame_004.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/east/frame_005.png"
+            ],
+            "south": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/south/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/south/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/south/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/south/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/south/frame_004.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/south/frame_005.png"
+            ],
+            "north": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/north/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/north/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/north/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/north/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/north/frame_004.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/north/frame_005.png"
+            ],
+            "west": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/west/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/west/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/west/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/west/frame_004.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/walking/west/frame_005.png"
+            ]
+          },
+          "animating": {
+            "west": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/west/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/west/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/west/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/west/frame_003.png"
+            ],
+            "east": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/east/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/east/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/east/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/east/frame_003.png"
+            ],
+            "north": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/north/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/north/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/north/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/north/frame_003.png"
+            ],
+            "south": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/south/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/south/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/south/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/animating/south/frame_003.png"
+            ]
+          },
+          "taking_a_punch": {
+            "south": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/taking_a_punch/south/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/taking_a_punch/south/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/taking_a_punch/south/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/taking_a_punch/south/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/taking_a_punch/south/frame_004.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/taking_a_punch/south/frame_005.png"
+            ]
+          },
+          "cross_punch_attack": {
+            "north": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/north/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/north/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/north/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/north/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/north/frame_004.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/north/frame_005.png"
+            ],
+            "west": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/west/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/west/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/west/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/west/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/west/frame_004.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/west/frame_005.png"
+            ],
+            "south": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/south/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/south/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/south/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/south/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/south/frame_004.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/south/frame_005.png"
+            ],
+            "east": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/east/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/east/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/east/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/east/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/east/frame_004.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack/east/frame_005.png"
+            ]
+          },
+          "crouching": {
+            "south": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/crouching/south/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/crouching/south/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/crouching/south/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/crouching/south/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/crouching/south/frame_004.png"
+            ]
+          },
+          "cross_punch_attack-f89dd6dc": {
+            "south": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/south/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/south/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/south/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/south/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/south/frame_004.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/south/frame_005.png"
+            ],
+            "north": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/north/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/north/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/north/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/north/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/north/frame_004.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/north/frame_005.png"
+            ],
+            "east": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/east/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/east/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/east/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/east/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/east/frame_004.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/east/frame_005.png"
+            ],
+            "west": [
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/west/frame_000.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/west/frame_001.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/west/frame_002.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/west/frame_003.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/west/frame_004.png",
+              "lean_teenage_version_of_the_same_escaped_village_c/animations/cross_punch_attack-f89dd6dc/west/frame_005.png"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "export_version": "3.0",
+  "export_date": "2026-06-13T18:39:24.577466"
+}
