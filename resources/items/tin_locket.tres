@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDef" load_steps=3 format=3 uid="uid://b8locket00001"]
+
+[ext_resource type="Script" uid="uid://cnh5esvabvxfq" path="res://scripts/items/item_def.gd" id="1_itemdef"]
+[ext_resource type="Texture2D" uid="uid://dh1o2pmt1u0wu" path="res://assets/sprites/items/tin_locket.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_itemdef")
+id = &"tin_locket"
+display_name = "Tin Locket"
+category = 0
+icon = ExtResource("2_icon")
+description = "A child's locket, caked with grave soil. It will not open."
+distorted_description = "You know whose this was. You have always known."
+stackable = false
+max_stack = 1
+discardable = false
+companion_id = &""
+use_kind = 0
+bond_delta = 0.0
+morality_delta = 0.0
+consumed_on_use = false

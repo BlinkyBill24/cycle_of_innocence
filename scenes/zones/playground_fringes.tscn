@@ -347,11 +347,13 @@ recontext_revelation = &"monsters_are_children"
 position = Vector2(260, 110)
 spot_id = &"fringes_buried_memory"
 lore_text = "A child's shoe, far too small to have walked this far alone. The mud around it has not dried in a long time."
+dig_item = &"buried_bone"
 
 [node name="StilledChildKeepsake" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(615, 55)
 spot_id = &"stilled_child_keepsake"
 lore_text = "A wooden duck, its paint flaked to grey. Scratched into the base by a small hand: \"don't let them take me.\" It is still warm."
+dig_item = &"tin_locket"
 
 [node name="DreadOverlay" parent="." instance=ExtResource("7_dread_overlay")]
 

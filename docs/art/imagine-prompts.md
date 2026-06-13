@@ -241,3 +241,25 @@ placement pass (sizes changed → colliders/offsets are an editor judgment).
   pull string, vivid saturated yellow paint with an orange beak, low top-down
   ~20 degree view, slight ground foreshortening" — NOT palette-locked; stays
   the lone saturated toy while the world drains.
+
+## Inventory item icons (2026-06-13 — branch feature/inventory-item-art)
+
+First inventory item ICONS. These are **UI sprites, not world props**, so they
+break from the world-prop pipeline deliberately: generated via PixelLab
+`create_map_object` **basic mode** (no background → real alpha, no magenta key),
+48×48, mostly `view="side"` (iconographic — a clear profile reads better in a
+satchel slot than a low-top-down floor view). **Not palette-locked** to a zone
+backdrop — items should read clearly in the panel (same spirit as the toy_duck
+saturation exemption). Params: `single color outline`, `basic shading`,
+`medium detail`. Pipeline: generate → trim to bbox → import nearest-filter →
+referenced as `ItemDef.icon` in `resources/items/<id>.tres`. Tool:
+`tools/gen_item_icons.py` (⚠️ PixelLab 429s if all 7 fire back-to-back — space
+submissions or batch ≤5). Saved to `assets/sprites/items/<id>.png`.
+
+- **dried_meat** (side): "a strip of dried cured jerky meat, frayed dark red-brown edges, single food item"
+- **forest_berries** (side): "a small cluster of dark wild forest berries on a short sprig with two leaves, deep purple-red"
+- **sturdy_stick** (side): "a stout broken tree branch used as a makeshift club, rough bark, one splintered end, brown"
+- **slingshot** (side): "a Y-shaped hand-whittled wooden slingshot with a stretched leather band, a child's makeshift weapon"
+- **sling_stones** (high top-down): "a small pile of three smooth rounded grey throwing pebbles"
+- **buried_bone** (side): "an old weathered dug-up animal bone caked with dark soil, gnawed, off-white"
+- **tin_locket** (side): "a small tarnished heart-shaped tin locket on a broken chain, caked with grave soil, a child's keepsake"

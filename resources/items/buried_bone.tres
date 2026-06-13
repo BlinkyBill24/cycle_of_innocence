@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDef" load_steps=3 format=3 uid="uid://b8bone0000001"]
+
+[ext_resource type="Script" uid="uid://cnh5esvabvxfq" path="res://scripts/items/item_def.gd" id="1_itemdef"]
+[ext_resource type="Texture2D" uid="uid://cuxdf4pj7557l" path="res://assets/sprites/items/buried_bone.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_itemdef")
+id = &"buried_bone"
+display_name = "Buried Bone"
+category = 1
+icon = ExtResource("2_icon")
+description = "A bone Briar dug up. He is enormously proud of it."
+distorted_description = "Someone buried this where the digging would be easy."
+stackable = false
+max_stack = 1
+discardable = true
+companion_id = &"briar"
+use_kind = 1
+bond_delta = 6.0
+morality_delta = 0.0
+consumed_on_use = true

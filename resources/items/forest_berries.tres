@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDef" load_steps=3 format=3 uid="uid://b8berries00001"]
+
+[ext_resource type="Script" uid="uid://cnh5esvabvxfq" path="res://scripts/items/item_def.gd" id="1_itemdef"]
+[ext_resource type="Texture2D" uid="uid://kqq56af16pv5" path="res://assets/sprites/items/forest_berries.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_itemdef")
+id = &"forest_berries"
+display_name = "Forest Berries"
+category = 1
+icon = ExtResource("2_icon")
+description = "A handful of dark berries from the fringe. Briar sniffs them, then eats."
+distorted_description = "Bitter. Things grow sweet where the soil is rich."
+stackable = true
+max_stack = 9
+discardable = true
+companion_id = &"briar"
+use_kind = 1
+bond_delta = 4.0
+morality_delta = 1.0
+consumed_on_use = true

@@ -18,6 +18,12 @@ extends Area2D
 ## a sad curiosity and becomes a specific murdered child.
 @export_multiline var lore_text_recontext: String = ""
 @export var recontext_revelation: StringName = &""
+## Optional inventory payload: an item Briar unearths on the first dig (must
+## match a resources/items/<id>.tres stem). Empty = a lore-only / mechanical
+## dig. A full satchel leaves the item ungranted but still reveals the spot
+## (the lore/flag still fire) — the dig is never silently lost to a full bag.
+@export var dig_item: StringName = &""
+@export var dig_item_quantity: int = 1
 
 var revealed := false
 
@@ -45,6 +51,8 @@ func reveal() -> bool:
 	if not fragment.is_empty():
 		var sign_id := lore_sign_id if lore_sign_id != &"" else spot_id
 		Journal.witness(sign_id, fragment, Journal.Kind.LORE)
+	if dig_item != &"":
+		Inventory.add(dig_item, dig_item_quantity)  # emits item_acquired (or item_add_failed if satchel full)
 	if GameEvents:
 		GameEvents.diggable_revealed.emit(spot_id)
 	var marker := get_node_or_null("Marker") as CanvasItem

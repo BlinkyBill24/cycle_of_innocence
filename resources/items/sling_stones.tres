@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDef" load_steps=3 format=3 uid="uid://b8slingstone1"]
+
+[ext_resource type="Script" uid="uid://cnh5esvabvxfq" path="res://scripts/items/item_def.gd" id="1_itemdef"]
+[ext_resource type="Texture2D" uid="uid://bite0x8585rc" path="res://assets/sprites/items/sling_stones.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_itemdef")
+id = &"sling_stones"
+display_name = "Sling Stones"
+category = 2
+icon = ExtResource("2_icon")
+description = "Smooth pebbles, sized for the sling."
+distorted_description = "Each one is a small, simple certainty."
+stackable = true
+max_stack = 9
+discardable = true
+companion_id = &""
+use_kind = 0
+bond_delta = 0.0
+morality_delta = 0.0
+consumed_on_use = false

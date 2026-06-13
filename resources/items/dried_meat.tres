@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="ItemDef" load_steps=2 format=3 uid="uid://b8driedmeat001"]
+[gd_resource type="Resource" script_class="ItemDef" load_steps=3 format=3 uid="uid://b8driedmeat001"]
 
 [ext_resource type="Script" uid="uid://cnh5esvabvxfq" path="res://scripts/items/item_def.gd" id="1_itemdef"]
+[ext_resource type="Texture2D" uid="uid://pa1sb0em4lfl" path="res://assets/sprites/items/dried_meat.png" id="2_icon"]
 
 [resource]
 script = ExtResource("1_itemdef")
 id = &"dried_meat"
 display_name = "Dried Meat"
 category = 1
+icon = ExtResource("2_icon")
 description = "A strip of dried meat. Briar's ribs show through his scruff."
 distorted_description = "Protein. The body that runs needs fuel."
 stackable = true
