@@ -102,10 +102,16 @@ generated NPC evolution, hierarchy, or rank. Keep that framing in code, docs, an
 marketing. See [[decisions/2026-06-10-patent-risk-review]].
 
 ## Status
-Draft spec — first delivery is the [[design/hollow-house-quest]] vertical slice
-(`seek_target` branch + `briar_seek_bark` + fallback shimmer). Readability is the
-explicit playtest gate: *do players notice and follow the cue, and find the clue
-without her?* (thresholds in [[decisions/2026-06-13-next-phase-hollow-house-slice]]).
+**Built — pass 1** (2026-06-13, branch `feature/hollow-house`). `CompanionBase`
+gained `command_seek(target)` + a `Seek` HSM state (lead → look-back loop →
+exclusive tell + new `briar_seek` SFX), bond/corruption modulation, the pure
+unit-tested `pick_seek_target`, and re-point on **recall (C)** via
+`GameEvents.companion_recalled`. The no-missable fallback is live (`_try_companion_assist`
+hand-dig when Briar's absent). First delivery: [[design/hollow-house-quest]].
+Readability is the explicit playtest gate — *do players notice and follow the
+cue, and find the clue without her?* (thresholds in
+[[decisions/2026-06-13-next-phase-hollow-house-slice]]). Real `seek_tell`
+animation + `briar_seek` bark are the asset pass (placeholders shipped).
 
 ## Related
 [[mechanics/companion-quirks]] · [[mechanics/vision-and-darkness]] · [[mechanics/encounters-mercy]] · [[mechanics/horror-and-dread]] · [[design/secrets-and-discovery]] · [[design/hollow-house-quest]] · [[characters/companions]]

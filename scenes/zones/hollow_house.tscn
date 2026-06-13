@@ -1,0 +1,217 @@
+[gd_scene load_steps=25 format=3 uid="uid://hollowhouse001"]
+
+[ext_resource type="Script" path="res://scripts/world/interior_root.gd" id="1_interior"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/hollow_house_floor.png" id="2_floor"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/companions/briar.tscn" id="4_briar"]
+[ext_resource type="Script" path="res://scripts/world/door_transition.gd" id="5_door"]
+[ext_resource type="PackedScene" path="res://scenes/world/diggable_spot.tscn" id="6_diggable"]
+[ext_resource type="Script" path="res://scripts/world/whisper_spot.gd" id="7_whisper"]
+[ext_resource type="Script" path="res://scripts/world/fear_emitter.gd" id="8_fear"]
+[ext_resource type="Script" path="res://scripts/world/hollow_house_quest.gd" id="9_quest"]
+[ext_resource type="Script" path="res://scripts/world/gated_door.gd" id="10_gate"]
+[ext_resource type="Script" path="res://scripts/world/zone_recontext.gd" id="11_recontext"]
+[ext_resource type="Script" path="res://scripts/world/dread_zone.gd" id="12_dread"]
+[ext_resource type="Texture2D" path="res://assets/sprites/fx/clue_glint.png" id="13_glint"]
+[ext_resource type="Texture2D" uid="uid://c6eknu52ocg5o" path="res://assets/sprites/light/glow_radial.png" id="14_glow"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/gate_panel.png" id="15_gate_tex"]
+
+[sub_resource type="RectangleShape2D" id="wall_h"]
+size = Vector2(480, 12)
+
+[sub_resource type="RectangleShape2D" id="wall_v"]
+size = Vector2(12, 320)
+
+[sub_resource type="RectangleShape2D" id="vwall_mid"]
+size = Vector2(12, 250)
+
+[sub_resource type="RectangleShape2D" id="hwall_a"]
+size = Vector2(65, 10)
+
+[sub_resource type="RectangleShape2D" id="hwall_b"]
+size = Vector2(170, 10)
+
+[sub_resource type="RectangleShape2D" id="door_block"]
+size = Vector2(12, 72)
+
+[sub_resource type="RectangleShape2D" id="exit_door"]
+size = Vector2(40, 40)
+
+[sub_resource type="CircleShape2D" id="dread_circle"]
+radius = 95.0
+
+[sub_resource type="CircleShape2D" id="whisper_circle"]
+radius = 38.0
+
+[node name="HollowHouse" type="Node2D"]
+script = ExtResource("1_interior")
+zone_id = &"hollow_house"
+dread_baseline = 8.0
+
+[node name="GroundBackdrop" type="Sprite2D" parent="."]
+texture = ExtResource("2_floor")
+
+[node name="DarkTint" type="CanvasModulate" parent="."]
+color = Color(0.32, 0.3, 0.36, 1)
+
+[node name="AmbientLight" type="PointLight2D" parent="."]
+position = Vector2(-120, 110)
+color = Color(0.8, 0.78, 0.7, 1)
+energy = 0.9
+texture = ExtResource("14_glow")
+texture_scale = 1.6
+
+[node name="Borders" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Top" type="CollisionShape2D" parent="Borders"]
+position = Vector2(0, -155)
+shape = SubResource("wall_h")
+
+[node name="Bottom" type="CollisionShape2D" parent="Borders"]
+position = Vector2(0, 155)
+shape = SubResource("wall_h")
+
+[node name="Left" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-235, 0)
+shape = SubResource("wall_v")
+
+[node name="Right" type="CollisionShape2D" parent="Borders"]
+position = Vector2(235, 0)
+shape = SubResource("wall_v")
+
+[node name="VWall" type="CollisionShape2D" parent="Borders"]
+position = Vector2(60, -35)
+shape = SubResource("vwall_mid")
+
+[node name="HWallA" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-202.5, 15)
+shape = SubResource("hwall_a")
+
+[node name="HWallB" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-25, 15)
+shape = SubResource("hwall_b")
+
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="World" instance=ExtResource("3_player")]
+position = Vector2(-120, 110)
+
+[node name="Briar" parent="World" instance=ExtResource("4_briar")]
+position = Vector2(-150, 122)
+
+[node name="SpawnDefault" type="Marker2D" parent="." groups=["spawn_default"]]
+position = Vector2(-120, 110)
+
+[node name="ExitDoor" type="Area2D" parent="." groups=["interior_door"]]
+position = Vector2(-200, 110)
+collision_mask = 2
+script = ExtResource("5_door")
+target_scene_path = "res://scenes/zones/playground_fringes.tscn"
+spawn_id = &"from_hollow_house"
+prompt_text = "Step outside"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitDoor"]
+shape = SubResource("exit_door")
+
+[node name="GatedDoor" type="StaticBody2D" parent="." groups=["interior_door"]]
+position = Vector2(60, 125)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("10_gate")
+key_spot_id = &"hollow_door_scratch"
+
+[node name="Panel" type="Sprite2D" parent="GatedDoor"]
+texture = ExtResource("15_gate_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GatedDoor"]
+shape = SubResource("door_block")
+
+[node name="DoorScratch" parent="." instance=ExtResource("6_diggable")]
+position = Vector2(40, 116)
+spot_id = &"hollow_door_scratch"
+
+[node name="Ledger" parent="." instance=ExtResource("6_diggable")]
+position = Vector2(160, -60)
+spot_id = &"hollow_house_ledger"
+lore_text = "A water-stained ledger, hidden under a loose board. Columns of numbers you cannot yet read."
+lore_sign_id = &"hollow_house_ledger"
+lore_text_recontext = "The ledger. You know the numbers now — they are draws, and the margins are full of children's names."
+recontext_revelation = &"hollow_house_truth"
+dig_item = &"hollow_house_ledger"
+
+[node name="Glint" type="Sprite2D" parent="Ledger"]
+position = Vector2(0, -12)
+texture = ExtResource("13_glint")
+
+[node name="FearEmitter" type="Node2D" parent="Ledger"]
+script = ExtResource("8_fear")
+radius = 150.0
+max_rate = 26.0
+
+[node name="DeepDread" type="Area2D" parent="."]
+position = Vector2(150, -30)
+collision_mask = 2
+script = ExtResource("12_dread")
+dread_zone_id = &"hollow_inner"
+dread_level = 55.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeepDread"]
+shape = SubResource("dread_circle")
+
+[node name="WhisperScratches" type="Area2D" parent="."]
+position = Vector2(-150, -80)
+collision_mask = 2
+script = ExtResource("7_whisper")
+spot_id = &"hollow_scratches"
+text = "Scratches gouge the inside of the cupboard door. Fingernail-deep."
+dread_on_hear = 10.0
+journal_text = "Something was shut in that cupboard, and clawed to get out."
+journal_kind = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WhisperScratches"]
+shape = SubResource("whisper_circle")
+
+[node name="WhisperChildlock" type="Area2D" parent="."]
+position = Vector2(-60, -60)
+collision_mask = 2
+script = ExtResource("7_whisper")
+spot_id = &"hollow_childlock"
+text = "The bolt on this door is fitted high — too high for a child to reach from inside."
+dread_on_hear = 10.0
+journal_text = "The locks here keep things in, not out. And they are set for small hands."
+journal_kind = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WhisperChildlock"]
+shape = SubResource("whisper_circle")
+
+[node name="WhisperBowls" type="Area2D" parent="."]
+position = Vector2(15, 95)
+collision_mask = 2
+script = ExtResource("7_whisper")
+spot_id = &"hollow_bowls"
+text = "A row of small bowls by the hearth. Each has a name scratched into the tin."
+dread_on_hear = 8.0
+journal_text = "Someone fed children here, and counted them by name."
+journal_kind = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WhisperBowls"]
+shape = SubResource("whisper_circle")
+
+[node name="RecontextDrawing" type="Sprite2D" parent="." groups=["recontext_hollow_house_truth"]]
+position = Vector2(150, -110)
+modulate = Color(0.7, 0.3, 0.3, 0.8)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("14_glow")
+
+[node name="ZoneRecontext" type="Node" parent="."]
+script = ExtResource("11_recontext")
+
+[node name="Quest" type="Node" parent="."]
+script = ExtResource("9_quest")
+book_spot_path = NodePath("../Ledger")
+doom_prefix = "sign_hollow"
+doom_threshold = 2
+revelation_id = &"hollow_house_truth"

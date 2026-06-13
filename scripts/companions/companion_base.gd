@@ -41,6 +41,7 @@ var _state_dig: LimboState
 var _state_cower: LimboState
 var _state_bark: LimboState
 var _state_quirk: LimboState
+var _state_seek: LimboState
 
 var _paused := false  # quirks freeze during cutscenes/dialogue
 var _quirk_cooldown := 0.0
@@ -53,6 +54,17 @@ var _stare_timer := 0.0
 var _calm_hold := 0.0  # >0 while anchoring the player's soothe (lie_down)
 var _pose_hold := 0.0  # >0 while a quirk pose (dusk press) owns the sprite
 
+# Briar-seek (commandable guide — docs/mechanics/companion-pointer.md): lead the
+# player to a target, look back if they don't follow, play an exclusive tell.
+const SEEK_ARRIVE_DIST := 16.0
+const SEEK_LOOKBACK_INTERVAL := 3.0   # look back if the player hasn't followed
+const SEEK_LOOKBACK_SECONDS := 0.8
+const SEEK_REFUSE_CORRUPTION := 70.0  # hesitation/refusal scales with corruption
+var _seek_target: Node2D
+var _seek_last_target: Node2D  # remembered so a recall re-points at it
+var _seek_phase := 0  # 0 = lead, 1 = look back, 2 = terminal tell
+var _seek_clock := 0.0
+
 
 func _ready() -> void:
 	add_to_group("companion")
@@ -62,6 +74,7 @@ func _ready() -> void:
 	if GameEvents:
 		GameEvents.exploration_paused.connect(func() -> void: _paused = true)
 		GameEvents.exploration_resumed.connect(func() -> void: _paused = false)
+		GameEvents.companion_recalled.connect(_on_recalled)
 	_phantom_timer = randf_range(15.0, 30.0)
 	_init_hsm()
 
@@ -93,8 +106,10 @@ func _init_hsm() -> void:
 		.call_on_enter(_bark_enter).call_on_update(_bark_update)
 	_state_quirk = LimboState.new().named("Quirk") \
 		.call_on_enter(_quirk_enter).call_on_update(_quirk_update)
+	_state_seek = LimboState.new().named("Seek") \
+		.call_on_enter(_seek_enter).call_on_update(_seek_update)
 
-	for state: LimboState in [_state_follow, _state_dig, _state_cower, _state_bark, _state_quirk]:
+	for state: LimboState in [_state_follow, _state_dig, _state_cower, _state_bark, _state_quirk, _state_seek]:
 		hsm.add_child(state)
 
 	hsm.add_transition(_state_follow, _state_dig, &"dig")
@@ -103,6 +118,8 @@ func _init_hsm() -> void:
 	hsm.add_transition(_state_bark, _state_follow, &"done")
 	hsm.add_transition(_state_follow, _state_quirk, &"quirk")
 	hsm.add_transition(_state_quirk, _state_follow, &"done")
+	hsm.add_transition(_state_follow, _state_seek, &"seek")
+	hsm.add_transition(_state_seek, _state_follow, &"done")
 	hsm.add_transition(hsm.ANYSTATE, _state_cower, &"afraid")
 	hsm.add_transition(_state_cower, _state_follow, &"calmed")
 
@@ -154,6 +171,65 @@ func command_dig(spot: Node2D) -> bool:
 	_dig_target = spot
 	hsm.dispatch(&"dig")
 	return true
+
+
+func get_corruption() -> float:
+	return PlayerData.get_companion(companion_id).corruption
+
+
+## Command the companion to lead the player to `target` (docs/mechanics/
+## companion-pointer.md). Safe-by-default; refuses (visibly) when afraid, busy,
+## low-bond, or — the horror — too corrupted to trust. Returns false on refusal;
+## the no-missable fallback ([[mechanics/companion-pointer]]) covers refusal.
+func command_seek(target: Node2D) -> bool:
+	if target == null:
+		return false
+	if is_afraid() or hsm.get_active_state() == _state_cower:
+		Sfx.play(&"whimper", -6.0)
+		assist_refused.emit(&"afraid")
+		return false
+	if hsm.get_active_state() != _state_follow:
+		return false  # busy (digging / barking / already seeking)
+	if get_bond() < min_assist_bond:
+		assist_refused.emit(&"low_bond")
+		return false
+	# corruption hesitation: a far-gone companion balks at leading you anywhere
+	if get_corruption() >= SEEK_REFUSE_CORRUPTION:
+		Sfx.play(&"whimper", -5.0)
+		assist_refused.emit(&"corrupted")
+		return false
+	_seek_target = target
+	_seek_last_target = target
+	hsm.dispatch(&"seek")
+	return true
+
+
+## Player asked for a re-point (GameEvents.companion_recalled). Re-issue the last
+## seek so the cue is never a missed one-shot — unless that target is already
+## found (a DiggableSpot whose `revealed` is true) or we're not idle.
+func _on_recalled() -> void:
+	if _seek_last_target == null or not is_instance_valid(_seek_last_target):
+		return
+	if _seek_last_target.get("revealed") == true:
+		return
+	command_seek(_seek_last_target)
+
+
+## Pure target picker (testable): index of the nearest NOT-found candidate to
+## `from`, or -1 if none. `candidates` = Array of {pos: Vector2, found: bool}.
+static func pick_seek_target(candidates: Array, from: Vector2) -> int:
+	var best := INF
+	var best_idx := -1
+	for i in candidates.size():
+		var c: Dictionary = candidates[i]
+		if bool(c.get("found", false)):
+			continue
+		var pos: Vector2 = c.get("pos", Vector2.ZERO)
+		var d := from.distance_squared_to(pos)
+		if d < best:
+			best = d
+			best_idx = i
+	return best_idx
 
 
 # --- states ---
@@ -295,6 +371,68 @@ func _bark_update(delta: float) -> void:
 	_bark_timer -= delta
 	if _bark_timer <= 0.0:
 		hsm.dispatch(&"done")
+
+
+# --- Briar-seek state (commandable guide) ---
+
+func _seek_enter() -> void:
+	_seek_phase = 0
+	_seek_clock = 0.0
+	velocity = Vector2.ZERO
+
+
+func _seek_update(delta: float) -> void:
+	var player := get_player()
+	if _seek_target == null or not is_instance_valid(_seek_target) or player == null:
+		hsm.dispatch(&"done")
+		return
+	var corrupt := clampf(get_corruption() / 100.0, 0.0, 1.0)
+	var eager := clampf(get_bond() / 100.0, 0.0, 1.0)
+	# eagerness scales speed up with bond; corruption drags it down (hesitation)
+	var lead_speed := lerpf(move_speed, run_speed, eager) * lerpf(1.0, 0.6, corrupt)
+	var to_target := _seek_target.global_position - global_position
+	match _seek_phase:
+		0:  # LEAD — trot toward the target
+			if to_target.length() <= SEEK_ARRIVE_DIST:
+				_seek_phase = 2
+				_seek_clock = 0.0
+				return
+			_facing = to_target.normalized()
+			velocity = _facing * lead_speed
+			_play_dir_anim("trot")
+			_seek_clock += delta
+			var lagging := global_position.distance_to(player.global_position) > catchup_distance
+			if lagging and _seek_clock >= SEEK_LOOKBACK_INTERVAL * lerpf(1.0, 1.6, corrupt):
+				_seek_phase = 1
+				_seek_clock = 0.0
+		1:  # LOOK BACK — pause, face the player, a soft "come on" yip
+			velocity = Vector2.ZERO
+			_facing = global_position.direction_to(player.global_position)
+			_play_dir_anim("stare")
+			if is_equal_approx(_seek_clock, 0.0):
+				Sfx.play(&"briar_seek", -7.0)
+			_seek_clock += delta
+			if _seek_clock >= SEEK_LOOKBACK_SECONDS:
+				_seek_phase = 0
+				_seek_clock = 0.0
+		2:  # TELL — at the spot: exclusive tell + unique bark, then yield to follow
+			velocity = Vector2.ZERO
+			if to_target.length() > 1.0:
+				_facing = to_target.normalized()
+			Sfx.play(&"briar_seek", -3.0)
+			_show_exclaim()
+			if sprite.sprite_frames and sprite.sprite_frames.has_animation("dig"):
+				sprite.play("dig")  # nose-down at the spot — the terminal tell
+			assist_completed.emit(&"seek")
+			_seek_target = null
+			hsm.dispatch(&"done")
+
+
+func _play_dir_anim(action: String) -> void:
+	var anim: Array = PlayerController.directional_anim(action, _facing)
+	if sprite.sprite_frames and sprite.sprite_frames.has_animation(anim[0]) \
+			and sprite.animation != anim[0]:
+		sprite.play(anim[0])
 
 
 # --- quirk expression ---

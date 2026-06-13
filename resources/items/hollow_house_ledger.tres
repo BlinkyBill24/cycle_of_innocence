@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/items/item_def.gd" id="1_itemdef"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/hollow_house_ledger.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_itemdef")
+id = &"hollow_house_ledger"
+display_name = "Water-stained Ledger"
+category = 3
+icon = ExtResource("2_icon")
+description = "A ledger swollen with damp. Columns of dates and figures you cannot yet parse."
+distorted_description = "The figures are names. You can read them now. One of the numbers was almost yours."
+stackable = false
+max_stack = 1
+discardable = false
+companion_id = &""
+use_kind = 0
+bond_delta = 0.0
+morality_delta = 0.0
+consumed_on_use = false

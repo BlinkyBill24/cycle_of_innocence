@@ -10,6 +10,7 @@ const STREAMS := {
 	&"dig": preload("res://assets/audio/sfx/briar_dig.wav"),
 	&"whimper": preload("res://assets/audio/sfx/briar_whimper.wav"),
 	&"bark": preload("res://assets/audio/sfx/briar_bark.wav"),
+	&"briar_seek": preload("res://assets/audio/sfx/briar_seek.wav"),  # exclusive seek-tell yip (companion-pointer)
 	&"growl": preload("res://assets/audio/sfx/briar_growl.wav"),
 	&"footstep_gravel": preload("res://assets/audio/sfx/footstep_gravel.wav"),
 	&"found": preload("res://assets/audio/sfx/found.wav"),

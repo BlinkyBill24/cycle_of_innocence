@@ -9,6 +9,10 @@ signal companion_bond_changed(companion_id: StringName, bond_value: float)
 signal companion_corrupted(companion_id: StringName, level: float)
 signal companion_lost(companion_id: StringName, permanent: bool)
 signal companion_bark(companion_id: StringName)
+## Player asked the companion to (re-)point at what it last sought — the
+## re-triggerable Briar-seek cue (docs/mechanics/companion-pointer.md). Decoupled:
+## the player emits, the quest decides the target, the companion executes.
+signal companion_recalled
 signal quirk_acquired(companion_id: StringName, quirk_id: StringName)
 signal quirk_expressed(companion_id: StringName, quirk_id: StringName)
 signal diggable_revealed(spot_id: StringName)

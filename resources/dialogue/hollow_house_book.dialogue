@@ -1,0 +1,12 @@
+~ start
+{{PlayerData.custom_name}}: *The damp page peels open. Columns of numbers — draws, years of them. And in the margin, in a careful hand, a name beside each one.*
+{{PlayerData.custom_name}}: *Marta. The house at the end of the lane. And lower down, half-rotted... my number. The one they drew for me.*
+{{PlayerData.custom_name}}: This house kept the list. Someone wrote us all down before the fog ever came.
+- Someone has to remember them.
+	do PlayerData.change_morality(-6.0)
+	do PlayerData.add_companion_bond("briar", 4.0)
+	{{PlayerData.custom_name}}: *Briar presses against my leg. I close the ledger gently, like it could still feel.*
+- Better their names than mine.
+	do PlayerData.change_morality(6.0)
+	{{PlayerData.custom_name}}: *I got out. That has to be enough. Briar watches me a beat too long before he looks away.*
+=> END
