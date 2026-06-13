@@ -341,16 +341,24 @@ Pipeline: `animate` (queue per char) → `download` (zip → frames) → `sheets
 **Delivered 7/10 game-ready** this pass: `rowan_teen`, `rowan_adult` (player),
 `briar_corrupt`, `storm_corrupt`, `crawler`, `ghost_girl`, `evil_warden` (enemies).
 
-**3 deferred — blocked by a PixelLab `animate-character` backend degradation**,
-NOT a config error: `briar_adult`, `storm_adult` (0 animations), and
-`storm_young` (only walk-west missing). Symptom: `animate-character` returns
-`404 "Character rotation image not found for direction: south"` even though the
-rotation images exist and are publicly fetchable; reproduced across two clean
-recreations and ~25 min of retries with the subscription **generation counter
-frozen** (nothing rendering) — i.e. service-side. **Retry path** (when the
-service recovers): `animate --only <char>` → `download` → `sheets-pro`; the tool
-resumes via `state.json` markers. Their base 8-dir character sheets already
-shipped on main, so only the animated `.tres` is outstanding.
+**3 deferred** (first pass): `briar_adult`, `storm_adult`, `storm_young`.
+Symptom: `animate-character` returns `404 "rotation image not found for direction:
+south"` despite valid, publicly-fetchable rotations.
+
+**Retry outcome (branch feature/charsheet-animations-retry): 8/10 done.**
+`storm_young` recovered fully once the service was healthy (it had been purely
+outage-blocked) — sheet + `.tres` shipped. **`briar_adult` + `storm_adult` remain
+blocked by a deterministic PixelLab defect** specific to those two character
+records: survived **3 clean recreations + ~90 min of retries** across a healthy
+window; each record accepts an occasional *single* animate call then reverts to
+the 404 wall, so their movesets never fill. Every sibling on the same template
+(briar_corrupt, storm_young/corrupt) animates fine → not template/config. Base
+8-dir sheets already on main. **Next ideas (not blind retry):** regenerate the
+*base* char from a FRONT concept crop or smaller `size` (both failures are bulky
+adult side-view quadrupeds — possibly a malformed south rotation at that framing),
+or report the two character ids to PixelLab. Also confirmed: newly-created
+characters have a **multi-minute create→animate consistency lag** — wait well
+past rotation-ready before animating.
 
 Hardening added this pass: `animate()` retries transient 404/5xx (not just 429);
 `download()` skips a char whose zip 404s instead of aborting the batch;
