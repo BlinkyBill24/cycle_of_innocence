@@ -44,8 +44,20 @@ between floors) on the existing ZoneManager + ZoneRoot rails.
     landing at correct spawns; dread floor 45 confirmed).
   - **Parallelization** (user asked): dispatched a background sub-agent to write
     the mechanics doc while I built the system (non-overlapping files).
-  - ⚠️ **Codex gate** recommended on the ZoneManager/SaveManager autosave-path
-    extension — running next.
+  - ✅ **Codex gate** done (background `codex:rescue` agent). No critical
+    findings; three should-fix one-shot-state-hygiene edge cases on the
+    autosave path, all fixed on a fresh branch `fix/interiors-arrival-state`
+    (the system branch was already merged):
+    - **S1** `load_game` wipes stale `arriving_spawn`/`arriving_from`/
+      `restore_position` up front, so a load fired mid-transition is steered
+      only by `restore_position`.
+    - **S2** `place_player_at_entry` consumes the one-shot state even when the
+      arriving scene has no player node (new `_clear_arrival_state` helper),
+      instead of early-returning and leaking it to the next load.
+    - **S3** `go_to_scene` `_transition_pending` guard blocks a second trigger
+      (double-press / two doors in a frame) from overwriting the in-flight
+      spawn+path; cleared when placement lands.
+    +3 GUT tests → **250 passing**; check-brain green. Pushed.
 
 ## Related
 [[mechanics/accessible-interiors]] · [[mechanics/zone-recontextualization]] ·
