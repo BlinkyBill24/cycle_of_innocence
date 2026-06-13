@@ -24,6 +24,7 @@
 - Art: 32×32 pixel (SNES/Zelda + horror), Grok Imagine → pixel cleanup (scripted or any layer-capable editor — GIMP/Pixelorama; no Aseprite installed) → Godot nearest-filter import.
 - Autoloads (current): `GameEvents`, `PlayerData`, `DialogueManager` (addon), `DreadManager`, `ZoneManager`, `WorldState`, `HollowingClock`, `VillageState`, `Journal`, `SaveManager`, `Sfx`, `AdaptiveAudio`; (planned): `CompanionManager`, `InputManager`.
 - **PixelLab API** available for character/animation generation: key at `~/.config/pixellab/api_key` (NEVER in repo), client `tools/pixellab_api.py` (generate/rotate; free tier needs credits for generation). Decision: docs/decisions/2026-06-10-sprite-tool-pixellab.md.
+- **ElevenLabs API** for SFX (text-to-sound-effects): key at `~/.config/elevenlabs/api_key` (NEVER in repo; **free tier**, credits reset monthly — pause generation when exhausted), client `tools/gen_elevenlabs_sfx.py` (requests PCM → downmixes to mono 16-bit WAV via stdlib `wave`, no ffmpeg). Real SFX replace the `gen_placeholder_sfx.py` placeholders in `assets/audio/sfx/` (keep filenames → `Sfx.gd` keys intact).
 - AI production stack: FOSS-first; see `docs/design/ai-production-setup.md`.
 
 ## Critical rules (R1–R7)

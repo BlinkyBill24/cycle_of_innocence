@@ -24,6 +24,9 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - Strong emphasis on "no Mote reuse" — document guardrails in GROK.md and local handbook.
 
 ## 📥 Captured this session
+- Ambient SFX beds: `crickets.wav` + `owl_hoot.wav` exist but aren't wired — loop-enable the import and drive them from AdaptiveAudio (night/dread layer) so the fringe feels alive. Owl could also fire as an occasional dread stinger.
+- Per-surface footsteps: `footstep_grass` + `footstep_gravel` both exist; player_controller should pick by ground type (tile/zone) instead of always grass. Tiny state hook.
+- SFX coverage gaps (next ElevenLabs batch when credits reset): monster vocalizations (twisted-child stalk/lunge), item pickup vs the "found" stinger, bond-up chime, UI open/close (satchel/journal), water/fog ambience.
 - Weapon combat wiring: `sturdy_stick`/`slingshot`/`sling_stones` exist as items+art but `use_kind=NONE`. Needs a combat-facing UseKind (EQUIP/THROW) + player_controller hook so the stick swings and the slingshot consumes a stone. Ties into [[mechanics/combat]].
 - Item world-placement pass: berries + weapons aren't placed in any zone yet (ForageSpot exists; or a small loot table). Dig-up items (bone, locket) are placed.
 - Dig-up loot variety: `DiggableSpot.dig_item` is a single id — a weighted table or per-NG+ swap (like `lore_text_recontext`) could make repeat digs less samey.

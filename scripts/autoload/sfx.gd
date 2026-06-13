@@ -1,6 +1,7 @@
 extends Node
-## Central one-shot SFX playback (pooled players). Placeholder streams from
-## tools/gen_placeholder_sfx.py — swap files, keep names.
+## Central one-shot SFX playback (pooled players). Most streams are real SFX
+## from ElevenLabs (tools/gen_elevenlabs_sfx.py); growl/toy/bell/lullaby remain
+## placeholder/other-source. Swap files, keep names.
 
 const STREAMS := {
 	&"footstep": preload("res://assets/audio/sfx/footstep_grass.wav"),
@@ -10,6 +11,9 @@ const STREAMS := {
 	&"whimper": preload("res://assets/audio/sfx/briar_whimper.wav"),
 	&"bark": preload("res://assets/audio/sfx/briar_bark.wav"),
 	&"growl": preload("res://assets/audio/sfx/briar_growl.wav"),
+	&"footstep_gravel": preload("res://assets/audio/sfx/footstep_gravel.wav"),
+	&"found": preload("res://assets/audio/sfx/found.wav"),
+	&"owl": preload("res://assets/audio/sfx/owl_hoot.wav"),
 	&"stinger_toy": preload("res://assets/audio/sfx/toy_creak_stinger.wav"),
 	&"bell_toll": preload("res://assets/audio/sfx/hollowing_bell.wav"),
 	&"lullaby": preload("res://assets/audio/stems/lullaby_motif.ogg"),
