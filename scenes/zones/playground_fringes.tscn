@@ -403,7 +403,14 @@ journal_text = "They posted a new lottery notice already. So soon after the last
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LotteryPostStage1"]
 shape = SubResource("CircleShape2D_whisper")
 
+[node name="Glow" type="Sprite2D" parent="LotteryPostStage1"]
+modulate = Color(1, 0.92, 0.62, 0.5)
+position = Vector2(0, -16)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("20_glow")
+
 [node name="Poster" type="Sprite2D" parent="LotteryPostStage1"]
+modulate = Color(2.5, 2.45, 2.2, 1)
 texture = ExtResource("41_notice")
 offset = Vector2(0, -16)
 

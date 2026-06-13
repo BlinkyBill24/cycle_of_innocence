@@ -103,15 +103,19 @@ func _world_lurches() -> void:
 const BELL_GAP := 0.85  # seconds between tolls (slow, funereal, countable)
 
 
-const BELL_DB := 6.0  # the doom signal must carry over ambient/danger music
-                       # (playtest 2026-06-13: −2 dB was "barely noticeable")
+## 0 dB on the now-normalized (≈full-scale) sample — clean and loud. The old
+## +6 dB merely CLIPPED the 64%-peak wav into distortion, which read as quiet
+## (playtest 2026-06-13 ×2: "barely noticeable" / "still cannot hear it right").
+const BELL_DB := 0.0
+## Duck the music HARD during the peal — the world holds its breath for the
+## bell, so each toll rings into near-silence and is unmissable + countable.
+const BELL_DUCK_DB := 26.0
 
 
 ## Ring the chapel bell `count` times, spaced. Pure scheduling — testable via
 ## bell_pattern() below; the audio is fire-and-forget timers.
 func _ring_bells(count: int) -> void:
-	# duck the adaptive music under the whole peal so the tolls cut through
-	AdaptiveAudio.duck(14.0)
+	AdaptiveAudio.duck(BELL_DUCK_DB)
 	for i in maxi(count, 1):
 		var delay := bell_pattern(i)
 		if delay <= 0.0:
@@ -119,7 +123,7 @@ func _ring_bells(count: int) -> void:
 		else:
 			get_tree().create_timer(delay).timeout.connect(
 					func() -> void:
-						AdaptiveAudio.duck(14.0)  # keep it ducked across the gaps
+						AdaptiveAudio.duck(BELL_DUCK_DB)  # stay quiet across the gaps
 						Sfx.play(&"bell_toll", BELL_DB, 0.01))
 
 
