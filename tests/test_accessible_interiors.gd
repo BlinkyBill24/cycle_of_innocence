@@ -13,12 +13,14 @@ func before_each() -> void:
 	ZoneManager.arriving_spawn = &""
 	ZoneManager.arriving_from = &""
 	ZoneManager.restore_position = null
+	ZoneManager._transition_pending = false
 
 
 func after_each() -> void:
 	ZoneManager.arriving_spawn = &""
 	ZoneManager.arriving_from = &""
 	ZoneManager.restore_position = null
+	ZoneManager._transition_pending = false
 
 
 # --- DoorTransition ------------------------------------------------------
@@ -110,6 +112,32 @@ func test_legacy_entry_from_still_works() -> void:
 		"legacy entry_from_<prev> path preserved")
 
 
+# --- one-shot arrival-state hygiene (Codex review S1/S2/S3) ---------------
+
+func test_arrival_state_cleared_when_no_player_present() -> void:
+	# S2: a scene with no "player" node must still consume the one-shot state,
+	# or it leaks into the next, unrelated load.
+	var zone := Node2D.new()  # deliberately no player in this subtree
+	add_child_autofree(zone)
+	ZoneManager.arriving_spawn = &"basement"
+	ZoneManager._transition_pending = true
+	ZoneManager.place_player_at_entry(zone)
+	assert_eq(ZoneManager.arriving_spawn, &"", "no player -> arrival state still consumed")
+	assert_false(ZoneManager._transition_pending, "pending guard cleared once the load lands")
+
+
+func test_reentrant_go_to_scene_is_ignored() -> void:
+	# S3: with a transition already in flight, a second trigger (double-press,
+	# two doors) must not overwrite arriving_spawn/current_scene_path. We assert
+	# the guard's early-return branch so no real change_scene is queued in GUT.
+	ZoneManager._transition_pending = true
+	ZoneManager.arriving_spawn = &"first"
+	var path_before := ZoneManager.current_scene_path
+	ZoneManager.go_to_scene(ANY_SCENE, &"second")
+	assert_eq(ZoneManager.arriving_spawn, &"first", "reentrant call ignored — first spawn kept")
+	assert_eq(ZoneManager.current_scene_path, path_before, "scene path not overwritten mid-flight")
+
+
 # --- SaveManager floor persistence ---------------------------------------
 
 func test_save_load_round_trips_floor_and_position() -> void:
@@ -131,3 +159,23 @@ func test_save_load_round_trips_floor_and_position() -> void:
 	assert_eq(ZoneManager.restore_position, Vector2(50, 60),
 		"exact position queued for the reloaded floor")
 	SaveManager.delete_save(99)
+
+
+func test_load_wipes_stale_arrival_state() -> void:
+	# S1: a load fired mid-transition must clear leftover arriving_spawn/from so
+	# restore_position is the only thing steering placement.
+	var player := Node2D.new()
+	player.add_to_group("player")
+	player.global_position = Vector2(50, 60)
+	add_child_autofree(player)
+	ZoneManager.current_zone_id = &"cottage_basement"
+	ZoneManager.current_scene_path = "res://scenes/zones/playground_fringes.tscn"
+	assert_true(SaveManager.save_game(98), "save writes")
+	ZoneManager.arriving_spawn = &"stale"
+	ZoneManager.arriving_from = &"stale_zone"
+	assert_true(SaveManager.load_game(98, false), "load reads")
+	assert_eq(ZoneManager.arriving_spawn, &"", "load wiped stale arriving_spawn")
+	assert_eq(ZoneManager.arriving_from, &"", "load wiped stale arriving_from")
+	assert_eq(ZoneManager.restore_position, Vector2(50, 60),
+		"restore_position set from the save, not the stale marker")
+	SaveManager.delete_save(98)

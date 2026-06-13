@@ -27,6 +27,10 @@ var arriving_spawn: StringName = &""
 ## Exact position a save-load wants the player restored to (Vector2 or null).
 ## Beats marker resolution so reloading inside a basement keeps your spot.
 var restore_position: Variant = null
+## True between go_to_scene() and the arriving scene's place_player_at_entry().
+## Guards against a second trigger (double-press, two doors in one frame)
+## overwriting arriving_spawn/current_scene_path while a load is in flight.
+var _transition_pending := false
 
 
 func enter_zone(zone_id: StringName) -> void:
@@ -57,6 +61,9 @@ func go_to_scene(scene_path: String, spawn_id: StringName = &"") -> void:
 	if scene_path.is_empty() or not ResourceLoader.exists(scene_path):
 		push_warning("ZoneManager.go_to_scene: missing scene '%s'" % scene_path)
 		return
+	if _transition_pending:
+		return  # a scene change is already in flight — ignore the double-fire
+	_transition_pending = true
 	arriving_spawn = spawn_id
 	current_scene_path = scene_path
 	get_tree().change_scene_to_file.call_deferred(scene_path)
@@ -67,8 +74,10 @@ func go_to_scene(scene_path: String, spawn_id: StringName = &"") -> void:
 ## (3) the legacy entry_from_<prev>/entry_default. No-op on a plain boot
 ## (no transition + no restore) so the player keeps its scene-default spot.
 func place_player_at_entry(zone: Node) -> void:
+	_transition_pending = false  # the in-flight load has landed
 	var player := zone.get_tree().get_first_node_in_group("player") as Node2D
 	if player == null:
+		_clear_arrival_state()  # no one to place — consume the one-shot state anyway
 		return
 	var dest: Variant = _resolve_destination(zone)
 	if dest == null:
@@ -90,14 +99,11 @@ func place_player_at_entry(zone: Node) -> void:
 func _resolve_destination(zone: Node) -> Variant:
 	if restore_position != null:
 		var pos: Vector2 = restore_position
-		restore_position = null
-		arriving_spawn = &""
-		arriving_from = &""
+		_clear_arrival_state()
 		return pos
 	if arriving_spawn != &"":
 		var sp := zone.get_tree().get_nodes_in_group("spawn_" + String(arriving_spawn))
-		arriving_spawn = &""
-		arriving_from = &""
+		_clear_arrival_state()
 		if not sp.is_empty():
 			return (sp[0] as Node2D).global_position
 		# named spawn missing — fall back to spawn_default rather than nothing
@@ -105,9 +111,18 @@ func _resolve_destination(zone: Node) -> Variant:
 		return (d[0] as Node2D).global_position if not d.is_empty() else null
 	if not arriving_from.is_empty():
 		var from := arriving_from
-		arriving_from = &""
+		_clear_arrival_state()
 		var entries := zone.get_tree().get_nodes_in_group("entry_from_" + String(from))
 		if entries.is_empty():
 			entries = zone.get_tree().get_nodes_in_group("entry_default")
 		return (entries[0] as Node2D).global_position if not entries.is_empty() else null
 	return null  # plain boot / in-place reload — don't move the player
+
+
+## Consume all one-shot arrival state. Called the moment a destination is
+## resolved (or when there's no player to place) so it never leaks into the
+## next, unrelated scene load.
+func _clear_arrival_state() -> void:
+	restore_position = null
+	arriving_spawn = &""
+	arriving_from = &""

@@ -54,6 +54,11 @@ func load_game(slot: int = 0, reload_scene: bool = true) -> bool:
 		push_error("SaveManager: corrupt save in slot %d" % slot)
 		return false
 	var data := parsed as Dictionary
+	# wipe any in-flight transition state (load may fire mid-transition, e.g.
+	# from a menu) so restore_position is the only thing steering placement.
+	ZoneManager.arriving_spawn = &""
+	ZoneManager.arriving_from = &""
+	ZoneManager.restore_position = null
 	PlayerData.apply_save_data(data.get("player", {}))
 	WorldState.apply_save_data(data.get("world", {}))
 	HollowingClock.apply_save_data(data.get("hollowing", {}))
