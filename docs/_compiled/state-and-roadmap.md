@@ -1,6 +1,6 @@
 # Project State & Roadmap — canonical brain (AGENTS.md), roadmap, ideas inbox, latest session journals
 > GENERATED 2026-06-13 by tools/compile_snapshots.py — do NOT edit (not here, not in claude.ai). Source of truth is the Obsidian vault in the game repo; this file is replaced wholesale at milestones.
-> Sources: AGENTS.md, docs/plan/playtest-protocol-2026-06.md, docs/plan/slice-implementation-roadmap.md, docs/ideas.md, docs/sessions/README.md, docs/sessions/2026-06-13.md
+> Sources: AGENTS.md, docs/plan/playtest-protocol-2026-06.md, docs/plan/slice-implementation-roadmap.md, docs/ideas.md, docs/sessions/2026-06-13-charsheet-animations.md, docs/sessions/2026-06-13-accessible-interiors.md, docs/sessions/2026-06-13-per-session-journals.md, docs/sessions/2026-06-13-bible-charsheets.md, docs/sessions/2026-06-13-pixellab-fx-props.md
 
 
 ======================================================================
@@ -491,117 +491,291 @@ These should feed into zone design, art prompts, and the first few dialogue node
 
 
 ======================================================================
-SOURCE: docs/sessions/README.md
+SOURCE: docs/sessions/2026-06-13-charsheet-animations.md
 ======================================================================
 
 ---
-name: Session Journals — convention
-tags: [meta, sessions]
----
-
-# Session Journals
-
-**One file per session, never a shared file.** Parallel agent/editor sessions
-kept colliding on a single `YYYY-MM-DD.md` (everyone appended to the same "What
-I did" list → merge conflict on every sync). Per-session files never collide.
-
-## Naming
-
-`docs/sessions/YYYY-MM-DD-<slug>.md` — `<slug>` is your session's branch or
-feature, e.g.:
-- `2026-06-13-footstep-surface.md`
-- `2026-06-13-bark-volume.md`
-- `2026-06-13-secrets-research.md`
-
-## Rules (R5)
-
-- Write **only your own** file. Never append to another session's file, and
-  never to a bare `YYYY-MM-DD.md` (those are legacy/pre-2026-06-13).
-- Newest entries first within your file.
-- Use the template `docs/_templates/session.md` (its `name`/`branch` fields
-  identify the session).
-- Commit your journal file on your feature branch like any other change.
-
-## Reading a whole day
-
-```bash
-python3 tools/session_digest.py            # today, all sessions
-python3 tools/session_digest.py 2026-06-13 # a specific day
-```
-
-It concatenates every `YYYY-MM-DD-*.md` (and any legacy bare file) into one
-read, newest-modified first.
-
-## Legacy
-
-Bare `YYYY-MM-DD.md` files (≤ 2026-06-13) predate this convention — left as
-history, not edited further. The parent-vault pointer journals in
-`../../docs/sessions/` (monorepo root) stay as-is.
-
-
-======================================================================
-SOURCE: docs/sessions/2026-06-13.md
-======================================================================
-
----
-name: Session 2026-06-13
+name: Session 2026-06-13 — character-sheet animation pass
 date: 2026-06-13
-tags: [session, cycle-of-innocence, art]
-branch: feature/zelda-fable-v01
+tags: [session, cycle-of-innocence, art, pixellab, animation]
+branch: feature/charsheet-animations
 commits: []
 ---
 
-# Session 2026-06-13
+# Session 2026-06-13 — character-sheet animation pass
 
 ## Focus
-Rework the playground props (except trees) — fix off perspective + wrong scale.
+Turn the 10 batch-3 PixelLab base characters (8-dir rotations) into animated
+sprite sheets + `SpriteFrames` `.tres`, on an isolated worktree so a parallel
+session could use `game/test`.
 
 ## What I did
 *(newest first)*
-- **Bible concept-art batch 3 — protagonist stages, full companion sets, new monsters** (branch `feature/bible-concept-art-batch3`): 15 Grok Imagine concept bibles (`grok-imagine-image-quality`, 2k, magenta chroma-key, locked bible format), all logged in [[art/imagine-prompts]]. **Protagonist**: `protagonist_teen_bible` (late teen ~15-16), `protagonist_adult_bible` (early-20s, scarred) — morality-neutral bases, tint variants deferred to image_edit. **Briar (hound)**: adult + corrupted (pup already on disk) — **adult regenerated as a Belgian Malinois per user** (fawn coat, black mask, erect ears; corrupted left as the matted glowing-vein nightmare). **Echo (bird) full set**: egg-in-nest → ragged hatchling → sleek adult raptor/raven → corrupted (patchy, wrong eyes, grim "gift"). **Storm (mount) full set**: scarred wary young (pinned ears, ward-brands) → regal bonded adult (braids/tokens) → corrupted "pale rider" (emaciated, burning eyes, brands spread like infection). **New monsters**: `monster_fetus_crawler` (larval "wretch", stylized-tragic not gory), `monster_grasping_roots` (ground tendrils as a state set — dormant/burst/grab/retreat), `monster_ghost_girl` (melancholy spectral previous-offering), `monster_evil_warden` (the horror counterpart to the human `villager_warden_bible` patrol figure). All 15 passed moderation first try — the two risky sheets used the proven "more tragic/melancholy than gory" wording (horror in context, not content). One transient x.ai DNS blip on the very first call (IPv6-only resolution failed, IPv4 healthy) — plain retry fixed it. These are **bibles for human pixel-cleanup**, not production sprites; next step per character is keyed crop → PixelLab `create_from_concept`.
-- **SFX batch 2 — ambience + monster, now wired** (worktree `feature/sfx-batch2`): 5 more ElevenLabs SFX per user request: `campfire_crackle` (ambient loop — import set to `loop_mode=1`), `church_bell` (single chapel toll, distinct from the doom `hollowing_bell`), `monster_attack`, `monster_creep`, `monster_hurt`. The 4 one-shots registered in `Sfx.gd`; campfire left as a loop file. Extended `tools/gen_elevenlabs_sfx.py` with the new entries + a **skip-existing guard** (`--force` to override) so reruns don't waste credits. Monster prompts worded to avoid moderation trips ("twisted creature", not "child"). **Monster sounds wired into `enemy_base.gd`**: `monster_creep` on `spotted` (aggro/stalk cue), `monster_attack` on lunge (`_attack_enter`), `monster_hurt` on `_hurt_enter` — single-fire at the right state transitions. Campfire/chapel wiring left as follow-ups (ideas.md). Levels are default; easy to trim via the `Sfx.VOLUMES` map (like the bark) if any read too loud.
-- **Per-surface footsteps (rough hook)** (worktree `worktree-footstep-surface`, suite 238): footsteps now switch sound by ground. New `SurfaceZone` Area2D (group `surface_zone`, `@export surface`) tracks player overlap; player `_current_surface()` returns the entered zone's surface else `&"grass"`, and pure `footstep_sound()` maps gravel/path/sand→`footstep_gravel`, everything else→grass `footstep` (3 GUT tests). Default ground stays grass; one rough `PlazaGravel` zone (`surface=&"sand"`) dropped over the central plaza as a starting estimate — **placement is the user's editor pass** (add/resize SurfaceZones, set `surface`). Boot clean.
-- **Bark volume trim** (worktree `fix/bark-volume`, suite 235): user reported the dog bark "way too loud". Added a per-sound `VOLUMES` mix-trim map to `Sfx.gd` (added to the call-site `volume_db` in `play()`), `bark = -8 dB` — tames it everywhere it plays (hideout 0→-8, companion -6→-14) without re-encoding the WAV or editing call sites; one number to re-tune. (The ElevenLabs SFX were generated at full scale; bark is the punchiest.)
-- **Stale-checkout diagnosis + `tools/sync.sh`**: the "I merged but still see no poster / silent bell" report was NOT lost work — the editor checkout `test/` was **5 commits behind origin/main** (PRs merged on GitHub but never pulled locally), so it had none of the poster/bell changes and its scene had no Poster node. Synced it (stash collider edit → ff to origin/main → pop → reimport) and added **`tools/sync.sh`**: pull latest + reimport before F5, auto-stashing uncommitted editor edits. Documented in AGENTS.md working loop. Recurring root cause of the parallel-session confusion.
-- **Real SFX via ElevenLabs** (worktree `feature/sfx-elevenlabs` off main, suite 235): first real sound effects, replacing the synth placeholders. New tool `tools/gen_elevenlabs_sfx.py` — ElevenLabs text-to-sound-effects, requests PCM (`output_format=pcm_44100`) and wraps it as **mono 16-bit WAV** via stdlib `wave` (downmix from stereo; no ffmpeg here; lighter for the Web constraint). Free-tier-aware: generates sequentially, stops on 401/402/429. Key at `~/.config/elevenlabs/api_key` (NEVER in repo; added to AGENTS tech stack). **Replaced in place** (keep filenames → `Sfx.gd` keys unchanged): `briar_bark`, `briar_whimper`, `briar_dig`, `footstep_grass`, `hit_thud`, `attack_swing`. **New**: `footstep_gravel`, `found`, `owl_hoot` (registered in `Sfx.gd` as `footstep_gravel`/`found`/`owl`) + `crickets` (ambient bed, left as a file). 10 clips, all generated in one pass (credits held). Full suite **235 green** (Sfx autoload preloads all → a bad file would fail loudly).
-  - **Follow-up:** `crickets`/`owl_hoot` want loop-enabled import + wiring as ambient beds (AdaptiveAudio or looping players); `footstep_gravel` needs a per-surface hook in the player so gravel-vs-grass is chosen by ground. User exposed the API key in chat → recommend rotating it.
-- **Doom feel-fixes round 2** (worktree `fix/doom-poster-bell` off main, suite 235): the F5 fixes landed on main (PR #80) but didn't *feel* right — diagnosed both. **Bell**: the WAV peaked at 64%, so my earlier +6 dB merely CLIPPED it (distortion reads as quiet). Fixed by **normalizing the WAV to ≈full-scale**, playing at **0 dB clean**, and **ducking the music ~26 dB** under the peal (world holds its breath → unmissable, countable). **Poster**: it rendered fine (verified by bright-light capture) but the **DuskTint CanvasModulate (0.38)** crushed the dark wooden board into the dim ground — worst exactly at high stages (more dread = darker). Fixed by **brightening the poster modulate ~2.5×** to punch through the dusk + a **warm glow halo** behind it; stage-2 dusk capture confirms it now reads as a lit notice in the gloom. Root-cause method: isolated dark-vs-broken with a forced-bright diagnostic capture.
-- **Doom feel-fixes from F5 playtest** (worktree `worktree-doom-feel-fixes`, suite 228): three issues the user found in-engine. (1) **Bell barely audible** → +6 dB + `AdaptiveAudio.duck(14)` under the whole peal so the tolls cut through the music. (2) **Stage-1 doom sign undiscoverable + no journal entry** → gave `LotteryPostStage1` a **visible poster** (`harmony_board` Sprite2D child, appears with the recontext toggle at stage 1), and fixed `WhisperSpot` to fire via an **overlap poll** (an Area2D doesn't emit `body_entered` for a body already inside when monitoring resumes — so standing on the spot when the stage flipped silently dropped the entry; now reliably logs the DOOM sign). (3) **"Second monster always attacks"** was the emergency-ritual child (`spareable=false`, working as designed) but illegible → soothe prompt now shows **"it is too far gone to hear you"** (amber, no bar) near any unspareable monster. 2 new GUT tests (overlap-fire + too-far-gone cue); boot-smoke confirms the poster renders at stage 1 and the doom entry fires via overlap. Built in an isolated worktree (no shared-tree collision).
-- **Inventory item icons + dig-up items** (worktree branch `feature/inventory-item-art` off `feature/inventory-system`; first time using a dedicated worktree per user request after the shared-tree collisions): 7 PixelLab icons (`assets/sprites/items/`) in three buckets — food (`dried_meat` re-iconed, `forest_berries`), weapons (`sturdy_stick`, `slingshot`, `sling_stones`), dig-up (`buried_bone`, `tin_locket`). Icons are UI sprites → generated basic-mode (real alpha), side view, NOT palette-locked (read clearly in the satchel; cf. duck exemption). `ItemDef` .tres for all (weapons are `use_kind=NONE` — combat dispatch is a separate task; they're carryable items with art). **Dog-dig-up wired:** `DiggableSpot` gained an optional `dig_item` grant (`Inventory.add` on first reveal, no silent loss on a full bag) — `fringes_buried_memory` now yields a `buried_bone`, `stilled_child_keepsake` a `tin_locket` (Key, non-discardable). 7 new GUT tests; full suite **233 green**. Prompts logged in [[art/imagine-prompts]].
-  - **Open / follow-up:** weapons have art + defs but no combat use or world placement yet (level-design + combat pass); `forest_berries`/weapons not yet placed in a zone (ready to drop in). Branch chains on the unmerged inventory-system PR — rebase onto main once that merges.
-- **Inventory system vertical slice** (multi-agent workflow — see [[decisions/2026-06-13-inventory-system]]): user opted into a Claude multi-agent workflow (understand → 3 competing designs + judge → implement → adversarial verify, 11 agents). Result: data-driven `ItemDef` .tres + cached `ItemRegistry`, stateless `Inventory` verb class over `PlayerData.inventory` (mirrors the `known_revelations` save idiom), 5 GameEvents item signals, a code-built `InventoryPanel` (I key, layer 60, never-degrades per [[mechanics/interface-horror]]), and an end-to-end demo: `ForageSpot` grants `dried_meat` in the playground → open Satchel → feed Briar → +8 bond / −3 morality. Bread stays dialogue-only (no double-count). 15 new GUT tests; full suite **226 green** headless.
-  - **Adversarial reviewer caught a blocker** I then fixed: the panel listened to its *own* `exploration_paused` emission and force-closed mid-open, leaving `_open=false`/`visible=true` and the world soft-locked → `_self_pause` re-entrancy flag. Plus 3 minors fixed (double `inventory_changed` emit on consume; invisible forage marker → amber Polygon2D + uid; dead `_first_occupied_index`).
-  - **Branch note:** built in the shared tree concurrently with the doom-signals work, so `feature/inventory-system` is cut off `feature/doom-signals-journal-v2` (the inventory `game_events.gd` signals anchor on `journal_entry_added`) — it depends on the doom/journal line, not plain main. **Open (needs human F5):** satchel pause loop + forage→feed→bond payoff unverified in-engine (agents runtime-blind for UI).
-- **Doom signals + Journal v2 — all 3 next-arc steps** (branch `feature/doom-signals-journal-v2`, suite 226): (1) **first DOOM journal entry** — `WhisperSpot` gained a `journal_text`/`journal_kind` payload; a `recontext_stage_1` lottery notice appears after the first bell and, on approach, both whispers and logs a DOOM observed-sign. (2) **cheap doom signals** — `ZoneRecontext` extended to stage-keyed groups (`recontext_stage_<n>` / `recontext_not_stage_<n>`, re-applied live on stage advance, stage-prefix checked before revelation-prefix); **bell pattern language** in `HollowingClock._world_lurches()` (tolls once per stage, spaced ~0.85 s, `bell_pattern()` pure/tested — count the doom). (3) **Journal → Growth/Memory menu** (`JournalPanel` gained a stats header: name · morality tier · Briar bond) + **NG+ recontextualization** (`DiggableSpot.lore_text_recontext` gated on a revelation; `choose_lore()` pure/tested — the rabbit reads as "the one before you" once `monsters_are_children` is known). 9 new GUT tests; boot-smoke + capture confirm the menu and the doom/lore entries render.
-  - ⚠️ **Shared-working-directory collision with the inventory agents**: they have uncommitted edits in `project.godot`, `game_events.gd`, `player_data.gd`, `touch_controls.gd`, and even added a forage node to `playground_fringes.tscn`. I committed ONLY my own files (scripts/tests/docs by explicit path; scene isolated via reset→reapply→restore so their forage work stays intact in the tree). **Recommend per-agent git worktrees** to prevent this. My `journal_entry_added` signal was already on main, so I needed no `game_events.gd` change.
-  - **Scene wiring resolved (no longer deferred)**: the doom-sign (`LotteryPostStage1`, `recontext_stage_1` + `journal_text`) and the rabbit's `lore_text_recontext`/`recontext_revelation` were uncommitted in the shared `.tscn` when the inventory agents committed it, so they **rode in via inventory PR #77** — both present and intact on main alongside their `DriedMeatForage`. Verified on integrated main from an isolated worktree: **226/226 GUT + clean headless boot** (0 script errors) with both features' scene content coexisting. Future work now uses per-agent worktrees.
-- **Journal of observed signs + dig-to-lore** (branch `feature/journal-and-dig-lore`, 202/202): first build of the locked *secrets/early-beat* arc, per [[design/secrets-and-discovery]]. New **`Journal` autoload** — witnessed-only, idempotent, ordered, LORE/DOOM kinds, save round-trip (wired into SaveManager + debug reset); the "memory aid, not a checklist" rule is enforced structurally (no API to add an unwitnessed/pending entry). **`JournalPanel`** ("What I Have Seen", toggle **J**, amber doom / bone-white lore) instantiated from the player like SoothePrompt; debug replay moved J→R. **`DiggableSpot`** gained a `lore_text` payload → witnessed Journal entry; authored the playground's 3 dig fragments (rabbit "Mara — Harmony 71", too-small shoe, warm wooden duck at the Stilled keepsake) — poignant on run 1, recontextualize on NG+. 6 GUT tests; boot-smoke + X11 capture confirm the panel renders. The Journal is shared infra: the doom-signals pillar writes DOOM entries to the same store. **Remaining**: the witnessed-recontext beat that fires the first DOOM entry; NG+ recontextualization of the fragments.
-- **Secrets & discovery research integrated** (branch `docs/secrets-discovery-research` off main; librarian pass on the R7 inbox): new design doc [[design/secrets-and-discovery]] is the actionable spec for the *secrets* pillar of the locked next arc (the [[playtest/2026-06/synthesis]] "content drought" verdict). Model = **knowledge-as-key, not item-keys** (validates the ZoneManager recontext spine); 4 binding rules (no-wiki / no-collectible-checklist / Journal-is-memory-aid / nothing-permanently-missable); early-playground priority list of 5 authored beats.
-  - **Librarian catch**: the research's "prototype Stilled-leads-to-keepsake now (novel)" is stale — mechanism is already implemented ([[mechanics/encounters-mercy]] 2026-06-11). Reconciled to "mechanism exists; **legibility unvalidated** (no tester reached it)" + flagged as genuinely novel (no shipped template, Spiritfarer nearest).
-  - Enriched in place: zone-recontext (Void Stranger direct model + solo-dev scope caution), encounters-mercy (originality flag), progression (Journal = memory-aid-not-checklist hard rule), companions (interest-point/gaze hint system + dig-to-lore). ideas.md: annotated 4 existing stubs with sourced backing, added Obra-Dinn confirmation buffer / Inscryption replay-as-key / second-read gossip / Animal Well layering.
-  - No decision record (per user; rules live in the design doc), no bible edits. Research file → `research/done/`, snapshots recompiled, check-brain green.
-- **Playground props regen v2** (see [[art/prop-coherence]] item 9,
-  [[art/imagine-prompts]] log): regenerated all 6 non-tree props
-  (swing_set, slide, roundabout, totem_bear, totem_rabbit, toy_duck) at canon
-  **low top-down** via `create_map_object` + placement-spot backdrop crops
-  (world→bg px = `x+704, y+416`), replacing the legacy description-only pixflux
-  set whose `view` weakly controlled (slide was isometric, roundabout ellipse
-  too round). Pipeline: crop → generate → trim → `palette_lock.py` → gate.
-  - Re-rolls: **roundabout** (iconic round prior, 0.74→0.58 ratio via
-    wide-short crop + "width ≈ 3× depth") and **totem_bear** ("no grass" to
-    drop a baked ground base, rule 2).
-  - **toy_duck** kept its saturation exemption (rule 1): basic mode, no crop,
-    NOT palette-locked → stays vivid yellow against the drained world.
-  - Staged `assets/sprites/props/candidates/*_v2.png`, all gated PASS,
-    `--headless --import` clean. Sizes changed (swing 96×64→68×84, roundabout
-    64×48→64×37) so **collider/offset fit is the editor pass** — left as
-    candidates, not swapped into `playground_fringes.tscn` (per the
-    no-mechanical-swap rule for resized props).
+- **Animation pass — 7/10 delivered game-ready.** Authored `ANIMATIONS` +
+  `SHEET_ROWS` for all 10 in `tools/pixellab_v2.py` (walk·idle·attack·hurt +
+  signatures), ran `animate → download → sheets-pro`. Shipped sheets + `.tres`:
+  `rowan_teen`, `rowan_adult`, `briar_corrupt`, `storm_corrupt`, `crawler`,
+  `ghost_girl`, `evil_warden`. Horse motion uses v3 `action_description`
+  (no horse template listing). Full recipe in [[art/imagine-prompts]].
+- **3 deferred — PixelLab `animate-character` backend degradation** (not config):
+  `briar_adult`, `storm_adult` (0 anims), `storm_young` (walk-west only).
+  `404 "rotation image not found for direction: south"` despite valid, fetchable
+  rotations; reproduced across two recreations + ~25 min retries with the
+  generation counter **frozen** → service-side. **Retry when it recovers:**
+  `animate --only <char>` → `download` → `sheets-pro` (resumes via state).
+- **Pipeline hardening:** `animate()` retries transient 404/5xx; `download()`
+  skips a wedged char instead of aborting; `pro_anim_map()` tolerates a missing
+  animations dir; `preview()`/`_fetch_frame()` send a browser UA (Backblaze 403).
+- **Isolation:** ran in worktree `.claude/worktrees/charsheet-animations` off a
+  fresh branch; `game/test` stayed on clean `main` for the parallel session.
 
 ## Open / next
-- Editor pass (user): place the 6 `_v2` candidates into
-  `scenes/zones/playground_fringes.tscn`, retune StaticBody2D colliders +
-  Sprite2D y-offsets for the new footprints, F5 check on the warm ground.
+- **Re-run the 3 deferred** once PixelLab's animate service recovers (one-liner
+  per char; tool resumes). Then their `.tres` complete the set.
+- **Scene integration:** wire the 7 (now 10) `*_frames.tres` into player /
+  companion / enemy scenes — none are referenced yet.
+- **5 non-character bibles** (Echo egg/hatchling/adult/corrupt + grasping-roots)
+  still need the object pipeline (`create_map_object` / `animate_object`).
+- Minor: a stray `_probe` animation exists on storm_adult (harmless, not in any
+  sheet) — delete on next account cleanup.
 
 ## Related
-[[art/prop-coherence]] · [[art/imagine-prompts]] · [[sessions/2026-06-12]]
+[[art/imagine-prompts]] · [[sessions/2026-06-13-bible-charsheets]] · [[characters/companions]]
+
+
+======================================================================
+SOURCE: docs/sessions/2026-06-13-accessible-interiors.md
+======================================================================
+
+---
+name: "Session 2026-06-13 — accessible interiors"
+date: "2026-06-13"
+tags: [session, cycle-of-innocence, systems]
+branch: worktree-accessible-interiors
+commits: []
+---
+
+# Session 2026-06-13 — accessible interiors
+
+## Focus
+Build the Terranigma-model interiors system (enter houses/huts/caves, move
+between floors) on the existing ZoneManager + ZoneRoot rails.
+
+## What I did
+*(newest first)*
+- **Playtest fixes + real placement** (branch `chore/export-localhost`, off
+  merged main; web build re-exported to localhost:8081):
+  - **Entrance moved to a real village house**: the cottage is now entered via
+    a `DoorTransition` on `PropCottageA` (Marta's house) in `village_green` —
+    it already lines up with the interior's `marker_marta` spot. Added a
+    `spawn_from_cottage` return marker; cottage `ExitDoor` repointed to
+    `village_green`. The temporary playground test door was reverted.
+  - **Stairs were unfindable** (invisible `Area2D`s sitting in the graybox
+    wall-band): added `stairs_down`/`stairs_up` placeholder sprites and moved
+    `StairsDown` onto open floor `(120,-10)` with a matching arrival marker, so
+    the prompts trigger where the player can see to stand.
+  - **Dark-interior prompt fix**: the door prompt rendered in world space, so
+    the basement `DarkTint` crushed it to black. Moved it to a follow_viewport
+    `CanvasLayer` (separate canvas, immune to world CanvasModulate).
+  - Suite **250** green; reach: playground → walk west edge → village → Marta's
+    house (NW) → cottage → stairs → basement → up → exit back to the village.
+- **Accessible Interiors system** (suite 247, full enter→floor→save smoke green):
+  built on the *existing* transition/camera rails per the goal, not a parallel
+  mechanism. Spec → [[mechanics/accessible-interiors]].
+  - **ZoneManager extension**: `go_to_scene(path, spawn_id)` for arbitrary
+    interior scenes (not bloating the `ZONE_SCENES` const); `spawn_<id>` marker
+    resolution + `restore_position`; `request_transition` gained an optional
+    `spawn_id`. `place_player_at_entry` priority: restore_position > spawn_<id>
+    > legacy `entry_from_<prev>`/`entry_default` (back-compat preserved).
+    `ZoneRoot` records `current_scene_path` on enter.
+  - **`DoorTransition`** (one component for door→interior, stairs→floor,
+    exit→world): Area2D, INTERACT/ENTER modes, `target_scene` PackedScene OR
+    `target_scene_path` string (string avoids circular floor↔floor loads),
+    `locked`+reason, floating prompt.
+  - **`InteriorRoot extends ZoneRoot`**: per-floor `dread_baseline` (registers a
+    DreadManager zone level on enter, clears on `_exit_tree`); inherits the
+    camera-clamp-per-GroundBackdrop invariant free.
+  - **SaveManager floor persistence**: saves `scene_path` + `player_pos`; loads
+    back into the saved floor at the exact spot (basement save reloads in the
+    basement, not the world).
+  - **Reference cottage**: `cottage_ground.tscn` (exit→village, stairs→basement,
+    a `recontext_monsters_are_children` node, a VillageState `marker_marta`) +
+    `cottage_basement.tscn` (dread_baseline 45, occluder walls + ambient light).
+    Graybox placeholder backdrops — real interior art is the PixelLab pipeline
+    pass; collision/dressing is the user's editor pass.
+  - **Tests**: 9 GUT (door locked/target, spawn-id/default/restore/legacy
+    resolution, save-load floor round-trip) + a headless integration smoke
+    driving real scene swaps (enter→basement→up + save/load-in-basement, all
+    landing at correct spawns; dread floor 45 confirmed).
+  - **Parallelization** (user asked): dispatched a background sub-agent to write
+    the mechanics doc while I built the system (non-overlapping files).
+  - ✅ **Codex gate** done (background `codex:rescue` agent). No critical
+    findings; three should-fix one-shot-state-hygiene edge cases on the
+    autosave path, all fixed on a fresh branch `fix/interiors-arrival-state`
+    (the system branch was already merged):
+    - **S1** `load_game` wipes stale `arriving_spawn`/`arriving_from`/
+      `restore_position` up front, so a load fired mid-transition is steered
+      only by `restore_position`.
+    - **S2** `place_player_at_entry` consumes the one-shot state even when the
+      arriving scene has no player node (new `_clear_arrival_state` helper),
+      instead of early-returning and leaking it to the next load.
+    - **S3** `go_to_scene` `_transition_pending` guard blocks a second trigger
+      (double-press / two doors in a frame) from overwriting the in-flight
+      spawn+path; cleared when placement lands.
+    +3 GUT tests → **250 passing**; check-brain green. Pushed.
+
+## Related
+[[mechanics/accessible-interiors]] · [[mechanics/zone-recontextualization]] ·
+[[mechanics/hollowing-clock]] · [[mechanics/vision-and-darkness]]
+
+
+======================================================================
+SOURCE: docs/sessions/2026-06-13-per-session-journals.md
+======================================================================
+
+---
+name: "Session 2026-06-13 — per-session journals"
+date: "2026-06-13"
+tags: [session, cycle-of-innocence, meta]
+branch: worktree-per-session-journals
+commits: []
+---
+
+# Session 2026-06-13 — per-session journals
+
+## Focus
+End the recurring parallel-session merge conflicts on the shared daily journal.
+
+## What I did
+*(newest first)*
+- **Per-session journal convention** (R5 rewritten): each session now writes
+  its own `docs/sessions/YYYY-MM-DD-<slug>.md` and never touches a shared file
+  — the shared-daily-file append was the conflict magnet that bit us ~5×
+  today (footsteps/bark/sfx/secrets sessions all rebasing on the same list).
+  Added: `docs/sessions/README.md` (the convention), `tools/session_digest.py`
+  (read a whole day's sessions at once), and a `status.py` fix so its "today's
+  journal" check globs `YYYY-MM-DD*.md` (per-session files satisfy it). This
+  file is the first one under the new scheme. Legacy bare `YYYY-MM-DD.md`
+  files stay as history.
+
+## Related
+[[sessions/README]] · AGENTS.md R5
+
+
+======================================================================
+SOURCE: docs/sessions/2026-06-13-bible-charsheets.md
+======================================================================
+
+---
+name: Session 2026-06-13 — bible concept art + PixelLab character sheets
+date: 2026-06-13
+tags: [session, cycle-of-innocence, art, pixellab]
+branch: feature/bible-concept-art-batch3
+commits: []
+---
+
+# Session 2026-06-13 — bible concept art + PixelLab character sheets
+
+## Focus
+New Grok bible concept art (protagonist stages, full companion sets, new
+monsters) → then the PixelLab `create-character-pro` pass to turn the
+animatable ones into 8-direction character sheets.
+
+## What I did
+*(newest first)*
+- **PixelLab character-sheet pass (batch 3)** — ran the proven
+  `create-character-pro` (`create_from_concept`) pipeline on the 10 *directional*
+  bibles → 8-dir characters (ids in `assets/reference/pixellab_v2/state.json`,
+  strips in `*_pro_preview.png`). Templates: `mannequin` (rowan_teen/adult,
+  crawler, ghost_girl, evil_warden), `dog` (briar_adult/corrupt), `horse`
+  (storm_young/adult/corrupt). The 5 non-directional bibles (Echo egg/hatchling/
+  adult/corrupt + grasping-roots) are deferred to the object path — no template
+  fits birds/objects. Full prompt + recipe in [[art/imagine-prompts]].
+  - **Fixed two pipeline regressions the user caught in the first batch:**
+    (1) the dog/horse templates painted a **backdrop box** — `create_pro` had
+    lost the `style_description` no-box negative from the 2026-06-11 briar note;
+    restored it. (2) corrupted/glow bibles bled a **magenta halo** into the
+    generation as speckled bg — added `_strip_magenta_fringe` to concept
+    extraction. Also de-translucent-ified the ghost (rendered invisible) and
+    gave `preview()`/`_fetch_frame()` a browser UA (Backblaze now 403s UA-less
+    fetches). Regenerated the 7 affected (both dogs, 3 horses, crawler, ghost);
+    deleted the old artifacted characters from the account. Kept the 3 clean
+    ones (rowan_teen, rowan_adult, evil_warden).
+  - **Worktree isolation:** your `sync.sh` had moved `game/test` to `main`
+    (PRs #87–89), which lacks the batch-3 bibles, so this whole pass ran in a
+    throwaway worktree at `game/wt-charsheets` off the branch — `game/test`
+    never touched. Worktree removed at end of session.
+- **Grok bible concept art (batch 3)** — 15 bibles (2k, magenta key, locked
+  format): protagonist late-teen + adult; Briar adult (**Belgian Malinois**) +
+  corrupted; Echo egg→hatchling→adult→corrupted; Storm young→adult→corrupted;
+  monsters fetus-crawler, grasping-roots, ghost-girl, evil-warden. All horse
+  stages reworked once after feedback (colt read / no hippie-unicorn / real
+  body-horror). Prompts in [[art/imagine-prompts]].
+
+## Open / next
+- **Animate** the 10 stored PixelLab characters → `sheets-pro` → `.tres`
+  (define `SHEET_ROWS` per char), same as rowan/briar/twisted. This is the
+  "later" step the sheets were built for.
+- **5 deferred non-character bibles** (Echo egg/hatchling/adult/corrupt,
+  grasping-roots) need the object pipeline (`create_map_object` /
+  `animate_object`).
+- **Branch reconciliation:** `feature/bible-concept-art-batch3` is behind `main`
+  (PRs #87–89). On merge, reconcile the journal — my earlier batch-3 entry sits
+  in the shared `2026-06-13.md` (pre-R5-rewrite); fold it into per-session files.
+
+## Related
+[[art/imagine-prompts]] · [[characters/companions]] · [[story/bible]]
+
+
+======================================================================
+SOURCE: docs/sessions/2026-06-13-pixellab-fx-props.md
+======================================================================
+
+---
+name: "Session 2026-06-13 — PixelLab FX & prop sprites"
+date: "2026-06-13"
+tags: [session, cycle-of-innocence, art]
+branch: worktree-pixellab-fx-props
+commits: []
+---
+
+# Session 2026-06-13 — PixelLab FX & prop sprites
+
+## Focus
+Replace primitive Polygon2D placeholders (campfire, dig spots, fog) with real
+PixelLab sprites.
+
+## What I did
+*(newest first)*
+- **Committed the user's editor pass + rebased FX on top + tamed FireLight**:
+  extracted the user's uncommitted playground editor pass (poster→harmony_board_v2,
+  glow removed, poster collision bumper, DeadTreeA2 rect collider) into a clean
+  commit `feature/playground-editor-pass` off main, then rebased this FX branch
+  onto it — scene auto-merged (editor pass touches the poster node, FX touches
+  campfire/fog → no clash; only load_steps reconciled to 62). FireLight bloom
+  reduced (energy 1.1→0.6, scale 1.5→0.95, now `@export`-tunable) so the new
+  campfire sprite reads instead of washing out the hideout.
+- **Campfire / dig spot / fog sprites via PixelLab** (suite 238, boot clean):
+  swapped three sets of crude Polygon2D primitives for real art.
+  - **Dig spot** (static): `create_map_object` dug-earth, palette-locked →
+    Sprite2D `Marker` in `diggable_spot.tscn` (all 3 dig spots updated at once).
+  - **Campfire** (animated): 9-frame `AnimatedSprite2D` (`campfire_frames.tres`)
+    replacing the Stones/Flames/FlameCore polygons; `FireLight` PointLight2D
+    kept for the warm glow. User picked PixelLab object `a8ee2399` over my
+    auto-pick — swapped in.
+  - **Fog** (animated): 9-frame drifting `AnimatedSprite2D` replacing
+    FogSeamNorth/South polygons — kept the node names + a base `modulate.a` so
+    `dread_beat`'s NodePath fade-in still works.
+  - **FX palette exemption** recorded ([[art/prop-coherence]] rule 1): campfire
+    (emissive) + fog (translucent) NOT palette-locked, like `toy_duck`.
+  - Pipeline: `create_1_direction_object` → pick candidate → `animate_object`
+    v3 (9 frames) → download frames → union-bbox crop + horizontal sheet →
+    hand-built SpriteFrames `.tres` (AtlasTexture regions). Prompts in
+    [[art/imagine-prompts]].
+  - ⚠️ **Scene-merge note**: built off origin/main, so my playground scene edits
+    (campfire/fog nodes) don't have the user's concurrent editor pass (poster→v2,
+    glow removed, collision added — different nodes). Expect a `load_steps` +
+    ext-resource reconcile at merge; my changes don't touch the poster node.
+
+## Related
+[[art/imagine-prompts]] · [[art/prop-coherence]]

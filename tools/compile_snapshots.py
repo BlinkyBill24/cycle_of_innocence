@@ -54,8 +54,29 @@ def resolve(sources: list[str]) -> list[Path]:
     files: list[Path] = []
     for src in sources:
         if src == "SESSIONS_LATEST":
-            sessions = sorted((DOCS / "sessions").glob("*.md"), reverse=True)[:2]
-            files.extend(sessions)
+            # All of the newest day's per-session journals (R5:
+            # YYYY-MM-DD-<slug>.md), merged — the full record of that day's
+            # parallel sessions. Excludes the sessions README index and the
+            # legacy bare YYYY-MM-DD.md daily file (neither is a journal).
+            dated = list(
+                (DOCS / "sessions").glob(
+                    "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-*.md"
+                )
+            )
+            if dated:
+                newest_day = max(p.name[:10] for p in dated)
+                sessions = sorted(
+                    (p for p in dated if p.name.startswith(newest_day)),
+                    key=lambda p: p.stat().st_mtime,
+                    reverse=True,
+                )
+                files.extend(sessions)
+            else:
+                print(
+                    "WARN: no per-session journals (YYYY-MM-DD-slug.md) for "
+                    "SESSIONS_LATEST",
+                    file=sys.stderr,
+                )
         elif "*" in src:
             files.extend(sorted(ROOT.glob(src)))
         else:
