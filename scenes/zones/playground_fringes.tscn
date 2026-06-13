@@ -37,6 +37,8 @@
 [ext_resource type="Texture2D" uid="uid://msj4ht228xe8" path="res://assets/sprites/village/harmony_board.png" id="41_notice"]
 [ext_resource type="Texture2D" uid="uid://di6gslejp5iec" path="res://assets/sprites/village/candidates/harmony_board_v2.png" id="29_sy06x"]
 [ext_resource type="Script" path="res://scripts/world/surface_zone.gd" id="42_surface"]
+[ext_resource type="SpriteFrames" path="res://assets/resources/fx/campfire_frames.tres" id="43_campfire_fx"]
+[ext_resource type="SpriteFrames" path="res://assets/resources/fx/fog_frames.tres" id="44_fog_fx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -193,19 +195,12 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hideout/Campfire"]
 shape = SubResource("CircleShape2D_fire")
 
-[node name="Stones" type="Polygon2D" parent="Hideout/Campfire"]
-color = Color(0.35, 0.34, 0.36, 1)
-polygon = PackedVector2Array(-12, 2, -8, -6, 0, -9, 8, -6, 12, 2, 8, 8, -8, 8)
-
-[node name="Flames" type="Polygon2D" parent="Hideout/Campfire"]
-position = Vector2(0, -4)
-color = Color(1, 0.55, 0.15, 0.95)
-polygon = PackedVector2Array(-6, 6, -3, -4, 0, -10, 3, -3, 6, 6, 0, 9)
-
-[node name="FlameCore" type="Polygon2D" parent="Hideout/Campfire"]
-position = Vector2(0, -1)
-color = Color(1, 0.85, 0.4, 0.95)
-polygon = PackedVector2Array(-3, 4, 0, -4, 3, 4, 0, 6)
+[node name="Fire" type="AnimatedSprite2D" parent="Hideout/Campfire"]
+position = Vector2(0, -6)
+scale = Vector2(0.46, 0.46)
+sprite_frames = ExtResource("43_campfire_fx")
+animation = &"burn"
+autoplay = "burn"
 
 [node name="FireLight" type="PointLight2D" parent="Hideout/Campfire"]
 color = Color(1, 0.75, 0.45, 1)
@@ -430,17 +425,23 @@ dialogue_path = "res://resources/dialogue/escape_food.dialogue"
 once_flag = &"intro_food_dialogue_done"
 wait_for_flag = &"player_named"
 
-[node name="FogSeamNorth" type="Polygon2D" parent="."]
+[node name="FogSeamNorth" type="AnimatedSprite2D" parent="."]
 visible = false
+modulate = Color(1, 1, 1, 0.5)
 position = Vector2(110, -150)
-color = Color(0.55, 0.6, 0.55, 0.45)
-polygon = PackedVector2Array(-120, -60, 60, -90, 160, -20, 120, 70, -40, 90, -150, 20)
+scale = Vector2(2.0, 1.7)
+sprite_frames = ExtResource("44_fog_fx")
+animation = &"drift"
+autoplay = "drift"
 
-[node name="FogSeamSouth" type="Polygon2D" parent="."]
+[node name="FogSeamSouth" type="AnimatedSprite2D" parent="."]
 visible = false
+modulate = Color(1, 1, 1, 0.5)
 position = Vector2(140, 170)
-color = Color(0.5, 0.56, 0.52, 0.45)
-polygon = PackedVector2Array(-140, -50, 40, -80, 170, -10, 130, 80, -60, 100, -170, 30)
+scale = Vector2(2.1, 1.7)
+sprite_frames = ExtResource("44_fog_fx")
+animation = &"drift"
+autoplay = "drift"
 
 [node name="GlimpseSilhouette" type="Sprite2D" parent="."]
 visible = false

@@ -33,7 +33,7 @@ spaces, not modular kitbash* — that is the replay-value stake.
    Upgrades the Terranigma-pass desaturation fix into a guarantee. Biggest
    visual win per minute. **Authored saturation exemptions**: props whose
    wrongness IS the design stay unlocked — currently only `toy_duck.png`
-   ("toys stay saturated while the world drains"). Applied to village props
+   ("toys stay saturated while the world drains"). Also exempt: **emissive/translucent FX** — the animated campfire (fire is a light source) and fog patches (translucent overlay) keep their own saturation/alpha (2026-06-13). Applied to village props
    2026-06-12, playground props (minus duck) same day.
 2. **Flat-neutral-light authoring**: props carry NO baked time-of-day light
    and NO cast shadows — `CanvasModulate` + lights own time-of-day. (A prop

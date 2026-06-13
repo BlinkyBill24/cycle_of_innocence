@@ -263,3 +263,27 @@ submissions or batch ≤5). Saved to `assets/sprites/items/<id>.png`.
 - **sling_stones** (high top-down): "a small pile of three smooth rounded grey throwing pebbles"
 - **buried_bone** (side): "an old weathered dug-up animal bone caked with dark soil, gnawed, off-white"
 - **tin_locket** (side): "a small tarnished heart-shaped tin locket on a broken chain, caked with grave soil, a child's keepsake"
+
+## FX & prop sprites via PixelLab (2026-06-13, worktree pixellab-fx-props)
+
+Replaced primitive Polygon2D placeholders (campfire flames, dig markers, fog
+seams) with real sprites. **FX palette exemption** (prop-coherence rule 1):
+the campfire (emissive fire) and fog (translucent overlay) are NOT
+palette-locked — like `toy_duck`, their saturation/transparency IS the point.
+The static dig sprite IS palette-locked to the playground backdrop.
+
+- **dig_spot** (static, `create_map_object`, low top-down, ground crop, palette-locked):
+  "small patch of freshly dug dark earth, a shallow disturbed hole with loose
+  soil and a few clods, tiny mound at the rim". → `assets/sprites/props/dig_spot.png`,
+  replaces the hexagon Polygon2D marker in `diggable_spot.tscn` (all 3 dig spots).
+- **campfire** (animated, `create_1_direction_object` 96px top-down → `animate_object` v3, 9 frames):
+  "small campfire: ring of grey stones around two charred crossed logs with
+  orange and yellow flames"; anim "flames flickering and dancing, embers
+  pulsing, logs stay still". User picked object `a8ee2399` over the auto-pick.
+  → `campfire_sheet.png` + `assets/resources/fx/campfire_frames.tres` (AnimatedSprite2D,
+  ~10fps loop), replaces the Stones/Flames/FlameCore polygons (FireLight kept).
+- **fog** (animated, `create_1_direction_object` 128px top-down → `animate_object` v3, 9 frames):
+  "soft wispy patch of pale grey-green fog, translucent drifting mist"; anim
+  "drifting and billowing, edges swirling". → `fog_sheet.png` +
+  `fog_frames.tres` (AnimatedSprite2D ~6fps), replaces FogSeamNorth/South
+  polygons (names kept so `dread_beat` NodePaths + modulate-fade still work).

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://diggable000001"]
+[gd_scene load_steps=4 format=3 uid="uid://diggable000001"]
 
 [ext_resource type="Script" path="res://scripts/world/diggable_spot.gd" id="1_diggable"]
+[ext_resource type="Texture2D" path="res://assets/sprites/props/dig_spot.png" id="2_dig"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_spot"]
 radius = 12.0
@@ -14,6 +15,5 @@ script = ExtResource("1_diggable")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_spot")
 
-[node name="Marker" type="Polygon2D" parent="."]
-color = Color(0.42, 0.32, 0.2, 0.85)
-polygon = PackedVector2Array(-8, 0, -4, -5, 4, -5, 8, 0, 4, 5, -4, 5)
+[node name="Marker" type="Sprite2D" parent="."]
+texture = ExtResource("2_dig")
