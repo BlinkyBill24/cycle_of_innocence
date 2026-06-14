@@ -1,31 +1,31 @@
 [gd_scene load_steps=18 format=3 uid="uid://cottagebsmt01"]
 
-[ext_resource type="Script" path="res://scripts/world/interior_root.gd" id="1_interior"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/cottage_basement_floor.png" id="2_floor"]
+[ext_resource type="Script" uid="uid://1ckm5pumqnls" path="res://scripts/world/interior_root.gd" id="1_interior"]
+[ext_resource type="Texture2D" uid="uid://bakejw1esxjat" path="res://assets/sprites/interiors/cottage_basement_floor.png" id="2_floor"]
 [ext_resource type="PackedScene" uid="uid://cfpo0lhe11a3y" path="res://scenes/player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" uid="uid://briarpup00001" path="res://scenes/companions/briar.tscn" id="4_briar"]
-[ext_resource type="Script" path="res://scripts/world/door_transition.gd" id="5_door"]
+[ext_resource type="Script" uid="uid://cey86whhn84l2" path="res://scripts/world/door_transition.gd" id="5_door"]
 [ext_resource type="Texture2D" uid="uid://c6eknu52ocg5o" path="res://assets/sprites/light/glow_radial.png" id="6_glow"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/basement_stairs_up.png" id="7_stairs"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/basement_shelf.png" id="8_shelf"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/basement_jars.png" id="9_jars"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/basement_barrel.png" id="10_barrel"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/basement_crate_stack.png" id="11_cratestack"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/basement_crate.png" id="12_crate"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/basement_sacks.png" id="13_sacks"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/basement_lantern.png" id="14_lantern"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/basement_toy.png" id="15_toy"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
-size = Vector2(40, 40)
+[ext_resource type="Texture2D" uid="uid://bflvphb47xkni" path="res://assets/sprites/interiors/props/basement_stairs_up.png" id="7_stairs"]
+[ext_resource type="Texture2D" uid="uid://bxm70qio7cjlk" path="res://assets/sprites/interiors/props/basement_shelf.png" id="8_shelf"]
+[ext_resource type="Texture2D" uid="uid://ws1ol6df7bbq" path="res://assets/sprites/interiors/props/basement_jars.png" id="9_jars"]
+[ext_resource type="Texture2D" uid="uid://dl64ay02kwqwk" path="res://assets/sprites/interiors/props/basement_barrel.png" id="10_barrel"]
+[ext_resource type="Texture2D" uid="uid://b36iaitlm4w3t" path="res://assets/sprites/interiors/props/basement_crate_stack.png" id="11_cratestack"]
+[ext_resource type="Texture2D" uid="uid://bjkdp7e47atbj" path="res://assets/sprites/interiors/props/basement_crate.png" id="12_crate"]
+[ext_resource type="Texture2D" uid="uid://ox0pidkgtl6l" path="res://assets/sprites/interiors/props/basement_sacks.png" id="13_sacks"]
+[ext_resource type="Texture2D" uid="uid://3hc8n8tma16p" path="res://assets/sprites/interiors/props/basement_lantern.png" id="14_lantern"]
+[ext_resource type="Texture2D" uid="uid://ckaf033ui4g30" path="res://assets/sprites/interiors/props/basement_toy.png" id="15_toy"]
 
 [sub_resource type="OccluderPolygon2D" id="Occluder_walls"]
 polygon = PackedVector2Array(-192, -128, 192, -128, 192, 128, -192, 128)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
+size = Vector2(40, 40)
+
 [node name="CottageBasement" type="Node2D"]
 script = ExtResource("1_interior")
-zone_id = &"cottage_basement"
 dread_baseline = 45.0
+zone_id = &"cottage_basement"
 
 [node name="GroundBackdrop" type="Sprite2D" parent="."]
 texture = ExtResource("2_floor")
@@ -117,7 +117,7 @@ texture = ExtResource("7_stairs")
 shape = SubResource("RectangleShape2D_door")
 
 [node name="RecontextRemains" type="Sprite2D" parent="." groups=["recontext_monsters_are_children"]]
-position = Vector2(90, 50)
-texture = ExtResource("6_glow")
 modulate = Color(0.5, 0.1, 0.1, 0.6)
+position = Vector2(90, 50)
 scale = Vector2(0.4, 0.4)
+texture = ExtResource("6_glow")
