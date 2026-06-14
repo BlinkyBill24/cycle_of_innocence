@@ -17,11 +17,11 @@
 [ext_resource type="Texture2D" uid="uid://dq48tlwwxqi6t" path="res://assets/sprites/interiors/props/rug.png" id="17_rug"]
 [ext_resource type="Texture2D" uid="uid://bko8eo8a01ydt" path="res://assets/sprites/interiors/props/table.png" id="18_table"]
 [ext_resource type="Texture2D" uid="uid://doi7p3yh8d1vi" path="res://assets/sprites/interiors/props/stool.png" id="19_stool"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/storage_chest.png" id="20_storage"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/treasure_chest.png" id="21_treasure"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/shelf_pottery.png" id="22_shelfpot"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/wall_rack.png" id="23_wallrack"]
-[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/door.png" id="24_doortex"]
+[ext_resource type="Texture2D" uid="uid://c5s8x3pss187t" path="res://assets/sprites/interiors/props/storage_chest.png" id="20_storage"]
+[ext_resource type="Texture2D" uid="uid://d3svqkt3c20fy" path="res://assets/sprites/interiors/props/treasure_chest.png" id="21_treasure"]
+[ext_resource type="Texture2D" uid="uid://dquoytfhineim" path="res://assets/sprites/interiors/props/shelf_pottery.png" id="22_shelfpot"]
+[ext_resource type="Texture2D" uid="uid://ddw642uei0ovn" path="res://assets/sprites/interiors/props/wall_rack.png" id="23_wallrack"]
+[ext_resource type="Texture2D" uid="uid://coklfy66ytcqd" path="res://assets/sprites/interiors/props/door.png" id="24_doortex"]
 
 [sub_resource type="OccluderPolygon2D" id="Occluder_walls"]
 polygon = PackedVector2Array(-236, -156, 236, -156, 236, 156, -236, 156)
@@ -66,15 +66,15 @@ texture = ExtResource("17_rug")
 y_sort_enabled = true
 
 [node name="Wardrobe" type="Sprite2D" parent="World"]
-position = Vector2(-196, -112)
+position = Vector2(-193, -88)
 texture = ExtResource("11_wardrobe")
 
 [node name="Hearth" type="Sprite2D" parent="World"]
-position = Vector2(-86, -110)
+position = Vector2(-83, -85)
 texture = ExtResource("10_hearth")
 
 [node name="Portrait" type="Sprite2D" parent="World"]
-position = Vector2(24, -132)
+position = Vector2(4, -113)
 texture = ExtResource("12_portrait")
 
 [node name="Bed" type="Sprite2D" parent="World"]
@@ -82,31 +82,31 @@ position = Vector2(-192, -26)
 texture = ExtResource("13_bed")
 
 [node name="Barrel" type="Sprite2D" parent="World"]
-position = Vector2(-206, 70)
+position = Vector2(-205, 14)
 texture = ExtResource("14_barrel")
 
 [node name="Cradle" type="Sprite2D" parent="World"]
-position = Vector2(-118, 8)
+position = Vector2(-148, -51)
 texture = ExtResource("15_cradle")
 
 [node name="PlantA" type="Sprite2D" parent="World"]
-position = Vector2(-150, 112)
+position = Vector2(34, -80)
 texture = ExtResource("16_plant")
 
 [node name="Table" type="Sprite2D" parent="World"]
-position = Vector2(96, 28)
+position = Vector2(95, 33)
 texture = ExtResource("18_table")
 
 [node name="StoolL" type="Sprite2D" parent="World"]
-position = Vector2(66, 30)
+position = Vector2(34, 34)
 texture = ExtResource("19_stool")
 
 [node name="StoolR" type="Sprite2D" parent="World"]
-position = Vector2(126, 30)
+position = Vector2(157, 39)
 texture = ExtResource("19_stool")
 
 [node name="PlantB" type="Sprite2D" parent="World"]
-position = Vector2(62, 118)
+position = Vector2(207, -65)
 texture = ExtResource("16_plant")
 
 [node name="WallRack" type="Sprite2D" parent="World"]
@@ -114,11 +114,11 @@ position = Vector2(-40, -146)
 texture = ExtResource("23_wallrack")
 
 [node name="ShelfPottery" type="Sprite2D" parent="World"]
-position = Vector2(70, -116)
+position = Vector2(71, -103)
 texture = ExtResource("22_shelfpot")
 
 [node name="StorageChest" type="Sprite2D" parent="World"]
-position = Vector2(-150, 55)
+position = Vector2(-197, 122)
 texture = ExtResource("20_storage")
 
 [node name="TreasureChest" type="Sprite2D" parent="World"]
