@@ -192,6 +192,25 @@ apron, four straight legs). Confirms: style lever ≠ geometry lever; the grey-b
 the geometry. Grok-route caveat: high-res output needs a careful downscale (small
 grey-box or posterize) to stay crisp.
 
+**Tool ceilings + lever ranking** *(research 2026-06-14,
+[[research/done/2026-06-14-research-interior-room-pipeline]])*: PixelLab is a
+prop/tile engine, **not** a room engine — biggest single canvas ~512² or 688×384
+(≈21×12 tiles); **depth-img2img is a PROP tool, ~180px cap** (not for rooms); Pro
+S-L has no force-palette so external `palette_lock` is mandatory. Consistency levers
+by power: **(1) structural control image** (Blender ortho greybox at canon angle →
+depth-img2img / ComfyUI Depth+MLSD) = the only reliable *perspective* lock;
+**(2) fixed N×32 canvas → nearest-neighbour downscale → grid-snap → palette-lock** =
+the only reliable *grid* lock; **(3) style ref / LoRA** = *style* only; **(4) seed** =
+weakest (A/B only).
+
+> **Room-anchor flag:** the Grok room anchors (`style_palette_angle_anchor.jpeg`,
+> `basement_style_anchor.png`, the hollow register concept) carry **baked light**
+> (lantern pools, floor gradients, drop shadows) and **mixed projection** (near-90°
+> floor vs oblique props) — they **violate rule 2** and are **mood / contents /
+> palette references ONLY**, never a style/depth reference for generation. (This is
+> why interior backdrops here are rebuilt flat-lit from clean tiles, palette *sampled*
+> from the anchor — not harvested from it.)
+
 ## Ordered fix plan (cheap → structural; verified state 2026-06-12)
 
 1. ~~Remove courtyard decal instances~~ — **already clean in repo** (no

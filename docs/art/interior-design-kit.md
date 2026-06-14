@@ -93,6 +93,39 @@ emptier), **deliberately asymmetric**, mostly empty negative space. Hero set
 overlays, broken-floorboard tile(s), peeling/stained-wall variant, broken window
 (light source), debris, **the single "wrong" tableau object**, door.
 
+## Room pipeline — HYBRID (bake the backdrop only) — research 2026-06-14
+*([[research/done/2026-06-14-research-interior-room-pipeline]])*
+
+**Never ship an AI-generated full room as one baked image.** Bake only a **flat-lit
+floor+wall backdrop** (the `GroundBackdrop`); author everything interactive on top
+as separate layers — y-sortable/animated prop sprites, `StaticBody2D` collision,
+`LightOccluder2D`, `PointLight2D`. This is the exact exterior-buildings pattern, and
+it's the **only** path that preserves the locked systems: pure ship-direct breaks
+**three at once** — player y-sort behind furniture (one Sprite2D = one depth),
+runtime per-wall `LightOccluder2D` shadows (Godot #78964: occluder shadows always
+draw over what they occlude; a baked image has no internal occlusion), and animated
+FX (fire/fog are already separate `AnimatedSprite2D`). `CanvasModulate`/`PointLight2D`
+only tint a baked image correctly if it is genuinely flat/neutral.
+
+**The two worst pains and their only reliable locks:**
+- **Perspective drift** → a *structural control image*, not prose: a Blender
+  **orthographic** greybox at the canon ~20° oblique → PixelLab depth-img2img (props,
+  ≤180px cap) or external **ComfyUI ControlNet Depth (~0.6) + MLSD** (room backdrops;
+  MLSD keeps wall lines straight/non-converging). View param "weakly controls" only.
+- **Grid/resolution mismatch** → fixed canvas at **multiples of 32 → nearest-neighbour
+  downscale only** (never bilinear/bicubic) → grid-snap/quantize → `palette_lock`. One
+  automated `downscale(NN)→snap→palette-lock→QA-gate` script on 100% of assets.
+
+Style refs / LoRA lock **style only** (not geometry/grid); seed-lock is weakest (A/B
+only). **Tool ceilings**: PixelLab is a prop/tile engine + at most a single-screen
+backdrop engine (biggest single canvas ~512² or 688×384 ≈ 21×12 tiles; bigger →
+stitch/external); depth-img2img is a *prop* tool (~180px), not a room tool; Pro S-L
+has no force-palette → external `palette_lock` stays mandatory.
+
+> **Backdrops are built procedurally / from clean tiles here, not harvested from the
+> room anchors** — the Grok room anchors (`*_style_anchor`) carry baked light + mixed
+> projection, so they are **mood/contents/palette references only** ([[art/prop-coherence]]).
+
 ## Production sequence
 1. **Shared tileset + lighting contract first** — one neutral 32×32 wall-frame +
    prop library, flat-lit, palette-locked. Confirm the Godot stack

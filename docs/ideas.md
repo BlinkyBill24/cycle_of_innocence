@@ -114,6 +114,29 @@ Gate passed; polish items from the verdict (address during post-slice audio/feel
 
 - **SurfaceZone editor pass**: the per-surface footstep hook ships with ONE rough `PlazaGravel` zone in the playground — author the real surface map in the editor (path band, ritual sand, wood on the play equipment). Add `SurfaceZone` Area2Ds, set `surface` (gravel/path/sand → gravel sound; anything else → grass). Pairs with the SFX session's `footstep_gravel` wiring.
 
+## 📥 Captured this session (interior room pipeline research, 2026-06-14)
+
+Synthesized in [[art/interior-design-kit]] + [[art/prop-coherence]]; deferred tooling
+captured here ([[research/done/2026-06-14-research-interior-room-pipeline]]). Minimum
+viable build order: Blender rig → script → QA gate → room template; ComfyUI when the
+prop-depth cap bites; LoRA last.
+
+- **Blender canon-angle orthographic greybox rig** — cheapest, highest-leverage
+  perspective lock; renders depth/structure control images at the ~20° oblique to feed
+  both PixelLab depth-img2img (props) and ComfyUI ControlNet (backdrops). Build first.
+- **One automated `downscale(NN) → grid-snap/quantize → palette-lock → QA-gate` script**
+  run on 100% of assets — extend the QA gate to also check palette conformance on
+  backdrops (not just projection ratios).
+- **ComfyUI Depth + MLSD ControlNet** for room backdrops too big for the 180px
+  depth-img2img cap / when backdrop drift bites. MLSD keeps wall lines straight.
+- **Self-trained style LoRA** on ~20–40 own palette-locked canon-angle assets — only if
+  style drift persists after ControlNet (last resort).
+- **Retro Diffusion** (FLUX, hard 32/64 grid alignment, palette control, ControlNet+LoRA,
+  Aseprite ext/API) — strongest specialized supplement if grid fidelity stays the pain.
+- **Web-export watch**: Compatibility renderer, shared prop/wall atlases, mid-size
+  backdrops, let Godot emit WebP; watch unique-PNG count (Godot 4.3 wasm ≈40 MB raw /
+  ~5 MB Brotli baseline).
+
 ## 📥 Captured this session (interior design kit, 2026-06-14)
 
 Synthesized in [[art/interior-design-kit]]; engineering task captured here.
