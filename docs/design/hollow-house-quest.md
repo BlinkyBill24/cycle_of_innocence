@@ -76,6 +76,17 @@ changed. Edith Finch vignette discipline: short, digestible, with breathing room
 - **Briar as the unique amplifier** — she fears the room *before* the player
   learns why; her earlier dread pays off at the reveal (and again on NG+).
 
+## Visual grammar (real-art pass)
+Production grammar lives in **[[art/interior-design-kit]]** (the `hollow_house`
+column): desaturated cold palette, deliberate asymmetry, mostly empty negative
+space, broken/dust-sheeted furniture, cold thin light from a broken window. The
+load-bearing dread device is the **single wrong detail / "absence where
+something should be"** (Wedge's "recent occupation"; Carson's frozen tableau)
+`[verified 2026-06-14]` — author it so it **pays off through the `recontext`
+node**, not as set dressing that means nothing. Reserve the strongest one for
+this house; the cottage basement gets only one subtle off-note so the gradient
+reads. (The pass-1 slice is graybox — this is the PixelLab/Grok art pass.)
+
 ## Exit criteria (Phase-1 done)
 Playable start-to-finish on Linux **and** Web export, with all six systems firing:
 accessible-interiors transition, Briar-seek + fallback, DreadManager + adaptive

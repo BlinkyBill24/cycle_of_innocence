@@ -114,6 +114,12 @@ Gate passed; polish items from the verdict (address during post-slice audio/feel
 
 - **SurfaceZone editor pass**: the per-surface footstep hook ships with ONE rough `PlazaGravel` zone in the playground — author the real surface map in the editor (path band, ritual sand, wood on the play equipment). Add `SurfaceZone` Area2Ds, set `surface` (gravel/path/sand → gravel sound; anything else → grass). Pairs with the SFX session's `footstep_gravel` wiring.
 
+## 📥 Captured this session (interior design kit, 2026-06-14)
+
+Synthesized in [[art/interior-design-kit]]; engineering task captured here.
+
+- **Stairs set-piece tech** (the one hard problem in flat top-down): when authored stairs land, support (a) a **railing-tile layer above the player** so Rowan draws *behind* the rail descending, and (b) **slow player movement while on a stair `Area2D`** to sell depth the flat camera can't show (Bitzos). Pairs with `DoorTransition` stair set-pieces ([[mechanics/accessible-interiors]]). Defer until the real interior art pass replaces the graybox.
+
 ## 📥 Captured this session (secrets research, 2026-06-13)
 
 Synthesized in [[design/secrets-and-discovery]]; raw captures here for the inbox trail.

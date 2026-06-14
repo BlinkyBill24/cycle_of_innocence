@@ -56,9 +56,10 @@ On placement, companions are snapped beside the player (offset `Vector2(-20, 14)
 - **Rule: flag, don't author empty floors.** A locked door beats a bare room. **A few deep interiors beat many shallow ones** (same conservative-node-count logic as [[mechanics/zone-recontextualization]] — Void Stranger / Animal Well scale via dense, not numerous, space). Keep interior count small and each one meaningful.
 
 ## Art pipeline
+- **Reference kit: [[art/interior-design-kit]]** — the asset grammar that fills these scenes (modular wall-frame kit, room sizes in tiles ~8×6 to 12×10, cozy↔hollow palette/prop grammar, stairs-as-set-piece, per-scene prop checklists).
 - **Canon view: low top-down** (matches exteriors), palette-locked, flat/neutral lighting baked into the backdrop (runtime dread/darkness is layered on, not painted in).
 - Floor/wall **tilesets via `create_topdown_tileset`** with an **explicit view** parameter so the tool returns true top-down tiles (not 3/4 or iso).
-- **Stairs are the hard case** — they read as depth/perspective and fight a flat top-down floor. Approach: a **Grok concept pass** for the stair element, or **image-to-image depth** to get a believable descent without breaking the palette/view. Treat stairs as authored set-pieces, not tiled.
+- **Stairs are the hard case** — they read as depth/perspective and fight a flat top-down floor. Approach: a **Grok concept pass** for the stair element, or **image-to-image depth** to get a believable descent without breaking the palette/view. Treat stairs as authored set-pieces, not tiled. **Render detail** ([[art/interior-design-kit]]): railing tiles on a layer **above** the player, and **slow the player while traversing** to sell the depth — engineering task in [[ideas]].
 - **Pending**: real per-interior backdrops. The reference scene reuses a placeholder texture; `assets/sprites/interiors/cottage_ground_floor.png` + `cottage_basement_floor.png` are placeholders awaiting the real art pass.
 
 ## Edge cases
