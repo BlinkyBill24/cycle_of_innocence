@@ -152,6 +152,41 @@ spaces, not modular kitbash* — that is the replay-value stake.
   screenshot pulls props off-canon. *(research 2026-06-14,
   [[research/done/2026-06-14-research-prop-perspective-lock]])*
 
+### Tiered interior-prop pipeline (per-room anchor) — 2026-06-14
+
+**One room render per zone is the single style + palette + angle anchor; geometry
+is locked per-prop through the pipeline, never harvested from the room.** Each
+interior gets its OWN anchor (same projection block, different contents/palette):
+cottage = `assets/reference/interiors/style_palette_angle_anchor.jpeg` (Grok, warm);
+basement + hollow_house need their own renders before their prop passes.
+
+- **Tier 1 — flat / top-dominant** (bed, rug, pots, low chest, barrels): `create_map_object`
+  `view="low top-down"` + a backdrop crop. The anchor supplies **style only** — no
+  per-prop reference. Converges.
+- **Tier 2 — vertical / geometry-hard** (table, chairs, shelf, wardrobe, cabinet,
+  hearth): add **image-to-image (depth)** with a quick per-prop **grey-box at canon
+  angle** — anchor = style ref, grey-box = geometry. The reliable lock.
+- **Tier 3 — iconic-prior** (round mouth: pot, basin): carry the angle in the
+  description; escalate to depth-i2i if it fights.
+
+**MCP tooling reality (verified 2026-06-14):** the PixelLab **MCP** exposes the
+style lever (`create_map_object` `background_image` — style/palette match via
+inpainting; the slow ~500s reference path) but **no native image-to-image depth
+tool** — that lives on pixellab.ai **web**. So via the MCP: Tier 1 works directly;
+Tier 2's depth-lock is either (a) run on pixellab.ai web (drop results into the
+pipeline) or (b) approximated with **Grok `edit_image`** structure-preserving
+img2img from a canon grey-box → downscale → `palette_lock` → gate. The
+already-shipped cottage furniture used description-only (the weak path); regenerate
+the geometry-hard ones via Tier 2 when the gate flags them off-ratio.
+
+**Empirical proof (table, 2026-06-14):** 3-way A/B — description-only top a touch
+large; **style-ref (`background_image` floor crop) drifted the angle the *wrong*
+way** (too top-down, legs lost — style matched, geometry not locked); **grey-box →
+Grok `edit_image` → downscale → palette_lock nailed the canon angle** (thin top,
+apron, four straight legs). Confirms: style lever ≠ geometry lever; the grey-box is
+the geometry. Grok-route caveat: high-res output needs a careful downscale (small
+grey-box or posterize) to stay crisp.
+
 ## Ordered fix plan (cheap → structural; verified state 2026-06-12)
 
 1. ~~Remove courtyard decal instances~~ — **already clean in repo** (no
