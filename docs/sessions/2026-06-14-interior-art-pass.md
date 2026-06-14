@@ -12,6 +12,16 @@ Plan: [[decisions/2026-06-14-interior-art-pass]]. Orchestrated with Claude
 subagents (per user "claude agents") — pipelined behind a hard barrier (shared
 floor/style before per-scene props).
 
+## Outcome — all 3 interiors art-passed (committed)
+- `cottage_ground` (457e5e0), `cottage_basement` + `hollow_house` (6be7e88).
+- 31 props total, each trimmed + palette-locked to a per-scene unified ~48-color
+  palette; 3 composed backdrops at exact sizes (camera-clamp + coords preserved);
+  stairwell set-pieces; per-scene runtime lighting (CanvasModulate + PointLight2D
+  + occluders). Flat-lit art; mood is runtime. Suite green (882 asserts), all
+  three instantiate headless. **Collision for new props deferred to the editor/
+  user pass** (assets only). Basement + hollow generated in parallel by two asset
+  subagents (per "claude agents"); orchestrator wired + verified each scene.
+
 ## What I did
 - **Context locked**: read all three scenes + [[mechanics/accessible-interiors]]
   + pipeline tools. Confirmed the carried-over `hollow_house.tscn` edits are
