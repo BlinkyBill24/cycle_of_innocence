@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cottagegrnd001"]
+[gd_scene load_steps=21 format=3 uid="uid://cottagegrnd001"]
 
 [ext_resource type="Script" path="res://scripts/world/interior_root.gd" id="1_interior"]
 [ext_resource type="Texture2D" path="res://assets/sprites/interiors/cottage_ground_floor.png" id="2_floor"]
@@ -6,9 +6,23 @@
 [ext_resource type="PackedScene" uid="uid://briarpup00001" path="res://scenes/companions/briar.tscn" id="4_briar"]
 [ext_resource type="Script" path="res://scripts/world/door_transition.gd" id="5_door"]
 [ext_resource type="Texture2D" path="res://assets/sprites/interiors/stairs_down.png" id="6_stairs"]
+[ext_resource type="Texture2D" uid="uid://c6eknu52ocg5o" path="res://assets/sprites/light/glow_radial.png" id="7_glow"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/hearth.png" id="10_hearth"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/wardrobe.png" id="11_wardrobe"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/portrait.png" id="12_portrait"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/bed.png" id="13_bed"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/barrel.png" id="14_barrel"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/cradle.png" id="15_cradle"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/plant.png" id="16_plant"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/rug.png" id="17_rug"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/table.png" id="18_table"]
+[ext_resource type="Texture2D" path="res://assets/sprites/interiors/props/stool.png" id="19_stool"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
 size = Vector2(40, 40)
+
+[sub_resource type="OccluderPolygon2D" id="Occluder_walls"]
+polygon = PackedVector2Array(-236, -156, 236, -156, 236, 156, -236, 156)
 
 [node name="CottageGround" type="Node2D"]
 script = ExtResource("1_interior")
@@ -18,8 +32,76 @@ dread_baseline = 0.0
 [node name="GroundBackdrop" type="Sprite2D" parent="."]
 texture = ExtResource("2_floor")
 
+[node name="WarmTint" type="CanvasModulate" parent="."]
+color = Color(0.82, 0.78, 0.7, 1)
+
+[node name="WallOccluder" type="LightOccluder2D" parent="."]
+occluder = SubResource("Occluder_walls")
+
+[node name="HearthLight" type="PointLight2D" parent="."]
+position = Vector2(-86, -92)
+color = Color(1, 0.82, 0.55, 1)
+energy = 1.15
+texture = ExtResource("7_glow")
+texture_scale = 2.3
+
+[node name="WindowLight" type="PointLight2D" parent="."]
+position = Vector2(150, 40)
+color = Color(0.95, 0.93, 0.85, 1)
+energy = 0.55
+texture = ExtResource("7_glow")
+texture_scale = 1.8
+
 [node name="World" type="Node2D" parent="."]
 y_sort_enabled = true
+
+[node name="Wardrobe" type="Sprite2D" parent="World"]
+position = Vector2(-196, -112)
+texture = ExtResource("11_wardrobe")
+
+[node name="Hearth" type="Sprite2D" parent="World"]
+position = Vector2(-86, -110)
+texture = ExtResource("10_hearth")
+
+[node name="Portrait" type="Sprite2D" parent="World"]
+position = Vector2(24, -132)
+texture = ExtResource("12_portrait")
+
+[node name="Bed" type="Sprite2D" parent="World"]
+position = Vector2(-192, -26)
+texture = ExtResource("13_bed")
+
+[node name="Barrel" type="Sprite2D" parent="World"]
+position = Vector2(-206, 70)
+texture = ExtResource("14_barrel")
+
+[node name="Cradle" type="Sprite2D" parent="World"]
+position = Vector2(-118, 8)
+texture = ExtResource("15_cradle")
+
+[node name="PlantA" type="Sprite2D" parent="World"]
+position = Vector2(-150, 112)
+texture = ExtResource("16_plant")
+
+[node name="Rug" type="Sprite2D" parent="World"]
+position = Vector2(94, 34)
+texture = ExtResource("17_rug")
+
+[node name="Table" type="Sprite2D" parent="World"]
+position = Vector2(96, 28)
+texture = ExtResource("18_table")
+
+[node name="StoolL" type="Sprite2D" parent="World"]
+position = Vector2(66, 30)
+texture = ExtResource("19_stool")
+
+[node name="StoolR" type="Sprite2D" parent="World"]
+position = Vector2(126, 30)
+texture = ExtResource("19_stool")
+
+[node name="PlantB" type="Sprite2D" parent="World"]
+position = Vector2(62, 118)
+texture = ExtResource("16_plant")
 
 [node name="Player" parent="World" instance=ExtResource("3_player")]
 position = Vector2(0, 110)
