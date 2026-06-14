@@ -51,7 +51,21 @@ Generated, processed, and wired into the cottage_ground reference scene.
   eye + gate, but the canon-robust path for furniture is depth-i2i. Regenerate via
   depth-anchor if any fail the gate ratio. Not done now (props look acceptable).
 
+## Tier-2 geometry-lock pass (user-directed: full vertical set + anchors)
+- **Tooling reality**: PixelLab MCP has the style lever (`background_image`) but NO
+  native image-to-image depth (web only). Substitute proven: canon grey-box → Grok
+  `edit_image` structure-preserving img2img → bg-key → downscale → binarize alpha →
+  `palette_lock`. 3-way table A/B confirmed style-ref drifts angle; grey-box→Grok
+  locks it. Recorded in [[art/prop-coherence]] (tiered pipeline + empirical proof).
+- **Cottage vertical set regenerated** (table, stool, wardrobe, shelf_pottery,
+  hearth) via that pipeline — geometry canon-locked by hand-built grey-boxes.
+  Wardrobe/shelf/hearth biggest upgrades. Same filenames → no scene edit. Suite
+  green. Cottage anchor = `style_palette_angle_anchor.jpeg` (Grok, user-supplied).
+- **Room anchors** (Grok): basement `basement_style_anchor.png` (new, cold stone
+  cellar); hollow = existing `hollow_house_register_concept.png` (Grok moderation
+  rejects abandoned/eerie phrasing). All three recorded in prop-coherence.
+
 ## Next
-- Human F5: does the enriched cottage read; treasure-chest gold acceptable; rug
-  layering correct in-engine.
-- Optional: depth-i2i regeneration pass for vertical-heavy furniture (canon-robust).
+- Human F5: cottage reads; treasure-chest gold acceptable; rug layering in-engine.
+- **Basement + hollow Tier-2 prop passes** using their anchors (same grey-box→Grok
+  recipe) — not started; offered.
