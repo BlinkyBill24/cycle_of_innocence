@@ -416,3 +416,27 @@ The static dig sprite IS palette-locked to the playground backdrop.
   "drifting and billowing, edges swirling". → `fog_sheet.png` +
   `fog_frames.tres` (AnimatedSprite2D ~6fps), replaces FogSeamNorth/South
   polygons (names kept so `dread_beat` NodePaths + modulate-fade still work).
+
+## Interior art passes (2026-06-14 — branches feature/interior-art, feature/interior-props-alttp)
+
+Recipe for all interiors ([[art/interior-design-kit]] · [[mechanics/accessible-interiors]]):
+`create_map_object` (basic mode, `view="low top-down"`, `flat shading`, `selective
+outline`) → trim transparent margins → `palette_lock.py` to a unified ~48-color
+per-scene palette → gate (`gate_sheet.py` overlay). Floors: `create_topdown_tileset`
+(`view="low top-down"`, flat shading, 32px) → compose the intact tile into a single
+`GroundBackdrop` PNG at the exact scene size + baked flat-lit walls (camera-clamp
+preserved). **Walls are procedural** — PixelLab returns near-empty for "seamless
+wall/tile" prompts, so back/side walls + doorway are drawn flat-lit in the compose
+step. All flat-lit; mood is runtime (`CanvasModulate` + `PointLight2D` + occluders).
+
+**ALttP canon prop vocabulary** (user-provided prompts, 2026-06-14). Shared canon:
+low top-down ~20° (top + front both visible, straight verticals, no convergence),
+32×32 scale, warm wooden/earthy palette, transparent bg, round-top ellipse ≈0.34×
+width, box top:front ≈1:3. Generated concise (canon enforced by the `view` param +
+palette_lock + gate, not prose). All → `assets/sprites/interiors/props/`:
+bed, table, stool, rug (canon upgrades, replaced first-pass versions) + storage_chest,
+treasure_chest, shelf_pottery (3-tier + jars), wall_rack (bottles + herb bundle),
+door (paneled + threshold). Floor tileset `b54fb251` (warm horizontal planks + worn
+variant) → `floor_plank.png`. Wired into `cottage_ground` (treasure chest in the
+bottom-right corner per ALttP; rug moved to a non-y-sorted `FloorDecals` layer so it
+sits *under* furniture — fixes a y-sort bug where the rug covered the table).
