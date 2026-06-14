@@ -158,7 +158,12 @@ spaces, not modular kitbash* — that is the replay-value stake.
 is locked per-prop through the pipeline, never harvested from the room.** Each
 interior gets its OWN anchor (same projection block, different contents/palette):
 cottage = `assets/reference/interiors/style_palette_angle_anchor.jpeg` (Grok, warm);
-basement + hollow_house need their own renders before their prop passes.
+basement = `assets/reference/interiors/basement_style_anchor.png` (Grok, cold stone
+cellar — barrels/jars/sacks/up-stairs); hollow_house =
+`assets/reference/interiors/hollow_house_register_concept.png` (Grok, desaturated
+abandoned room + the clean-dust-rectangle beat). *(Grok image moderation rejects
+"abandoned/eerie/broken" phrasing — describe the hollow room neutrally, or reuse the
+register concept which already nails it.)*
 
 - **Tier 1 — flat / top-dominant** (bed, rug, pots, low chest, barrels): `create_map_object`
   `view="low top-down"` + a backdrop crop. The anchor supplies **style only** — no
