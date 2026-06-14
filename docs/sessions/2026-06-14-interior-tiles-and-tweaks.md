@@ -24,8 +24,11 @@ tags: [session, art, interiors, tiles]
 - A PixelLab brick floor tileset (`be980b5e`) was fired but the procedural floor
   shipped instead (faster, palette-exact); swap to the tileset if a more organic
   floor is wanted.
-- **Basement + hollow still need their own floor/wall tiles** per their anchors
-  (`basement_style_anchor.png` cold stone; `hollow_house_register_concept.png`
-  desaturated) — not started; offered.
+- **Basement tiles DONE** (per `basement_style_anchor.png`): flagstone floor
+  (`floor_flagstone.png`) + running-bond stone-block walls (`wall_stone_block.png`),
+  recomposed `cottage_basement_floor.png`. Suite green.
+- **Hollow_house still needs its floor/wall tiles** (per
+  `hollow_house_register_concept.png` — desaturated cold planks + partition walls)
+  — not started; offered next.
 - Pre-existing floating edits (`campfire`/`fog`/`playground`/`village_green` UID
   re-saves) left uncommitted — not part of the furniture work.
