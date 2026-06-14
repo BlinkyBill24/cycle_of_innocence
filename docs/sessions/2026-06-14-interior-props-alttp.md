@@ -37,6 +37,21 @@ Generated, processed, and wired into the cottage_ground reference scene.
 - The canon floor tileset is saved but `cottage_ground` still uses its original
   composed floor; swap in `floor_plank.png` if a cleaner long-plank look is wanted.
 
+## Shared-prefix A/B + canon learning (follow-up)
+- I had NOT pasted the user's full canon prefix into the prop prompts (condensed
+  instead). User asked to A/B it. **A/B 2026-06-14**: 3 props regenerated with the
+  full ~900-char prefix → table 15×17, treasure chest 6×8 (near-empty), rug
+  rendered a whole room. Long prose **breaks** PixelLab generation.
+- Reconciled with inbox research [[research/done/2026-06-14-research-prop-perspective-lock]]:
+  prose can't pin geometry at all; the robust lever is a **reference image**
+  (view + `background_image` crop), escalating vertical-heavy furniture to
+  image-to-image depth. Amended [[art/prop-coherence]] workflow with both findings.
+- **Flag**: the current committed interior props (incl. vertical-heavy table/
+  wardrobe/shelf) were made description-only (the weaker path) — they read OK by
+  eye + gate, but the canon-robust path for furniture is depth-i2i. Regenerate via
+  depth-anchor if any fail the gate ratio. Not done now (props look acceptable).
+
 ## Next
 - Human F5: does the enriched cottage read; treasure-chest gold acceptable; rug
   layering correct in-engine.
+- Optional: depth-i2i regeneration pass for vertical-heavy furniture (canon-robust).

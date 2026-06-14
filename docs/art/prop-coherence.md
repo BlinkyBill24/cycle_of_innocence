@@ -128,6 +128,29 @@ spaces, not modular kitbash* — that is the replay-value stake.
   palette") to set the visual bar before regenerating anything. **Benchmark
   only, never the standing pipeline** — re-cropping repainted props bakes
   scene light into the sprite (violates rule 2).
+- **Prompt prose does NOT pin geometry — and long canon prose actively breaks
+  generation.** Perspective/canon jargon ("top and front visible, straight
+  verticals") and style tags don't translate into projection; the `view` param
+  only weakly controls, so the model's catalog prior wins. Worse, pasting a full
+  multi-sentence canon *prefix* into the description degrades output badly —
+  **A/B test 2026-06-14**: of 3 props regenerated with the ~900-char prefix, the
+  table returned 15×17 and the treasure chest **6×8** (near-empty), and the rug
+  rendered an **entire room** instead of an isolated prop (the prefix's scene
+  language — "interiors", "house feel", "no horizon line" — pulls toward a
+  scene). **Keep descriptions short + subject-focused;** enforce canon via the
+  `view` param + `background_image` crop + `palette_lock` + gate, NOT prose. If
+  any text reminder is wanted, a condensed tag only: *"low top-down, top+front
+  visible, straight verticals, transparent bg, isolated prop, no room/scene."*
+- **Vertical-heavy furniture is geometry-resistant** (table, chairs, shelves,
+  wardrobe, cupboard) — same class as buildings/stairs. Description-only (any
+  length) won't converge; a bed survives because its silhouette ≈ the canon
+  low-top-down silhouette (little vertical face). Reserve **view + backdrop-crop**
+  for flat/top-dominant props (rugs, beds, low chests); escalate furniture
+  straight to **image-to-image (depth)** with a canon-angle grey-box (or the
+  on-canon bed as anchor) at high `depth_strength`. **ALttP = mood reference
+  only** — it's a higher oblique than the ~20° canon, so depth-referencing the
+  screenshot pulls props off-canon. *(research 2026-06-14,
+  [[research/done/2026-06-14-research-prop-perspective-lock]])*
 
 ## Ordered fix plan (cheap → structural; verified state 2026-06-12)
 
