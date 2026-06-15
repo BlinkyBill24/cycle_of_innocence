@@ -10,6 +10,7 @@ signal transition_requested(target_zone_id: StringName)
 ## zone_id -> scene path. Authored, grows with the world.
 const ZONE_SCENES := {
 	&"playground_fringes": "res://scenes/zones/playground_fringes.tscn",
+	&"fringes": "res://scenes/zones/fringes.tscn",
 	&"village_edge": "res://scenes/zones/village_green.tscn",
 }
 

@@ -33,11 +33,11 @@
 [ext_resource type="SpriteFrames" uid="uid://bnxtlraieoky7" path="res://assets/resources/npcs/villager_warden_frames.tres" id="31_warden_frames"]
 [ext_resource type="Script" uid="uid://dii0kaxn04mrd" path="res://scripts/world/zone_recontext.gd" id="32_recontext"]
 [ext_resource type="Script" uid="uid://bnho50hs5u7pg" path="res://scripts/world/whisper_spot.gd" id="33_whisper"]
-[ext_resource type="Texture2D" uid="uid://ru00ut6fy12k" path="res://assets/sprites/tiles/playground_ground_backdrop.png" id="34_backdrop"]
+[ext_resource type="Texture2D" uid="uid://bmelyv3mnwsiu" path="res://assets/sprites/painted/playground_painted.png" id="34_backdrop"]
 [ext_resource type="Script" uid="uid://cxs6e70fumff8" path="res://scripts/world/forage_spot.gd" id="40_forage"]
 [ext_resource type="Script" uid="uid://w3of1w7fmuph" path="res://scripts/world/surface_zone.gd" id="42_surface"]
-[ext_resource type="SpriteFrames" path="res://assets/resources/fx/campfire_frames.tres" id="43_campfire_fx"]
-[ext_resource type="SpriteFrames" path="res://assets/resources/fx/fog_frames.tres" id="44_fog_fx"]
+[ext_resource type="SpriteFrames" uid="uid://dvlrvc2nrpfof" path="res://assets/resources/fx/campfire_frames.tres" id="43_campfire_fx"]
+[ext_resource type="SpriteFrames" uid="uid://bwdxmmoo3tcfy" path="res://assets/resources/fx/fog_frames.tres" id="44_fog_fx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -112,67 +112,27 @@ size = Vector2(360, 360)
 script = ExtResource("1_zone")
 zone_id = &"playground_fringes"
 
-[node name="Ground" type="TileMapLayer" parent="."]
-tile_set = ExtResource("2_tileset")
-
 [node name="GroundBackdrop" type="Sprite2D" parent="."]
 texture = ExtResource("34_backdrop")
-
-[node name="DuskTint" type="CanvasModulate" parent="."]
-color = Color(0.38, 0.34, 0.44, 1)
 
 [node name="Borders" type="StaticBody2D" parent="."]
 collision_mask = 0
 
 [node name="Top" type="CollisionShape2D" parent="Borders"]
-position = Vector2(0, -432)
+position = Vector2(0, -384)
 shape = SubResource("RectangleShape2D_wall_h")
 
 [node name="Bottom" type="CollisionShape2D" parent="Borders"]
-position = Vector2(0, 432)
+position = Vector2(0, 384)
 shape = SubResource("RectangleShape2D_wall_h")
 
 [node name="Left" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-720, 0)
+position = Vector2(-616, 0)
 shape = SubResource("RectangleShape2D_wall_v")
 
 [node name="Right" type="CollisionShape2D" parent="Borders"]
-position = Vector2(720, 0)
+position = Vector2(616, 0)
 shape = SubResource("RectangleShape2D_wall_v")
-
-[node name="OccluderTop" type="LightOccluder2D" parent="Borders"]
-position = Vector2(0, -432)
-occluder = SubResource("Occluder_h")
-
-[node name="OccluderBottom" type="LightOccluder2D" parent="Borders"]
-position = Vector2(0, 432)
-occluder = SubResource("Occluder_h")
-
-[node name="OccluderLeft" type="LightOccluder2D" parent="Borders"]
-position = Vector2(-720, 0)
-occluder = SubResource("Occluder_v")
-
-[node name="OccluderRight" type="LightOccluder2D" parent="Borders"]
-position = Vector2(720, 0)
-occluder = SubResource("Occluder_v")
-
-[node name="FringesDread" type="Area2D" parent="."]
-position = Vector2(384, 0)
-script = ExtResource("9_dread_zone")
-dread_zone_id = &"fringes_woods"
-dread_level = 45.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FringesDread"]
-shape = SubResource("RectangleShape2D_fringes")
-
-[node name="DeepFringesDread" type="Area2D" parent="."]
-position = Vector2(564, 0)
-script = ExtResource("9_dread_zone")
-dread_zone_id = &"deep_fringes"
-dread_level = 78.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DeepFringesDread"]
-shape = SubResource("RectangleShape2D_deep")
 
 [node name="Hideout" type="Area2D" parent="."]
 position = Vector2(-470, 30)
@@ -224,139 +184,11 @@ frames = ExtResource("31_warden_frames")
 notice_radius = 110.0
 notice_rate = 40.0
 
-[node name="TwistedChild" parent="World" instance=ExtResource("5_twisted_child")]
-position = Vector2(540, 130)
-secret_spot_path = NodePath("../../StilledChildKeepsake")
-
-[node name="SwingSet" type="StaticBody2D" parent="World"]
-position = Vector2(-430, -250)
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="World/SwingSet"]
-position = Vector2(0, -26)
-texture = ExtResource("22_swing")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/SwingSet"]
-position = Vector2(1, 0)
-shape = SubResource("RectangleShape2D_prop_wide")
-
-[node name="Slide" type="StaticBody2D" parent="World"]
-position = Vector2(-278, -210)
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="World/Slide"]
-position = Vector2(-23, -23)
-texture = ExtResource("15_7f4f8")
-offset = Vector2(0, -38.5)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Slide"]
-position = Vector2(-11, -45.75)
-shape = SubResource("RectangleShape2D_e4qd4")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Slide"]
-position = Vector2(-41.25, -30.5)
-shape = SubResource("RectangleShape2D_t1uty")
-
-[node name="Roundabout" type="StaticBody2D" parent="World"]
-position = Vector2(-460, -180)
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="World/Roundabout"]
-position = Vector2(0, -18)
-texture = ExtResource("24_roundabout")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Roundabout"]
-position = Vector2(0, -10)
-shape = SubResource("RectangleShape2D_prop_mid")
-
-[node name="TotemBear" type="StaticBody2D" parent="World"]
-position = Vector2(-516, -150)
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="World/TotemBear"]
-position = Vector2(0, -20)
-texture = ExtResource("25_totem_bear")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TotemBear"]
-shape = SubResource("CircleShape2D_totem")
-
-[node name="TotemRabbit" type="StaticBody2D" parent="World"]
-position = Vector2(-220, -290)
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="World/TotemRabbit"]
-position = Vector2(0, -20)
-texture = ExtResource("18_7f4f8")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TotemRabbit"]
-position = Vector2(0, 13)
-shape = SubResource("CircleShape2D_totem")
-
-[node name="DeadTreeA" type="StaticBody2D" parent="World"]
-position = Vector2(330, -200)
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="World/DeadTreeA"]
-position = Vector2(0, -44)
-texture = ExtResource("27_tree_a")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/DeadTreeA"]
-position = Vector2(-1, -8)
-shape = SubResource("RectangleShape2D_7f4f8")
-
-[node name="DeadTreeB" type="StaticBody2D" parent="World"]
-position = Vector2(495, 295)
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="World/DeadTreeB"]
-position = Vector2(0, -36)
-texture = ExtResource("28_tree_b")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/DeadTreeB"]
-position = Vector2(0.5, -5)
-shape = SubResource("RectangleShape2D_sy06x")
-
-[node name="DeadTreeA2" type="StaticBody2D" parent="World"]
-position = Vector2(655, -255)
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="World/DeadTreeA2"]
-position = Vector2(0, -44)
-texture = ExtResource("27_tree_a")
-flip_h = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/DeadTreeA2"]
-position = Vector2(0.5, -7.5)
-shape = SubResource("RectangleShape2D_dwe4s")
-
-[node name="ToyDuck2" type="StaticBody2D" parent="World"]
-position = Vector2(-263, -235)
-
-[node name="ToyDuck" type="Sprite2D" parent="World/ToyDuck2"]
-texture = ExtResource("29_duck")
-offset = Vector2(0, -12)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/ToyDuck2"]
-position = Vector2(0, -8)
-shape = SubResource("CircleShape2D_mjhmx")
-
 [node name="DiggableSpotPlayground" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(-368, -200)
 lore_text = "A stuffed rabbit, one button eye gone. Stitched onto its foot, a small cloth tag: \"Mara — Harmony 71.\""
 lore_text_recontext = "Mara's rabbit. She was the one before you — Harmony 71, the number that meant chosen. The toy is all the playground kept of her."
 recontext_revelation = &"monsters_are_children"
-
-[node name="DiggableSpotFringes" parent="." instance=ExtResource("6_diggable")]
-position = Vector2(260, 110)
-spot_id = &"fringes_buried_memory"
-lore_text = "A child's shoe, far too small to have walked this far alone. The mud around it has not dried in a long time."
-dig_item = &"buried_bone"
-
-[node name="StilledChildKeepsake" parent="." instance=ExtResource("6_diggable")]
-position = Vector2(615, 55)
-spot_id = &"stilled_child_keepsake"
-lore_text = "A wooden duck, its paint flaked to grey. Scratched into the base by a small hand: \"don't let them take me.\" It is still warm."
-dig_item = &"tin_locket"
 
 [node name="DreadOverlay" parent="." instance=ExtResource("7_dread_overlay")]
 
@@ -480,3 +312,14 @@ surface = &"sand"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlazaGravel"]
 shape = SubResource("RectangleShape2D_surface")
+
+[node name="FringesTransition" type="Area2D" parent="."]
+position = Vector2(630, 0)
+script = ExtResource("10_transition")
+target_zone_id = &"fringes"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FringesTransition"]
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="EntryFromFringes" type="Node2D" parent="." groups=["entry_from_fringes"]]
+position = Vector2(560, 0)

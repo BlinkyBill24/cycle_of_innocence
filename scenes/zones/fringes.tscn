@@ -1,0 +1,139 @@
+[gd_scene load_steps=13 format=3 uid="uid://fringeswoods01"]
+
+[ext_resource type="Script" uid="uid://b8tqes6ufbxrt" path="res://scripts/world/zone_root.gd" id="1_zone"]
+[ext_resource type="Texture2D" path="res://assets/sprites/painted/fringes_painted.png" id="2_bg"]
+[ext_resource type="PackedScene" uid="uid://cfpo0lhe11a3y" path="res://scenes/player/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://briarpup00001" path="res://scenes/companions/briar.tscn" id="4_briar"]
+[ext_resource type="PackedScene" uid="uid://covsxjksurfq3" path="res://scenes/enemies/twisted_child.tscn" id="5_twisted_child"]
+[ext_resource type="PackedScene" uid="uid://b70vr0nx7dism" path="res://scenes/world/diggable_spot.tscn" id="6_diggable"]
+[ext_resource type="PackedScene" uid="uid://dn8iabetyanme" path="res://scenes/effects/dread_overlay.tscn" id="7_dread_overlay"]
+[ext_resource type="Script" uid="uid://c2p3d3lhol1q8" path="res://scripts/world/dread_zone.gd" id="9_dread_zone"]
+[ext_resource type="Script" uid="uid://bxburnnul5hg7" path="res://scripts/world/zone_transition.gd" id="10_transition"]
+[ext_resource type="Script" uid="uid://ctap15jdarwf1" path="res://scripts/ui/hud.gd" id="16_hud"]
+[ext_resource type="Script" uid="uid://cnh1w3wphurkn" path="res://scripts/ui/touch_controls.gd" id="17_touch"]
+
+[sub_resource type="RectangleShape2D" id="wall_h"]
+size = Vector2(1240, 48)
+
+[sub_resource type="RectangleShape2D" id="wall_v"]
+size = Vector2(48, 780)
+
+[sub_resource type="RectangleShape2D" id="dread_woods"]
+size = Vector2(940, 760)
+
+[sub_resource type="RectangleShape2D" id="dread_deep"]
+size = Vector2(360, 760)
+
+[sub_resource type="RectangleShape2D" id="edge"]
+size = Vector2(40, 780)
+
+[sub_resource type="CircleShape2D" id="tree"]
+radius = 34.0
+
+[node name="Fringes" type="Node2D"]
+script = ExtResource("1_zone")
+zone_id = &"fringes"
+
+[node name="GroundBackdrop" type="Sprite2D" parent="."]
+texture = ExtResource("2_bg")
+
+[node name="Borders" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Top" type="CollisionShape2D" parent="Borders"]
+position = Vector2(0, -384)
+shape = SubResource("wall_h")
+
+[node name="Bottom" type="CollisionShape2D" parent="Borders"]
+position = Vector2(0, 384)
+shape = SubResource("wall_h")
+
+[node name="Left" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-616, 0)
+shape = SubResource("wall_v")
+
+[node name="Right" type="CollisionShape2D" parent="Borders"]
+position = Vector2(616, 0)
+shape = SubResource("wall_v")
+
+[node name="TreeNW" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-420, -250)
+shape = SubResource("tree")
+
+[node name="TreeNE" type="CollisionShape2D" parent="Borders"]
+position = Vector2(380, -240)
+shape = SubResource("tree")
+
+[node name="TreeE" type="CollisionShape2D" parent="Borders"]
+position = Vector2(470, 250)
+shape = SubResource("tree")
+
+[node name="TreeSW" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-300, 300)
+shape = SubResource("tree")
+
+[node name="FringesDread" type="Area2D" parent="."]
+position = Vector2(40, 0)
+script = ExtResource("9_dread_zone")
+dread_zone_id = &"fringes_woods"
+dread_level = 45.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FringesDread"]
+shape = SubResource("dread_woods")
+
+[node name="DeepFringesDread" type="Area2D" parent="."]
+position = Vector2(420, 0)
+script = ExtResource("9_dread_zone")
+dread_zone_id = &"deep_fringes"
+dread_level = 78.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeepFringesDread"]
+shape = SubResource("dread_deep")
+
+[node name="PlaygroundTransition" type="Area2D" parent="."]
+position = Vector2(-620, 0)
+script = ExtResource("10_transition")
+target_zone_id = &"playground_fringes"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlaygroundTransition"]
+shape = SubResource("edge")
+
+[node name="EntryFromPlayground" type="Node2D" parent="." groups=["entry_from_playground_fringes"]]
+position = Vector2(-540, 0)
+
+[node name="EntryDefault" type="Node2D" parent="." groups=["entry_default"]]
+position = Vector2(-540, 0)
+
+[node name="DiggableSpotFringes" parent="." instance=ExtResource("6_diggable")]
+position = Vector2(-110, 110)
+spot_id = &"fringes_buried_memory"
+lore_text = "A child's shoe, far too small to have walked this far alone. The mud around it has not dried in a long time."
+dig_item = &"buried_bone"
+
+[node name="StilledChildKeepsake" parent="." instance=ExtResource("6_diggable")]
+position = Vector2(255, 55)
+spot_id = &"stilled_child_keepsake"
+lore_text = "A wooden duck, its paint flaked to grey. Scratched into the base by a small hand: \"don't let them take me.\" It is still warm."
+dig_item = &"tin_locket"
+
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="World" instance=ExtResource("3_player")]
+position = Vector2(-540, 0)
+
+[node name="Briar" parent="World" instance=ExtResource("4_briar")]
+position = Vector2(-575, 30)
+
+[node name="TwistedChild" parent="World" instance=ExtResource("5_twisted_child")]
+position = Vector2(180, 130)
+secret_spot_path = NodePath("../../StilledChildKeepsake")
+
+[node name="DreadOverlay" parent="." instance=ExtResource("7_dread_overlay")]
+
+[node name="Hud" type="CanvasLayer" parent="."]
+script = ExtResource("16_hud")
+
+[node name="TouchControls" type="CanvasLayer" parent="."]
+script = ExtResource("17_touch")
