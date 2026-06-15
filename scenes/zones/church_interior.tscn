@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://churchint001"]
+
+[ext_resource type="Script" uid="uid://1ckm5pumqnls" path="res://scripts/world/interior_root.gd" id="1_interior"]
+[ext_resource type="Texture2D" path="res://assets/sprites/painted/church_painted.png" id="2_bg"]
+[ext_resource type="PackedScene" uid="uid://cfpo0lhe11a3y" path="res://scenes/player/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://briarpup00001" path="res://scenes/companions/briar.tscn" id="4_briar"]
+[ext_resource type="Script" uid="uid://cey86whhn84l2" path="res://scripts/world/door_transition.gd" id="5_door"]
+
+[sub_resource type="RectangleShape2D" id="wall_h"]
+size = Vector2(700, 48)
+
+[sub_resource type="RectangleShape2D" id="wall_v"]
+size = Vector2(48, 1240)
+
+[sub_resource type="RectangleShape2D" id="pews"]
+size = Vector2(210, 760)
+
+[sub_resource type="RectangleShape2D" id="altar"]
+size = Vector2(320, 150)
+
+[sub_resource type="RectangleShape2D" id="trigger"]
+size = Vector2(120, 64)
+
+[node name="ChurchInterior" type="Node2D"]
+script = ExtResource("1_interior")
+dread_baseline = 12.0
+zone_id = &"church_interior"
+
+[node name="GroundBackdrop" type="Sprite2D" parent="."]
+texture = ExtResource("2_bg")
+
+[node name="Borders" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Top" type="CollisionShape2D" parent="Borders"]
+position = Vector2(0, -616)
+shape = SubResource("wall_h")
+
+[node name="Bottom" type="CollisionShape2D" parent="Borders"]
+position = Vector2(0, 616)
+shape = SubResource("wall_h")
+
+[node name="Left" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-336, 0)
+shape = SubResource("wall_v")
+
+[node name="Right" type="CollisionShape2D" parent="Borders"]
+position = Vector2(336, 0)
+shape = SubResource("wall_v")
+
+[node name="LeftPews" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-190, 110)
+shape = SubResource("pews")
+
+[node name="RightPews" type="CollisionShape2D" parent="Borders"]
+position = Vector2(190, 110)
+shape = SubResource("pews")
+
+[node name="Altar" type="CollisionShape2D" parent="Borders"]
+position = Vector2(0, -520)
+shape = SubResource("altar")
+
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="World" instance=ExtResource("3_player")]
+position = Vector2(0, 540)
+
+[node name="Briar" parent="World" instance=ExtResource("4_briar")]
+position = Vector2(-40, 552)
+
+[node name="SpawnDefault" type="Marker2D" parent="." groups=["spawn_default"]]
+position = Vector2(0, 540)
+
+[node name="ExitDoor" type="Area2D" parent="." groups=["interior_door"]]
+position = Vector2(0, 600)
+collision_mask = 2
+script = ExtResource("5_door")
+target_scene_path = "res://scenes/zones/village_green.tscn"
+spawn_id = &"from_church"
+prompt_text = "Leave the church"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitDoor"]
+shape = SubResource("trigger")
