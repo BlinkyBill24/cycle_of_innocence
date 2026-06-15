@@ -125,10 +125,10 @@ position = Vector2(560, 20)
 position = Vector2(0, -120)
 
 [node name="EntryFromPlayground" type="Node2D" parent="." groups=["entry_from_playground_fringes"]]
-position = Vector2(500, 120)
+position = Vector2(500, 30)
 
 [node name="EntryDefault" type="Node2D" parent="." groups=["entry_default"]]
-position = Vector2(500, 120)
+position = Vector2(500, 30)
 
 [node name="EavesdropBench" type="Area2D" parent="."]
 position = Vector2(120, 140)
@@ -155,7 +155,7 @@ source_npc_id = &"warden_brek"
 shape = SubResource("listen")
 
 [node name="PlaygroundTransition" type="Area2D" parent="."]
-position = Vector2(585, 0)
+position = Vector2(585, 30)
 script = ExtResource("10_transition")
 target_zone_id = &"playground_fringes"
 

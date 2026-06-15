@@ -7,19 +7,20 @@
 [ext_resource type="Script" uid="uid://cey86whhn84l2" path="res://scripts/world/door_transition.gd" id="5_door"]
 
 [sub_resource type="RectangleShape2D" id="wall_h"]
-size = Vector2(1180, 48)
+size = Vector2(708.0, 28.8)
 
 [sub_resource type="RectangleShape2D" id="wall_v"]
-size = Vector2(48, 820)
+size = Vector2(28.8, 492.0)
 
 [sub_resource type="RectangleShape2D" id="trigger"]
-size = Vector2(64, 64)
+size = Vector2(38.4, 38.4)
 
 [node name="CottageGround" type="Node2D"]
 script = ExtResource("1_interior")
 zone_id = &"cottage_ground"
 
 [node name="GroundBackdrop" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_bg")
 
 [node name="Borders" type="StaticBody2D" parent="."]
@@ -27,38 +28,38 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Top" type="CollisionShape2D" parent="Borders"]
-position = Vector2(0, -378)
+position = Vector2(0.0, -226.8)
 shape = SubResource("wall_h")
 
 [node name="Bottom" type="CollisionShape2D" parent="Borders"]
-position = Vector2(0, 398)
+position = Vector2(0.0, 238.8)
 shape = SubResource("wall_h")
 
 [node name="Left" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-572, 0)
+position = Vector2(-343.2, 0.0)
 shape = SubResource("wall_v")
 
 [node name="Right" type="CollisionShape2D" parent="Borders"]
-position = Vector2(572, 0)
+position = Vector2(343.2, 0.0)
 shape = SubResource("wall_v")
 
 [node name="World" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Player" parent="World" instance=ExtResource("3_player")]
-position = Vector2(0, 300)
+position = Vector2(0.0, 180.0)
 
 [node name="Briar" parent="World" instance=ExtResource("4_briar")]
-position = Vector2(-44, 312)
+position = Vector2(-26.4, 187.2)
 
 [node name="SpawnDefault" type="Marker2D" parent="." groups=["spawn_default"]]
-position = Vector2(0, 300)
+position = Vector2(0.0, 180.0)
 
 [node name="SpawnFromBasement" type="Marker2D" parent="." groups=["spawn_from_basement"]]
-position = Vector2(335, -60)
+position = Vector2(201.0, -36.0)
 
 [node name="ExitDoor" type="Area2D" parent="." groups=["interior_door"]]
-position = Vector2(0, 388)
+position = Vector2(0.0, 232.8)
 collision_mask = 2
 script = ExtResource("5_door")
 target_scene_path = "res://scenes/zones/village_green.tscn"
@@ -69,7 +70,7 @@ prompt_text = "Step outside"
 shape = SubResource("trigger")
 
 [node name="StairsDown" type="Area2D" parent="."]
-position = Vector2(335, -175)
+position = Vector2(201.0, -105.0)
 collision_mask = 2
 script = ExtResource("5_door")
 target_scene_path = "res://scenes/zones/cottage_basement.tscn"
@@ -80,10 +81,10 @@ prompt_text = "Go down"
 shape = SubResource("trigger")
 
 [node name="MartaSpot" type="Marker2D" parent="." groups=["marker_marta"]]
-position = Vector2(330, 215)
+position = Vector2(198.0, 129.0)
 
 [node name="RecontextSign" type="Sprite2D" parent="." groups=["recontext_monsters_are_children"]]
-position = Vector2(335, -175)
+position = Vector2(201.0, -105.0)
 scale = Vector2(0.04, 0.04)
 modulate = Color(1, 1, 1, 0)
 texture = ExtResource("2_bg")

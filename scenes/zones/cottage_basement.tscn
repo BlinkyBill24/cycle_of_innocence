@@ -7,13 +7,13 @@
 [ext_resource type="Script" uid="uid://cey86whhn84l2" path="res://scripts/world/door_transition.gd" id="5_door"]
 
 [sub_resource type="RectangleShape2D" id="wall_h"]
-size = Vector2(1180, 48)
+size = Vector2(708.0, 28.8)
 
 [sub_resource type="RectangleShape2D" id="wall_v"]
-size = Vector2(48, 820)
+size = Vector2(28.8, 492.0)
 
 [sub_resource type="RectangleShape2D" id="trigger"]
-size = Vector2(64, 64)
+size = Vector2(38.4, 38.4)
 
 [node name="CottageBasement" type="Node2D"]
 script = ExtResource("1_interior")
@@ -21,6 +21,7 @@ dread_baseline = 45.0
 zone_id = &"cottage_basement"
 
 [node name="GroundBackdrop" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_bg")
 
 [node name="Borders" type="StaticBody2D" parent="."]
@@ -28,35 +29,35 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Top" type="CollisionShape2D" parent="Borders"]
-position = Vector2(0, -378)
+position = Vector2(0.0, -226.8)
 shape = SubResource("wall_h")
 
 [node name="Bottom" type="CollisionShape2D" parent="Borders"]
-position = Vector2(0, 398)
+position = Vector2(0.0, 238.8)
 shape = SubResource("wall_h")
 
 [node name="Left" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-572, 0)
+position = Vector2(-343.2, 0.0)
 shape = SubResource("wall_v")
 
 [node name="Right" type="CollisionShape2D" parent="Borders"]
-position = Vector2(572, 0)
+position = Vector2(343.2, 0.0)
 shape = SubResource("wall_v")
 
 [node name="World" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Player" parent="World" instance=ExtResource("3_player")]
-position = Vector2(330, -40)
+position = Vector2(198.0, -24.0)
 
 [node name="Briar" parent="World" instance=ExtResource("4_briar")]
-position = Vector2(285, -28)
+position = Vector2(171.0, -16.8)
 
 [node name="SpawnFromAbove" type="Marker2D" parent="." groups=["spawn_from_above"]]
-position = Vector2(330, -55)
+position = Vector2(198.0, -33.0)
 
 [node name="StairsUp" type="Area2D" parent="."]
-position = Vector2(335, -175)
+position = Vector2(201.0, -105.0)
 collision_mask = 2
 script = ExtResource("5_door")
 target_scene_path = "res://scenes/zones/cottage_ground.tscn"
@@ -68,6 +69,6 @@ shape = SubResource("trigger")
 
 [node name="RecontextRemains" type="Sprite2D" parent="." groups=["recontext_monsters_are_children"]]
 modulate = Color(1, 1, 1, 0)
-position = Vector2(0, 120)
+position = Vector2(0.0, 72.0)
 scale = Vector2(0.04, 0.04)
 texture = ExtResource("2_bg")
