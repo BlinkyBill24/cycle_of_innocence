@@ -100,10 +100,10 @@ target_zone_id = &"playground_fringes"
 shape = SubResource("edge")
 
 [node name="EntryFromPlayground" type="Node2D" parent="." groups=["entry_from_playground_fringes"]]
-position = Vector2(-540, 0)
+position = Vector2(-500, 0)
 
 [node name="EntryDefault" type="Node2D" parent="." groups=["entry_default"]]
-position = Vector2(-540, 0)
+position = Vector2(-500, 0)
 
 [node name="DiggableSpotFringes" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(-110, 110)
@@ -121,7 +121,7 @@ dig_item = &"tin_locket"
 y_sort_enabled = true
 
 [node name="Player" parent="World" instance=ExtResource("3_player")]
-position = Vector2(-540, 0)
+position = Vector2(-500, 0)
 
 [node name="Briar" parent="World" instance=ExtResource("4_briar")]
 position = Vector2(-575, 30)

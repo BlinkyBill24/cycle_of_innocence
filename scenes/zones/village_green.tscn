@@ -125,10 +125,10 @@ position = Vector2(560, 20)
 position = Vector2(0, -120)
 
 [node name="EntryFromPlayground" type="Node2D" parent="." groups=["entry_from_playground_fringes"]]
-position = Vector2(530, 120)
+position = Vector2(500, 120)
 
 [node name="EntryDefault" type="Node2D" parent="." groups=["entry_default"]]
-position = Vector2(530, 120)
+position = Vector2(500, 120)
 
 [node name="EavesdropBench" type="Area2D" parent="."]
 position = Vector2(120, 140)
