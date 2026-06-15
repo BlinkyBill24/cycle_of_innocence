@@ -162,7 +162,7 @@ texture_scale = 0.95
 script = ExtResource("19_campfire")
 
 [node name="VillageTransition" type="Area2D" parent="."]
-position = Vector2(-690, 0)
+position = Vector2(-585, 0)
 script = ExtResource("10_transition")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VillageTransition"]
@@ -202,7 +202,7 @@ script = ExtResource("16_hud")
 script = ExtResource("17_touch")
 
 [node name="EntryFromVillage" type="Node2D" parent="." groups=["entry_from_village_edge"]]
-position = Vector2(-640, 0)
+position = Vector2(-560, 0)
 
 [node name="MarkerSearchGate" type="Node2D" parent="." groups=["marker_search_gate"]]
 position = Vector2(-600, 60)
@@ -314,7 +314,7 @@ surface = &"sand"
 shape = SubResource("RectangleShape2D_surface")
 
 [node name="FringesTransition" type="Area2D" parent="."]
-position = Vector2(630, 0)
+position = Vector2(585, 0)
 script = ExtResource("10_transition")
 target_zone_id = &"fringes"
 

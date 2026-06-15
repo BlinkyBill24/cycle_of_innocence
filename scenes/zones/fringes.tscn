@@ -92,7 +92,7 @@ dread_level = 78.0
 shape = SubResource("dread_deep")
 
 [node name="PlaygroundTransition" type="Area2D" parent="."]
-position = Vector2(-620, 0)
+position = Vector2(-585, 0)
 script = ExtResource("10_transition")
 target_zone_id = &"playground_fringes"
 
