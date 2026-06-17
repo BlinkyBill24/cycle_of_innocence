@@ -20,6 +20,7 @@ _Regenerated 2026-06-17 by `tools/digest.py`. Do not hand-edit._
 - _(none yet)_
 
 ## Recent sessions
+- [2026-06-17 — TradeForge workflow setup](../sessions/2026-06-17-tradeforge-workflow-setup.md)
 - [2026-06-15 — Painted backdrops (full re-wire)](../sessions/2026-06-15-painted-backdrops.md)
 - [2026-06-15 (cont.) — Painted backdrop tuning](../sessions/2026-06-15-painted-backdrops-tuning.md)
 - [2026-06-14 — Research inbox cleanup + interior design kit](../sessions/2026-06-14-research-inbox-cleanup.md)
@@ -27,7 +28,6 @@ _Regenerated 2026-06-17 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-14 — ALttP canon prop vocabulary](../sessions/2026-06-14-interior-props-alttp.md)
 - [2026-06-14 — Interior art + dressing pass](../sessions/2026-06-14-interior-art-pass.md)
 - [2026-06-14 — Hollow_house tiles](../sessions/2026-06-14-hollow-house-tiles.md)
-- [Session 2026-06-13](../sessions/2026-06-13.md)
 
 ## Ideas inbox
 - 94 captured items in [ideas.md](../ideas.md)
