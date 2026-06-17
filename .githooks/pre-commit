@@ -1,0 +1,14 @@
+#!/bin/sh
+# Branch guard: never commit directly to main/master. Work on a branch.
+branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+case "$branch" in
+  main|master)
+    echo "" >&2
+    echo "  BLOCKED: direct commits to '$branch' are not allowed." >&2
+    echo "  Create a working branch first:" >&2
+    echo "      git switch -c feature/your-change" >&2
+    echo "  Branch types: feature/  fix/  refactor/  docs/  chore/" >&2
+    echo "" >&2
+    exit 1 ;;
+esac
+exit 0
