@@ -4,3 +4,6 @@
 .env
 exports/
 assets/sprites/interiors/_src/
+
+# Claude Code per-user local settings
+.claude/settings.local.json
