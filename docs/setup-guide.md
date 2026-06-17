@@ -43,7 +43,7 @@ GitHub directly) can supply the upload files.
 ### B2. Vault on a machine
 1. Clone/sync the repo (`github.com/tchintchie/game`); the vault is `test/docs/`. Let Synology/git sync settle before opening.
 2. Install Obsidian → Open `test/docs` as vault.
-3. Python 3 present (for `tools/compile_snapshots.py` and `../scripts/obsidian/status.py`).
+3. Python 3 present (for `tools/compile_snapshots.py` and `tools/status.py`).
 4. Sync hygiene: don't keep the vault open in Obsidian on two machines simultaneously; exclude `.obsidian/workspace*` from sync if the client supports filters.
 
 ### B3. Claude Code CLI
@@ -68,7 +68,7 @@ GitHub directly) can supply the upload files.
 3. **Librarian:** in Claude Code — *"Process the inbox: read docs/research/[file]. Propose integrations — new/updated mechanics or design docs, decision records, ideas-inbox entries, story flags. Show me the full proposal before applying anything."* Locked decisions get flags, not edits; markers preserved; rejected ideas land in `docs/ideas.md` with reasons. Integrated files move to `docs/research/done/`.
 4. **Compile & sync** when a change set is milestone-worthy: `python3 tools/compile_snapshots.py` → replace the changed snapshots in project knowledge (replacing all four never hurts). Natural milestone = a merged PR that touched docs.
 5. **Status changes** on mechanics docs (`planned → implemented` etc.) are deliberate acts via the librarian/implementation PRs; superseded docs are marked, never deleted.
-6. **Audits**: `bash tools/check-brain.sh` (brain drift) + `python3 ../scripts/obsidian/status.py` (vault health) at session close — both already required by the completion checklist.
+6. **Audits**: `bash tools/check-brain.sh` (brain drift) + `python3 tools/status.py` (vault health) at session close — both already required by the completion checklist.
 
 **Division of labour in the shared brain:** claude.ai = outward-looking
 (market/genre research, design sparring, long-form dossiers — it sees snapshots,
