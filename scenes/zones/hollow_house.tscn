@@ -7,12 +7,8 @@
 [ext_resource type="Script" uid="uid://cey86whhn84l2" path="res://scripts/world/door_transition.gd" id="5_door"]
 [ext_resource type="PackedScene" uid="uid://b70vr0nx7dism" path="res://scenes/world/diggable_spot.tscn" id="6_diggable"]
 [ext_resource type="Script" uid="uid://bnho50hs5u7pg" path="res://scripts/world/whisper_spot.gd" id="7_whisper"]
-[ext_resource type="Script" path="res://scripts/world/fear_emitter.gd" id="8_fear"]
 [ext_resource type="Script" path="res://scripts/world/hollow_house_quest.gd" id="9_quest"]
-[ext_resource type="Script" path="res://scripts/world/gated_door.gd" id="10_gate"]
 [ext_resource type="Script" uid="uid://dii0kaxn04mrd" path="res://scripts/world/zone_recontext.gd" id="11_recontext"]
-[ext_resource type="Script" uid="uid://c2p3d3lhol1q8" path="res://scripts/world/dread_zone.gd" id="12_dread"]
-[ext_resource type="Texture2D" uid="uid://cvauq3s2y0ac" path="res://assets/sprites/fx/clue_glint.png" id="13_glint"]
 [ext_resource type="Texture2D" uid="uid://c6eknu52ocg5o" path="res://assets/sprites/light/glow_radial.png" id="14_glow"]
 [ext_resource type="Texture2D" uid="uid://co0mpi6jl6pyn" path="res://assets/sprites/interiors/gate_panel.png" id="15_gate_tex"]
 [ext_resource type="Texture2D" uid="uid://cwgtgvju7qh56" path="res://assets/sprites/interiors/props/hollow_broken_table.png" id="20_btable"]
@@ -48,9 +44,6 @@ size = Vector2(40, 40)
 
 [sub_resource type="RectangleShape2D" id="door_block"]
 size = Vector2(12, 72)
-
-[sub_resource type="CircleShape2D" id="dread_circle"]
-radius = 95.0
 
 [sub_resource type="CircleShape2D" id="whisper_circle"]
 radius = 38.0
@@ -183,53 +176,46 @@ position = Vector2(-120, 110)
 position = Vector2(-200, 110)
 collision_mask = 2
 script = ExtResource("5_door")
-target_scene_path = "res://scenes/zones/playground_fringes.tscn"
+target_scene_path = "res://scenes/zones/village_green.tscn"
 spawn_id = &"from_hollow_house"
 prompt_text = "Step outside"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitDoor"]
 shape = SubResource("exit_door")
 
-[node name="GatedDoor" type="StaticBody2D" parent="." groups=["interior_door"]]
+[node name="InnerDoor" type="Area2D" parent="." groups=["interior_door"]]
+position = Vector2(48, 125)
+collision_mask = 2
+script = ExtResource("5_door")
+target_scene_path = "res://scenes/zones/hollow_house_back.tscn"
+spawn_id = &"default"
+locked_reason = "Locked. Something small is missing."
+prompt_text = "Open the door"
+unlock_item_id = &"hollow_key"
+unlock_flag = &"hollow_inner_unlocked"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InnerDoor"]
+shape = SubResource("exit_door")
+
+[node name="InnerDoorBlock" type="StaticBody2D" parent="."]
 position = Vector2(60, 125)
 collision_mask = 0
-script = ExtResource("10_gate")
 
-[node name="Panel" type="Sprite2D" parent="GatedDoor"]
+[node name="Panel" type="Sprite2D" parent="InnerDoorBlock"]
 texture = ExtResource("15_gate_tex")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GatedDoor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InnerDoorBlock"]
 shape = SubResource("door_block")
 
-[node name="DoorScratch" parent="." instance=ExtResource("6_diggable")]
+[node name="SpawnFromBack" type="Marker2D" parent="." groups=["spawn_from_back"]]
+position = Vector2(35, 128)
+
+[node name="BuriedKey" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(40, 116)
-spot_id = &"hollow_door_scratch"
-
-[node name="Ledger" parent="." instance=ExtResource("6_diggable")]
-position = Vector2(160, -60)
-spot_id = &"hollow_house_ledger"
-lore_text = "A water-stained ledger, hidden under a loose board. Columns of numbers you cannot yet read."
-lore_sign_id = &"hollow_house_ledger"
-lore_text_recontext = "The ledger. You know the numbers now — they are draws, and the margins are full of children's names."
-recontext_revelation = &"hollow_house_truth"
-dig_item = &"hollow_house_ledger"
-
-[node name="Glint" type="Sprite2D" parent="Ledger"]
-position = Vector2(0, -12)
-texture = ExtResource("13_glint")
-
-[node name="FearEmitter" type="Node2D" parent="Ledger"]
-script = ExtResource("8_fear")
-
-[node name="DeepDread" type="Area2D" parent="."]
-position = Vector2(150, -30)
-collision_mask = 2
-script = ExtResource("12_dread")
-dread_zone_id = &"hollow_inner"
-dread_level = 55.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DeepDread"]
-shape = SubResource("dread_circle")
+spot_id = &"hollow_buried_key"
+lore_text = "Fresh-turned earth — and a key too small for any grown hand."
+lore_sign_id = &"hollow_buried_key"
+dig_item = &"hollow_key"
 
 [node name="WhisperScratches" type="Area2D" parent="."]
 position = Vector2(-150, -80)
@@ -269,7 +255,7 @@ shape = SubResource("whisper_circle")
 
 [node name="RecontextDrawing" type="Sprite2D" parent="." groups=["recontext_hollow_house_truth"]]
 modulate = Color(0.7, 0.3, 0.3, 0.8)
-position = Vector2(150, -110)
+position = Vector2(-30, -120)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("14_glow")
 
@@ -278,4 +264,4 @@ script = ExtResource("11_recontext")
 
 [node name="Quest" type="Node" parent="."]
 script = ExtResource("9_quest")
-book_spot_path = NodePath("../Ledger")
+seek_spot_path = NodePath("../BuriedKey")

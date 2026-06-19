@@ -1,0 +1,138 @@
+[gd_scene load_steps=17 format=3 uid="uid://hollowback0001"]
+
+[ext_resource type="Script" uid="uid://1ckm5pumqnls" path="res://scripts/world/interior_root.gd" id="1_interior"]
+[ext_resource type="Texture2D" uid="uid://dxfox5a5tpcck" path="res://assets/sprites/interiors/hollow_house_floor.png" id="2_floor"]
+[ext_resource type="PackedScene" uid="uid://cfpo0lhe11a3y" path="res://scenes/player/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://briarpup00001" path="res://scenes/companions/briar.tscn" id="4_briar"]
+[ext_resource type="Script" uid="uid://cey86whhn84l2" path="res://scripts/world/door_transition.gd" id="5_door"]
+[ext_resource type="Script" path="res://scripts/world/searchable_clue.gd" id="6_search"]
+[ext_resource type="Texture2D" uid="uid://c6eknu52ocg5o" path="res://assets/sprites/light/glow_radial.png" id="7_glow"]
+[ext_resource type="Texture2D" uid="uid://cwgtgvju7qh56" path="res://assets/sprites/interiors/props/hollow_broken_table.png" id="8_table"]
+[ext_resource type="Texture2D" uid="uid://c5iritvf2exo5" path="res://assets/sprites/interiors/props/hollow_lone_chair.png" id="9_chair"]
+[ext_resource type="Texture2D" uid="uid://b0swx41fq5tb5" path="res://assets/sprites/interiors/props/hollow_dust_sheet.png" id="10_sheet"]
+[ext_resource type="Texture2D" uid="uid://cvauq3s2y0ac" path="res://assets/sprites/fx/clue_glint.png" id="11_glint"]
+[ext_resource type="Texture2D" uid="uid://875bow0t62og" path="res://assets/sprites/interiors/props/hollow_broken_cabinet.png" id="12_cabinet"]
+
+[sub_resource type="RectangleShape2D" id="wall_h"]
+size = Vector2(330, 12)
+
+[sub_resource type="RectangleShape2D" id="wall_v"]
+size = Vector2(12, 250)
+
+[sub_resource type="CircleShape2D" id="book_area"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="clue_area"]
+radius = 18.0
+
+[node name="HollowHouseBack" type="Node2D"]
+script = ExtResource("1_interior")
+dread_baseline = 30.0
+zone_id = &"hollow_house_back"
+
+[node name="GroundBackdrop" type="Sprite2D" parent="."]
+texture = ExtResource("2_floor")
+
+[node name="DarkTint" type="CanvasModulate" parent="."]
+color = Color(0.26, 0.24, 0.3, 1)
+
+[node name="AmbientLight" type="PointLight2D" parent="."]
+position = Vector2(0, -60)
+color = Color(0.78, 0.74, 0.66, 1)
+energy = 0.85
+texture = ExtResource("7_glow")
+texture_scale = 1.4
+
+[node name="Borders" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="Top" type="CollisionShape2D" parent="Borders"]
+position = Vector2(0, -120)
+shape = SubResource("wall_h")
+
+[node name="Bottom" type="CollisionShape2D" parent="Borders"]
+position = Vector2(0, 120)
+shape = SubResource("wall_h")
+
+[node name="Left" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-160, 0)
+shape = SubResource("wall_v")
+
+[node name="Right" type="CollisionShape2D" parent="Borders"]
+position = Vector2(160, 0)
+shape = SubResource("wall_v")
+
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="World" instance=ExtResource("3_player")]
+position = Vector2(0, 80)
+
+[node name="Briar" parent="World" instance=ExtResource("4_briar")]
+position = Vector2(-30, 92)
+
+[node name="BookTable" type="Sprite2D" parent="World"]
+position = Vector2(0, -68)
+texture = ExtResource("8_table")
+
+[node name="Chair" type="Sprite2D" parent="World"]
+position = Vector2(40, -50)
+texture = ExtResource("9_chair")
+
+[node name="DustSheet" type="Sprite2D" parent="World"]
+position = Vector2(-110, -40)
+texture = ExtResource("10_sheet")
+
+[node name="Cabinet" type="Sprite2D" parent="World"]
+position = Vector2(120, -78)
+texture = ExtResource("12_cabinet")
+
+[node name="SpawnDefault" type="Marker2D" parent="." groups=["spawn_default"]]
+position = Vector2(0, 80)
+
+[node name="ExitDoor" type="Area2D" parent="." groups=["interior_door"]]
+position = Vector2(-120, 100)
+collision_mask = 2
+script = ExtResource("5_door")
+target_scene_path = "res://scenes/zones/hollow_house.tscn"
+spawn_id = &"from_back"
+prompt_text = "Back to the hall"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitDoor"]
+shape = SubResource("book_area")
+
+[node name="Ledger" type="Area2D" parent="."]
+position = Vector2(0, -50)
+collision_mask = 2
+script = ExtResource("6_search")
+spot_id = &"hollow_house_ledger"
+lore_text = "A water-stained ledger, hidden under a loose board. Columns of numbers you cannot yet read."
+lore_text_recontext = "The ledger. You know the numbers now — they are draws, and the margins are full of children's names."
+recontext_revelation = &"hollow_house_truth"
+journal_kind = 0
+prompt_text = "Read the ledger"
+dialogue_path = "res://resources/dialogue/hollow_house_book.dialogue"
+marks_book_read = true
+book_read_flag = &"hollow_book_read"
+revelation_id = &"hollow_house_truth"
+doom_prefix = "sign_hollow"
+doom_threshold = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ledger"]
+shape = SubResource("book_area")
+
+[node name="Glint" type="Sprite2D" parent="Ledger"]
+position = Vector2(0, -16)
+texture = ExtResource("11_glint")
+
+[node name="Primer" type="Area2D" parent="."]
+position = Vector2(120, -40)
+collision_mask = 2
+script = ExtResource("6_search")
+spot_id = &"hollow_primer"
+lore_text = "A child's primer. Last page, dog-eared in pencil: 'When the bell rings, be brave. It doesn't hurt for long.'"
+journal_kind = 0
+prompt_text = "Search the shelf"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Primer"]
+shape = SubResource("clue_area")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bq5l6scrtss13"]
+[gd_scene load_steps=21 format=3 uid="uid://bq5l6scrtss13"]
 
 [ext_resource type="Script" uid="uid://djr7o5g0hpu7q" path="res://scripts/world/village_green.gd" id="1_zone"]
 [ext_resource type="PackedScene" uid="uid://cfpo0lhe11a3y" path="res://scenes/player/player.tscn" id="3_player"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://cnh1w3wphurkn" path="res://scripts/ui/touch_controls.gd" id="15_touch"]
 [ext_resource type="Texture2D" path="res://assets/sprites/painted/village_painted.png" id="17_bg"]
 [ext_resource type="Script" uid="uid://cey86whhn84l2" path="res://scripts/world/door_transition.gd" id="door_transition"]
+[ext_resource type="Texture2D" uid="uid://cvauq3s2y0ac" path="res://assets/sprites/fx/clue_glint.png" id="hh_glint"]
 
 [sub_resource type="RectangleShape2D" id="wall_h"]
 size = Vector2(1240, 48)
@@ -187,6 +188,31 @@ shape = SubResource("door")
 
 [node name="SpawnFromChurch" type="Marker2D" parent="." groups=["spawn_from_church"]]
 position = Vector2(340, -100)
+
+[node name="HollowHouseDoor" type="Area2D" parent="." groups=["interior_door"]]
+position = Vector2(360, 205)
+collision_mask = 2
+script = ExtResource("door_transition")
+target_scene_path = "res://scenes/zones/hollow_house.tscn"
+prompt_text = "Enter the hollow house"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HollowHouseDoor"]
+shape = SubResource("door")
+
+[node name="Doorway" type="Polygon2D" parent="HollowHouseDoor"]
+color = Color(0.04, 0.03, 0.05, 0.96)
+polygon = PackedVector2Array(-13, 16, -13, -18, -6, -26, 6, -26, 13, -18, 13, 16)
+
+[node name="DoorwayFrame" type="Polygon2D" parent="HollowHouseDoor"]
+color = Color(0.22, 0.18, 0.16, 0.85)
+polygon = PackedVector2Array(-16, 17, -16, -19, -7, -29, 7, -29, 16, -19, 16, 17, 13, 17, 13, -18, 6, -26, -6, -26, -13, -18, -13, 17)
+
+[node name="Glint" type="Sprite2D" parent="HollowHouseDoor"]
+position = Vector2(0, -34)
+texture = ExtResource("hh_glint")
+
+[node name="SpawnFromHollowHouse" type="Marker2D" parent="." groups=["spawn_from_hollow_house"]]
+position = Vector2(360, 165)
 
 [node name="World" type="Node2D" parent="."]
 y_sort_enabled = true

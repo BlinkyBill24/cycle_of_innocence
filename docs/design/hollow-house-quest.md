@@ -126,6 +126,30 @@ Graybox slice on existing systems only; suite 262 green, headless boot clean.
 > **Art is graybox** — real interior tiles/props + a real `seek_tell` animation
 > and `briar_seek` bark are the PixelLab/ElevenLabs pass.
 
+## Built — pass 2 (2026-06-19, branch `feature/hollow-house-microquest`)
+Wired the (previously unreachable) house into the world as a playable loop and
+took the **key-item HYBRID** at a human fork — see
+[[decisions/2026-06-19-hollow-house-key-gate-hybrid]]. **This supersedes the
+pass-1 "stuck door Briar scratches open / not a key-hunt" gate above**; the
+recontext beat stays knowledge-gated (the key gates *access*, the doom-signal
+threshold still gates the *truth*).
+- **Entrance**: `DoorTransition` off `village_green` (lower-right cottage
+  `BldCotR`, near the player's arrival; graybox doorway + glint cue) +
+  `spawn_from_hollow_house` return; hall `ExitDoor` repointed to the green.
+- **Key gate**: `DoorTransition.unlock_item_id` + persistent `unlock_flag` +
+  `consume_key_on_unlock`, pure static `compute_locked()`. Buried-key
+  `DiggableSpot` (`dig_item=&"hollow_key"`) in the hall; Briar's scent-growl/seek
+  targets it. The key is spent on first unlock; the flag keeps the door open.
+- **Book → back nook** (`hollow_house_back.tscn`): the ledger is a new
+  `SearchableClue` INTERACT one-shot; reading it writes LORE + drives
+  `HollowHouseQuest.try_fire` (still needs ≥2 `sign_hollow_*` DOOM). The hall
+  quest node is the cross-scene safety-net; `RecontextDrawing` moved to the hall
+  so the space reframes on exit.
+- **New asset**: `hollow_key` ItemDef ("Tarnished Key", consumed) + PixelLab
+  sprite (low top-down, 32px).
+- Suite **275 green**; check-brain green. Removed: `GatedDoor` node, hall
+  `Ledger`/`FearEmitter`/`DeepDread` (book moved; nook carries dread).
+
 ## Out of scope (defer)
 Age-progression/long-arc systems, new mechanics, the zone-wide art pass (Phase 3,
 after playtest validates the beats), and any "detective vision" sense (ideas
