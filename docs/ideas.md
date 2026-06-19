@@ -24,6 +24,8 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - Strong emphasis on "no Mote reuse" — document guardrails in GROK.md and local handbook.
 
 ## 📥 Captured this session
+- **Bug (pre-existing, found 2026-06-19)**: zone smoke tests log `Node not found: "Ground"` / `"DuskTint"` and `set_cell on a null value` for `village_green.gd` + `playground_fringes.gd` — those zone scripts reference nodes the scenes don't have (scenes use `GroundBackdrop`; there's no `DuskTint`). Tests still pass (null-tolerant) but it's noisy and a latent crash. Fix the node names or guard the lookups.
+- Cleanup: `scripts/world/gated_door.gd` is now unused by any scene (Hollow House inner gate went key-item, 2026-06-19, [[decisions/2026-06-19-hollow-house-key-gate-hybrid]]). Delete once no planned slice wants a dig-to-open gate.
 - Monster + ambient SFX wiring: batch-2 sounds exist but nothing calls them — `twisted_child` → `monster_attack` (lunge), `monster_hurt` (hurt/crumble), `monster_creep` (stalk ambient); `campfire_crackle` → `AudioStreamPlayer2D` on the Hideout campfire (loop already enabled); `church_bell` → village chapel toll.
 - Ambient SFX beds: `crickets.wav` + `owl_hoot.wav` exist but aren't wired — loop-enable the import and drive them from AdaptiveAudio (night/dread layer) so the fringe feels alive. Owl could also fire as an occasional dread stinger.
 - Per-surface footsteps: `footstep_grass` + `footstep_gravel` both exist; player_controller should pick by ground type (tile/zone) instead of always grass. Tiny state hook.

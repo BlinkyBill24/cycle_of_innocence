@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDef" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/items/item_def.gd" id="1_itemdef"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items/hollow_key.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_itemdef")
+id = &"hollow_key"
+display_name = "Tarnished Key"
+category = 0
+icon = ExtResource("2_icon")
+description = "A small iron key, tarnished green. Too small for any grown hand."
+distorted_description = ""
+stackable = false
+max_stack = 1
+discardable = false
+companion_id = &""
+use_kind = 0
+bond_delta = 0.0
+morality_delta = 0.0
+consumed_on_use = true

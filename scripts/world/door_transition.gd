@@ -24,6 +24,16 @@ enum Mode { INTERACT, ENTER }
 ## Shown floating over the door in INTERACT mode while the player stands on it.
 @export var prompt_text := "Enter"
 
+## Optional inventory gate: while set, the door is locked until the player holds
+## `unlock_item_id` (Inventory.has). Passing the gate sets `unlock_flag` so the
+## door stays open for the rest of the run, and (if `consume_key_on_unlock`)
+## spends the key — a single-use key, not a permanent pass you keep in the bag.
+@export var unlock_item_id: StringName = &""
+## Persistent "already opened" flag (PlayerData story flag). Required so the door
+## stays unlocked after its key is consumed, across save/load and re-entry.
+@export var unlock_flag: StringName = &""
+@export var consume_key_on_unlock := true
+
 var _player_inside := false
 var _label: Label
 ## The prompt lives on its own CanvasLayer (follow_viewport) so a dark interior's
@@ -45,7 +55,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if mode == Mode.ENTER:
 		trigger()
 	else:
-		_show_prompt(locked_reason if locked else "%s  [E]" % prompt_text)
+		_show_prompt(locked_reason if is_locked() else "%s  [E]" % prompt_text)
 
 
 func _on_body_exited(body: Node2D) -> void:
@@ -65,15 +75,49 @@ func _unhandled_input(event: InputEvent) -> void:
 ## Attempt the transition. Returns false when locked (blocked). Static-ish:
 ## the actual scene swap is ZoneManager's deferred change_scene.
 func trigger() -> bool:
-	if locked:
+	if is_locked():
 		_show_prompt(locked_reason)
 		return false
+	_apply_unlock()  # first pass through an item gate records it + spends the key
 	var path := target_path()
 	if path.is_empty():
 		push_warning("DoorTransition '%s': no target_scene set" % name)
 		return false
 	ZoneManager.go_to_scene(path, spawn_id)
 	return true
+
+
+## Pure lock rule (testable): a door is locked if it has been opened before
+## (`already_unlocked`) it is open for good; else `locked` blocks it, and an
+## item gate blocks it until the key is held.
+static func compute_locked(
+	base_locked: bool, gates_on_item: bool, has_item: bool, already_unlocked: bool
+) -> bool:
+	if already_unlocked:
+		return false
+	if base_locked:
+		return true
+	return gates_on_item and not has_item
+
+
+## Is this threshold currently blocked? Reads the live inventory + the persistent
+## unlock flag; the rule itself lives in compute_locked() for unit tests.
+func is_locked() -> bool:
+	var already := unlock_flag != &"" and PlayerData.has_story_flag(unlock_flag)
+	var has_it := unlock_item_id != &"" and Inventory.has(unlock_item_id)
+	return compute_locked(locked, unlock_item_id != &"", has_it, already)
+
+
+## Record the one-time unlock: set the persistent flag and spend the key. Split
+## out of trigger() so the scene-changing path and the unit test share it.
+func _apply_unlock() -> void:
+	if unlock_flag == &"" or PlayerData.has_story_flag(unlock_flag):
+		return
+	if unlock_item_id == &"":
+		return  # nothing to record for a plain (non-item) door
+	PlayerData.set_story_flag(unlock_flag)
+	if consume_key_on_unlock and Inventory.has(unlock_item_id):
+		Inventory.use(unlock_item_id)  # use() consumes even non-discardable key items
 
 
 ## The target scene's resource path (empty if unset). Pure — testable.
