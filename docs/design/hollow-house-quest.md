@@ -133,7 +133,8 @@ took the **key-item HYBRID** at a human fork — see
 pass-1 "stuck door Briar scratches open / not a key-hunt" gate above**; the
 recontext beat stays knowledge-gated (the key gates *access*, the doom-signal
 threshold still gates the *truth*).
-- **Entrance**: `DoorTransition` off `village_green` (`BldCotL`) +
+- **Entrance**: `DoorTransition` off `village_green` (lower-right cottage
+  `BldCotR`, near the player's arrival; graybox doorway + glint cue) +
   `spawn_from_hollow_house` return; hall `ExitDoor` repointed to the green.
 - **Key gate**: `DoorTransition.unlock_item_id` + persistent `unlock_flag` +
   `consume_key_on_unlock`, pure static `compute_locked()`. Buried-key

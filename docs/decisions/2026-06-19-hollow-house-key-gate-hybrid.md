@@ -26,9 +26,14 @@ Keep the *mechanical* key loop the goal wants, but keep the *narrative payoff*
 knowledge-gated:
 
 - **Reachability (the real gap).** The house was referenced by nothing but its
-  own quest script. Add the entrance off `village_green` (the unused western
-  cottage `BldCotL`) + a `spawn_from_hollow_house` return marker; repoint the
-  hall `ExitDoor` → `village_green`.
+  own quest script. Add the entrance off `village_green` (the **lower-right
+  cottage `BldCotR`**, near where the player arrives from the playground — moved
+  there 2026-06-19 after the first spot, `BldCotL`, turned out to be garden
+  plots in the painting, not a house) + a `spawn_from_hollow_house` return
+  marker; repoint the hall `ExitDoor` → `village_green`. A graybox doorway
+  Polygon2D + clue glint marks it (the painting has no door there yet). *Soft
+  lore overlap to revisit: `BldCotR` also carries the `marker_house_pieter`
+  nav marker — fine for the graybox, flag for the art/lore pass.*
 - **Key gate.** `DoorTransition` gains `unlock_item_id` + a persistent
   `unlock_flag` + `consume_key_on_unlock`, and a pure static `compute_locked()`.
   A buried-key `DiggableSpot` (`dig_item=&"hollow_key"`) in the hall feeds it;

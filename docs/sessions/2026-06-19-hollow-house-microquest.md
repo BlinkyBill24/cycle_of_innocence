@@ -14,9 +14,12 @@ goal's key-hunt reversed a `[verified]` "knowledge-gated, not a key-hunt"
 decision in [[design/hollow-house-quest]]; the human chose **HYBRID** + a
 **village_green** entrance. Decision: [[decisions/2026-06-19-hollow-house-key-gate-hybrid]].
 
-- **Reachability**: added `HollowHouseDoor` (`DoorTransition`) off the unused
-  western cottage `BldCotL` in `village_green.tscn` + `spawn_from_hollow_house`
-  return marker; repointed the hall `ExitDoor` → `village_green`.
+- **Reachability**: added `HollowHouseDoor` (`DoorTransition`) off the
+  lower-right cottage `BldCotR` in `village_green.tscn` (+ a graybox doorway
+  Polygon2D + clue glint, since the painting has no door there) +
+  `spawn_from_hollow_house` return marker; repointed the hall `ExitDoor` →
+  `village_green`. *(First tried `BldCotL`; that spot is garden plots in the
+  painting, not a house — moved to the lower-right cottage per playtest.)*
 - **Key gate on `DoorTransition`**: `unlock_item_id`, persistent `unlock_flag`,
   `consume_key_on_unlock`, and pure static `compute_locked()` / instance
   `is_locked()` / `_apply_unlock()` (records the flag, spends the key via

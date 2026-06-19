@@ -190,7 +190,7 @@ shape = SubResource("door")
 position = Vector2(340, -100)
 
 [node name="HollowHouseDoor" type="Area2D" parent="." groups=["interior_door"]]
-position = Vector2(-350, 205)
+position = Vector2(360, 205)
 collision_mask = 2
 script = ExtResource("door_transition")
 target_scene_path = "res://scenes/zones/hollow_house.tscn"
@@ -212,7 +212,7 @@ position = Vector2(0, -34)
 texture = ExtResource("hh_glint")
 
 [node name="SpawnFromHollowHouse" type="Marker2D" parent="." groups=["spawn_from_hollow_house"]]
-position = Vector2(-350, 165)
+position = Vector2(360, 165)
 
 [node name="World" type="Node2D" parent="."]
 y_sort_enabled = true
