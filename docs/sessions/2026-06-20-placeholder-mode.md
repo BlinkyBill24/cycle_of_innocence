@@ -47,15 +47,24 @@ playtested with art stripped to flat shapes. Quest untouched (reused as-is).
   `FringesTransition`) — `playground_fringes` itself only has the atmospheric
   `GlimpseSilhouette`. Nothing is walled off (visual-only).
 
-## ⚠ Honest finding (faithful reporting, not fixed here)
-- **"House is the dominant feature from spawn" is NOT true in the current build.**
-  The Hollow House entrance is in `village_green`, a **zone west** of the
-  `playground_fringes` spawn — it is *not visible from spawn*; you reach it by
-  crossing zones. This is exactly the wayfinding gap the placeholder build is
-  meant to surface. I did **not** restructure the world to force it (goal: reuse
-  as-is, don't wall off fringes; the village_green entrance was a deliberate
-  prior choice). Decision for the human: leave it cross-zone, move the entrance
-  into the spawn zone, or boot the test build into `village_green`.
+## Deliverable 3.1 — "house dominant from spawn" (resolved)
+First pass shipped the build with the spawn (`playground_fringes`) a zone away
+from the Hollow House (`village_green`) — so the house was NOT the dominant
+feature from spawn. Resolved per the Stop-hook requirement with the smallest
+faithful, reversible change (spatial layout only, no UI nudge):
+- **Boot the test build into `village_green`** (`project.godot run/main_scene`,
+  was `playground_fringes`).
+- **Spawn the player at `(360, 60)`** — directly **north of and facing** the
+  Hollow House door `(360, 205)`, ~145px ahead — so the house (its green
+  interactable stand-in under placeholder mode) is the dominant feature straight
+  ahead from spawn. Briar moved alongside to `(335, 82)`.
+- **Fringes still reachable**: `village_green` → `PlaygroundTransition` (east) →
+  `playground_fringes` (clues) → `FringesTransition` → `fringes` (the
+  `TwistedChild` encounter). Nothing walled off.
+- **Reversibility**: both are plain test-build settings — revert `main_scene` to
+  `playground_fringes` (and the spawn) to restore the normal intro/naming flow.
+- Suite still 280 green; the boot now also surfaces the pre-existing
+  `village_green.gd` `Ground`/`DuskTint` null refs (logged in ideas) — non-fatal.
 
 ## Notes
 - `AgeMorph` could in principle re-show the player sprite it toggles; acceptable
