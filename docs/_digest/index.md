@@ -26,8 +26,8 @@ _Regenerated 2026-06-20 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-20 — Research inbox: suspicion decay](../sessions/2026-06-20-research-village-suspicion.md)
 - [2026-06-20 — Librarian pass: solo-dev setup & Godot 4.4 Web](../sessions/2026-06-20-research-solo-dev-setup.md)
 - [2026-06-20 — Research inbox: SNES-classics features (Grok)](../sessions/2026-06-20-research-snes-features.md)
+- [2026-06-20 — Web export audio check + librarian pass (slice validation note)](../sessions/2026-06-20-research-slice-validation-pass.md)
 - [2026-06-20 — Research inbox: escape-room set-piece + Warden Oslo](../sessions/2026-06-20-research-setpiece-warden.md)
-- [2026-06-20 — Research inbox: player abilities (Grok)](../sessions/2026-06-20-research-player-abilities.md)
 
 ## Ideas inbox
 - 119 captured items in [ideas.md](../ideas.md)

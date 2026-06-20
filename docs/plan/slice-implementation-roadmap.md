@@ -10,6 +10,8 @@ related_decisions: "[[decisions/2026-06-10-slice-implementation-plan]]"
 
 Concretizes Phases 0–2 of [[decisions/2026-06-09-cycle-of-innocence-build-plan]] into executable, agent-assigned milestones. Slice definition + exit criteria: AGENTS.md. **Slice target**: child Rowan + Briar pup, playground→fringes zone, real-time combat vs one monster, one dialogue choice with morality/bond impact, one dread beat, save stub, touch parity, F5 <10s on web.
 
+> **Posture (2026-06-20):** the remaining slice work is a **validation + content pass, not a build** — the systems below already exist (GameEvents, PlayerData, DreadManager, HollowingClock, VillageState, ZoneManager + recontext, Dialogue balloons, companion bond/corruption, mercy/soothe, SaveManager, adaptive audio, witnessed Journal). The two live bottlenecks are **(a) proving the slice runs and *feels* right on the Web target — audio is the open risk** ([[ideas]] "de-risk Web audio"; export builds clean + audio code is Web-safe as of 2026-06-20, but the in-browser listen is unconfirmed) and **(b) authoring the content that fills the systems** — the recontext lines, the companion exchange, the horror beat (the "content drought"; the *words* are the human's, not a tool's). Keep the built companion **Briar** in the slice — pulling in **Echo/Storm** is a new-mechanic detour that breaks content-complete-per-zone. Sources: [[research/done/2026-06-20-vertical-slice-validation-content-pass]] · [[research/done/2026-06-20-solo-dev-project-setup-godot-web]].
+
 ## Agent assignment matrix
 
 | Agent | Owns | Interface |
