@@ -20,6 +20,7 @@ _Regenerated 2026-06-20 by `tools/digest.py`. Do not hand-edit._
 - _(none yet)_
 
 ## Recent sessions
+- [2026-06-20 — Web build + audio confirmed in a real browser](../sessions/2026-06-20-web-audio-confirmed.md)
 - [2026-06-20 — Weapon combat (Wiring & Audibility pass, item 1)](../sessions/2026-06-20-weapon-combat.md)
 - [2026-06-20 — LimboAI Web export verification](../sessions/2026-06-20-verify-limboai-web.md)
 - [2026-06-20 — Stale Ground / DuskTint node refs](../sessions/2026-06-20-stale-zone-node-refs.md)
@@ -27,7 +28,6 @@ _Regenerated 2026-06-20 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-20 — Librarian pass: solo-dev setup & Godot 4.4 Web](../sessions/2026-06-20-research-solo-dev-setup.md)
 - [2026-06-20 — Research inbox: SNES-classics features (Grok)](../sessions/2026-06-20-research-snes-features.md)
 - [2026-06-20 — Web export audio check + librarian pass (slice validation note)](../sessions/2026-06-20-research-slice-validation-pass.md)
-- [2026-06-20 — Research inbox: escape-room set-piece + Warden Oslo](../sessions/2026-06-20-research-setpiece-warden.md)
 
 ## Ideas inbox
 - 119 captured items in [ideas.md](../ideas.md)
