@@ -109,6 +109,12 @@ radius = 20.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_surface"]
 size = Vector2(360, 360)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sand"]
+size = Vector2(230, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wood"]
+size = Vector2(96, 84)
+
 [node name="PlaygroundFringes" type="Node2D"]
 script = ExtResource("1_zone")
 zone_id = &"playground_fringes"
@@ -368,14 +374,59 @@ shape = SubResource("CircleShape2D_forage")
 color = Color(0.5, 0.5, 0.55, 0.9)
 polygon = PackedVector2Array(0, -6, 5, 0, 0, 6, -5, 0)
 
-[node name="PlazaGravel" type="Area2D" parent="." groups=["surface_zone"]]
-position = Vector2(-120, -40)
+[node name="PathHub" type="Area2D" parent="." groups=["surface_zone"]]
+position = Vector2(0, 30)
+collision_mask = 2
+script = ExtResource("42_surface")
+surface = &"path"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathHub"]
+shape = SubResource("RectangleShape2D_surface")
+
+[node name="SandPit" type="Area2D" parent="." groups=["surface_zone"]]
+position = Vector2(330, 240)
 collision_mask = 2
 script = ExtResource("42_surface")
 surface = &"sand"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlazaGravel"]
-shape = SubResource("RectangleShape2D_surface")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SandPit"]
+shape = SubResource("RectangleShape2D_sand")
+
+[node name="WoodRoundabout" type="Area2D" parent="." groups=["surface_zone"]]
+position = Vector2(0, 35)
+collision_mask = 2
+script = ExtResource("42_surface")
+surface = &"wood"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WoodRoundabout"]
+shape = SubResource("RectangleShape2D_wood")
+
+[node name="WoodSlide" type="Area2D" parent="." groups=["surface_zone"]]
+position = Vector2(25, -55)
+collision_mask = 2
+script = ExtResource("42_surface")
+surface = &"wood"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WoodSlide"]
+shape = SubResource("RectangleShape2D_wood")
+
+[node name="WoodSwingLeft" type="Area2D" parent="." groups=["surface_zone"]]
+position = Vector2(-300, 55)
+collision_mask = 2
+script = ExtResource("42_surface")
+surface = &"wood"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WoodSwingLeft"]
+shape = SubResource("RectangleShape2D_wood")
+
+[node name="WoodFrameRight" type="Area2D" parent="." groups=["surface_zone"]]
+position = Vector2(255, -120)
+collision_mask = 2
+script = ExtResource("42_surface")
+surface = &"wood"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WoodFrameRight"]
+shape = SubResource("RectangleShape2D_wood")
 
 [node name="FringesTransition" type="Area2D" parent="."]
 position = Vector2(585, 50)

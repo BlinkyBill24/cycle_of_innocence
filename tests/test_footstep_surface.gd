@@ -10,6 +10,21 @@ func test_footstep_sound_maps_hard_surfaces_to_gravel() -> void:
 	assert_eq(PC.footstep_sound(&"gravel"), &"footstep_gravel")
 	assert_eq(PC.footstep_sound(&"path"), &"footstep_gravel")
 	assert_eq(PC.footstep_sound(&"sand"), &"footstep_gravel")
+	assert_eq(PC.footstep_sound(&"wood"), &"footstep_gravel", "wood reads as the hard step")
+
+
+func test_playground_authors_path_sand_and_wood_surfaces() -> void:
+	var zone: Node2D = load("res://scenes/zones/playground_fringes.tscn").instantiate()
+	add_child_autofree(zone)
+	await wait_physics_frames(1)
+	var surfaces := {}
+	for node in get_tree().get_nodes_in_group("surface_zone"):
+		var sz := node as SurfaceZone
+		if sz:
+			surfaces[sz.surface] = true
+	for expected: StringName in [&"path", &"sand", &"wood"]:
+		assert_true(surfaces.has(expected), "the playground authors a %s surface zone" % expected)
+	assert_false(surfaces.has(&"grass"), "grass is the default ground, never an authored zone")
 
 
 func test_footstep_sound_defaults_to_grass() -> void:
