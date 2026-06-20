@@ -109,4 +109,6 @@ Every major companion has a set of personal nodes that can be gated behind `$bon
 ## Future direction (inspiration, not yet decided)
 *From [[research/done/2026-06-20-zelda-terranigma-mana-evermore-transferable-features]] (post-slice).* Secret of Evermore's dog suggests deepening **Briar's utility**: bond/corruption drive her dig/sniff/bark "reveal" assists, and corruption shows *visibly/wrong* (glowing eyes, off movements) — high bond = reliable reveals, low/corrupted = fearful/unpredictable. Pair with **bond-threshold growth** (Mana/Evermore): 2–3 bond milestones per companion unlock specific new assists/story beats, authored per companion (not generic leveling). Tracked in [[ideas]].
 
+*Also (from [[research/done/2026-06-20-player-abilities]]):* **Briar-assisted movement** — at high bond she can boost/vault Rowan to reach story or exploration spots (a relationship move instead of a generic jump); low bond/corruption makes the assist fail or feel wrong.
+
 See also: [[story/bible]] for how the companions tie into the central twists, and [[story/choice-matrix]] for specific moments where companion fate is decided.
