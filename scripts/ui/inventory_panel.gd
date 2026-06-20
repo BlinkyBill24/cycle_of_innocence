@@ -24,6 +24,7 @@ const SLOT_COUNT := 10
 const COLUMNS := 5
 const SLOT_SIZE := Vector2(56, 56)
 const DISTORTED_TEXT_COLOR := Color("#b39ddb")  # established morality cue
+const EQUIPPED_TINT := Color(1.0, 0.92, 0.55)  # the wielded weapon's slot glows warm
 
 var _root: Panel
 var _grid: GridContainer
@@ -220,6 +221,8 @@ func _refresh() -> void:
 				icon.texture = null
 				placeholder.visible = true
 			qty.text = ("x%d" % quantity) if quantity > 1 else ""
+			# the wielded weapon's slot glows so equipping is visible at a glance
+			btn.modulate = EQUIPPED_TINT if id == PlayerData.equipped_weapon else Color.WHITE
 		else:
 			# Empty slot: dim, non-interactive, but always drawn.
 			btn.disabled = true
@@ -227,6 +230,7 @@ func _refresh() -> void:
 			icon.texture = null
 			placeholder.visible = false
 			qty.text = ""
+			btn.modulate = Color.WHITE
 	# Keep the detail panel coherent with what is now present.
 	if _selected_index >= slots.size():
 		_selected_index = -1
@@ -248,13 +252,29 @@ func _update_detail() -> void:
 	var id: StringName = StringName(str(slots[_selected_index].get("id", "")))
 	var def: ItemDef = ItemRegistry.get_def(id)
 	_detail_name.text = def.display_name if def != null else String(id)
-	_detail_desc.text = Inventory.describe(id)
+	var body := Inventory.describe(id)
+	# Tell the player a weapon is tap-to-equip (and which one is wielded) — the
+	# equip verb was invisible before (playtest).
+	var affordance := weapon_affordance(def, def != null and PlayerData.equipped_weapon == id)
+	if not affordance.is_empty():
+		body += "\n" + affordance
+	_detail_desc.text = body
 	# Morality TEXTURE only: tint the distorted variant with the established cue.
 	# Effects/layout/readability are identical at every tier.
 	if def != null and _is_distorted(def):
 		_detail_desc.add_theme_color_override("font_color", DISTORTED_TEXT_COLOR)
 	else:
 		_detail_desc.remove_theme_color_override("font_color")
+
+
+## Weapon affordance line for the detail panel — empty for non-weapons.
+## Pure/testable.
+static func weapon_affordance(def: ItemDef, is_equipped: bool) -> String:
+	if def == null:
+		return ""
+	if def.use_kind != ItemDef.UseKind.EQUIP and def.use_kind != ItemDef.UseKind.THROW:
+		return ""
+	return "Equipped — tap to put it away" if is_equipped else "Tap to equip"
 
 
 ## True when read_description() is currently returning the distorted variant.
