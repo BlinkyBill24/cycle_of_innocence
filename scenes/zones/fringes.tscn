@@ -134,6 +134,10 @@ position = Vector2(-575, 30)
 position = Vector2(180, 130)
 secret_spot_path = NodePath("../../StilledChildKeepsake")
 
+[node name="TwistedChildTwo" parent="World" instance=ExtResource("5_twisted_child")]
+position = Vector2(250, 70)
+stable_id = &"twisted_child_02"
+
 [node name="DreadOverlay" parent="." instance=ExtResource("7_dread_overlay")]
 
 [node name="Hud" type="CanvasLayer" parent="."]
