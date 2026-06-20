@@ -2,6 +2,18 @@
 
 **This is the single source of truth for ALL AI tools** (Claude Code, Codex CLI, Grok CLI, Cursor) working on this project. Per-tool files (`CLAUDE.md`, `GROK.md`, `AGENT_RULES.md`) are thin shims pointing here. Rules live ONLY in this file; project *knowledge* lives in the Obsidian vault at `docs/` (story bible, mechanics, decisions, sessions). If you change a rule here, change it nowhere else.
 
+## Communication style (every answer, every tool)
+
+**Explain everything in plain language for a non-developer.** The reader has almost no coding or Godot knowledge — write so a smart beginner understands on the first read.
+
+- **Lead with plain meaning**: what changed, what it means, and what to do next — in everyday words, before any detail.
+- **Avoid jargon.** When a technical term is unavoidable, define it in a few plain words the first time (e.g. "the autoload — a script that's always running in the background").
+- **Short sentences, concrete analogies** over implementation detail. Use small bullet lists, not walls of text.
+- Keep deep technical detail **brief and clearly optional** — a short "Details" aside at the end, never the headline.
+- Be honest in plain terms about what's done, what isn't, and what needs the human (e.g. "I can't see it run in the browser — you'll need to click it and tell me what you see").
+
+This applies on **all** surfaces alike: Claude Code, the **claude.ai web Project**, Grok, and Codex. *(Mirror this into the web Project's custom-instructions field so it holds there too — the web side reads this file as knowledge, but its own instruction box is the most reliable place.)*
+
 ## Project identity
 
 **Cycle of Innocence** — 2D top-down horror-conspiracy action-adventure RPG (Godot 4.4.x).
