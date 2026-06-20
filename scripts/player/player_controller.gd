@@ -45,6 +45,9 @@ var _facing: Vector2 = Vector2.DOWN
 var _action_anim_lock: bool = false
 var _footstep_timer: float = 0.0
 var _input_grace: float = 0.0
+## True while a modal owns the world (satchel, dialogue, name entry, searchable
+## clue) via GameEvents.exploration_paused — Rowan holds still until it resumes.
+var _paused: bool = false
 
 var _spike_timer := 0.0
 var _spike_cooldown := 0.0
@@ -75,6 +78,12 @@ func _ready() -> void:
 	_sync_from_player_data()
 	PlayerData.age_advanced.connect(_on_player_data_age_advanced)
 	PlayerData.morality_changed.connect(_on_player_data_morality_changed)
+	if GameEvents:
+		# Freeze while a modal owns the world (mirrors companion_base): the satchel
+		# and dialogue emit these. Without it, arrow keys (also bound to ui_left/
+		# right for menu nav) walked Rowan while the player only meant to select.
+		GameEvents.exploration_paused.connect(func() -> void: _paused = true)
+		GameEvents.exploration_resumed.connect(func() -> void: _paused = false)
 	health.max_hp = PlayerData.max_hp
 	health.restore_full()
 	health.hp_changed.connect(_on_hp_changed)
@@ -95,6 +104,14 @@ func _on_player_data_morality_changed(new_value: float, _delta: float) -> void:
 	morality = new_value
 
 func _physics_process(delta: float) -> void:
+	if _paused:
+		# A modal (satchel/dialogue/name entry) owns the world — hold still and read
+		# NO gameplay input, so menu navigation can't double as movement.
+		velocity = Vector2.ZERO
+		move_and_slide()
+		if not _action_anim_lock:
+			_update_locomotion_animation()  # velocity 0 -> idle pose
+		return
 	_input_grace = maxf(_input_grace - delta, 0.0)
 	_update_soothe_prompt()
 	if movement_state != MovementState.EXPLORING:
