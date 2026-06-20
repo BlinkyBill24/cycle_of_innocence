@@ -99,6 +99,7 @@ Death should always feel like a meaningful setback that reinforces the horror an
 
 - Extend the existing player_controller.gd state machine (EXPLORING, ATTACKING, HURT, etc.).
 - Use Area2D for hitboxes, with layers for player/enemy/interactable.
+- **Factions** (`scripts/combat/faction.gd`): hit/hurtboxes carry a faction tag — `player`, `ally`, `enemy`. All share the one `hit_hurt` collision layer and resolve in code via `Faction.hostile(a, b)`: the player and their allies are one side, monsters the other, and a hit only lands *across* the line (no friendly fire; `enemy↔enemy` and `player↔ally` are safe). A `Hurtbox` also self-excludes any hitbox on its own `CharacterBody2D`. This is what lets a Dominated **thrall** reuse the very same lunge as an `ally` attack — wounding enemies, never Rowan ([[mechanics/encounters-mercy]] Domination). Plumbing only; no per-faction physics layers.
 - Companion assists as separate nodes that can be "called" and have their own cooldowns/states.
 - Global DreadManager singleton that multiple systems subscribe to.
 - Juice: screenshake, hitstop, impact particles, sound design (flesh vs metal vs "wrong" sounds).

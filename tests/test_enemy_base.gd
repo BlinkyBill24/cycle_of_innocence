@@ -94,3 +94,12 @@ func test_still_attacks_from_the_hover_ring() -> void:
 	enemy.hsm.dispatch(&"spotted")
 	await wait_physics_frames(2)
 	assert_eq(enemy.hsm.get_active_state(), enemy._state_attack, "ring distance still bites")
+
+
+func test_domination_retags_the_lunge_as_an_ally_attack() -> void:
+	# Dispatch the state directly (skips add_domination's PlayerData side effects).
+	assert_eq(enemy.lunge_hitbox.faction, &"enemy", "a free monster's lunge hurts Rowan")
+	enemy.hsm.dispatch(&"dominated")
+	await wait_physics_frames(1)
+	assert_eq(enemy.lunge_hitbox.faction, Faction.ALLY,
+		"a Dominated thrall's lunge fights FOR Rowan (ally), so it wounds enemies, not him")

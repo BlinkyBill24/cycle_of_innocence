@@ -330,6 +330,10 @@ func _dominated_enter() -> void:
 	collision_mask = 1  # heels beside the player; never shoves them
 	_dominated_life = DOMINATED_LIFETIME
 	_fought_once = false
+	# the same lunge now fights FOR Rowan: an ally hitbox wounds other monsters
+	# and never the player (combat.md factions). Its own hurtbox stays enemy, so
+	# the thrall remains a normal target and self-exclusion blocks self-hits.
+	lunge_hitbox.faction = Faction.ALLY
 	lunge_hitbox.deactivate()
 
 
