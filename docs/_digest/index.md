@@ -20,6 +20,7 @@ _Regenerated 2026-06-20 by `tools/digest.py`. Do not hand-edit._
 - _(none yet)_
 
 ## Recent sessions
+- [2026-06-20 — LimboAI Web export verification](../sessions/2026-06-20-verify-limboai-web.md)
 - [2026-06-20 — Stale Ground / DuskTint node refs](../sessions/2026-06-20-stale-zone-node-refs.md)
 - [2026-06-20 — Research inbox: pixel-art pipeline consistency](../sessions/2026-06-20-research-pixel-pipeline.md)
 - [2026-06-20 — Research inbox: AI-orchestration survey](../sessions/2026-06-20-research-orchestration-survey.md)
@@ -27,7 +28,6 @@ _Regenerated 2026-06-20 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-20 — Placeholder mode + debug overlay](../sessions/2026-06-20-placeholder-mode.md)
 - [2026-06-19 — Hollow House micro-quest](../sessions/2026-06-19-hollow-house-microquest.md)
 - [2026-06-15 — Painted backdrops (full re-wire)](../sessions/2026-06-15-painted-backdrops.md)
-- [2026-06-15 (cont.) — Painted backdrop tuning](../sessions/2026-06-15-painted-backdrops-tuning.md)
 
 ## Ideas inbox
 - 105 captured items in [ideas.md](../ideas.md)
