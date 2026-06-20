@@ -307,6 +307,60 @@ shape = SubResource("CircleShape2D_forage")
 color = Color(0.78, 0.55, 0.35, 0.9)
 polygon = PackedVector2Array(0, -7, 6, 0, 0, 7, -6, 0)
 
+[node name="BerryForage" type="Area2D" parent="."]
+position = Vector2(260, 120)
+collision_mask = 2
+script = ExtResource("40_forage")
+item_id = &"forest_berries"
+quantity = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BerryForage"]
+shape = SubResource("CircleShape2D_forage")
+
+[node name="Marker" type="Polygon2D" parent="BerryForage"]
+color = Color(0.7, 0.25, 0.35, 0.9)
+polygon = PackedVector2Array(0, -7, 6, 0, 0, 7, -6, 0)
+
+[node name="StickForage" type="Area2D" parent="."]
+position = Vector2(150, 205)
+collision_mask = 2
+script = ExtResource("40_forage")
+item_id = &"sturdy_stick"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StickForage"]
+shape = SubResource("CircleShape2D_forage")
+
+[node name="Marker" type="Polygon2D" parent="StickForage"]
+color = Color(0.55, 0.4, 0.28, 0.9)
+polygon = PackedVector2Array(0, -7, 6, 0, 0, 7, -6, 0)
+
+[node name="SlingshotForage" type="Area2D" parent="."]
+position = Vector2(345, -60)
+collision_mask = 2
+script = ExtResource("40_forage")
+item_id = &"slingshot"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlingshotForage"]
+shape = SubResource("CircleShape2D_forage")
+
+[node name="Marker" type="Polygon2D" parent="SlingshotForage"]
+color = Color(0.5, 0.5, 0.55, 0.9)
+polygon = PackedVector2Array(0, -7, 6, 0, 0, 7, -6, 0)
+
+[node name="StonesForage" type="Area2D" parent="."]
+position = Vector2(385, 140)
+collision_mask = 2
+script = ExtResource("40_forage")
+item_id = &"sling_stones"
+quantity = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StonesForage"]
+shape = SubResource("CircleShape2D_forage")
+
+[node name="Marker" type="Polygon2D" parent="StonesForage"]
+color = Color(0.5, 0.5, 0.55, 0.9)
+polygon = PackedVector2Array(0, -6, 5, 0, 0, 6, -5, 0)
+
 [node name="PlazaGravel" type="Area2D" parent="." groups=["surface_zone"]]
 position = Vector2(-120, -40)
 collision_mask = 2
