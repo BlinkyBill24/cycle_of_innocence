@@ -109,12 +109,16 @@ position = Vector2(-500, 80)
 position = Vector2(-110, 110)
 spot_id = &"fringes_buried_memory"
 lore_text = "A child's shoe, far too small to have walked this far alone. The mud around it has not dried in a long time."
+lore_text_recontext = "TODO(lore): NG+ second-read of the too-small shoe, once you know what the monsters are."
+recontext_revelation = &"monsters_are_children"
 dig_item = &"buried_bone"
 
 [node name="StilledChildKeepsake" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(255, 55)
 spot_id = &"stilled_child_keepsake"
 lore_text = "A wooden duck, its paint flaked to grey. Scratched into the base by a small hand: \"don't let them take me.\" It is still warm."
+lore_text_recontext = "TODO(lore): NG+ second-read of the wooden duck, once you know what the monsters are."
+recontext_revelation = &"monsters_are_children"
 dig_item = &"tin_locket"
 
 [node name="World" type="Node2D" parent="."]

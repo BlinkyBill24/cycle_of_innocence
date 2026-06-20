@@ -93,6 +93,49 @@ func test_dig_logs_recontextualized_fragment_on_ngplus() -> void:
 		"NG+ dig logs the recontextualized fragment")
 
 
+# --- fringes digs: NG+ second reads (shoe + duck) -------------------------
+# The playground rabbit already carries its second read; these wire the same
+# monsters_are_children gate onto the fringes shoe and duck.
+
+func _fringes_digs() -> Dictionary:
+	var zone: Node2D = load("res://scenes/zones/fringes.tscn").instantiate()
+	add_child_autofree(zone)
+	return {
+		"shoe": zone.get_node("DiggableSpotFringes"),
+		"duck": zone.get_node("StilledChildKeepsake"),
+	}
+
+
+func test_fringes_digs_first_read_until_the_truth_is_known() -> void:
+	var digs := _fringes_digs()
+	for key in digs:
+		var spot: DiggableSpot = digs[key]
+		assert_eq(spot.recontext_revelation, &"monsters_are_children",
+			"%s uses the shared NG+ gate" % key)
+		assert_false(spot.lore_text_recontext.is_empty(),
+			"%s authors a second read" % key)
+		assert_eq(DiggableScript.choose_lore(spot.lore_text, spot.lore_text_recontext,
+			spot.recontext_revelation), spot.lore_text,
+			"%s reads plainly before the revelation" % key)
+	PlayerData.unlock_revelation(&"monsters_are_children")
+	for key in digs:
+		var spot: DiggableSpot = digs[key]
+		assert_eq(DiggableScript.choose_lore(spot.lore_text, spot.lore_text_recontext,
+			spot.recontext_revelation), spot.lore_text_recontext,
+			"%s second-reads once the truth is known" % key)
+
+
+func test_ngplus_gate_survives_save_round_trip() -> void:
+	PlayerData.unlock_revelation(&"monsters_are_children")
+	assert_true(SaveManager.save_game(97), "save writes")
+	PlayerData.reset_to_defaults()
+	assert_false(PlayerData.is_revelation_known(&"monsters_are_children"), "scrambled")
+	assert_true(SaveManager.load_game(97, false), "load reads")
+	assert_true(PlayerData.is_revelation_known(&"monsters_are_children"),
+		"the NG+ second-read gate persists across save/load")
+	SaveManager.delete_save(97)
+
+
 func test_whisper_fires_for_already_overlapping_player() -> void:
 	# recontext-gated whispers are disabled until the stage flips; an Area2D
 	# does NOT emit body_entered for a body already inside when re-enabled.
