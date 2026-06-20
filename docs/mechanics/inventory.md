@@ -95,4 +95,11 @@ related:
 - Use signals when items are gained/used/lost so the journal, companions, and dialogue systems can react.
 - Icon loading via the existing pixel art pipeline.
 
+## Equipment layer (post-slice)
+A planned **equipment system** ([[mechanics/equipment]]) sits on top of this:
+`ItemDef` gains a few fields (slot / tier / small modifiers / found-or-bought) so
+some items can be worn/wielded, with a tiny ~3-slot equip screen and a diegetic
+reactive merchant. Medium stat weight, no numeric HUD. Design-only for now; built
+after the vertical slice.
+
 See [[design/game-features]] for how inventory fits into the larger feature set and [[characters/companions]] for specific care item ideas tied to each animal. The inventory should never feel like the point of the game — it should feel like a quiet tool that helps you protect the only family you have left.

@@ -112,4 +112,6 @@ Death should always feel like a meaningful setback that reinforces the horror an
 - Focus on 2-3 distinct combat "feels" (child desperate, teen growing, adult powerful-but-damned).
 - Polish the horror feedback (dread effects, corruption visuals) over adding dozens of moves.
 
+**Equipment (post-slice):** the planned gear system ([[mechanics/equipment]]) feeds small **medium-weight** modifiers into combat — and is deliberately weighted toward **soothe / defense / dread-resist**, not pure damage, so it reinforces mercy/soothe rather than a brute-force lane. No numeric HUD; strength is felt (sprite change, old enemies reading easier via recontext).
+
 See [[design/game-features]] for the high-level vision and [[mechanics/horror-and-dread]] for how dread specifically interacts with combat. This system must feel personal — every fight should remind the player why they're fighting and what they stand to lose.
