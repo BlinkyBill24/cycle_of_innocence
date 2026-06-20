@@ -218,10 +218,10 @@ position = Vector2(360, 165)
 y_sort_enabled = true
 
 [node name="Player" parent="World" instance=ExtResource("3_player")]
-position = Vector2(540, 120)
+position = Vector2(360, 60)
 
 [node name="Briar" parent="World" instance=ExtResource("4_briar")]
-position = Vector2(500, 150)
+position = Vector2(335, 82)
 
 [node name="Marta" parent="World" instance=ExtResource("5_villager")]
 position = Vector2(-540, 40)
