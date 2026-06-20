@@ -242,6 +242,32 @@ dread_on_hear = 8.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SandboxWhisper"]
 shape = SubResource("CircleShape2D_whisper")
 
+[node name="CultSymbol" type="Sprite2D" parent="World"]
+position = Vector2(60, 60)
+modulate = Color(0.62, 0.58, 0.66, 1)
+texture = ExtResource("25_totem_bear")
+
+[node name="CultSymbolIllegible" type="Area2D" parent="." groups=["recontext_not_symbol_literacy"]]
+position = Vector2(60, 60)
+script = ExtResource("33_whisper")
+spot_id = &"cult_symbol_illegible"
+text = "TODO(lore): illegible cult sigil — first-read line (the marks won't resolve)."
+dread_on_hear = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CultSymbolIllegible"]
+shape = SubResource("CircleShape2D_whisper")
+
+[node name="CultSymbolLegible" type="Area2D" parent="." groups=["recontext_symbol_literacy"]]
+position = Vector2(60, 60)
+script = ExtResource("33_whisper")
+spot_id = &"cult_symbol_legible"
+text = "TODO(lore): legible cult sigil — meaning once symbol literacy is learned."
+journal_text = "TODO(lore): Rowan's recorded reading of the sigil."
+journal_kind = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CultSymbolLegible"]
+shape = SubResource("CircleShape2D_whisper")
+
 [node name="LotteryPostStage1" type="Area2D" parent="." groups=["recontext_stage_1"]]
 position = Vector2(-150, -150)
 script = ExtResource("33_whisper")
