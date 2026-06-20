@@ -48,5 +48,7 @@ The village runs on **daily NPC routines** (Shadows of Doubt, scaled way down) a
 ## Future direction (inspiration, not yet decided)
 *From [[research/done/2026-06-20-zelda-terranigma-mana-evermore-transferable-features]] (post-slice).* Terranigma's living world suggests **authored village evolution**: the village visibly changes from the player's choices via hand-written VillageState flags (suspicion / routines / ritual remnants) tied to morality/bonds — never procedural, kept subtle and horror-tinged (not town-building). Tracked in [[ideas]].
 
+*Suspicion decay (reviewed 2026-06-20, [[research/done/2026-06-20-villagestate-suspicion-decay]]):* the current `0.7×`/phase multiplicative decay is **sound — keep it** (gives breathing room, makes hiding/hideouts meaningful). A concrete post-slice case of the evolution idea above: make decay **companion/morality-aware** — ruthless → slower decay (villagers stay paranoid); high Briar bond → small zone decay bonus or one authored "distraction" per phase (hand-written flags, not procedural).
+
 ## Related
 [[mechanics/hollowing-clock]] · [[mechanics/day-night-hideout]] · [[mechanics/vision-and-darkness]] · [[story/bible]] · [[design/feature-candidates-2026-06]]
