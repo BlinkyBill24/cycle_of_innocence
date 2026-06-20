@@ -43,6 +43,9 @@ var story_flags: Array[StringName] = []  # choice-matrix flags, e.g. "food_share
 ## Mirrors known_revelations save/load/reset idiom. Verbs live in Inventory
 ## (scripts/items/inventory.gd) — this is pure storage, no inventory methods here.
 var inventory: Array[Dictionary] = []
+## The weapon currently equipped (an item id with use_kind EQUIP or THROW), or
+## &"" for bare hands. Set via Inventory.use on a weapon; read by the attack.
+var equipped_weapon: StringName = &""
 ## Deferred Journal/Memory stub — saved but never shown in the slice (LORE category).
 var lore_items: Array[StringName] = []
 
@@ -73,6 +76,7 @@ func reset_to_defaults() -> void:
 	appearance_flags.clear()
 	story_flags.clear()
 	inventory.clear()
+	equipped_weapon = &""
 	lore_items.clear()
 	spared_count = 0
 	dominated_count = 0
@@ -261,6 +265,7 @@ func get_save_data() -> Dictionary:
 		"appearance_flags": appearance_flags.duplicate(),
 		"story_flags": story_flags.duplicate(),
 		"inventory": inventory.duplicate(true),
+		"equipped_weapon": String(equipped_weapon),
 		"lore_items": lore_items.duplicate(),
 		"spared_count": spared_count,
 		"dominated_count": dominated_count,
@@ -296,6 +301,7 @@ func apply_save_data(data: Dictionary) -> void:
 			"id": StringName(str(r.get("id", ""))),
 			"quantity": int(r.get("quantity", 1)),
 		})
+	equipped_weapon = StringName(str(data.get("equipped_weapon", "")))
 	lore_items.assign(Array(data.get("lore_items", [])).map(
 		func(v: Variant) -> StringName: return StringName(v)))
 	spared_count = int(data.get("spared_count", 0))

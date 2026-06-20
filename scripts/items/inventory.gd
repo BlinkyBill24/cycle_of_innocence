@@ -104,6 +104,10 @@ static func use(id: StringName, target_companion: StringName = &"") -> bool:
 				PlayerData.add_companion_bond(target, def.bond_delta)
 			if not is_zero_approx(def.morality_delta):
 				PlayerData.change_morality(def.morality_delta)
+		ItemDef.UseKind.EQUIP, ItemDef.UseKind.THROW:
+			# "Using" a weapon equips it (tap-to-equip from the satchel). The
+			# attack reads the equipped weapon's kind. Reusable — never consumed.
+			PlayerData.equipped_weapon = (&"" if PlayerData.equipped_weapon == id else id)
 		ItemDef.UseKind.NONE:
 			pass
 
