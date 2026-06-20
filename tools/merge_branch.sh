@@ -42,12 +42,34 @@ else
 	fi
 fi
 
+# The ONLY trustworthy success signal: the PR ends up with a real
+# merged_commit_id. Forgejo has been seen (PRs #23-25, 2026-06-20) to return
+# HTTP 200, flip the PR to merged=true, create the merge commit object, yet NOT
+# advance the protected main ref — leaving merged_commit_id=null and main
+# unmoved. (Cause: a protected-file rule on project.godot.) The 200, and even a
+# transient new tip on branches/main, are NOT reliable; merged_commit_id is.
+merged_sha() { api_get "pulls/$PR" | grep -oE '"merged_commit_id":"[0-9a-f]+"' | head -1 | grep -oE '[0-9a-f]+'; }
+
 # wait until mergeable, then merge (Forgejo recomputes mergeability async)
 for try in $(seq 1 8); do
 	m="$(api_get "pulls/$PR" | grep -oE '"mergeable":(true|false)' | head -1)"
 	if [ "$m" = '"mergeable":true' ]; then
 		code="$(api_post "pulls/$PR/merge" '{"Do":"merge"}')"
-		if [ "$code" = "200" ]; then echo "PR #$PR merged ✅"; exit 0; fi
+		if [ "$code" = "200" ]; then
+			# Verify the merge actually LANDED (real merged_commit_id), don't
+			# trust the 200. A phantom merge leaves this null forever.
+			for vtry in $(seq 1 6); do
+				sha="$(merged_sha || true)"
+				if [ -n "$sha" ]; then echo "PR #$PR merged ✅ (commit ${sha:0:10})"; exit 0; fi
+				echo "  200 received but merged_commit_id still null — verifying ($vtry)…"
+				sleep 3
+			done
+			echo "ERROR: PR #$PR is a PHANTOM MERGE — Forgejo returned 200 but never" >&2
+			echo "       advanced main (merged_commit_id is null). Likely a protected-file" >&2
+			echo "       rule (e.g. project.godot). Merge it in the web UI as owner, or" >&2
+			echo "       relax the protection. The PR is now CLOSED; re-land on a fresh branch." >&2
+			exit 2
+		fi
 		echo "  merge HTTP $code (try $try): $(head -c 160 /tmp/mb_resp.txt)"
 	else
 		echo "  PR #$PR not mergeable yet ($m) — waiting (try $try)…"
