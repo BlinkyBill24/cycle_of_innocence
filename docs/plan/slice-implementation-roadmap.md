@@ -26,7 +26,7 @@ Code always proceeds on existing placeholder sprites; assets land when they land
 
 | # | Task | Owner | Source/Target |
 |---|---|---|---|
-| A1 | Rowan child bible → 4-dir sheet (idle/walk/attack/hurt) | Grok Imagine → human Aseprite | prompt in [[art/imagine-prompts]] → `assets/reference/`, `Player/Sprites/` |
+| A1 | Rowan child bible → 4-dir sheet (idle/walk/attack/hurt) | Grok Imagine → human pixel cleanup (GIMP/Pixelorama, no Aseprite) | prompt in [[art/imagine-prompts]] → `assets/reference/`, `Player/Sprites/` |
 | A2 | Briar pup bible → sheet (follow/sit/dig/fear/bark) | Grok Imagine → human Aseprite | prompt in [[art/imagine-prompts]] |
 | A3 | Playground-dusk tileset + fringes-forest tileset | Grok Imagine → human Aseprite | NEW prompts (added below in imagine-prompts) |
 | A4 | "Twisted Child" monster design (subtle: faded clown ruff, broken toy) | Grok Imagine → human Aseprite | NEW prompt |
@@ -75,5 +75,9 @@ Scope rule adopted: **define "content-complete" per zone** (recontext moments au
 - Codex gates are advisory second opinions — findings triaged by Claude Code, not auto-applied.
 - Every system reads/writes PlayerData via existing signals; no new global state without a doc.
 
+## References (process / scope discipline)
+- **Derek Yu, "Finishing a Game"** (makegames blog) — the most-cited solo-dev scope-discipline essay: cut hard, finish the small thing; a finished small game beats an unfinished big one. Direct backing for the content-complete-per-zone rule. `[verified 2026-06-20]`
+- **NN/g, "Why You Only Need to Test with 5 Users"** — source for the small-n playtest cadence; covers *usability*, not tone (see the `[FLAG]` caveat in [[plan/playtest-protocol-2026-06]]). `[verified 2026-06-20]`
+
 ## Related
-[[decisions/2026-06-10-slice-implementation-plan]] · [[design/game-features]] · [[art/imagine-prompts]] · AGENTS.md
+[[decisions/2026-06-10-slice-implementation-plan]] · [[design/game-features]] · [[art/imagine-prompts]] · [[plan/playtest-protocol-2026-06]] · AGENTS.md
