@@ -30,5 +30,5 @@ _Regenerated 2026-06-20 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-20 — Research inbox: AI-orchestration survey](../sessions/2026-06-20-research-orchestration-survey.md)
 
 ## Ideas inbox
-- 117 captured items in [ideas.md](../ideas.md)
+- 118 captured items in [ideas.md](../ideas.md)
 
