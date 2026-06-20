@@ -43,5 +43,8 @@ Darkwood-style perception: the player only clearly sees what Rowan faces; everyt
 ## Research notes (2026-06, round 2)
 - **Counterfeit pings** (Dredge sanity spiral): at dread > 80, hallucinations can mimic *companion senses* — a scent-wisp or aerial reveal that no companion produced. The family's voice can be forged; cross-checking with the actual companion's position/behavior is the counterplay. Interacts with [[mechanics/companion-quirks]] (corrupted Echo's false pings vs dread's fake pings — two distinct lies).
 
+## Future direction (inspiration, not yet decided)
+*From [[research/done/2026-06-20-player-abilities]] (post-slice).* A **crouch / low stance** ability fits the stealth/hiding loop: stay low to hide during dread spikes and avoid VillageState suspicion, opening alternate paths through a zone. Builds on the player controller + the existing `hideout` spots + DreadManager tension. Tracked in [[ideas]].
+
 ## Related
 - [[mechanics/horror-and-dread]] · [[mechanics/day-night-hideout]] · [[mechanics/encounters-mercy]] · [[characters/companions]] · [[mechanics/companion-quirks]]

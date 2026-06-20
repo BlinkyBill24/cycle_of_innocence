@@ -114,4 +114,6 @@ Death should always feel like a meaningful setback that reinforces the horror an
 
 **Equipment (post-slice):** the planned gear system ([[mechanics/equipment]]) feeds small **medium-weight** modifiers into combat — and is deliberately weighted toward **soothe / defense / dread-resist**, not pure damage, so it reinforces mercy/soothe rather than a brute-force lane. No numeric HUD; strength is felt (sprite change, old enemies reading easier via recontext).
 
+**Ability directions (post-slice, from [[research/done/2026-06-20-player-abilities]]):** make the attack read differently by **age & morality** (innocent = desperate/merciful; ruthless = harder hits that cost companions/corruption) — start with two "feels" + companion reactions. Add a **short, grounded dodge** (dodge → soothe) that can shave dread on success. A **separate punch button is redundant — fold it into the attack variants / close-range mercy option**, and keep any **jump** rare and story-gated only (a free jump pulls toward platformer and hurts dread pacing + 32×32 readability). Tracked in [[ideas]].
+
 See [[design/game-features]] for the high-level vision and [[mechanics/horror-and-dread]] for how dread specifically interacts with combat. This system must feel personal — every fight should remind the player why they're fighting and what they stand to lose.
