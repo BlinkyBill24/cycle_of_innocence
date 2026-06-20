@@ -31,10 +31,17 @@ const LEAD_TRIGGER_RANGE := 90.0
 # dig must stay Briar's moment (playtest 2026-06-11).
 const LEAD_ARRIVE_DISTANCE := 20.0
 const DOMINATED_LIFETIME := 45.0
+## Monster-glance cue (encounters-mercy stall hint): when the generic lullaby
+## stalls at the plateau, the child briefly turns toward its buried key — a wordless
+## "look there" so the stall reads as "find its key", not a broken verb. No UI.
+const GLANCE_SECONDS := 0.7
+const GLANCE_COOLDOWN := 3.0
 var recognition: float = 0.0
 var stilled: bool = false
 var dominated: bool = false
 var _soothe_hold: float = 0.0  # >0 while the lullaby is actively reaching it
+var _glance_timer: float = 0.0
+var _glance_cooldown: float = 0.0
 var _leading: bool = false
 var _dominated_life: float = 0.0
 var _fought_once: bool = false
@@ -125,14 +132,42 @@ func _init_hsm() -> void:
 func _physics_process(delta: float) -> void:
 	_cooldown = maxf(_cooldown - delta, 0.0)
 	_soothe_hold = maxf(_soothe_hold - delta, 0.0)
+	_glance_cooldown = maxf(_glance_cooldown - delta, 0.0)
 	_thrall_lunge_anim = maxf(_thrall_lunge_anim - delta, 0.0)
 	# Stilled monsters don't run physics: a zero-velocity CharacterBody2D still
 	# depenetrates from overlaps, so walking into one would drag it along
 	# (playtest 2026-06-10).
 	if not stilled or _leading:
 		move_and_slide()
+	_update_glance(delta)
 	_update_animation()
 	_update_recognition_tint()
+
+
+## Glance-at-buried-key cue: while being soothed and stalled at the plateau, start
+## a brief glance toward the secret spot, and aim `_facing` there so the look reads.
+func _update_glance(delta: float) -> void:
+	var spot := get_node_or_null(secret_spot_path) as Node2D
+	if _glance_timer > 0.0:
+		_glance_timer -= delta
+		if spot:
+			_facing = global_position.direction_to(spot.global_position)
+		return
+	if _soothe_hold <= 0.0 or _glance_cooldown > 0.0:
+		return
+	var has_key := PlayerData.has_story_flag(soothe_key_flag)
+	if should_glance_at_secret(recognition, GENERIC_PLATEAU, stilled, has_key, spot != null):
+		_glance_timer = GLANCE_SECONDS
+		_glance_cooldown = GLANCE_COOLDOWN
+
+
+## Pure (testable): glance toward the buried key only when the generic lullaby has
+## actually plateaued — recognition at the cap, no key yet, not already Stilled,
+## and there IS a secret to point at.
+static func should_glance_at_secret(
+	recognition_v: float, plateau: float, is_stilled: bool, has_key: bool, has_secret: bool
+) -> bool:
+	return has_secret and not has_key and not is_stilled and recognition_v >= plateau
 
 
 func _update_recognition_tint() -> void:
