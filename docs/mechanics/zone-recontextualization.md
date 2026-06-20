@@ -42,5 +42,8 @@ Revelations don't just unlock dialogue — they change how **existing zones func
 - Never recontextualize a zone the player is standing in mid-change (apply on enter; live changes only via explicit scripted moments).
 - Recontext access paths must not break sequence (gate checks remain on flags, not geometry alone).
 
+## Future direction (inspiration, not yet decided)
+*From [[research/done/2026-06-20-zelda-terranigma-mana-evermore-transferable-features]] (post-slice).* Zelda ALttP's Light/Dark world suggests giving a zone **2–3 authored states** ("normal → escalating dread → post-revelation") flipped by morality/bond/story flags — "the same place, but wrong now." Authored flips only (Web-safe, no parallel-dimension tech); pilot one zone. Tracked in [[ideas]].
+
 ## Related
 [[mechanics/progression]] · [[mechanics/encounters-mercy]] · [[mechanics/vision-and-darkness]] · [[story/bible]] · [[design/feature-candidates-2026-06]]

@@ -106,4 +106,7 @@ All companions have:
 **Dialogue Integration**:
 Every major companion has a set of personal nodes that can be gated behind `$bond_X` and `$corruption_X` thresholds. They can also comment on Rowan’s morality and revelations in ways that either support or challenge the player’s choices.
 
+## Future direction (inspiration, not yet decided)
+*From [[research/done/2026-06-20-zelda-terranigma-mana-evermore-transferable-features]] (post-slice).* Secret of Evermore's dog suggests deepening **Briar's utility**: bond/corruption drive her dig/sniff/bark "reveal" assists, and corruption shows *visibly/wrong* (glowing eyes, off movements) — high bond = reliable reveals, low/corrupted = fearful/unpredictable. Pair with **bond-threshold growth** (Mana/Evermore): 2–3 bond milestones per companion unlock specific new assists/story beats, authored per companion (not generic leveling). Tracked in [[ideas]].
+
 See also: [[story/bible]] for how the companions tie into the central twists, and [[story/choice-matrix]] for specific moments where companion fate is decided.
