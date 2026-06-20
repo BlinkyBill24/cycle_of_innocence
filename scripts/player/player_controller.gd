@@ -427,6 +427,22 @@ static func attack_is_throw(def: ItemDef) -> bool:
 	return def != null and def.use_kind == ItemDef.UseKind.THROW
 
 
+## Per-weapon swing pitch so bare hands / stick / sling are AUDIBLY distinct
+## (legibility, not balance — playtest: "unclear if I hit with hands, stick or
+## slingshot"). Heavy branch lands lower, the sling whips higher, hands sit in
+## the middle. Pure/testable.
+static func attack_pitch(def: ItemDef) -> float:
+	if def == null:
+		return 1.0  # bare hands
+	match def.use_kind:
+		ItemDef.UseKind.EQUIP:
+			return 0.8   # a heavy branch — thuddier
+		ItemDef.UseKind.THROW:
+			return 1.25  # the whip of the sling
+		_:
+			return 1.0
+
+
 ## Spend one ammo for a throw. Returns false (blocked, no decrement) when the
 ## weapon has no ammo id or the satchel is out. Pure side effect on Inventory.
 static func consume_throw_ammo(ammo_id: StringName) -> bool:
@@ -446,7 +462,7 @@ func perform_attack() -> void:
 	movement_state = MovementState.ATTACKING
 	attack_hitbox.position = _facing * ATTACK_REACH
 	play_action_animation("attack")
-	Sfx.play(&"swing", -6.0)
+	Sfx.play(&"swing", -6.0, 0.06, attack_pitch(weapon_def))  # hands vs stick read by pitch
 	await get_tree().create_timer(ATTACK_WINDUP).timeout
 	if my_attack == _attack_id and movement_state == MovementState.ATTACKING:
 		attack_hitbox.activate(ATTACK_WINDOW)
@@ -463,7 +479,7 @@ func _perform_throw(def: ItemDef) -> void:
 		Sfx.play(&"swing", -16.0)  # dry click — the sling is empty
 		return
 	play_action_animation("attack")
-	Sfx.play(&"swing", -6.0)
+	Sfx.play(&"swing", -6.0, 0.06, attack_pitch(def))  # zippier than a melee swing
 	var proj: ThrownProjectile = PROJECTILE_SCENE.instantiate()
 	proj.setup(_facing, 1)  # parity with the melee hitbox; gear stat-weight is the equipment pass
 	proj.global_position = global_position + _facing * THROW_REACH

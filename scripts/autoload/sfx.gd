@@ -48,23 +48,28 @@ func _ready() -> void:
 			play(&"hit"))
 
 
-func play(name: StringName, volume_db: float = 0.0, pitch_jitter: float = 0.06) -> void:
+func play(name: StringName, volume_db: float = 0.0, pitch_jitter: float = 0.06,
+		base_pitch: float = 1.0) -> void:
 	var stream: AudioStream = STREAMS.get(name)
 	if stream == null:
 		push_warning("Sfx: unknown sound '%s'" % name)
 		return
 	played.emit(name)
 	var out_db: float = volume_db + float(VOLUMES.get(name, 0.0))
+	# base_pitch lets one sound read as different weapons (heavy stick vs zippy
+	# sling) without a new asset; jitter still varies each shot a touch.
+	var pitch: float = maxf(0.05, base_pitch + randf_range(-pitch_jitter, pitch_jitter))
 	for player in _players:
 		if not player.playing:
 			player.stream = stream
 			player.volume_db = out_db
-			player.pitch_scale = 1.0 + randf_range(-pitch_jitter, pitch_jitter)
+			player.pitch_scale = pitch
 			player.play()
 			return
 	# pool exhausted: steal the first player
 	_players[0].stream = stream
 	_players[0].volume_db = out_db
+	_players[0].pitch_scale = pitch
 	_players[0].play()
 
 
