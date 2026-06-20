@@ -45,5 +45,8 @@ The village runs on **daily NPC routines** (Shadows of Doubt, scaled way down) a
 - `EavesdropZone`: floating ambient lines, no input lock. Village green zone: `scenes/zones/village_green.tscn` with real ZoneManager transitions.
 - Tests: tests/test_village_state.gd + test_village_zone.gd.
 
+## Future direction (inspiration, not yet decided)
+*From [[research/done/2026-06-20-zelda-terranigma-mana-evermore-transferable-features]] (post-slice).* Terranigma's living world suggests **authored village evolution**: the village visibly changes from the player's choices via hand-written VillageState flags (suspicion / routines / ritual remnants) tied to morality/bonds — never procedural, kept subtle and horror-tinged (not town-building). Tracked in [[ideas]].
+
 ## Related
 [[mechanics/hollowing-clock]] · [[mechanics/day-night-hideout]] · [[mechanics/vision-and-darkness]] · [[story/bible]] · [[design/feature-candidates-2026-06]]

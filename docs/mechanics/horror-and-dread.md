@@ -120,4 +120,7 @@ Every horror element should ultimately point back to the central conspiracy:
 - The "protectors" are complicit.
 - Your bonds are the only thing keeping you human — and the cycle wants to take them too.
 
+## Future direction (inspiration, not yet decided)
+*From [[research/done/2026-06-20-zelda-terranigma-mana-evermore-transferable-features]] (post-slice).* Two horror angles worth pursuing: a **corrupted companion as a dread source** (Briar's wrongness becomes scary, not just sad), and **"the same place, but wrong now"** — revisiting a familiar zone in a corrupted authored state (ties to [[mechanics/zone-recontextualization]]). Tracked in [[ideas]].
+
 See [[mechanics/combat]] for how dread and corruption specifically affect fighting, and [[design/game-features]] for the broader vision. Horror here is a feature of the world and the player's soul, not just set dressing.
