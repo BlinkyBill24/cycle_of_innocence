@@ -4,7 +4,7 @@ tags: [digest, auto]
 ---
 
 # Digest
-_Regenerated 2026-06-20 by `tools/digest.py`. Do not hand-edit._
+_Regenerated 2026-06-21 by `tools/digest.py`. Do not hand-edit._
 
 ## Recent decisions
 - [Decision (OPEN) — keep painted backdrops, or re-render them into the pixel register?](../decisions/2026-06-20-village-backdrop-rerender.md)
@@ -20,6 +20,7 @@ _Regenerated 2026-06-20 by `tools/digest.py`. Do not hand-edit._
 - _(none yet)_
 
 ## Recent sessions
+- [2026-06-21 — Modals freeze the whole world](../sessions/2026-06-21-modal-pause-freezes-world.md)
 - [2026-06-20 — Web build + audio confirmed in a real browser](../sessions/2026-06-20-web-audio-confirmed.md)
 - [2026-06-20 — Weapon equip legibility (playtest bug pass)](../sessions/2026-06-20-weapon-equip-legibility.md)
 - [2026-06-20 — Weapon combat (Wiring & Audibility pass, item 1)](../sessions/2026-06-20-weapon-combat.md)
@@ -27,7 +28,6 @@ _Regenerated 2026-06-20 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-20 — Stale Ground / DuskTint node refs](../sessions/2026-06-20-stale-zone-node-refs.md)
 - [2026-06-20 — Research inbox: suspicion decay](../sessions/2026-06-20-research-village-suspicion.md)
 - [2026-06-20 — Librarian pass: solo-dev setup & Godot 4.4 Web](../sessions/2026-06-20-research-solo-dev-setup.md)
-- [2026-06-20 — Research inbox: SNES-classics features (Grok)](../sessions/2026-06-20-research-snes-features.md)
 
 ## Ideas inbox
 - 120 captured items in [ideas.md](../ideas.md)

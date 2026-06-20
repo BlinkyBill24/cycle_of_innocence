@@ -105,6 +105,21 @@ func test_domination_retags_the_lunge_as_an_ally_attack() -> void:
 		"a Dominated thrall's lunge fights FOR Rowan (ally), so it wounds enemies, not him")
 
 
+func test_monster_freezes_while_a_modal_is_open() -> void:
+	# satchel/journal/dialogue emit exploration_paused — the monster must hold still
+	# (playtest: monsters kept moving under the open inventory).
+	assert_true(enemy.hsm.is_active(), "live by default")
+	GameEvents.exploration_paused.emit()
+	enemy.global_position = Vector2.ZERO
+	enemy.velocity = Vector2(140, 0)  # pretend it was mid-lunge
+	await wait_physics_frames(2)
+	assert_eq(enemy.velocity, Vector2.ZERO, "paused monster is forced to a stop")
+	assert_almost_eq(enemy.global_position.x, 0.0, 0.5, "and does not drift under the menu")
+	assert_false(enemy.hsm.is_active(), "its brain is paused too — no chasing or lunging")
+	GameEvents.exploration_resumed.emit()
+	assert_true(enemy.hsm.is_active(), "and it wakes when the world resumes")
+
+
 func test_fringes_zone_has_two_distinct_monsters_to_verify_factions() -> void:
 	# A second monster gives a Dominated thrall something to fight (faction demo).
 	var zone: Node2D = load("res://scenes/zones/fringes.tscn").instantiate()
