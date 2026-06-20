@@ -55,6 +55,9 @@ zone_id = &"village_edge"
 [node name="GroundBackdrop" type="Sprite2D" parent="."]
 texture = ExtResource("17_bg")
 
+[node name="DuskTint" type="CanvasModulate" parent="."]
+color = Color(0.38, 0.34, 0.44, 1)
+
 [node name="Borders" type="StaticBody2D" parent="."]
 collision_layer = 1
 collision_mask = 0

@@ -39,7 +39,6 @@ const HEIGHT := 26
 const TWISTED_CHILD := preload("res://scenes/enemies/twisted_child.tscn")
 const EMERGENCY_SPAWN := Vector2(640, 250)  # deep fringes, east
 
-@onready var ground: TileMapLayer = $Ground
 @onready var tint: CanvasModulate = $DuskTint
 
 var _emergency_spawned := false
@@ -47,7 +46,6 @@ var _emergency_spawned := false
 
 func _ready() -> void:
 	super._ready()
-	_paint_ground()
 	PropShadows.apply($World)
 	tint.color = WorldState.palette()
 	WorldState.time_changed.connect(_on_time_changed)
@@ -81,12 +79,10 @@ func _on_time_changed(_time: int, _day: int) -> void:
 	create_tween().tween_property(tint, "color", WorldState.palette(), 3.0)
 
 
-func _paint_ground() -> void:
-	for y in range(-HEIGHT / 2, HEIGHT / 2):
-		for x in range(-WIDTH / 2, WIDTH / 2):
-			var pick: Array = cell_tile(x, y)
-			ground.set_cell(Vector2i(x, y), pick[0], pick[1])
-
+## NOTE: the runtime tile painter was removed 2026-06-20 — the painted
+## `GroundBackdrop` Sprite2D superseded the procedural `Ground` TileMapLayer
+## project-wide (painted-backdrop direction, 2026-06-11). The pure terrain-field
+## functions below are retained: unit-tested and mirrored by the preview tool.
 
 ## Deterministic terrain field sampled at cell corners (vertex space).
 ## Layout mirrors the old map: path west-east (dying at the fringe), ritual
