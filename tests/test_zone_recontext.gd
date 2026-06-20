@@ -86,6 +86,24 @@ func test_playground_carries_the_sandbox_whisper() -> void:
 	assert_true(found, "first authored recontext moment is wired")
 
 
+# --- secret #2: the illegible cult symbol (symbol_literacy gate) ------------
+
+func test_cult_symbol_illegible_until_literacy_learned() -> void:
+	var zone: Node2D = load("res://scenes/zones/playground_fringes.tscn").instantiate()
+	add_child_autofree(zone)
+	await wait_physics_frames(1)
+	var illegible := zone.get_node("CultSymbolIllegible")
+	var legible := zone.get_node("CultSymbolLegible")
+	# by default the marks won't resolve — only the illegible read is live
+	assert_eq(illegible.process_mode, Node.PROCESS_MODE_INHERIT, "illegible read present by default")
+	assert_eq(legible.process_mode, Node.PROCESS_MODE_DISABLED, "no meaning before literacy")
+	# learning to read the sigil swaps the reading live (and on next enter)
+	PlayerData.unlock_revelation(&"symbol_literacy")
+	await wait_physics_frames(1)
+	assert_eq(illegible.process_mode, Node.PROCESS_MODE_DISABLED, "the illegible read withdraws")
+	assert_eq(legible.process_mode, Node.PROCESS_MODE_INHERIT, "the sigil now reads")
+
+
 # --- stage-keyed groups (doom-legibility roadmap) -------------------------
 
 func _make_zone_with_stage_sign(group: String) -> Array:
