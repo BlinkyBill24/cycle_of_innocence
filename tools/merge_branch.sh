@@ -42,13 +42,14 @@ else
 	fi
 fi
 
-# The ONLY trustworthy success signal: the PR ends up with a real
-# merged_commit_id. Forgejo has been seen (PRs #23-25, 2026-06-20) to return
-# HTTP 200, flip the PR to merged=true, create the merge commit object, yet NOT
-# advance the protected main ref — leaving merged_commit_id=null and main
-# unmoved. (Cause: a protected-file rule on project.godot.) The 200, and even a
-# transient new tip on branches/main, are NOT reliable; merged_commit_id is.
-merged_sha() { api_get "pulls/$PR" | grep -oE '"merged_commit_id":"[0-9a-f]+"' | head -1 | grep -oE '[0-9a-f]+'; }
+# The one trustworthy success signal: main PERSISTENTLY advances. This Forgejo
+# never populates merged_commit_id (it's null even for real merges), and the HTTP
+# 200 lies — a protected-file PR (e.g. project.godot, PRs #23/#24 2026-06-20)
+# gets a merge commit built, main briefly points at it, then the protection
+# REVERTS main to its old tip. So poll main's tip and require the NEW value to
+# HOLD across consecutive reads before declaring success.
+main_tip() { api_get "branches/main" | grep -oE '"id":"[0-9a-f]+"' | head -1 | grep -oE '[0-9a-f]+'; }
+BEFORE="$(main_tip || true)"
 
 # wait until mergeable, then merge (Forgejo recomputes mergeability async)
 for try in $(seq 1 8); do
@@ -56,18 +57,24 @@ for try in $(seq 1 8); do
 	if [ "$m" = '"mergeable":true' ]; then
 		code="$(api_post "pulls/$PR/merge" '{"Do":"merge"}')"
 		if [ "$code" = "200" ]; then
-			# Verify the merge actually LANDED (real merged_commit_id), don't
-			# trust the 200. A phantom merge leaves this null forever.
-			for vtry in $(seq 1 6); do
-				sha="$(merged_sha || true)"
-				if [ -n "$sha" ]; then echo "PR #$PR merged ✅ (commit ${sha:0:10})"; exit 0; fi
-				echo "  200 received but merged_commit_id still null — verifying ($vtry)…"
+			# Require main to advance AND hold there (a phantom reverts within seconds).
+			held=0
+			for vtry in $(seq 1 8); do
 				sleep 3
+				now="$(main_tip || true)"
+				if [ -n "$now" ] && [ "$now" != "$BEFORE" ]; then
+					held=$((held + 1))
+					[ "$held" -ge 2 ] && { echo "PR #$PR merged ✅ (main ${BEFORE:0:10} → ${now:0:10}, held)"; exit 0; }
+				else
+					[ "$held" -gt 0 ] && echo "  main reverted to ${BEFORE:0:10} — phantom in progress…"
+					held=0
+				fi
 			done
-			echo "ERROR: PR #$PR is a PHANTOM MERGE — Forgejo returned 200 but never" >&2
-			echo "       advanced main (merged_commit_id is null). Likely a protected-file" >&2
-			echo "       rule (e.g. project.godot). Merge it in the web UI as owner, or" >&2
-			echo "       relax the protection. The PR is now CLOSED; re-land on a fresh branch." >&2
+			echo "ERROR: PR #$PR is a PHANTOM MERGE — Forgejo returned 200 but main never" >&2
+			echo "       held a new tip (it reverts to ${BEFORE:0:10}). A protected-file rule on" >&2
+			echo "       main (e.g. project.godot) is rejecting the ref update. Merge it in the" >&2
+			echo "       web UI as owner, or relax the protection. The PR is now CLOSED — re-land" >&2
+			echo "       any further changes on a FRESH branch." >&2
 			exit 2
 		fi
 		echo "  merge HTTP $code (try $try): $(head -c 160 /tmp/mb_resp.txt)"
