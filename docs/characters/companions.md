@@ -111,4 +111,6 @@ Every major companion has a set of personal nodes that can be gated behind `$bon
 
 *Also (from [[research/done/2026-06-20-player-abilities]]):* **Briar-assisted movement** — at high bond she can boost/vault Rowan to reach story or exploration spots (a relationship move instead of a generic jump); low bond/corruption makes the assist fail or feel wrong.
 
+*Bond-hooks next-pass priorities (consolidated 2026-06-20, [[research/done/2026-06-20-briar-bond-hooks]]):* the live quirk thresholds (bond ≥60 scent growl · corruption ≥40 long stare · ≥70 phantom guard · bond ≥75 dusk press) are confirmed. Top three to wire next: (1) Briar reactions to **VillageState / Warden Oslo** (high bond → early warning; corruption → unpredictable); (2) complete **dig-to-lore + interest-point gaze** (bond controls reliability toward buried recontext); (3) expose **2–3 authored bond milestones** that feel earned. Named gaps: mercy/soothe synergy, an adaptive-audio Briar layer, threshold breaking-point scenes. Tracked in [[ideas]].
+
 See also: [[story/bible]] for how the companions tie into the central twists, and [[story/choice-matrix]] for specific moments where companion fate is decided.
