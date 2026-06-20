@@ -24,11 +24,11 @@ _Regenerated 2026-06-20 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-20 — Stale Ground / DuskTint node refs](../sessions/2026-06-20-stale-zone-node-refs.md)
 - [2026-06-20 — Research inbox: suspicion decay](../sessions/2026-06-20-research-village-suspicion.md)
 - [2026-06-20 — Research inbox: SNES-classics features (Grok)](../sessions/2026-06-20-research-snes-features.md)
+- [2026-06-20 — Research inbox: escape-room set-piece + Warden Oslo](../sessions/2026-06-20-research-setpiece-warden.md)
 - [2026-06-20 — Research inbox: player abilities (Grok)](../sessions/2026-06-20-research-player-abilities.md)
 - [2026-06-20 — Research inbox: pixel-art pipeline consistency](../sessions/2026-06-20-research-pixel-pipeline.md)
 - [2026-06-20 — Research inbox: AI-orchestration survey](../sessions/2026-06-20-research-orchestration-survey.md)
-- [2026-06-20 — Research inbox: equipment (Ausrüstung) system](../sessions/2026-06-20-research-equipment-system.md)
 
 ## Ideas inbox
-- 115 captured items in [ideas.md](../ideas.md)
+- 117 captured items in [ideas.md](../ideas.md)
 

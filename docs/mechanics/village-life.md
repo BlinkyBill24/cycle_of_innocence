@@ -50,5 +50,7 @@ The village runs on **daily NPC routines** (Shadows of Doubt, scaled way down) a
 
 *Suspicion decay (reviewed 2026-06-20, [[research/done/2026-06-20-villagestate-suspicion-decay]]):* the current `0.7×`/phase multiplicative decay is **sound — keep it** (gives breathing room, makes hiding/hideouts meaningful). A concrete post-slice case of the evolution idea above: make decay **companion/morality-aware** — ruthless → slower decay (villagers stay paranoid); high Briar bond → small zone decay bonus or one authored "distraction" per phase (hand-written flags, not procedural).
 
+*Warden Oslo patrol (reviewed 2026-06-20, [[research/done/2026-06-20-warden-oslo-search-patterns]]):* the stage-2 marker-patrol + LOS-notice warden is **sound — keep it** (simple, legible, authored, Web-friendly). Post-slice, make him companion-aware: high Briar bond → small notice-rate cut / early warning when Oslo is near (low bond/corruption → Briar more fearful); a successful multi-phase evasion writes a small authored recontext (new gossip / missed clue / journal entry). Hand-written, never procedural search AI.
+
 ## Related
 [[mechanics/hollowing-clock]] · [[mechanics/day-night-hideout]] · [[mechanics/vision-and-darkness]] · [[story/bible]] · [[design/feature-candidates-2026-06]]

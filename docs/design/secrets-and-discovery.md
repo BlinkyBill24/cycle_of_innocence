@@ -156,6 +156,9 @@ endings/morality/NG+ echoes must give a narrative reason or second-read secrets
 go unseen. This is design-pattern analysis, not a guarantee; validate against
 playtests, especially the novel mechanics.
 
+## Future direction (inspiration, not yet decided)
+*From [[research/done/2026-06-20-escape-room-set-piece-research]] (post-slice).* A single signature **escape-room set-piece** at the conspiracy reveal is the strongest "story told by solving" moment in the game — each solved step writes a witnessed LORE/DOOM entry, and the truth clicking *is* the exit. Full spec: [[mechanics/escape-room-setpiece]]. Tracked in [[ideas]].
+
 ## Related
 
 [[research/done/2026-06-13-secrets-discovery-design]] ·
