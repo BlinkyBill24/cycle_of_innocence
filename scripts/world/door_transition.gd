@@ -7,10 +7,12 @@ extends Area2D
 ## only the target scene + spawn id differ.
 ##
 ## INTERACT mode: player walks onto it, presses the interact key. ENTER mode:
-## triggers on contact (seamless thresholds). `locked` blocks entry and floats
-## a diegetic reason — restraint for buildings with no authored interior.
+## triggers on contact (seamless thresholds). PUSH mode: a short HELD lean-in
+## (deliberate friction / a dread tool) — it does NOT open on a tap. `locked`
+## blocks entry and floats a diegetic reason — restraint for buildings with no
+## authored interior.
 
-enum Mode { INTERACT, ENTER }
+enum Mode { INTERACT, ENTER, PUSH }
 
 @export var target_scene: PackedScene
 ## Alternative to target_scene: a scene path string. Use this for floors that
@@ -19,6 +21,9 @@ enum Mode { INTERACT, ENTER }
 @export_file("*.tscn") var target_scene_path: String = ""
 @export var spawn_id: StringName = &"default"
 @export var mode: Mode = Mode.INTERACT
+## PUSH mode only: seconds of sustained lean-in before the door gives. Deliberate
+## friction — it never opens on a tap.
+@export var push_seconds: float = 0.6
 @export var locked := false
 @export_multiline var locked_reason := "The door is locked."
 ## Shown floating over the door in INTERACT mode while the player stands on it.
@@ -35,6 +40,8 @@ enum Mode { INTERACT, ENTER }
 @export var consume_key_on_unlock := true
 
 var _player_inside := false
+var _push_held := 0.0  # PUSH mode: accumulated lean-in time
+var _opened := false   # PUSH mode: latched once it gives (no re-trigger)
 var _label: Label
 ## The prompt lives on its own CanvasLayer (follow_viewport) so a dark interior's
 ## CanvasModulate (e.g. the basement DarkTint) can't crush it to invisibility.
@@ -54,6 +61,8 @@ func _on_body_entered(body: Node2D) -> void:
 	_player_inside = true
 	if mode == Mode.ENTER:
 		trigger()
+	elif mode == Mode.PUSH:
+		_show_prompt(locked_reason if is_locked() else "%s  (hold)" % prompt_text)
 	else:
 		_show_prompt(locked_reason if is_locked() else "%s  [E]" % prompt_text)
 
@@ -61,7 +70,50 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		_player_inside = false
+		_push_held = 0.0  # let go — the next push starts over
 		_hide_prompt()
+
+
+## PUSH mode: while the player leans in (held movement), accumulate toward the
+## open. A tap never opens it (deliberate friction). Live input is the "lean";
+## tests drive _accumulate_push() directly.
+func _physics_process(delta: float) -> void:
+	if _push_active() and _player_pushing():
+		_accumulate_push(delta)
+
+
+## Pure gate (testable): a PUSH door mid-lean — player present, not open, not
+## locked. False for INTERACT/ENTER doors, so they never enter the push path.
+func _push_active() -> bool:
+	return mode == Mode.PUSH and _player_inside and not _opened and not is_locked()
+
+
+## The player is actively leaning in (holding any movement input) — the "facing/
+## push" of held-proximity, read globally so the door stays decoupled from the
+## player script.
+func _player_pushing() -> bool:
+	return Input.get_vector("move_left", "move_right", "move_up", "move_down") != Vector2.ZERO
+
+
+## Add lean-in time; the door gives once it passes push_seconds. Testable core.
+func _accumulate_push(delta: float) -> void:
+	_push_held += delta
+	if _push_held >= push_seconds:
+		_open_by_push()
+
+
+func _open_by_push() -> void:
+	if _opened:
+		return
+	_opened = true
+	Sfx.play(&"stinger_toy", -4.0)  # door creak — no dedicated door SFX yet; toy-creak stands in
+	_hide_prompt()
+	trigger()  # walk through the now-open threshold (a safe no-op if no target is set)
+
+
+## PUSH progress 0..1 — for the prompt / tests.
+func push_progress() -> float:
+	return clampf(_push_held / push_seconds, 0.0, 1.0) if push_seconds > 0.0 else 1.0
 
 
 func _unhandled_input(event: InputEvent) -> void:
