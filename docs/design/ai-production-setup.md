@@ -16,7 +16,7 @@ The complete per-area AI/tooling stack to take *Cycle of Innocence* from current
 |---|---|---|
 | Pixel art (concepts/bibles) | **Grok Imagine** → pixel cleanup (scripted or GIMP/Pixelorama — no Aseprite installed) + `tools/pixelize.py` (magenta chroma-key), nearest-neighbor import | — |
 | Pixel art (character animation & variants) | Grok placeholders for the slice (functional but clunky) | **TRIGGER FIRED 2026-06-10** (Grok can't grid-align animation sheets) → **PixelLab** ~$12-30/mo pause-able, when variant work starts — skeleton rigs keep pose timing identical across outfit/age variants (see [[decisions/2026-06-10-sprite-tool-pixellab]]) |
-| Pixel art (static tiles/icons) | Grok Imagine | Retro Diffusion ($20 one-time Aseprite Lite) if tileset quality wall fires |
+| Pixel art (static tiles/icons + **tilesets**) | Grok Imagine (concept/icons) | **PixelLab `create_topdown_tileset`** (Wang, 32px, `view="low top-down"`) recommended primary for terrain/floors/walls per [[research/done/2026-06-20-pixel-art-pipeline-consistency]]; **Retro Diffusion** ($20 Lite / $65 full) as palette-strict fallback — *caveat: RD's Aseprite ext is static-only; 4-dir animation needs the RD website/API/Replicate* `[verified 2026-06-20]` |
 | Music | **ACE-Step** (Apache 2.0, free web/self-host) for instrumental loops → **Audacity** loop/crossfade, export OGG | Need vocals or signature tracks → Suno Pro $10/mo (commercial license; never use Suno free tier commercially) |
 | SFX | **ChipTone** + **sfxr** (free) for UI/hits/pickups; layer in Godot audio buses | Complex organic horror SFX ("wet stone crumble") → ElevenLabs SFX $5/mo Pro |
 | Voice | **None — deliberate.** Text-only horror (Undertale/Inscryption precedent); text + ambience scarier than mediocre TTS | Trailer narration only, if ever |
@@ -43,7 +43,7 @@ The complete per-area AI/tooling stack to take *Cycle of Innocence* from current
 - **Google Play**: similar disclosure in listing; EU listings should label AI-generated content explicitly. Offline-playable is also a Play policy expectation — another reason for no runtime LLM.
 - **itch.io**: no formal requirement; add a transparency note on the page (audience values it).
 - Never claim "100% handmade"; "designed and directed by the developer using AI-assisted tools" is accurate.
-- **Licensing red lines**: no commercial use of free tiers that forbid it (ElevenLabs free, Suno free); no voice-cloning real people; keep prompt/project receipts for all generated assets.
+- **Licensing red lines**: no commercial use of free tiers that forbid it (ElevenLabs free, Suno free); no voice-cloning real people; keep prompt/project receipts for all generated assets. **LPC Spritesheet Generator** assets (if ever adopted as a consistency backbone, [[research/done/2026-06-20-pixel-art-pipeline-consistency]]) are CC-BY-SA 3.0 / GPL 3.0 — attribution required, with a GPL/DRM-clause wrinkle for encrypted storefronts (Steam/iOS); prefer CC0/OGA-BY there `[verified 2026-06-20]`.
 
 ## Cost posture
 Current monthly cost: **$0** beyond existing subscriptions (Grok, Claude/Cursor). Full selective-paid stack if all upgrade triggers fire: ~$25/mo (Retro Diffusion + Suno + ElevenLabs). Decision per tool, recorded in [[decisions/_index]] when taken.

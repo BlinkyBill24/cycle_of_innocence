@@ -34,7 +34,8 @@ The skeleton-rig point is decisive: runtime outfit swapping (our AgeMorph alread
 ## Adoption plan
 - **Not needed for the vertical slice** — current placeholders are settled. Subscribe to PixelLab (Artisan tier ~$25/mo) for 1–2 months **when character-variant work starts** (post-slice, around teen/adult stages or outfit states), batch-generate, pause subscription.
 - Workflow then: define Rowan/Briar/creature as PixelLab character templates → skeleton rigs for walk/attack/idle → Transfer Outfit per morality state → 4-dir rotations → export sheets → existing `tools/pixelize.py` (alpha-aware) + `tools/gen_spriteframes.py` pipeline unchanged.
-- RD Aseprite Lite ($20 one-time) optional for tiles/icons if Grok tileset quality wall fires.
+- **Drift-avoidance** *(2026-06-20 research, [[research/done/2026-06-20-pixel-art-pipeline-consistency]])*: feed a **clean orthographic turnaround** (front/side/back) as the style/reference image — not a painterly Grok concept; it's the single biggest lever against head/volume drift. Use the skeleton tool's **"fixed head → always"** option, and when rotating, regenerate at 45° increments **updating the reference each step** (errors accumulate — QA every step). An Aseprite hand-cleanup pass owns the last 10–15%.
+- RD Aseprite Lite ($20 one-time) optional for tiles/icons if Grok tileset quality wall fires. *Caveat (2026-06-20): RD's Aseprite ext is static-only — animation needs the RD website/API/Replicate.*
 
 ## Alternatives
 - **Retro Diffusion only**: rejected for characters — no skeleton/inpaint/outfit tooling; pose drift across variants breaks runtime swaps. Still best static-art quality; retained for that lane.
