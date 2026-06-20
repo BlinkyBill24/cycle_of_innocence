@@ -47,6 +47,9 @@ var _dominated_life: float = 0.0
 var _fought_once: bool = false
 var _crumbling: bool = false
 var _thrall_lunge_anim: float = 0.0  # dominated lunges happen outside Attack state
+## True while a modal owns the world (satchel/journal/dialogue/name entry) — the
+## monster freezes body AND brain so it can't chase or lunge from under a menu.
+var _paused: bool = false
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health: Health = $Health
@@ -83,6 +86,10 @@ func _ready() -> void:
 	_init_hsm()
 	if GameEvents:
 		GameEvents.hollowing_stage_advanced.connect(_on_hollowing_advanced)
+		# Freeze while a menu/dialogue owns the world (playtest 2026-06-20: monsters
+		# kept chasing while the satchel was open). Mirrors player/companion pause.
+		GameEvents.exploration_paused.connect(_on_world_paused)
+		GameEvents.exploration_resumed.connect(_on_world_resumed)
 	if PlayerData.has_story_flag(_stilled_flag()):
 		if HollowingClock.stage >= HollowingClock.RE_AGGRO_STAGE:
 			# Frenzy world: the Hunger already took it back while Rowan was away
@@ -130,6 +137,9 @@ func _init_hsm() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if _paused:
+		velocity = Vector2.ZERO  # body frozen; the brain (HSM) is stopped too
+		return
 	_cooldown = maxf(_cooldown - delta, 0.0)
 	_soothe_hold = maxf(_soothe_hold - delta, 0.0)
 	_glance_cooldown = maxf(_glance_cooldown - delta, 0.0)
@@ -489,6 +499,22 @@ func _betrayed() -> void:
 	PlayerData.add_companion_corruption(&"briar", 10.0)
 	if GameEvents:
 		GameEvents.stilled_monster_killed.emit(stable_id)
+
+
+## A modal (satchel/journal/dialogue/name entry) owns the world: stop the body
+## AND deactivate the HSM so the monster can't chase, lunge, or animate from under
+## a menu. The body gate in _physics_process backs this up (no residual coasting).
+func _on_world_paused() -> void:
+	_paused = true
+	velocity = Vector2.ZERO
+	if hsm:
+		hsm.set_active(false)
+
+
+func _on_world_resumed() -> void:
+	_paused = false
+	if hsm:
+		hsm.set_active(true)
 
 
 func _on_died() -> void:

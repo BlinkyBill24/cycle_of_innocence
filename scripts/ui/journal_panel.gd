@@ -16,6 +16,7 @@ var _root: Panel
 var _list: VBoxContainer
 var _stats: Label
 var _open := false
+var _self_pause := false  # true while WE emit exploration_paused (ignore our own)
 
 
 func _ready() -> void:
@@ -27,6 +28,9 @@ func _ready() -> void:
 		GameEvents.journal_entry_added.connect(func(_id: StringName) -> void:
 			if _open:
 				_refresh())
+		# Dialogue/the satchel pausing exploration -> the journal yields (mirrors
+		# inventory_panel) so two modals never stack and the world freeze pairs cleanly.
+		GameEvents.exploration_paused.connect(_on_exploration_paused)
 
 
 func _build() -> void:
@@ -70,10 +74,39 @@ func _build() -> void:
 
 
 func toggle() -> void:
-	_open = not _open
-	visible = _open
 	if _open:
-		_refresh()
+		_close()
+	else:
+		_open_panel()
+
+
+## Opening the journal freezes the world like the satchel — you shouldn't be
+## chased or hit while reading (playtest 2026-06-20). Strict pause/resume pairing.
+func _open_panel() -> void:
+	_open = true
+	if GameEvents:
+		_self_pause = true
+		GameEvents.exploration_paused.emit()
+		_self_pause = false
+	visible = true
+	_refresh()
+
+
+func _close() -> void:
+	_open = false
+	visible = false
+	if GameEvents:
+		GameEvents.exploration_resumed.emit()
+
+
+## A foreign pause (dialogue / the satchel) opened: yield WITHOUT emitting resume
+## (the pauser owns the resume), guarded against our own emission.
+func _on_exploration_paused() -> void:
+	if _self_pause:
+		return
+	if _open:
+		_open = false
+		visible = false
 
 
 func _refresh() -> void:
