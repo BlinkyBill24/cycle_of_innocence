@@ -63,6 +63,8 @@ const BRIAR_CALM_BONUS := 1.5  # Briar lying down non-threateningly nearby
 const BRIAR_CALM_MIN_BOND := 25.0
 const BRIAR_CALM_RANGE := 90.0
 const DOMINATE_RATE_FACTOR := 1.4  # fear is faster than trust — by design
+const PICKUP_RANGE := 40.0  # how close Rowan must be to lift a loose object
+var _carried: ThrowableObject = null  # the loose object currently held, if any
 var _soothing := false
 var _soothe_prompt: SoothePrompt
 var _soothe_target: EnemyBase
@@ -146,10 +148,14 @@ func _physics_process(delta: float) -> void:
 	if _input_grace > 0.0:
 		return
 
-	# Real-time attack (no pause menu)
+	# Real-time attack (no pause menu). While carrying a loose object, the attack
+	# button hurls it instead of swinging — forgiving parity with interact.
 	if Input.is_action_just_pressed("attack") and movement_state == MovementState.EXPLORING:
 		if not _spike_eats_press():
-			perform_attack()
+			if _carried:
+				_throw_carried()
+			else:
+				perform_attack()
 
 	if Input.is_action_just_pressed("interact") and movement_state == MovementState.EXPLORING:
 		_on_interact_pressed()
@@ -197,16 +203,50 @@ static func footstep_sound(surface: StringName) -> StringName:
 
 const ASSIST_RANGE := 48.0
 
-## Interact priority: soothe a nearby spareable monster, else companion dig.
+## Interact priority: throw what's carried → soothe a monster → lift a loose
+## object → hideout → companion dig. (Carried-throw first so you can always release
+## what you hold; soothe keeps priority over a pickup so a nearby rock can't steal
+## the signature verb.)
 func _on_interact_pressed() -> void:
+	if _carried:
+		_throw_carried()
+		return
 	var monster := _nearest_spareable_monster()
 	if monster:
 		_start_soothe(monster)
+		return
+	var throwable := _nearest_throwable()
+	if throwable:
+		_carried = throwable
+		throwable.pick_up(self)
 		return
 	var hideout := get_tree().get_first_node_in_group("hideout") as Hideout
 	if hideout and hideout.try_interact(self):
 		return
 	_try_companion_assist()
+
+
+## Hurl the carried object in Rowan's facing direction (the shared thrown-hit path
+## arms its player-faction Hitbox for the flight).
+func _throw_carried() -> void:
+	if _carried == null:
+		return
+	_carried.throw_in_dir(_facing)
+	_carried = null
+
+
+## The nearest liftable object within reach (resting/landed only).
+func _nearest_throwable() -> ThrowableObject:
+	var nearest: ThrowableObject = null
+	var best := PICKUP_RANGE
+	for node in get_tree().get_nodes_in_group("throwable"):
+		var obj := node as ThrowableObject
+		if obj and obj.is_available():
+			var dist := global_position.distance_to(obj.global_position)
+			if dist < best:
+				best = dist
+				nearest = obj
+	return nearest
 
 
 func _nearest_spareable_monster() -> EnemyBase:

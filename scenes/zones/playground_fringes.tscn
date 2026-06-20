@@ -39,6 +39,7 @@
 [ext_resource type="SpriteFrames" uid="uid://dvlrvc2nrpfof" path="res://assets/resources/fx/campfire_frames.tres" id="43_campfire_fx"]
 [ext_resource type="SpriteFrames" uid="uid://bwdxmmoo3tcfy" path="res://assets/resources/fx/fog_frames.tres" id="44_fog_fx"]
 [ext_resource type="AudioStream" path="res://assets/audio/sfx/campfire_crackle.wav" id="45_crackle"]
+[ext_resource type="PackedScene" uid="uid://throwobj000001" path="res://scenes/world/throwable_object.tscn" id="46_throwable"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -192,6 +193,10 @@ position = Vector2(-300, -180)
 
 [node name="Briar" parent="World" instance=ExtResource("4_briar")]
 position = Vector2(-335, -155)
+
+[node name="ThrowableRock" parent="World" instance=ExtResource("46_throwable")]
+position = Vector2(-250, -150)
+object_id = &"playground_rock"
 
 [node name="WardenOslo" parent="World" instance=ExtResource("30_villager")]
 position = Vector2(-600, 60)
