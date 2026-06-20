@@ -30,6 +30,8 @@ InventoryPanel="*res://scripts/ui/inventory_panel.gd"
 SaveManager="*res://scripts/autoload/save_manager.gd"
 Sfx="*res://scripts/autoload/sfx.gd"
 AdaptiveAudio="*res://scripts/autoload/adaptive_audio.gd"
+PlaceholderMode="*res://scripts/debug/placeholder_mode.gd"
+DebugOverlay="*res://scripts/debug/debug_overlay.gd"
 
 [dialogue_manager]
 
