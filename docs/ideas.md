@@ -24,6 +24,7 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - Strong emphasis on "no Mote reuse" — document guardrails in GROK.md and local handbook.
 
 ## 📥 Captured this session
+- **Equipment (Ausrüstung) system — post-slice feature** (spec at [[mechanics/equipment]], from [[research/done/2026-06-20-ausruestung-equipment-system-research]]): a child's tools/garments/keepsakes in ~3 hand-placed tiers, sold by one diegetic reactive merchant; medium stat weight, no numeric HUD ("stronger" shown via sprite/recontext/Journal/companions/audio). Build order (content-first): (1) extend ItemDef + equip slots + tiny equip screen + one found tool; (2) author 2–3 tiers for one slot; (3) one Dialogue-Manager merchant; (4) merchant reacts to morality + dread; (5) soothe/utility identity gear + polish. Sequenced after vision-cone + Hollow House authoring. Don't add a tier/slot without authored content.
 
 ### SNES-classics design directions (post-slice) — from [[research/done/2026-06-20-zelda-terranigma-mana-evermore-transferable-features]]
 *Directions to consider after the current slice; all amplify systems we already have, none reopen a locked decision.*
