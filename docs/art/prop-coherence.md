@@ -17,6 +17,14 @@ screenshot failures are a compositing/workflow gap, not a tooling gap.**
 PixelLab characters, Grok GROUND-ONLY backdrop repaints, and the hand-rolled
 adaptive audio are all reaffirmed — keep the locked art lane.
 
+> ⚠ **Open tension (2026-06-20):**
+> [[research/done/2026-06-20-pixel-art-pipeline-consistency]] argues the painted
+> village map should be **re-rendered into the 32px register** (downsample →
+> palette-quantize) rather than shipped as a baked backdrop — a direct challenge
+> to this lock and the 2026-06-11 backdrop direction. **Not resolved here** (R7:
+> research does not silently reopen a lock); the decision is open in
+> [[decisions/2026-06-20-village-backdrop-rerender]].
+
 **Mid-2026 reality check** `[verified 2026-06-12]`: AI map tooling is
 asset/tileset-level everywhere (PixelLab map tools are guided inpainting;
 Ludo.ai is tilesets; nothing layout-level exists). Nothing one-shots a village
@@ -35,6 +43,13 @@ spaces, not modular kitbash* — that is the replay-value stake.
    wrongness IS the design stay unlocked — currently only `toy_duck.png`
    ("toys stay saturated while the world drains"). Also exempt: **emissive/translucent FX** — the animated campfire (fire is a light source) and fog patches (translucent overlay) keep their own saturation/alpha (2026-06-13). Applied to village props
    2026-06-12, playground props (minus duck) same day.
+   - *Research note (2026-06-20, [[research/done/2026-06-20-pixel-art-pipeline-consistency]]):*
+     a **runtime** WebGL2-safe palette-clamp shader (`canvas_item`, fixed-iteration —
+     no dynamic loops; KoBeWi MIT palette-swap as a base) could enforce this at
+     draw time for any mismatched asset, complementing the import-time
+     `palette_lock.py`. Test it in a real HTML5 build before relying on it (Safari/
+     WebGL2 quirks). Also surfaces a **per-zone 48-palette vs one master palette**
+     question (the research favors a single master) — deferred to the art register pass.
 2. **Flat-neutral-light authoring**: props carry NO baked time-of-day light
    and NO cast shadows — `CanvasModulate` + lights own time-of-day. (A prop
    repainted to match one scene's light is wrong in every other scene.)
@@ -43,6 +58,13 @@ spaces, not modular kitbash* — that is the replay-value stake.
 4. **Shadow canon (restated — a cross-model review garbled it)**: procedural
    contact-shadow ellipses for small props; baked worn foundations for
    buildings; **no shadow ellipses on ≥96 px sprites** (they caused floating).
+   - *Godot #78964 (open, `[verified 2026-06-20]`):* `LightOccluder2D` / TileSet
+     occlusion shadows always draw **on top of** what they occlude and can't be
+     pushed behind via z-index / y-sort / tree-order — which is exactly why we
+     keep the separate backdrop / occluder / y-sortable-prop layers. If we ever
+     adopt occluders, the workaround is to set the occluder polygon's cull mode so
+     shadows cast outward only (winding-dependent; see #102160).
+     [[research/done/2026-06-20-pixel-art-pipeline-consistency]]
 5. **Projection Canon ("Zelda perspective")** *(research 2026-06-12,
    [[research/done/2026-06-12-research-projection-canon-angle-consistency]])*:
    one camera for the whole game — **low top-down (~20°), cheated
