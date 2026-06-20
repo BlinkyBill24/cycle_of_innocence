@@ -20,6 +20,7 @@ _Regenerated 2026-06-21 by `tools/digest.py`. Do not hand-edit._
 - _(none yet)_
 
 ## Recent sessions
+- [2026-06-21 — Push-to-open doors (goal item 2)](../sessions/2026-06-21-push-to-open-door.md)
 - [2026-06-21 — Pick-up-throw (goal item 1)](../sessions/2026-06-21-pickup-throw.md)
 - [2026-06-21 — Modals freeze the whole world](../sessions/2026-06-21-modal-pause-freezes-world.md)
 - [2026-06-20 — Web build + audio confirmed in a real browser](../sessions/2026-06-20-web-audio-confirmed.md)
@@ -27,8 +28,7 @@ _Regenerated 2026-06-21 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-20 — Weapon combat (Wiring & Audibility pass, item 1)](../sessions/2026-06-20-weapon-combat.md)
 - [2026-06-20 — LimboAI Web export verification](../sessions/2026-06-20-verify-limboai-web.md)
 - [2026-06-20 — Stale Ground / DuskTint node refs](../sessions/2026-06-20-stale-zone-node-refs.md)
-- [2026-06-20 — Research inbox: suspicion decay](../sessions/2026-06-20-research-village-suspicion.md)
 
 ## Ideas inbox
-- 121 captured items in [ideas.md](../ideas.md)
+- 122 captured items in [ideas.md](../ideas.md)
 

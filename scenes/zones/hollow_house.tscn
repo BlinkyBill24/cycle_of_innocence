@@ -178,7 +178,8 @@ collision_mask = 2
 script = ExtResource("5_door")
 target_scene_path = "res://scenes/zones/village_green.tscn"
 spawn_id = &"from_hollow_house"
-prompt_text = "Step outside"
+mode = 2
+prompt_text = "Shove it open"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitDoor"]
 shape = SubResource("exit_door")
