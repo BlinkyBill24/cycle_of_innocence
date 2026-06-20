@@ -103,3 +103,18 @@ func test_domination_retags_the_lunge_as_an_ally_attack() -> void:
 	await wait_physics_frames(1)
 	assert_eq(enemy.lunge_hitbox.faction, Faction.ALLY,
 		"a Dominated thrall's lunge fights FOR Rowan (ally), so it wounds enemies, not him")
+
+
+func test_fringes_zone_has_two_distinct_monsters_to_verify_factions() -> void:
+	# A second monster gives a Dominated thrall something to fight (faction demo).
+	var zone: Node2D = load("res://scenes/zones/fringes.tscn").instantiate()
+	add_child_autofree(zone)
+	await wait_physics_frames(1)
+	var ids := {}
+	for node in zone.find_children("*", "EnemyBase", true, false):
+		var e := node as EnemyBase
+		if e:
+			ids[e.stable_id] = true
+	assert_eq(ids.size(), 2, "fringes authors two monsters")
+	assert_true(ids.has(&"twisted_child_01"), "the original monster")
+	assert_true(ids.has(&"twisted_child_02"), "a second, with a UNIQUE stable_id (flag bookkeeping)")
