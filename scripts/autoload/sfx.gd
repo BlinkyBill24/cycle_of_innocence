@@ -3,6 +3,10 @@ extends Node
 ## from ElevenLabs (tools/gen_elevenlabs_sfx.py); growl/toy/bell/lullaby remain
 ## placeholder/other-source. Swap files, keep names.
 
+## Emitted whenever a known sound is played — lets tests assert the audible
+## wiring (e.g. one bell per stage advance, monster lunge plays the attack key).
+signal played(name: StringName)
+
 const STREAMS := {
 	&"footstep": preload("res://assets/audio/sfx/footstep_grass.wav"),
 	&"swing": preload("res://assets/audio/sfx/attack_swing.wav"),
@@ -49,6 +53,7 @@ func play(name: StringName, volume_db: float = 0.0, pitch_jitter: float = 0.06) 
 	if stream == null:
 		push_warning("Sfx: unknown sound '%s'" % name)
 		return
+	played.emit(name)
 	var out_db: float = volume_db + float(VOLUMES.get(name, 0.0))
 	for player in _players:
 		if not player.playing:

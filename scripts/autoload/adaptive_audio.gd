@@ -26,6 +26,18 @@ const MIN_DWELL := 4.0       # seconds before another switch is allowed
 const DUCK_RECOVERY_DB_PER_S := 5.0
 const SILENT_DB := -60.0
 
+## Night ambience (Wiring & Audibility pass): a quiet always-on crickets bed
+## under the score, plus an occasional owl stinger. Owls hush near a threat.
+const CRICKETS := preload("res://assets/audio/sfx/crickets.wav")
+const CRICKETS_DB := -22.0
+const OWL_DB := -12.0
+const OWL_MIN_GAP := 18.0
+const OWL_MAX_GAP := 40.0
+
+var _crickets: AudioStreamPlayer
+var _owl_timer := 0.0
+var _owl_next := 24.0
+
 var _players: Dictionary = {}
 var _gains: Dictionary = {}      # layer -> 0..1 crossfade weight
 var _active: Layer = Layer.AMBIENT
@@ -44,6 +56,14 @@ func _ready() -> void:
 		_gains[layer] = 1.0 if layer == Layer.AMBIENT else 0.0
 	if GameEvents:
 		GameEvents.horror_stinger.connect(func(_trigger: StringName) -> void: duck(12.0))
+	# the crickets night bed — quiet, always under the score (looped even if the
+	# import-loop flag isn't picked up, via the finished->play reconnect)
+	_crickets = AudioStreamPlayer.new()
+	_crickets.stream = CRICKETS
+	_crickets.volume_db = CRICKETS_DB
+	add_child(_crickets)
+	_crickets.finished.connect(_crickets.play)
+	_crickets.play()
 
 
 var _in_hideout := false
@@ -74,6 +94,17 @@ func _process(delta: float) -> void:
 		var goal := 1.0 if layer == _active else 0.0
 		_gains[layer] = move_toward(_gains[layer], goal, delta / CROSSFADE_TIME)
 		_apply(layer)
+	_owl_timer += delta
+	if owl_due(_owl_timer, _owl_next, _in_hideout, _active):
+		Sfx.play(&"owl", OWL_DB)
+		_owl_timer = 0.0
+		_owl_next = randf_range(OWL_MIN_GAP, OWL_MAX_GAP)
+
+
+## Occasional night owl: fires on its timer, but never in the hideout and never
+## while danger owns the channel (owls go quiet near a threat). Pure, testable.
+static func owl_due(timer: float, next: float, in_hideout: bool, active: int) -> bool:
+	return timer >= next and not in_hideout and active != Layer.DANGER
 
 
 ## Momentarily lower the music (stingers, the soothe lullaby) — recovers

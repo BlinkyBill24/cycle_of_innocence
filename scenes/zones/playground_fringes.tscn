@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://envpq1ay0667"]
+[gd_scene load_steps=63 format=3 uid="uid://envpq1ay0667"]
 
 [ext_resource type="Script" uid="uid://dw5pp4xyg1cpx" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="TileSet" uid="uid://6k1vnwks463q" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
@@ -38,6 +38,7 @@
 [ext_resource type="Script" uid="uid://w3of1w7fmuph" path="res://scripts/world/surface_zone.gd" id="42_surface"]
 [ext_resource type="SpriteFrames" uid="uid://dvlrvc2nrpfof" path="res://assets/resources/fx/campfire_frames.tres" id="43_campfire_fx"]
 [ext_resource type="SpriteFrames" uid="uid://bwdxmmoo3tcfy" path="res://assets/resources/fx/fog_frames.tres" id="44_fog_fx"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/campfire_crackle.wav" id="45_crackle"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -163,6 +164,12 @@ energy = 0.6
 texture = ExtResource("20_glow")
 texture_scale = 0.95
 script = ExtResource("19_campfire")
+
+[node name="Crackle" type="AudioStreamPlayer2D" parent="Hideout/Campfire"]
+stream = ExtResource("45_crackle")
+volume_db = -10.0
+autoplay = true
+max_distance = 240.0
 
 [node name="VillageTransition" type="Area2D" parent="."]
 position = Vector2(-585, 60)
