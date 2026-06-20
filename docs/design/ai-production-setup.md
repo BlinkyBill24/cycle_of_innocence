@@ -25,6 +25,10 @@ The complete per-area AI/tooling stack to take *Cycle of Innocence* from current
 | In-game AI | **LimboAI** behavior trees + `NavigationAgent2D` pathfinding. **No runtime LLM calls** — offline mobile requirement, 300–1000ms latency, per-player API cost | — |
 | Testing | **GUT** unit tests + `godot --headless` (CI-able via GitHub Actions) | — |
 
+## Placeholder / greybox art (NOT shippable)
+*From [[research/done/2026-06-20-michael-games-aarpg-harvest]] (placeholder-only ruling, 2026-06-20).*
+The Michael Games **2D Action-Adventure RPG asset pack** (`michaelgames.itch.io/2d-action-adventure-rpg-assets`, name-your-price, **free for commercial use**, *"no generative AI"* `[verified 2026-06-20]`) is a sanctioned **placeholder/greybox source** for prototype + the placeholder-mode test build — a real drawn sprite can read silhouette/scale better than a polygon. **It is hand-drawn with its own palette + projection**, so it is **prohibited from any shippable scene** (would violate Projection Canon / `CANON_VIEW` + the master-palette lock). If adopted, quarantine it under a `placeholder/`-style path the gate can isolate so it can never silently survive into ship. Shippable use would be a separate decision (reopens Projection Canon + palette lock), not a placeholder swap. *(Aseprite — the pack creator's hand tool — remains optionality only; not in the stack, "no Aseprite installed" above.)*
+
 ## Installed in this repo (2026-06-10)
 - `addons/` — Dialogue Manager v3.10.4, LimboAI v1.6.0 (Godot 4.4 GDExtension build), GUT v9.6.0
 - `tests/` — smoke tests; run via `tools/run-tests.sh`
