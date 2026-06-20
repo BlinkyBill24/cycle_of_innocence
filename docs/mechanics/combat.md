@@ -103,6 +103,7 @@ Death should always feel like a meaningful setback that reinforces the horror an
 - Global DreadManager singleton that multiple systems subscribe to.
 - Juice: screenshake, hitstop, impact particles, sound design (flesh vs metal vs "wrong" sounds).
 - Enemy AI: simple state machines (patrol, chase, attack, horror phase). Use NavigationAgent2D for basic pathing in larger zones.
+- **Read-only reference** *(from [[research/done/2026-06-20-michael-games-aarpg-harvest]])*: the MIT `github.com/michaelmalaska/aarpg-tutorial` (typed GDScript, Godot 4.x) is a clean, idiomatic **typed Area2D hit/hurtbox** implementation worth comparing against if we ever revisit combat plumbing. **Two hard exclusions — do NOT lift:** (1) it calls autoload singletons directly by name with no signal bus — our **GameEvents** bus is the better, more-decoupled pattern, keep it; (2) it uses a hand-rolled GDScript FSM — we are standardized on **LimboAI**, so it offers no transferable enemy-AI patterns. Read it for *typed combat shape only*, never for wiring/AI.
 
 ## Scope for v1
 
