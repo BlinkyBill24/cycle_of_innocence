@@ -14,7 +14,7 @@ This is a focused sub-vault for detailed planning, bible, sessions, and assets s
 - **Genre**: 2D top-down action-adventure RPG (Zelda/Mana exploration + real-time combat + puzzles)
 - **Tone**: Tense horror + atmospheric dread + epic conspiracy twists (AoT) + deep coming-of-age / Fable-style life progression
 - **Key twist**: Protagonist is an escaped child sacrifice. Primary emotional bonds are with rescueable/raiseable **animal companions** (dog, bird, horse etc.) that can grow, form loyalty, or become corrupted.
-- **Tech**: Godot 4.x, GDScript, Dialogue Manager (Yarn Spinner replaced 2026-06-10 — C#-only addon breaks Web export), 32×32 pixel art (Grok Imagine + Aseprite), cross-platform (Linux primary, Android, Web)
+- **Tech**: Godot 4.x, GDScript, Dialogue Manager (Yarn Spinner replaced 2026-06-10 — C#-only addon breaks Web export), 32×32 pixel art (Grok Imagine → GIMP/Pixelorama, no Aseprite installed; + PixelLab), cross-platform (Linux primary, Android, Web)
 - **Root**: `test/` (current workspace / active dev root)
 
 ## Quick Links

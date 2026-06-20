@@ -96,6 +96,8 @@ Scores are 1–5 (1 = not at all, 5 = strongly). Always follow with "why?"
 | Night worry score | median ≥3 | CanvasModulate floor with dread (not just overlay) |
 | Would keep playing | ≥4 of 5 yes | if no: the answers to "what next" pick the content arc |
 
+> **`[FLAG]` 5 testers ≠ tone validation** (solo-dev setup research, 2026-06-20): the "~5 users surfaces most problems" rule (NN/g, "Why You Only Need to Test with 5 Users") is about **usability** — *can they operate it* (the soothe/Briar/interface rows above). It does **not** validate *fun* or *atmosphere*: whether **dread actually lands** is a different question that needs **more, varied testers over time**, not 5. Trust small-n for the operability rows; treat the dread/doom/night rows as directional until repeated across several testing rounds. `[verified 2026-06-20]`
+
 ## Data capture
 
 One file per tester: `docs/playtest/2026-06/tester-NN.md` — copy the template
