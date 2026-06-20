@@ -40,27 +40,22 @@ const CHAPEL_COURT := Rect2i(-2, -13, 5, 4)
 const TERRACE_EDGE_Y := -12   # north rim plateau starts here
 const TERRACE_GAP_X := 6      # kept clear of the chapel court + north lane
 
-@onready var ground: TileMapLayer = $Ground
 @onready var tint: CanvasModulate = $DuskTint
 
 
 func _ready() -> void:
 	super._ready()
-	_paint_ground()
 	PropShadows.apply($World)
 	tint.color = WorldState.palette()
 	WorldState.time_changed.connect(func(_t: int, _d: int) -> void:
 		create_tween().tween_property(tint, "color", WorldState.palette(), 3.0))
 
 
-func _paint_ground() -> void:
-	for y in range(-HEIGHT / 2, HEIGHT / 2):
-		for x in range(-WIDTH / 2, WIDTH / 2):
-			var pick: Array = cell_tile(x, y)
-			ground.set_cell(Vector2i(x, y), pick[0], pick[1])
-
-
 ## --- terrain field (deterministic; mirrored in tools/preview_village_map.py) ---
+## NOTE: the runtime tile painter was removed 2026-06-20 — the painted
+## `GroundBackdrop` Sprite2D superseded the procedural `Ground` TileMapLayer
+## project-wide (painted-backdrop direction, 2026-06-11). These pure functions
+## are retained: they are unit-tested and mirrored by the preview tool.
 
 static func lane_wobble(vx: int) -> int:
 	return int(round(sin(float(vx) * 0.23) * 2.0))

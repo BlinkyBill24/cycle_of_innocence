@@ -20,6 +20,7 @@ _Regenerated 2026-06-20 by `tools/digest.py`. Do not hand-edit._
 - _(none yet)_
 
 ## Recent sessions
+- [2026-06-20 — Stale Ground / DuskTint node refs](../sessions/2026-06-20-stale-zone-node-refs.md)
 - [2026-06-20 — Research inbox: pixel-art pipeline consistency](../sessions/2026-06-20-research-pixel-pipeline.md)
 - [2026-06-20 — Research inbox: Michael Games AARPG harvest](../sessions/2026-06-20-research-aarpg-harvest.md)
 - [2026-06-20 — Placeholder mode + debug overlay](../sessions/2026-06-20-placeholder-mode.md)
@@ -27,7 +28,6 @@ _Regenerated 2026-06-20 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-15 — Painted backdrops (full re-wire)](../sessions/2026-06-15-painted-backdrops.md)
 - [2026-06-15 (cont.) — Painted backdrop tuning](../sessions/2026-06-15-painted-backdrops-tuning.md)
 - [2026-06-14 — Research inbox cleanup + interior design kit](../sessions/2026-06-14-research-inbox-cleanup.md)
-- [2026-06-14 — Cottage tiles + tweaks](../sessions/2026-06-14-interior-tiles-and-tweaks.md)
 
 ## Ideas inbox
 - 102 captured items in [ideas.md](../ideas.md)

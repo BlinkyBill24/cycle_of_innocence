@@ -53,10 +53,14 @@ func test_dread_zone_registers_and_reacts_to_player() -> void:
 	assert_eq(DreadManager.get_zone_baseline(), 0.0, "baseline drops on exit")
 
 
-func test_zone_scene_loads_and_paints_ground() -> void:
+func test_zone_scene_loads_with_painted_ground() -> void:
 	var zone: Node2D = load("res://scenes/zones/playground_fringes.tscn").instantiate()
 	add_child_autofree(zone)
 	await wait_physics_frames(1)
 	assert_eq(ZoneManager.current_zone_id, &"playground_fringes")
-	var ground: TileMapLayer = zone.get_node("Ground")
-	assert_gt(ground.get_used_cells().size(), 1000, "ground painted procedurally")
+	# The ground moved from a procedural `Ground` TileMapLayer to a painted
+	# `GroundBackdrop` Sprite2D (painted-backdrop direction 2026-06-11; the runtime
+	# tile painter was removed 2026-06-20). Assert the replacement, not the old node.
+	var backdrop: Sprite2D = zone.get_node_or_null("GroundBackdrop") as Sprite2D
+	assert_not_null(backdrop, "zone has the painted ground backdrop")
+	assert_not_null(backdrop.texture, "the painted ground backdrop has its texture")

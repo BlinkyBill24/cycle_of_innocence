@@ -115,6 +115,9 @@ zone_id = &"playground_fringes"
 [node name="GroundBackdrop" type="Sprite2D" parent="."]
 texture = ExtResource("34_backdrop")
 
+[node name="DuskTint" type="CanvasModulate" parent="."]
+color = Color(0.38, 0.34, 0.44, 1)
+
 [node name="Borders" type="StaticBody2D" parent="."]
 collision_mask = 0
 
