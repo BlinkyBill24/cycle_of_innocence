@@ -415,8 +415,30 @@ func _lagged_input(raw: Vector2) -> Vector2:
 
 var _attack_id := 0
 
+const PROJECTILE_SCENE := preload("res://scenes/combat/thrown_projectile.tscn")
+const THROW_REACH := 12.0
+
+
+## The equipped weapon's combat kind (pure, testable): true when the attack
+## should throw (ranged) rather than swing (melee). Bare hands / EQUIP = swing.
+static func attack_is_throw(def: ItemDef) -> bool:
+	return def != null and def.use_kind == ItemDef.UseKind.THROW
+
+
+## Spend one ammo for a throw. Returns false (blocked, no decrement) when the
+## weapon has no ammo id or the satchel is out. Pure side effect on Inventory.
+static func consume_throw_ammo(ammo_id: StringName) -> bool:
+	if ammo_id == &"" or Inventory.quantity_of(ammo_id) <= 0:
+		return false
+	return Inventory.remove(ammo_id, 1)
+
 
 func perform_attack() -> void:
+	var weapon_def := ItemRegistry.get_def(PlayerData.equipped_weapon) \
+			if PlayerData.equipped_weapon != &"" else null
+	if attack_is_throw(weapon_def):
+		_perform_throw(weapon_def)
+		return
 	_attack_id += 1
 	var my_attack := _attack_id
 	movement_state = MovementState.ATTACKING
@@ -430,6 +452,22 @@ func perform_attack() -> void:
 	# only the coroutine that still owns the attack may end it (Codex gate #3)
 	if my_attack == _attack_id and movement_state == MovementState.ATTACKING:
 		movement_state = MovementState.EXPLORING
+
+
+## Slingshot attack: spend one stone and loose a projectile in the facing
+## direction. Blocked (a soft click, no shot) when out of ammo.
+func _perform_throw(def: ItemDef) -> void:
+	if not consume_throw_ammo(def.ammo_id):
+		Sfx.play(&"swing", -16.0)  # dry click — the sling is empty
+		return
+	play_action_animation("attack")
+	Sfx.play(&"swing", -6.0)
+	var proj: ThrownProjectile = PROJECTILE_SCENE.instantiate()
+	proj.setup(_facing, 1)  # parity with the melee hitbox; gear stat-weight is the equipment pass
+	proj.global_position = global_position + _facing * THROW_REACH
+	# into the zone's world container so it y-sorts/lives with everyone else
+	var world := get_parent()
+	(world if world else get_tree().current_scene).add_child(proj)
 
 
 func _on_hit_received(from_hitbox: Hitbox) -> void:

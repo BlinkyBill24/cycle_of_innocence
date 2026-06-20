@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://thrownproj0001"]
+
+[ext_resource type="Script" path="res://scripts/combat/thrown_projectile.gd" id="1_proj"]
+
+[sub_resource type="CircleShape2D" id="shape"]
+radius = 4.0
+
+[node name="ThrownProjectile" type="Area2D"]
+collision_layer = 32
+collision_mask = 1
+script = ExtResource("1_proj")
+damage = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape")
+
+[node name="Visual" type="Polygon2D" parent="."]
+color = Color(0.62, 0.6, 0.64, 1)
+polygon = PackedVector2Array(-3, 0, 0, -3, 3, 0, 0, 3)

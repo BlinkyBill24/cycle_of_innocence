@@ -40,12 +40,17 @@ func test_key_item_locket_is_non_discardable() -> void:
 	assert_false(def.discardable, "Key keepsake cannot be discarded")
 
 
-func test_weapons_are_inert_for_now() -> void:
-	# Weapons exist as carryable items; combat dispatch is a separate task.
-	for id: StringName in [&"sturdy_stick", &"slingshot", &"sling_stones"]:
-		var def: ItemDef = ItemRegistry.get_def(id)
-		assert_not_null(def)
-		assert_eq(def.use_kind, ItemDef.UseKind.NONE, "%s has no use dispatch yet" % id)
+func test_weapons_are_wired_for_combat() -> void:
+	# Wired 2026-06-20 (Wiring & Audibility pass): stick = melee EQUIP,
+	# slingshot = THROW spending sling_stones. Full combat logic in test_weapon_combat.gd.
+	var stick: ItemDef = ItemRegistry.get_def(&"sturdy_stick")
+	assert_eq(stick.use_kind, ItemDef.UseKind.EQUIP, "stick is an EQUIP (melee) weapon")
+	var sling: ItemDef = ItemRegistry.get_def(&"slingshot")
+	assert_eq(sling.use_kind, ItemDef.UseKind.THROW, "slingshot is a THROW weapon")
+	assert_eq(sling.ammo_id, &"sling_stones", "slingshot ammo is sling_stones")
+	var stones: ItemDef = ItemRegistry.get_def(&"sling_stones")
+	assert_not_null(stones)
+	assert_true(stones.stackable, "sling_stones stack as ammo")
 
 
 ## --- dig-up grant ---

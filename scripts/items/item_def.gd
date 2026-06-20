@@ -6,7 +6,10 @@ extends Resource
 ## res://resources/items/, filename stem MUST equal `id`.
 
 enum Category { KEY = 0, COMPANION_CARE = 1, CONSUMABLE = 2, LORE = 3 }
-enum UseKind { NONE = 0, FEED_COMPANION = 1 }
+## NONE/FEED_COMPANION = consumable verbs. EQUIP/THROW = weapons "used" from the
+## satchel to become the equipped weapon; the attack reads the equipped weapon's
+## kind (EQUIP → melee swing, THROW → ranged projectile spending `ammo_id`).
+enum UseKind { NONE = 0, FEED_COMPANION = 1, EQUIP = 2, THROW = 3 }
 
 ## Stable lookup key — MUST match the .tres filename stem; the only field
 ## serialized into PlayerData.inventory (the save/load join key).
@@ -23,6 +26,8 @@ enum UseKind { NONE = 0, FEED_COMPANION = 1 }
 ## Empty = usable on anyone/none; set (&"briar") gates FEED_COMPANION to that companion.
 @export var companion_id: StringName = &""
 @export var use_kind: int = UseKind.NONE
+## For THROW weapons (e.g. slingshot): the item id spent per shot (e.g. &"sling_stones").
+@export var ammo_id: StringName = &""
 @export var bond_delta: float = 0.0
 @export var morality_delta: float = 0.0
 @export var consumed_on_use: bool = true
