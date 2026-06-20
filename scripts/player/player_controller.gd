@@ -167,10 +167,12 @@ func _current_surface() -> StringName:
 
 
 ## Map a surface name to its Sfx key. Static + pure (testable). Unknown
-## surfaces fall back to grass (the `footstep` key).
+## surfaces fall back to grass (the `footstep` key). Hard surfaces (gravel/path/
+## sand/wood) share the one "hard" footstep sample for now — a dedicated wood
+## sample is a future audio pass; wood reads as the hard step, distinct from grass.
 static func footstep_sound(surface: StringName) -> StringName:
 	match surface:
-		&"gravel", &"path", &"sand":
+		&"gravel", &"path", &"sand", &"wood":
 			return &"footstep_gravel"
 		_:
 			return &"footstep"
