@@ -57,7 +57,7 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - Per-surface footsteps: `footstep_grass` + `footstep_gravel` both exist; player_controller should pick by ground type (tile/zone) instead of always grass. Tiny state hook.
 - SFX coverage gaps (next ElevenLabs batch when credits reset): monster vocalizations (twisted-child stalk/lunge), item pickup vs the "found" stinger, bond-up chime, UI open/close (satchel/journal), water/fog ambience.
 - Weapon combat wiring: `sturdy_stick`/`slingshot`/`sling_stones` exist as items+art but `use_kind=NONE`. Needs a combat-facing UseKind (EQUIP/THROW) + player_controller hook so the stick swings and the slingshot consumes a stone. Ties into [[mechanics/combat]].
-- Item world-placement pass: berries + weapons aren't placed in any zone yet (ForageSpot exists; or a small loot table). Dig-up items (bone, locket) are placed.
+- ✅ DONE 2026-06-20 — Item world-placement: `forest_berries` + the three weapon items (`sturdy_stick`/`slingshot`/`sling_stones`) now placed as `ForageSpot` pickups in playground/fringes. Tested in `test_item_placement.gd`. (Dig-up items were already placed.)
 - Dig-up loot variety: `DiggableSpot.dig_item` is a single id — a weighted table or per-NG+ swap (like `lore_text_recontext`) could make repeat digs less samey.
 - Inventory v1.1: shared "one modal at a time" guard — Journal + Inventory panels both sit at layer 60; v1 mitigation is force-close-on-foreign-pause, but a single modal-stack arbiter would be cleaner. From [[decisions/2026-06-13-inventory-system]].
 - Inventory touch parity hardening: the v1 "BAG" button opens the satchel, but slot interaction (feed/inspect) on touch isn't designed yet — needs a touch pass before the mobile demo.
