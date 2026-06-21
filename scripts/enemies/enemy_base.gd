@@ -22,6 +22,10 @@ extends CharacterBody2D
 @export var spareable: bool = true
 @export var stable_id: StringName = &"twisted_child_01"  # unique per placed enemy
 @export var soothe_key_flag: StringName = &"dug_playground_buried_toy"
+## The dig spot that IS this monster's key — where the glance cue points the player
+## (what to dig to lift the plateau). May differ from secret_spot_path (where a
+## Stilled child later LEADS). Empty -> fall back to secret_spot_path.
+@export var soothe_key_spot_path: NodePath
 @export var secret_spot_path: NodePath  # where the Stilled child leads Rowan
 const RECOGNITION_MAX := 100.0
 const GENERIC_PLATEAU := 60.0
@@ -163,7 +167,10 @@ func _physics_process(delta: float) -> void:
 ## Glance-at-buried-key cue: while being soothed and stalled at the plateau, start
 ## a brief glance toward the secret spot, and aim `_facing` there so the look reads.
 func _update_glance(delta: float) -> void:
-	var spot := get_node_or_null(secret_spot_path) as Node2D
+	# point at the KEY dig (what lifts the plateau), which may differ from where a
+	# Stilled child later leads (secret_spot_path).
+	var key_path := soothe_key_spot_path if not soothe_key_spot_path.is_empty() else secret_spot_path
+	var spot := get_node_or_null(key_path) as Node2D
 	if _glance_timer > 0.0:
 		_glance_timer -= delta
 		if spot:

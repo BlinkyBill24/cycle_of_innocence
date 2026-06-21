@@ -150,3 +150,32 @@ func test_fringes_monsters_spawn_far_enough_to_engage_one_at_a_time() -> void:
 	assert_eq(positions.size(), 2, "two monsters placed in the fringes")
 	assert_gt(positions[0].distance_to(positions[1]), 220.0,
 		"monsters spawn far enough apart to face one at a time (not mobbed)")
+
+
+func test_fringes_monster_soothe_key_is_diggable_in_the_same_zone() -> void:
+	# playtest: the key pointed at the playground rabbit while the monsters live in the
+	# fringes -> impossible to satisfy in-zone, so the soothe always plateaued. Each
+	# monster's key must correspond to a dig present in THIS scene.
+	var state: SceneState = (load("res://scenes/zones/fringes.tscn") as PackedScene).get_state()
+	var monster_keys: Array[StringName] = []
+	var diggable_flags := {}  # "dug_<spot_id>" for every diggable in the scene
+	for i in state.get_node_count():
+		var inst: PackedScene = state.get_node_instance(i)
+		if inst == null:
+			continue
+		if inst.resource_path == "res://scenes/enemies/twisted_child.tscn":
+			var key: StringName = &"dug_playground_buried_toy"  # script default
+			for p in state.get_node_property_count(i):
+				if String(state.get_node_property_name(i, p)) == "soothe_key_flag":
+					key = state.get_node_property_value(i, p)
+			monster_keys.append(key)
+		elif inst.resource_path == "res://scenes/world/diggable_spot.tscn":
+			var spot_id: StringName = &"playground_buried_toy"  # script default
+			for p in state.get_node_property_count(i):
+				if String(state.get_node_property_name(i, p)) == "spot_id":
+					spot_id = state.get_node_property_value(i, p)
+			diggable_flags[StringName("dug_" + String(spot_id))] = true
+	assert_eq(monster_keys.size(), 2, "two monsters")
+	for key: StringName in monster_keys:
+		assert_true(diggable_flags.has(key),
+			"the monster's soothe key (%s) is diggable in the fringes, not another zone" % key)
