@@ -91,10 +91,10 @@ These are not pets. They are the only real family Rowan will ever have. Their ar
 - More fragile. Loss or corruption hits very hard narratively.
 - Arc: Echo represents knowledge and warning. It can overhear elder conversations or see things from above that force revelations earlier.
 
-**Storm / Ash (The Mount — Late Game, Act 2)**:
-- A sturdy horse or stag-like creature (perhaps a "wild" one that was also marked or escaped a different ritual).
-- Abilities: Faster travel between zones, powerful charge that can break obstacles or enemies, can carry Rowan + supplies, provides a "safe" feeling when resting.
-- Requires the most care. Neglect or using it in horror events can break the bond fastest.
+**~~Storm / Ash (The Mount)~~ — CUT 2026-06-21** ([[decisions/2026-06-21-companions-and-flute-gate]]): the roster is **two companions** (Briar + Echo). The mount is removed; traversal that would have used it is now a level-design problem. *(Kept for history; do not plan against it.)*
+- ~~A sturdy horse or stag-like creature (perhaps a "wild" one that was also marked or escaped a different ritual).~~
+- ~~Abilities: Faster travel between zones, powerful charge that can break obstacles or enemies, can carry Rowan + supplies, provides a "safe" feeling when resting.~~
+- ~~Requires the most care. Neglect or using it in horror events can break the bond fastest.~~
 - Arc: Becomes a symbol of freedom or a tragic vessel in the climax.
 
 **Corruption & Bond Mechanics** (mechanical + narrative):
@@ -126,7 +126,7 @@ These are not pets. They are the only real family Rowan will ever have. Their ar
 **Act 2: The Heart of the Lie (Late Teen, ~17–18) — "Everyone Was Lying"**
 - Return to or infiltration of Hollowmere and the deeper ritual sites.
 - Major twists 2 & 3 land (monsters = previous children, elders = previous "successes").
-- Third companion (the mount) and loyalty crises (one companion may be badly corrupted or captured depending on choices).
+- Loyalty crises (Briar or Echo may be badly corrupted or captured depending on choices). *(The third companion / mount was cut 2026-06-21 — see [[decisions/2026-06-21-companions-and-flute-gate]].)*
 - Body horror escalates — Rowan or companions start showing physical changes based on morality and exposure.
 - Found family vs blood family conflict (possible living relatives who either try to "save" Rowan by completing the ritual or reveal they always knew).
 - Climactic choice point that determines the final path.

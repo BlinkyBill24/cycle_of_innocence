@@ -8,6 +8,14 @@ related_decisions: "[[decisions/2026-06-10-new-features-and-ai-setup]]"
 
 # Mercy & Calm Encounter Resolution
 
+> **GATE: the flute unlocks ALL monster interaction** (decision 2026-06-21,
+> [[decisions/2026-06-21-companions-and-flute-gate]]). Rowan must find a **flute** (or
+> some other instrument) before *any* soothing or allying is possible — it is the single
+> key to this entire system; **nothing here is reachable before it.** Before the flute the
+> only valid response to a monster is to **flee** (no fighting either — bare fists can't
+> harm monsters; see [[mechanics/combat]]). This is also why the "fully-allied glow" only
+> ever appears post-flute. *(Gating is a future code task; the soothe mechanic itself is built.)*
+
 ## What it does
 Most monsters are former sacrificed children ([[story/bible]] twist #1). Encounters can therefore be resolved three ways: **fight**, **flee/avoid**, or **soothe/spare**. Soothing is the Empath-path counterpart to combat — Rowan (and companions) calm a monster enough that it stops attacking, with lasting consequences in the choice matrix and endings. Inspired by Undertale's spare system, reframed through the game's own lore: you are not negotiating with a stranger, you are recognizing a child the village fed to the Hunger.
 
