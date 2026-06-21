@@ -31,6 +31,10 @@ var _grid: GridContainer
 var _detail_name: Label
 var _detail_desc: Label
 var _slots: Array[Button] = []
+## "Kept" = permanent KEY items (the flute, a key) shown in their own section, so a
+## permanent unlock reads as a thing you HAVE, not lost among the consumable pockets.
+var _kept_label: Label
+var _kept_box: HBoxContainer
 var _open := false
 var _self_pause := false  # true while WE emit exploration_paused, so our own handler ignores it
 var _selected_index := -1
@@ -90,6 +94,17 @@ func _build() -> void:
 		var slot := _make_slot(i)
 		_grid.add_child(slot)
 		_slots.append(slot)
+
+	# Kept (permanent items) — their own category so the flute/key read as held, not
+	# lost among the consumable pockets (playtest 2026-06-21).
+	_kept_label = Label.new()
+	_kept_label.text = "Kept"
+	_kept_label.add_theme_font_size_override("font_size", 12)
+	_kept_label.add_theme_color_override("font_color", Color(0.78, 0.84, 0.95))  # cool = permanent
+	col.add_child(_kept_label)
+	_kept_box = HBoxContainer.new()
+	_kept_box.add_theme_constant_override("separation", 10)
+	col.add_child(_kept_box)
 
 	var spacer := Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -231,10 +246,59 @@ func _refresh() -> void:
 			placeholder.visible = false
 			qty.text = ""
 			btn.modulate = Color.WHITE
+	_refresh_kept(slots)
 	# Keep the detail panel coherent with what is now present.
 	if _selected_index >= slots.size():
 		_selected_index = -1
 	_update_detail()
+
+
+## True for a permanent "kept" item — a KEY item (the flute, a key) you hold onto.
+## Pure/testable; the satchel's separate category keys off this.
+static func is_kept(def: ItemDef) -> bool:
+	return def != null and def.category == ItemDef.Category.KEY
+
+
+## Repaint the Kept strip from the held KEY items (read-only — they have no slot
+## action; they're inspected, equipped weapons live in the bag grid).
+func _refresh_kept(slots: Array[Dictionary]) -> void:
+	if _kept_box == null:
+		return
+	for child in _kept_box.get_children():
+		child.queue_free()
+	var any := false
+	for row: Dictionary in slots:
+		var def: ItemDef = ItemRegistry.get_def(StringName(str(row.get("id", ""))))
+		if is_kept(def):
+			any = true
+			_kept_box.add_child(_make_kept_chip(def))
+	_kept_label.visible = any
+	_kept_box.visible = any
+
+
+func _make_kept_chip(def: ItemDef) -> Control:
+	var chip := VBoxContainer.new()
+	chip.alignment = BoxContainer.ALIGNMENT_CENTER
+	chip.tooltip_text = def.display_name
+	var icon := TextureRect.new()
+	icon.custom_minimum_size = Vector2(28, 28)
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	if def.icon != null:
+		icon.texture = def.icon
+	else:
+		var ph := ColorRect.new()  # no icon yet -> a small warm chip so it still reads
+		ph.color = Color(0.62, 0.58, 0.5, 0.8)
+		ph.set_anchors_preset(Control.PRESET_FULL_RECT)
+		icon.add_child(ph)
+	chip.add_child(icon)
+	var name_label := Label.new()
+	name_label.text = def.display_name
+	name_label.add_theme_font_size_override("font_size", 9)
+	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	chip.add_child(name_label)
+	return chip
 
 
 func _select(index: int) -> void:
