@@ -85,3 +85,21 @@ func test_thrown_object_hits_a_monster_via_the_shared_hitpath() -> void:
 	obj.throw_in_dir(Vector2.RIGHT)  # flies through (60, -14)
 	await wait_physics_frames(40)
 	assert_eq(health.hp, 4, "a thrown object deals exactly ONE hit via the shared Hitbox/Faction path")
+
+
+# --- a loose object lives in EACH play zone -------------------------------
+# Throwables are world objects (Zelda-pot model): they don't cross zone loads, so
+# each area you'd want to throw in must author its own (playtest: "gone in the village").
+
+func test_each_play_zone_authors_a_throwable() -> void:
+	for path in ["res://scenes/zones/playground_fringes.tscn",
+			"res://scenes/zones/village_green.tscn",
+			"res://scenes/zones/fringes.tscn"]:
+		var state: SceneState = (load(path) as PackedScene).get_state()
+		var found := false
+		for i in state.get_node_count():
+			var inst: PackedScene = state.get_node_instance(i)
+			if inst != null and inst.resource_path == "res://scenes/world/throwable_object.tscn":
+				found = true
+				break
+		assert_true(found, "%s authors a loose object to pick up and throw" % path.get_file())

@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://covsxjksurfq3" path="res://scenes/enemies/twisted_child.tscn" id="5_twisted_child"]
 [ext_resource type="PackedScene" uid="uid://b70vr0nx7dism" path="res://scenes/world/diggable_spot.tscn" id="6_diggable"]
 [ext_resource type="PackedScene" uid="uid://dn8iabetyanme" path="res://scenes/effects/dread_overlay.tscn" id="7_dread_overlay"]
+[ext_resource type="PackedScene" uid="uid://throwobj000001" path="res://scenes/world/throwable_object.tscn" id="20_throwable"]
 [ext_resource type="Script" uid="uid://c2p3d3lhol1q8" path="res://scripts/world/dread_zone.gd" id="9_dread_zone"]
 [ext_resource type="Script" uid="uid://bxburnnul5hg7" path="res://scripts/world/zone_transition.gd" id="10_transition"]
 [ext_resource type="Script" uid="uid://ctap15jdarwf1" path="res://scripts/ui/hud.gd" id="16_hud"]
@@ -129,6 +130,10 @@ position = Vector2(-500, 80)
 
 [node name="Briar" parent="World" instance=ExtResource("4_briar")]
 position = Vector2(-575, 30)
+
+[node name="FringesStone" parent="World" instance=ExtResource("20_throwable")]
+position = Vector2(-360, 90)
+object_id = &"fringes_stone"
 
 [node name="TwistedChild" parent="World" instance=ExtResource("5_twisted_child")]
 position = Vector2(180, 130)
