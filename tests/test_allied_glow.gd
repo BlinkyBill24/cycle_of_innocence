@@ -61,6 +61,18 @@ func test_hollowing_reaggro_turns_the_glow_off() -> void:
 	assert_false(m.allied_glow.enabled, "the net closing extinguishes the glow")
 
 
+func test_allied_halo_follows_the_state() -> void:
+	# the halo is the always-visible read (the bare PointLight2D was too subtle)
+	var m := _monster()
+	await wait_physics_frames(1)
+	assert_not_null(m.allied_halo, "the monster carries an allied halo")
+	assert_false(m.allied_halo.visible, "hostile -> no halo")
+	m.add_recognition(EnemyBase.RECOGNITION_MAX, true)
+	assert_true(m.allied_halo.visible, "soothed -> the halo shows")
+	m._betrayed()
+	assert_false(m.allied_halo.visible, "betrayal -> the halo hides")
+
+
 func test_loaded_stilled_monster_glows_from_saved_state() -> void:
 	# the persisted flag (what SaveManager restores) drives the glow on _ready
 	PlayerData.set_story_flag(&"stilled_twisted_child_01")
