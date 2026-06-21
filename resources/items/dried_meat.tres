@@ -19,3 +19,4 @@ use_kind = 1
 bond_delta = 8.0
 morality_delta = -3.0
 consumed_on_use = true
+heal_hearts = 2

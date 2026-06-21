@@ -91,8 +91,11 @@ func _ready() -> void:
 		GameEvents.exploration_paused.connect(func() -> void: _paused = true)
 		GameEvents.exploration_resumed.connect(func() -> void: _paused = false)
 	health.max_hp = PlayerData.max_hp
-	health.restore_full()
+	# Restore SAVED health (persists across save/load + zone re-entry), not full — a
+	# fresh game's current_hp defaults to max, so a new run still starts full.
+	health.restore_to(PlayerData.current_hp)
 	health.hp_changed.connect(_on_hp_changed)
+	GameEvents.player_heal_requested.connect(_on_heal_requested)
 	health.died.connect(_on_died)
 	hurtbox.hit_received.connect(_on_hit_received)
 
@@ -590,6 +593,12 @@ func _on_hp_changed(current: int, max_value: int) -> void:
 	PlayerData.current_hp = current
 	if GameEvents:
 		GameEvents.player_damaged.emit(current, max_value)
+
+
+## Eating food / using medicine (HEAL path) heals through the live Health, which clamps
+## to max and syncs back to PlayerData via _on_hp_changed.
+func _on_heal_requested(amount_hp: int) -> void:
+	health.heal(amount_hp)
 
 
 func _on_died() -> void:

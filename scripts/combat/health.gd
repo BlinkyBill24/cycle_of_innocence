@@ -51,3 +51,11 @@ func restore_full() -> void:
 	hp = max_hp
 	_invuln_until_msec = -1
 	hp_changed.emit(hp, max_hp)
+
+
+## Restore HP to a specific value (clamped) — used on LOAD so saved health persists
+## instead of snapping to full.
+func restore_to(value: int) -> void:
+	hp = clampi(value, 0, max_hp)
+	_invuln_until_msec = -1
+	hp_changed.emit(hp, max_hp)

@@ -27,6 +27,7 @@ const STREAMS := {
 	&"bell_toll": preload("res://assets/audio/sfx/hollowing_bell.wav"),
 	&"lullaby": preload("res://assets/audio/stems/lullaby_motif.ogg"),
 	&"flute": preload("res://assets/audio/sfx/flute.wav"),  # diegetic one-shot Rowan plays to soothe (placeholder)
+	&"eat": preload("res://assets/audio/sfx/eat.wav"),  # short munch on eating food (placeholder)
 }
 const POOL_SIZE := 8
 

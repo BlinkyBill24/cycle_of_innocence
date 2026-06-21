@@ -359,9 +359,14 @@ func _on_slot_activated(index: int) -> void:
 	var def: ItemDef = ItemRegistry.get_def(id)
 	if def == null:
 		return
-	# Activating a usable care/consumable slot uses it (def.companion_id targets
-	# Briar in the slice). Key/Lore items are inspect-only here.
-	if def.category == ItemDef.Category.COMPANION_CARE \
+	# Food is EATEN (heal Rowan) — the natural "use" of a food. NOTE (eat-vs-feed
+	# dispatch, decision 2026-06-21): tapping food now eats it, which DISPLACES feed-via-
+	# tap; berries/dried_meat still feed Briar via Inventory.use() (code intact) but lack a
+	# UI trigger now — picking the eat/feed input is a flagged design decision. Other
+	# care/consumables fall through to use() (feed). Key/Lore items are inspect-only here.
+	if def.heal_hearts > 0:
+		Inventory.eat(id)
+	elif def.category == ItemDef.Category.COMPANION_CARE \
 			or def.category == ItemDef.Category.CONSUMABLE:
 		Inventory.use(id)  # inventory_changed -> _refresh repaints; detail stays coherent
 
