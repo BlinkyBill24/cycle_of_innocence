@@ -21,6 +21,7 @@ func setup(direction: Vector2, dmg: int = 1) -> void:
 func _ready() -> void:
 	super._ready()  # monitoring=false, monitorable=true, shapes disabled
 	faction = &"player"
+	add_to_group("thrown")     # shared thrown-hit marker (NPC reactions key off this)
 	monitoring = true          # we also watch so we can stop on first body hit
 	collision_mask = 1         # world / enemy body layer
 	set_shapes_disabled(false)  # live the whole flight (Hurtboxes can detect us)
