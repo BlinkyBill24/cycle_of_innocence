@@ -10,6 +10,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 8.0
 
+[sub_resource type="CanvasItemMaterial" id="halo_add"]
+blend_mode = 1
+
 [node name="TwistedChild" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 7
@@ -21,6 +24,7 @@ shape = SubResource("CircleShape2D_body")
 [node name="AlliedHalo" type="Sprite2D" parent="."]
 visible = false
 z_index = -1
+material = SubResource("halo_add")
 texture = ExtResource("6_glow")
 modulate = Color(1, 0.86, 0.55, 0.8)
 scale = Vector2(0.55, 0.55)
