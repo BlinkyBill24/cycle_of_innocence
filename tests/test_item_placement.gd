@@ -17,6 +17,34 @@ func test_forage_grant_adds_a_placed_item_to_inventory() -> void:
 	assert_false(spot.grant(), "one-shot — a second grant is a no-op")
 
 
+# --- persistence: a foraged spot must NOT reappear on revisit / reload -------
+# (playtest 2026-06-21: re-entering re-foraged the slingshot/stones into duplicate slots)
+
+func test_foraging_persists_a_one_shot_flag() -> void:
+	PlayerData.reset_to_defaults()
+	var spot := ForageSpot.new()
+	spot.name = "StonesForage"
+	spot.item_id = &"sling_stones"
+	add_child_autofree(spot)
+	await wait_physics_frames(1)
+	assert_false(PlayerData.has_story_flag(&"foraged_StonesForage"), "not foraged yet")
+	spot.grant()
+	assert_true(PlayerData.has_story_flag(&"foraged_StonesForage"),
+		"foraging persists a one-shot flag (survives save/load + re-entry)")
+
+
+func test_already_foraged_spot_is_inert_on_revisit() -> void:
+	PlayerData.reset_to_defaults()
+	PlayerData.set_story_flag(&"foraged_SlingshotForage")  # foraged on a prior visit/save
+	var spot := ForageSpot.new()
+	spot.name = "SlingshotForage"
+	spot.item_id = &"slingshot"
+	add_child_autofree(spot)
+	await wait_physics_frames(1)
+	assert_false(spot.monitoring, "an already-foraged spot is inert on revisit")
+	assert_false(spot.grant(), "and won't re-grant -> no duplicate slingshot")
+
+
 func test_playground_places_berries_and_weapons() -> void:
 	var zone: Node2D = load("res://scenes/zones/playground_fringes.tscn").instantiate()
 	add_child_autofree(zone)
