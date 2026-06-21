@@ -53,6 +53,9 @@ static func add(id: StringName, qty: int = 1) -> bool:
 		inv.append({"id": id, "quantity": stack})
 		remaining -= stack
 
+	# Acquiring a gate item permanently unlocks its story flag (e.g. flute -> soothing).
+	if def.grants_flag != &"":
+		PlayerData.set_story_flag(def.grants_flag)
 	if GameEvents:
 		GameEvents.item_acquired.emit(id, qty)
 	_emit_changed()

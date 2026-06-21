@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDef" load_steps=2 format=3 uid="uid://b8flute000001"]
+
+[ext_resource type="Script" uid="uid://cnh5esvabvxfq" path="res://scripts/items/item_def.gd" id="1_itemdef"]
+
+[resource]
+script = ExtResource("1_itemdef")
+id = &"flute"
+display_name = "Flute"
+category = 0
+description = "A small carved flute. Holding it, you feel like something in the dark might listen."
+distorted_description = "A small carved flute. The notes do not soothe you anymore — they summon."
+stackable = false
+max_stack = 1
+discardable = false
+companion_id = &""
+use_kind = 0
+ammo_id = &""
+bond_delta = 0.0
+morality_delta = 0.0
+consumed_on_use = false
+grants_flag = &"flute_found"

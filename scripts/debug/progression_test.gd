@@ -63,6 +63,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			WorldState.advance_time()
 		KEY_H:
 			HollowingClock.add_alarm(HollowingClock.ALARM_THRESHOLD)
+		KEY_F:
+			Inventory.add(&"flute")  # grant the flute -> unlocks soothing (test acquisition)
+			_refresh_label()
 		KEY_R:
 			# replay story dialogues with CURRENT stats (vessel distortion QA)
 			# (moved off J 2026-06-13 — J now opens the Journal)
@@ -100,7 +103,8 @@ func _refresh_label() -> void:
 		+ _enemy_line()
 		+ "Keys: 1/2 morality ±15 | 3 teen 4 adult 5 child\n"
 		+ "6 bond+10 | 7 corruption+15 | 8 revelation | 9 dread+20 | 0 reset\n"
-		+ "K save | L load(after K) | R replay intro | T time | H hollow+1 | E interact | J journal"
+		+ ("Flute: %s\n" % ("FOUND (soothe unlocked)" if PlayerData.has_story_flag(&"flute_found") else "not found (soothe locked)"))
+		+ "K save | L load(after K) | R replay intro | T time | H hollow+1 | F flute | E interact | J journal"
 	)
 
 
