@@ -15,7 +15,7 @@ related:
 This document captures brainstormed features for the 2D top-down action-adventure RPG. All features are designed to support the core vision from the story bible:
 
 - Coming-of-age amid conspiracy and loss of innocence.
-- Found family through **animal companions** (Briar the hound, Echo the bird, Storm the mount).
+- Found family through **animal companions** — **two** (Briar the hound = ground, Echo the bird = air). *(Storm the mount CUT 2026-06-21 — [[decisions/2026-06-21-companions-and-flute-gate]].)*
 - Real-time action combat with light companion assists (Zelda + Secret of Mana feel).
 - Branching narrative, morality system with visible consequences (appearance, bonds, world reactions, endings).
 - Horror atmosphere that escalates with revelations (body horror, psychological dread, isolation).
@@ -53,7 +53,7 @@ This document captures brainstormed features for the 2D top-down action-adventur
 **Companions**:
 - **Naming**: Player can rename each companion when they join (or later at a "rest" point). 
   - Affects immersion and some dialogue lines ("Briar" vs custom name).
-  - Default names: Briar (hound), Echo (bird), Storm (mount).
+  - Default names: Briar (hound), Echo (bird). *(Storm/mount cut 2026-06-21.)*
 - **Visuals**: Growth stages (puppy → adult) + corruption variants are the main "customization." Minor bond-based details (handmade collar color chosen by player? simple accessory).
 - **Personality Flavor**: Fixed core personalities from story bible, but bond level changes behavior (fearful vs brave, loyal vs resentful).
 
@@ -115,7 +115,7 @@ See [[characters/companions]] for deep story arcs. Here are the gameplay feature
   - Contextual (press interact near diggable spot → Briar digs).
   - Quick commands (radial or hotkey for "Briar, attack!" or "Echo, scout!").
   - Special moves that cost bond or risk corruption (e.g., "Briar's Last Stand" — powerful but injures him).
-  - Puzzle integration: Briar digs, Echo carries small keys or triggers distant switches, Storm charges barriers or provides elevated vantage.
+  - Puzzle integration: Briar digs, Echo carries small keys / triggers distant switches / scouts from above. *(Mount-based "charge barriers" cut with Storm — barrier/traversal puzzles are now level-design, not companion-gated.)*
 - **Visual & Behavioral Feedback**:
   - Growth sprites.
   - Posture, ear position, eye glow change with bond/corruption.
@@ -189,7 +189,7 @@ Avoid grindy levels. Progression feels earned through life and bonds.
 ## 7. Exploration, Puzzles & World
 
 - **Semi-Open Zones**: Connected areas (woods → village edge → deeper ritual sites → heart of the conspiracy). Backtracking with new age/abilities/companions.
-- **Puzzles**: Environmental (push, light/shadow, timing) + companion-gated (Briar digs, Echo scouts from above, Storm charges weak walls). Some puzzles change or become solvable only after revelations.
+- **Puzzles**: Environmental (push, light/shadow, timing) + companion-gated (Briar digs, Echo scouts from above). *(Mount/"charge weak walls" cut with Storm — those become level-design routes.)* Some puzzles change or become solvable only after revelations.
 - **Secrets & Collectibles**: Lore fragments that feed the conspiracy story and unlock extra dialogue/endings. Hidden companion bond moments.
 - **World Reactivity**:
   - NPCs remember your age, morality rumors, and whether you've been seen with "monsters" (companions).

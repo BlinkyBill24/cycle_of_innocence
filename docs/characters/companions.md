@@ -9,6 +9,11 @@ related:
 
 # Animal Companions — Character Bible & Arcs
 
+> **Roster: TWO companions** ([[decisions/2026-06-21-companions-and-flute-gate]]) — **Briar
+> (dog, owns the ground)** and **Echo (bird, owns the air)**. Both core job: **defend Rowan**.
+> **Storm (the mount) is CUT.** Also: all monster *interaction* (soothe/ally) is gated behind
+> finding the **flute** — before it, Rowan can only flee, and bare fists can't harm monsters.
+
 These are not sidekicks. They are the emotional core and mechanical heart of *Cycle of Innocence*. Rowan’s only real family. Their survival, loyalty, growth, and possible corruption are as important as Rowan’s own arc.
 
 All companions have:
@@ -35,7 +40,7 @@ All companions have:
 - Melee assist (grows from distracting enemies to powerful takedowns)
 - “Guardian Howl” (late game morale boost or fear effect on lesser horrors)
 
-**Interest-point / gaze hint system** (secrets research 2026-06-13, [[design/secrets-and-discovery]]): companions orient toward recontext nodes and secrets the way Elizabeth (BioShock Infinite) and Trico (The Last Guardian) steer the player's eye — Briar's ear-perk/growl/dig-paw, Echo circling, **Storm balking at a threshold to telegraph a horror beat**. No UI marker; oriented **imperfectly and animal-distractible** on purpose (Trico's "level of interest" AI) so it reads as a creature, not an arrow. `[verified 2026-06-13; BioShock interest-points is secondhand design analysis]`
+**Interest-point / gaze hint system** (secrets research 2026-06-13, [[design/secrets-and-discovery]]): companions orient toward recontext nodes and secrets the way Elizabeth (BioShock Infinite) and Trico (The Last Guardian) steer the player's eye — Briar's ear-perk/growl/dig-paw, **Echo circling / breaking off to warn of a horror beat from the air**. No UI marker; oriented **imperfectly and animal-distractible** on purpose (Trico's "level of interest" AI) so it reads as a creature, not an arrow. `[verified 2026-06-13; BioShock interest-points is secondhand design analysis]`
 
 **Bond / Corruption Mechanics**:
 - Early game: Sharing food or comforting Briar during the first horror night has huge bond impact.
@@ -72,7 +77,13 @@ All companions have:
 
 **Thematic Role**: Knowledge that cannot be unlearned. The cost of seeing too much. A companion that can be lost through emotional neglect as much as physical danger.
 
-## Storm (or Ash) — The Mount (Third Companion)
+## ~~Storm (or Ash) — The Mount (Third Companion)~~ — **CUT 2026-06-21**
+
+> **CUT** ([[decisions/2026-06-21-companions-and-flute-gate]]): the game uses **two**
+> companions (Briar + Echo); the mount slot is removed. Section kept for history only —
+> do NOT plan against it. Traversal that would have leaned on a mount (water, gaps, long
+> distances) is now a **level-design problem** (paths/bridges/gated routes), not a
+> companion one.
 
 **Rescue / Meeting**: Act 2. A powerful but haunted horse (or stag-like creature with old “ward” brands) that was once used in rituals or escaped a different part of the cycle. It may have carried previous offerings to their deaths.
 

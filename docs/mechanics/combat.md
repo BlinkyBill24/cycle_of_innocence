@@ -21,6 +21,8 @@ The goal is not "git gud" power fantasy — it's "this is what survival looks li
 - Player has direct control.
 - Light companion assists (contextual or quick commands) rather than full party control.
 - Horror elements (dread, body horror, psychological threats) are core to the combat feel.
+- **Bare fists cannot harm monsters** (decision 2026-06-21, [[decisions/2026-06-21-companions-and-flute-gate]]): unarmed Rowan deals NO damage to a monster — harming one requires a real tool/weapon, never hands. *(Contradicts current code — a future task; today an unarmed swing still hurts.)*
+- **Run-only before the flute** (same decision): until Rowan finds the flute, the only valid response to a monster is to **flee** — no fighting, no soothing pre-flute. The flute gates ALL monster interaction (see [[mechanics/encounters-mercy]]). *(Future task.)*
 
 ## Basic Combat Loop
 

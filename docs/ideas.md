@@ -10,6 +10,14 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 ## 🆕 Unsorted
 *Raw capture during sessions. No structure required.*
 
+### 🎯 Companions & flute-gate — CODE TASKS (from decision 2026-06-21)
+*[[decisions/2026-06-21-companions-and-flute-gate]]. Docs/canon are updated; these are the FEATURE-WORK consequences — each contradicts current code and is its own future `/goal`.*
+- **Bare fists deal NO damage to monsters.** Today `perform_attack()` swings a player-faction hitbox even with no weapon equipped → it hurts monsters. Make an unarmed swing harmless to monsters (whiff / no hitbox, or a no-damage feedback swing). Reuse the existing `equipped_weapon == &""` check.
+- **Flute-gate ALL monster interaction.** Add a "has flute" gate (a story flag / PlayerData) that must be set before combat damage AND soothing are possible. Before it: the soothe verb is unavailable and weapons can't damage monsters — only flee. Touches `player_controller` (soothe start), the hitbox/faction path, and `encounters-mercy`. The allied-glow already keys off `stilled`, which is only reachable post-flute, so it's consistent.
+- **Run-only before the flute.** The pre-flute monster response is flee-only — no attack, no soothe. (Falls out of the two rules above; verify it reads as intended, not as "broken verbs".)
+- **Build Echo (the bird companion).** Not implemented yet. Air lane: scout, warn of monsters from afar, aerial attack, find hidden treasure, defend Rowan. Pairs with Briar (ground). Mirror `companion_base` + LimboAI; its own bond/corruption track.
+- **`[FLAG]` Traversal without a mount (Storm cut).** Water / gaps / long distances have NO animal solution now — they're a **level-design problem** (paths, bridges, gated routes). Confirm before any zone layout assumes mounted movement; no zone should be designed around a charge/mount.
+
 - (From approved plan) First companion in escape: small dog or bird that was also "wrong" for the ritual — instant bond + shared "marked" status.
 - Consider one "corruptible exotic" companion option late-game (high risk/reward for ruthless paths).
 - Care mechanics for animals: simple (feed from foraged items, soothe after horror events, protect in fights) but with visible loyalty + visual shifts.
