@@ -63,6 +63,9 @@ const BRIAR_CALM_BONUS := 1.5  # Briar lying down non-threateningly nearby
 const BRIAR_CALM_MIN_BOND := 25.0
 const BRIAR_CALM_RANGE := 90.0
 const DOMINATE_RATE_FACTOR := 1.4  # fear is faster than trust — by design
+## The flute is the single gate to ALL monster interaction (decision 2026-06-21):
+## no soothing until Rowan has found it. Persisted story flag, set on pickup.
+const FLUTE_UNLOCK_FLAG := &"flute_found"
 const PICKUP_RANGE := 40.0  # how close Rowan must be to lift a loose object
 var _carried: ThrowableObject = null  # the loose object currently held, if any
 var _soothing := false
@@ -213,7 +216,10 @@ func _on_interact_pressed() -> void:
 		return
 	var monster := _nearest_spareable_monster()
 	if monster:
-		_start_soothe(monster)
+		# Soothe is THE interact verb near a monster — but it's gated behind the flute.
+		# Locked: nothing fires (silent, diegetic), so fleeing is what remains.
+		if _soothe_unlocked():
+			_start_soothe(monster)
 		return
 	var throwable := _nearest_throwable()
 	if throwable:
@@ -276,10 +282,16 @@ func _unspareable_monster_near() -> bool:
 
 ## Soothe affordance (playtest tester-01): the hold verb must be readable
 ## without the debug HUD — hint when near, progress while holding.
+## True once Rowan has found the flute — the persistent gate to all soothing.
+func _soothe_unlocked() -> bool:
+	return PlayerData.has_story_flag(FLUTE_UNLOCK_FLAG)
+
+
 func _update_soothe_prompt() -> void:
 	if _soothe_prompt == null:
 		return
-	if movement_state != MovementState.EXPLORING:
+	# Pre-flute the lock is SILENT: no soothe prompt at all (not even "too far gone").
+	if movement_state != MovementState.EXPLORING or not _soothe_unlocked():
 		_soothe_prompt.update_state(false, false, 0.0)
 		return
 	if _soothing and _soothe_target != null and is_instance_valid(_soothe_target):
@@ -297,12 +309,13 @@ func _update_soothe_prompt() -> void:
 
 
 func _start_soothe(target: EnemyBase) -> void:
-	# Hold-to-soothe (encounters-mercy.md): defenseless channel — hurtbox
-	# stays live, movement stops, the lullaby is the only shield.
+	# Hold-to-soothe (encounters-mercy.md): defenseless channel — hurtbox stays
+	# live, movement stops. Rowan PLAYS THE FLUTE (the gate item) — a diegetic
+	# one-shot, the only shield. (Reaching here already means the flute is unlocked.)
 	_soothing = true
 	_soothe_target = target
-	AdaptiveAudio.duck(8.0)  # let the lullaby carry
-	Sfx.play(&"lullaby", -6.0, 0.0)
+	AdaptiveAudio.duck(8.0)  # let the flute carry
+	Sfx.play(&"flute", -6.0, 0.0)
 	if animated_sprite and animated_sprite.sprite_frames \
 			and animated_sprite.sprite_frames.has_animation("crouch"):
 		_action_anim_lock = true
@@ -355,7 +368,7 @@ func _briar_calm_companion(target: EnemyBase) -> CompanionBase:
 
 
 func _stop_soothe() -> void:
-	Sfx.stop(&"lullaby")
+	Sfx.stop(&"flute")
 	_soothing = false
 	_soothe_target = null
 	_action_anim_lock = false

@@ -31,6 +31,9 @@ enum UseKind { NONE = 0, FEED_COMPANION = 1, EQUIP = 2, THROW = 3 }
 @export var bond_delta: float = 0.0
 @export var morality_delta: float = 0.0
 @export var consumed_on_use: bool = true
+## One-time story unlock granted simply by ACQUIRING this item (e.g. the flute sets
+## `flute_found`). Set on add to inventory, never cleared — persists via PlayerData.
+@export var grants_flag: StringName = &""
 
 
 ## Tier-aware inspect text: distorted variant at HARDENED/VESSEL when set,
