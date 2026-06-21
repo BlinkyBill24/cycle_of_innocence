@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://cey86whhn84l2" path="res://scripts/world/door_transition.gd" id="door_transition"]
 [ext_resource type="Texture2D" uid="uid://cvauq3s2y0ac" path="res://assets/sprites/fx/clue_glint.png" id="hh_glint"]
 [ext_resource type="Script" path="res://scripts/npcs/npc_throw_reaction.gd" id="react_marta"]
+[ext_resource type="PackedScene" uid="uid://throwobj000001" path="res://scenes/world/throwable_object.tscn" id="throwable"]
 
 [sub_resource type="CircleShape2D" id="react_shape"]
 radius = 14.0
@@ -242,6 +243,10 @@ npc_id = &"marta_farmer"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Marta/ThrowReaction"]
 shape = SubResource("react_shape")
+
+[node name="VillageStone" parent="World" instance=ExtResource("throwable")]
+position = Vector2(-450, 70)
+object_id = &"village_stone"
 
 [node name="Pieter" parent="World" instance=ExtResource("5_villager")]
 modulate = Color(0.92, 0.96, 1, 1)
