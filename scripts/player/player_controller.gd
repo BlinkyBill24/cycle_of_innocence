@@ -394,7 +394,13 @@ func _try_companion_assist() -> void:
 			nearest_revealed = spot
 	if companion:
 		if nearest:
-			companion.command_dig(nearest)
+			# Briar digs when she can; if she REFUSES (afraid/busy/low-bond) Rowan
+			# uncovers it by hand so the dig is never silently lost — previously this
+			# fallback only ran when there was no companion at all, so in the dread-
+			# heavy Hollow House the key dig appeared to "not work" until a re-enter
+			# happened to find Briar calm and in follow (playtest 2026-06-21).
+			if not companion.command_dig(nearest):
+				nearest.reveal()
 		elif nearest_revealed:
 			# standing on dug-up earth: answer the press so silence never reads as
 			# a bug — there is just nothing left buried here (playtest 2026-06-11)
