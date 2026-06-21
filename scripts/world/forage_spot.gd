@@ -19,6 +19,19 @@ func _ready() -> void:
 	monitoring = true
 	collision_mask = 2  # player body layer (matches ZoneTransition)
 	body_entered.connect(_on_body_entered)
+	# A gate item (ItemDef.grants_flag) is a permanent unlock — once acquired, its
+	# pickup must NOT reappear on revisit. Persist via that flag (e.g. the flute).
+	var def := ItemRegistry.get_def(item_id)
+	if def != null and def.grants_flag != &"" and PlayerData.has_story_flag(def.grants_flag):
+		_mark_taken()
+
+
+func _mark_taken() -> void:
+	granted = true
+	monitoring = false
+	var marker := get_node_or_null("Marker") as CanvasItem
+	if marker:
+		marker.visible = false
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -33,8 +46,5 @@ func grant() -> bool:
 		return false
 	if not Inventory.add(item_id, quantity):
 		return false  # e.g. satchel full — try again after making room
-	granted = true
-	var marker := get_node_or_null("Marker") as CanvasItem
-	if marker:
-		marker.visible = false
+	_mark_taken()
 	return true
