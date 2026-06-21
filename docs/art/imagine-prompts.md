@@ -1,5 +1,9 @@
 # Grok Imagine prompts — Cycle of Innocence
 
+> This file is the chronological **prompt log** (every real prompt, dated). For the
+> *consistency workflow* — anchor images, look-block templates, the no-seed caveat,
+> and where Grok sits vs PixelLab — see **[[art/grok-reference-workflow]]**.
+
 > **M0 batch generated 2026-06-10** (grok-imagine-image-quality, 2k): all six reference images in `assets/reference/` — protagonist, Briar pup, Twisted Child, playground tileset, fringes tileset, HUD icons. Next pipeline step: human Aseprite cleanup/downscale, then animation sheets via image_edit on approved bibles. Note: the fringes tileset needed a softer rewording (twilight framing) — the original dark phrasing tripped output moderation twice; revised prompt below replaces the old one in practice. **Backgrounds: solid magenta #FF00FF (chroma-keyed by tools/pixelize.py) — never "transparent" (AI paints fake checkerboards, no real alpha; switched 2026-06-10 after keying artifacts).**
 
 **Locked style**: retro pixel art, top-down, 32×32 per frame / reference grid, limited 24–32 color palette, SNES/Zelda + creeping horror atmosphere, transparent bg, crisp pixels, no anti-aliasing.
