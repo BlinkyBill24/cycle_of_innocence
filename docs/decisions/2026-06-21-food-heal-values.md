@@ -57,15 +57,18 @@ re-tune once combat damage is set — human-tuned per project rules.
 - Today `berries` / `dried_meat` are used as **FEED_COMPANION** (→ Briar bond). This decision
   **extends** the same items to player HEAL — they become dual-use.
 
-## Open question — dual-use dispatch `[FLAG]`
-The same `berries` / `dried_meat` would serve BOTH companion FEED (Briar bond) AND player
-HEAL (Rowan hearts). **How the player chooses "eat (heal Rowan)" vs "feed (Briar)" is
-undesigned** (an input/UI/dispatch decision). The dual use is a deliberate resource-tension
-hook (serves the companion arc + the horror beat), but the mechanism must be designed before
-the HEAL verb ships.
+## Resolved — dual-use dispatch: **ask at the point of use** (2026-06-21)
+The same `berries` / `dried_meat` serve BOTH companion FEED (Briar bond) AND player HEAL
+(Rowan hearts). **Decision: tapping a dual-use food opens a small `Eat` / `Give to <companion>`
+choice** so the player owns the "share or keep" tension at the moment of use. Single-purpose
+items act immediately (pure food is eaten, companion-only care is given). No hidden modifier or
+proximity auto-dispatch — the choice is explicit and predictable. Implemented in
+`scripts/ui/inventory_panel.gd` (`is_dual_use` / `food_affordance` + the choice sub-modal;
+tests in `tests/test_eat_vs_feed.gd`). The dual use remains the deliberate resource-tension hook.
 
 ## Out of scope here (future tasks → [[ideas]])
-Building the HEAL verb; setting these values on the food `.tres` items; the FEED-vs-HEAL
-dispatch UI; the medicine item set (bandage 5, restorative full); world-placing the berries.
+The medicine item set (bandage 5, restorative full); world-placing the berries; a feed item
+for Echo (all feed items currently target Briar). *(Done since: the HEAL verb, the food `.tres`
+values, and the eat-vs-feed dispatch UI are all built.)*
 *(The future Claude Code "food goal" carries these exact values, replacing its earlier
 placeholders — so the build phase uses this table directly.)*
