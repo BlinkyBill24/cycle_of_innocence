@@ -137,11 +137,15 @@ object_id = &"fringes_stone"
 
 [node name="TwistedChild" parent="World" instance=ExtResource("5_twisted_child")]
 position = Vector2(180, -150)
+soothe_key_flag = &"dug_fringes_buried_memory"
+soothe_key_spot_path = NodePath("../../DiggableSpotFringes")
 secret_spot_path = NodePath("../../StilledChildKeepsake")
 
 [node name="TwistedChildTwo" parent="World" instance=ExtResource("5_twisted_child")]
 position = Vector2(300, 210)
 stable_id = &"twisted_child_02"
+soothe_key_flag = &"dug_fringes_buried_memory"
+soothe_key_spot_path = NodePath("../../DiggableSpotFringes")
 
 [node name="DreadOverlay" parent="." instance=ExtResource("7_dread_overlay")]
 
