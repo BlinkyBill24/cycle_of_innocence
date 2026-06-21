@@ -101,8 +101,41 @@ func test_hit_hardens_rowan_a_touch() -> void:
 # --- regression: other NPCs are non-reactive ------------------------------
 
 func test_a_plain_villager_has_no_reaction_component() -> void:
+	# the base villager PREFAB is non-reactive; reactivity is opt-in per placed instance
 	var villager: Node = load("res://scenes/npcs/villager.tscn").instantiate()
 	add_child_autofree(villager)
 	await wait_physics_frames(1)
 	var reactions := villager.find_children("*", "NpcThrowReaction", true, false)
-	assert_eq(reactions.size(), 0, "a plain villager ignores thrown objects — showcase NPC only")
+	assert_eq(reactions.size(), 0, "a plain villager prefab carries no reaction by default")
+
+
+# --- scaled rollout: each authored NPC has its OWN reaction ----------------
+
+func test_each_authored_npc_has_distinct_reaction_lines() -> void:
+	var dialogues := [
+		"res://resources/dialogue/marta_throw_reaction.dialogue",
+		"res://resources/dialogue/pieter_throw_reaction.dialogue",
+		"res://resources/dialogue/elder_aldwin_throw_reaction.dialogue",
+		"res://resources/dialogue/warden_brek_throw_reaction.dialogue",
+		"res://resources/dialogue/lena_throw_reaction.dialogue",
+		"res://resources/dialogue/warden_oslo_throw_reaction.dialogue",
+	]
+	for path: String in dialogues:
+		var res: DialogueResource = load(path)
+		assert_not_null(res, "%s loads" % path.get_file())
+		var calm: DialogueLine = await DialogueManager.get_next_dialogue_line(res, "calm")
+		var afraid: DialogueLine = await DialogueManager.get_next_dialogue_line(res, "afraid")
+		assert_ne(calm.text, afraid.text, "%s: calm and afraid are distinct" % path.get_file())
+
+
+func test_village_rolls_reactions_out_to_several_npcs() -> void:
+	var zone: Node = load("res://scenes/zones/village_green.tscn").instantiate()
+	add_child_autofree(zone)
+	await wait_physics_frames(1)
+	var reactions := zone.find_children("*", "NpcThrowReaction", true, false)
+	assert_true(reactions.size() >= 5, "the reaction is rolled out to several village NPCs")
+	# each reactive NPC points at its OWN authored lines (specific to who they are)
+	var paths := {}
+	for r in reactions:
+		paths[(r as NpcThrowReaction).reaction_dialogue_path] = true
+	assert_true(paths.size() >= 5, "each reactive NPC has a distinct authored reaction")

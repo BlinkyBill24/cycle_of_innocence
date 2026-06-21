@@ -254,11 +254,31 @@ position = Vector2(-200, -20)
 npc_id = &"pieter_parent"
 frames = ExtResource("6_parent_frames")
 
+[node name="ThrowReaction" type="Area2D" parent="World/Pieter"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("react_marta")
+npc_id = &"pieter_parent"
+reaction_dialogue_path = "res://resources/dialogue/pieter_throw_reaction.dialogue"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Pieter/ThrowReaction"]
+shape = SubResource("react_shape")
+
 [node name="ElderAldwin" parent="World" instance=ExtResource("5_villager")]
 position = Vector2(300, -110)
 npc_id = &"elder_aldwin"
 frames = ExtResource("8_elder_frames")
 move_speed = 35.0
+
+[node name="ThrowReaction" type="Area2D" parent="World/ElderAldwin"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("react_marta")
+npc_id = &"elder_aldwin"
+reaction_dialogue_path = "res://resources/dialogue/elder_aldwin_throw_reaction.dialogue"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/ElderAldwin/ThrowReaction"]
+shape = SubResource("react_shape")
 
 [node name="WardenBrek" parent="World" instance=ExtResource("5_villager")]
 position = Vector2(540, 20)
@@ -267,11 +287,31 @@ frames = ExtResource("7_warden_frames")
 notice_radius = 110.0
 notice_rate = 40.0
 
+[node name="ThrowReaction" type="Area2D" parent="World/WardenBrek"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("react_marta")
+npc_id = &"warden_brek"
+reaction_dialogue_path = "res://resources/dialogue/warden_brek_throw_reaction.dialogue"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/WardenBrek/ThrowReaction"]
+shape = SubResource("react_shape")
+
 [node name="Lena" parent="World" instance=ExtResource("5_villager")]
 position = Vector2(0, 150)
 npc_id = &"lena_child"
 frames = ExtResource("9_child_frames")
 move_speed = 70.0
+
+[node name="ThrowReaction" type="Area2D" parent="World/Lena"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("react_marta")
+npc_id = &"lena_child"
+reaction_dialogue_path = "res://resources/dialogue/lena_throw_reaction.dialogue"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Lena/ThrowReaction"]
+shape = SubResource("react_shape")
 
 [node name="DreadOverlay" parent="." instance=ExtResource("12_overlay")]
 

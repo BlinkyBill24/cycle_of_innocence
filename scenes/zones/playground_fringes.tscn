@@ -40,6 +40,7 @@
 [ext_resource type="SpriteFrames" uid="uid://bwdxmmoo3tcfy" path="res://assets/resources/fx/fog_frames.tres" id="44_fog_fx"]
 [ext_resource type="AudioStream" path="res://assets/audio/sfx/campfire_crackle.wav" id="45_crackle"]
 [ext_resource type="PackedScene" uid="uid://throwobj000001" path="res://scenes/world/throwable_object.tscn" id="46_throwable"]
+[ext_resource type="Script" path="res://scripts/npcs/npc_throw_reaction.gd" id="47_react"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -115,6 +116,9 @@ size = Vector2(230, 150)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wood"]
 size = Vector2(96, 84)
+
+[sub_resource type="CircleShape2D" id="react_shape"]
+radius = 14.0
 
 [node name="PlaygroundFringes" type="Node2D"]
 script = ExtResource("1_zone")
@@ -204,6 +208,16 @@ npc_id = &"warden_oslo"
 frames = ExtResource("31_warden_frames")
 notice_radius = 110.0
 notice_rate = 40.0
+
+[node name="ThrowReaction" type="Area2D" parent="World/WardenOslo"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("47_react")
+npc_id = &"warden_oslo"
+reaction_dialogue_path = "res://resources/dialogue/warden_oslo_throw_reaction.dialogue"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/WardenOslo/ThrowReaction"]
+shape = SubResource("react_shape")
 
 [node name="DiggableSpotPlayground" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(-368, -200)
