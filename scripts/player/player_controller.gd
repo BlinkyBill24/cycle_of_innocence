@@ -76,6 +76,7 @@ func _ready() -> void:
 	_soothe_prompt = SoothePrompt.new()
 	add_child(_soothe_prompt)
 	add_child(JournalPanel.new())  # J toggles the observed-signs journal
+	add_child(PickupToast.new())   # "Found: <item>" notice on every pickup
 	if animated_sprite:
 		animated_sprite.animation_finished.connect(_on_animation_finished)
 	if PlayerData.spawn_position == Vector2.ZERO:
