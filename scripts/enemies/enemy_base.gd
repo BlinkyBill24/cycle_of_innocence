@@ -54,6 +54,10 @@ var _paused: bool = false
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health: Health = $Health
 @onready var hurtbox: Hurtbox = $Hurtbox
+## Diegetic "this creature is safe" light — ON only while Stilled (fully soothed,
+## on Rowan's side). Optional per scene (get_node_or_null) so a monster without it
+## still works. Visual only; follows the persisted `stilled` state, never a runtime flag.
+@onready var allied_glow: PointLight2D = get_node_or_null("AlliedGlow")
 @onready var lunge_hitbox: Hitbox = $LungeHitbox
 @onready var los_ray: RayCast2D = $LineOfSight
 
@@ -98,6 +102,8 @@ func _ready() -> void:
 			stilled = true
 			recognition = RECOGNITION_MAX
 			hsm.dispatch(&"stilled")
+	# restore the glow to match the loaded state (on for a stilled monster, off else)
+	_refresh_allied_glow()
 
 
 func _init_hsm() -> void:
@@ -178,6 +184,14 @@ static func should_glance_at_secret(
 	recognition_v: float, plateau: float, is_stilled: bool, has_key: bool, has_secret: bool
 ) -> bool:
 	return has_secret and not has_key and not is_stilled and recognition_v >= plateau
+
+
+## The allied glow follows the persisted `stilled` state — ON only for a fully
+## soothed (safe) creature, OFF for a hostile one. Visual indicator only; no state
+## of its own, so save/load restores it correctly via `stilled`.
+func _refresh_allied_glow() -> void:
+	if allied_glow:
+		allied_glow.enabled = stilled
 
 
 func _update_recognition_tint() -> void:
@@ -453,6 +467,7 @@ func _become_stilled() -> void:
 	if GameEvents:
 		GameEvents.monster_stilled.emit(stable_id)
 	hsm.dispatch(&"stilled")
+	_refresh_allied_glow()  # safe creature -> glow on
 
 
 func _become_dominated() -> void:
@@ -476,6 +491,7 @@ func _on_hollowing_advanced(new_stage: int) -> void:
 		collision_mask = 7
 		PlayerData.story_flags.erase(_stilled_flag())
 		hsm.dispatch(&"hunger_reasserts")
+		_refresh_allied_glow()  # the Hunger took it back -> glow off
 
 
 func _on_hit_received(hitbox: Hitbox) -> void:
@@ -499,6 +515,7 @@ func _betrayed() -> void:
 	PlayerData.add_companion_corruption(&"briar", 10.0)
 	if GameEvents:
 		GameEvents.stilled_monster_killed.emit(stable_id)
+	_refresh_allied_glow()  # betrayed -> it defends itself -> glow off
 
 
 ## A modal (satchel/journal/dialogue/name entry) owns the world: stop the body

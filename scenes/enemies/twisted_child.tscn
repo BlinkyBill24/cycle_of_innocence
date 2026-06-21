@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://twistedchild001"]
+[gd_scene load_steps=8 format=3 uid="uid://twistedchild001"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_base.gd" id="1_enemy_base"]
 [ext_resource type="SpriteFrames" path="res://assets/resources/enemies/twisted_child_frames.tres" id="2_frames"]
 [ext_resource type="Script" path="res://scripts/combat/health.gd" id="3_health"]
 [ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="4_hurtbox"]
 [ext_resource type="Script" path="res://scripts/combat/hitbox.gd" id="5_hitbox"]
+[ext_resource type="Texture2D" uid="uid://c6eknu52ocg5o" path="res://assets/sprites/light/glow_radial.png" id="6_glow"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 8.0
@@ -21,6 +22,13 @@ shape = SubResource("CircleShape2D_body")
 sprite_frames = ExtResource("2_frames")
 animation = &"idle"
 autoplay = "idle"
+
+[node name="AlliedGlow" type="PointLight2D" parent="."]
+enabled = false
+color = Color(1, 0.92, 0.72, 1)
+energy = 0.55
+texture = ExtResource("6_glow")
+texture_scale = 0.6
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("3_health")

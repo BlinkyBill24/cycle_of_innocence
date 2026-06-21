@@ -216,6 +216,8 @@ Researched-but-not-greenlit candidates worth keeping (source game in parens):
 
 These should feed into zone design, art prompts, and the first few dialogue nodes.
 
+- ✅ DONE 2026-06-21 — Allied-monster glow: a soothed (**Stilled**) creature emits a soft warm `PointLight2D` (`AlliedGlow` in `twisted_child.tscn`, disabled by default); hostile monsters stay dark. The glow is a pure read of the persisted `stilled` state (on at `_become_stilled` + `_ready` restore; off at `_betrayed` + hollowing re-aggro), so it survives save/load via the `stilled_<id>` flag. No shader (Web-safe; export builds). Color/energy are a tunable placeholder (warm = restored innocence). Dominated thralls are out of scope (transient — they crumble). `test_allied_glow.gd`.
+
 ## 📥 Captured this session (projection canon, 2026-06-12)
 
 - **QA overlay layer** (user art task): transparent layer with the two canon ellipses, a canon box, and a vertical ruler — the rule-5 import gate for every new prop/building/repaint. ([[art/prop-coherence]]) → **CLOSED 2026-06-12**: shipped as `assets/reference/qa_overlay_128.png` + legend + `tools/gate_sheet.py` (no Aseprite needed).
