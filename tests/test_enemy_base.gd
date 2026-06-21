@@ -133,3 +133,20 @@ func test_fringes_zone_has_two_distinct_monsters_to_verify_factions() -> void:
 	assert_eq(ids.size(), 2, "fringes authors two monsters")
 	assert_true(ids.has(&"twisted_child_01"), "the original monster")
 	assert_true(ids.has(&"twisted_child_02"), "a second, with a UNIQUE stable_id (flag bookkeeping)")
+
+
+func test_fringes_monsters_spawn_far_enough_to_engage_one_at_a_time() -> void:
+	# playtest: clustered spawns mobbed the player, making a defenseless soothe (and the
+	# dig before it) impossible. They must start > 2x detection_radius (110) apart so
+	# approaching one keeps the player outside the other's notice.
+	var state: SceneState = (load("res://scenes/zones/fringes.tscn") as PackedScene).get_state()
+	var positions: Array[Vector2] = []
+	for i in state.get_node_count():
+		var inst: PackedScene = state.get_node_instance(i)
+		if inst != null and inst.resource_path == "res://scenes/enemies/twisted_child.tscn":
+			for p in state.get_node_property_count(i):
+				if String(state.get_node_property_name(i, p)) == "position":
+					positions.append(state.get_node_property_value(i, p))
+	assert_eq(positions.size(), 2, "two monsters placed in the fringes")
+	assert_gt(positions[0].distance_to(positions[1]), 220.0,
+		"monsters spawn far enough apart to face one at a time (not mobbed)")
