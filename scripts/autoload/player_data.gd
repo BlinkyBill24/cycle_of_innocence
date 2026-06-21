@@ -56,6 +56,8 @@ var custom_name: String = "Rowan"
 var gender: String = "neutral"
 var chosen_accent_color: Color = Color(0.55, 0.45, 0.35, 1.0)
 
+## 1 heart = 2 HP (matches hud.gd). max_hp 20 = 10 hearts. HEAL values are in hearts.
+const HP_PER_HEART := 2
 var max_hp: int = 20
 var current_hp: int = 20
 

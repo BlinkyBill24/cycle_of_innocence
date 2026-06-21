@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemDef" load_steps=2 format=3 uid="uid://b8heartymeal01"]
+
+[ext_resource type="Script" uid="uid://cnh5esvabvxfq" path="res://scripts/items/item_def.gd" id="1_itemdef"]
+
+[resource]
+script = ExtResource("1_itemdef")
+id = &"hearty_meal"
+display_name = "Hearty Meal"
+category = 2
+description = "A proper, hot meal — bread, stew, something real. You haven't eaten like this in a long time."
+stackable = true
+max_stack = 9
+discardable = true
+companion_id = &""
+use_kind = 0
+bond_delta = 0.0
+morality_delta = 0.0
+consumed_on_use = true
+heal_hearts = 4

@@ -19,6 +19,9 @@ signal diggable_revealed(spot_id: StringName)
 
 signal combat_hit(target_faction: StringName, amount: int)
 signal player_damaged(current_hp: int, max_hp: int)
+## Generic HEAL request (eat food / future medicine) — amount in HP; the player applies
+## it to its Health (clamped). Decoupled so Inventory needn't reach the player node.
+signal player_heal_requested(amount_hp: int)
 signal player_died
 signal enemy_died(enemy_kind: StringName)
 signal monster_stilled(stable_id: StringName)

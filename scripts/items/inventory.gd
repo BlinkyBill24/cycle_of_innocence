@@ -124,6 +124,27 @@ static func use(id: StringName, target_companion: StringName = &"") -> bool:
 	return true
 
 
+## Eat a food/medicine item: heal Rowan by its `heal_hearts` (HEAL path, decision
+## 2026-06-21), then consume ONE. GENERIC — reads heal_hearts, not item ids, so medicine
+## reuses it. The heal is applied by the player (via GameEvents.player_heal_requested ->
+## Health.heal, which clamps to max). Eating at FULL health does nothing and does NOT
+## consume the food (no waste). Returns true only when food was actually eaten.
+static func eat(id: StringName) -> bool:
+	if not has(id):
+		return false
+	var def: ItemDef = ItemRegistry.get_def(id)
+	if def == null or def.heal_hearts <= 0:
+		return false
+	if PlayerData.current_hp >= PlayerData.max_hp:
+		return false  # already full -> no heal, no waste
+	if GameEvents:
+		GameEvents.player_heal_requested.emit(def.heal_hearts * PlayerData.HP_PER_HEART)
+		GameEvents.item_used.emit(id)
+	Sfx.play(&"eat", -5.0)
+	_take(id, 1, false)  # consume exactly one
+	return true
+
+
 static func use_at(slot_index: int, target_companion: StringName = &"") -> bool:
 	var inv: Array[Dictionary] = PlayerData.inventory
 	if slot_index < 0 or slot_index >= inv.size():

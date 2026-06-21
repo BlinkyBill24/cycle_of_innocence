@@ -31,6 +31,10 @@ enum UseKind { NONE = 0, FEED_COMPANION = 1, EQUIP = 2, THROW = 3 }
 @export var bond_delta: float = 0.0
 @export var morality_delta: float = 0.0
 @export var consumed_on_use: bool = true
+## HEAL path (decision 2026-06-21): hearts restored to ROWAN when this item is eaten.
+## 0 = not food/medicine. GENERIC — the eat verb reads this, not item ids, so medicine
+## (bandage 5, restorative full) reuses the same path. 1 heart = PlayerData.HP_PER_HEART HP.
+@export var heal_hearts: int = 0
 ## One-time story unlock granted simply by ACQUIRING this item (e.g. the flute sets
 ## `flute_found`). Set on add to inventory, never cleared — persists via PlayerData.
 @export var grants_flag: StringName = &""
