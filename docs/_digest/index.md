@@ -27,7 +27,7 @@ _Regenerated 2026-06-21 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-21 — Pick-up-throw (goal item 1)](../sessions/2026-06-21-pickup-throw.md)
 - [2026-06-21 — Throw-at-NPC reaction: ONE showcase NPC (Marta)](../sessions/2026-06-21-npc-throw-reaction.md)
 - [2026-06-21 — Modals freeze the whole world](../sessions/2026-06-21-modal-pause-freezes-world.md)
-- [2026-06-21 — Fringes monsters were un-soothable (wrong-zone key)](../sessions/2026-06-21-fringes-soothe-key.md)
+- [2026-06-21 — A "Kept" category for permanent items (+ flute icon)](../sessions/2026-06-21-kept-items-category.md)
 
 ## Ideas inbox
 - 131 captured items in [ideas.md](../ideas.md)
