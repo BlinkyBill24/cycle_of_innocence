@@ -83,3 +83,36 @@ func test_playing_the_flute_makes_a_flute_sound() -> void:
 	watch_signals(Sfx)
 	p._on_interact_pressed()  # -> _start_soothe -> Sfx.play("flute")
 	assert_signal_emitted_with_parameters(Sfx, "played", [&"flute"])
+
+
+# --- placement: the flute is findable in the Hollow House -------------------
+
+func test_flute_is_placed_to_find_in_the_hollow_house() -> void:
+	var state: SceneState = (load("res://scenes/zones/hollow_house_back.tscn") as PackedScene).get_state()
+	var found := false
+	for i in state.get_node_count():
+		for pi in state.get_node_property_count(i):
+			if String(state.get_node_property_name(i, pi)) == "item_id" \
+					and state.get_node_property_value(i, pi) == &"flute":
+				found = true
+	assert_true(found, "the flute is placed as a pickup in the Hollow House back room")
+
+
+func test_found_flute_pickup_does_not_reappear() -> void:
+	# a gate item (grants_flag) that's already been acquired stays taken across revisits
+	PlayerData.set_story_flag(&"flute_found")
+	var fs: ForageSpot = ForageSpot.new()
+	fs.item_id = &"flute"
+	add_child_autofree(fs)
+	await wait_physics_frames(1)
+	assert_true(fs.granted, "an already-found gate pickup is inert")
+	assert_false(fs.monitoring, "and won't re-grant on revisit")
+
+
+func test_unfound_flute_pickup_is_live() -> void:
+	var fs: ForageSpot = ForageSpot.new()
+	fs.item_id = &"flute"
+	add_child_autofree(fs)  # flute_found NOT set
+	await wait_physics_frames(1)
+	assert_false(fs.granted, "not yet found -> the pickup is live")
+	assert_true(fs.monitoring)

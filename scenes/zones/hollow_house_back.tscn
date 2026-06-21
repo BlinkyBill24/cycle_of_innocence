@@ -12,9 +12,13 @@
 [ext_resource type="Texture2D" uid="uid://b0swx41fq5tb5" path="res://assets/sprites/interiors/props/hollow_dust_sheet.png" id="10_sheet"]
 [ext_resource type="Texture2D" uid="uid://cvauq3s2y0ac" path="res://assets/sprites/fx/clue_glint.png" id="11_glint"]
 [ext_resource type="Texture2D" uid="uid://875bow0t62og" path="res://assets/sprites/interiors/props/hollow_broken_cabinet.png" id="12_cabinet"]
+[ext_resource type="Script" uid="uid://cxs6e70fumff8" path="res://scripts/world/forage_spot.gd" id="13_forage"]
 
 [sub_resource type="RectangleShape2D" id="wall_h"]
 size = Vector2(330, 12)
+
+[sub_resource type="CircleShape2D" id="flute_area"]
+radius = 16.0
 
 [sub_resource type="RectangleShape2D" id="wall_v"]
 size = Vector2(12, 250)
@@ -86,6 +90,18 @@ texture = ExtResource("10_sheet")
 [node name="Cabinet" type="Sprite2D" parent="World"]
 position = Vector2(120, -78)
 texture = ExtResource("12_cabinet")
+
+[node name="FlutePickup" type="Area2D" parent="World" groups=["forage_spot"]]
+position = Vector2(120, -58)
+script = ExtResource("13_forage")
+item_id = &"flute"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/FlutePickup"]
+shape = SubResource("flute_area")
+
+[node name="Marker" type="Sprite2D" parent="World/FlutePickup"]
+modulate = Color(1, 0.95, 0.75, 1)
+texture = ExtResource("11_glint")
 
 [node name="SpawnDefault" type="Marker2D" parent="." groups=["spawn_default"]]
 position = Vector2(0, 80)
