@@ -14,9 +14,15 @@ extends Area2D
 ## The authored line variants live in a Dialogue Manager .dialogue (titles
 ## calm/wary/afraid), read at runtime and shown as a diegetic floating balloon
 ## (not the modal conversation UI — keeps the bark non-blocking + "no UI popup").
-const REACTION_PATH := "res://resources/dialogue/marta_throw_reaction.dialogue"
+const DEFAULT_REACTION_PATH := "res://resources/dialogue/marta_throw_reaction.dialogue"
 
 @export var npc_id: StringName = &"marta_farmer"
+## Per-NPC authored reaction lines (a Dialogue Manager .dialogue with titles
+## calm/wary/afraid). Each reactive NPC points at its OWN file — that is what makes
+## the reaction specific to WHO they are. The calm/wary/afraid keys are state SLOTS
+## (early / clock-turning / net-closing), filled per character — a warden's "afraid"
+## slot is a threat, an elder's is recognition. Still fully hand-authored + fixed.
+@export_file("*.dialogue") var reaction_dialogue_path: String = DEFAULT_REACTION_PATH
 ## A provocation IS noticed — being struck raises the village's suspicion of Rowan.
 @export var provoke_suspicion: float = 25.0
 ## Hurting a person hardens you a little (toward Vessel).
@@ -91,7 +97,7 @@ func _flinch() -> void:
 func _speak(title: StringName) -> void:
 	if DisplayServer.get_name() == "headless":
 		return
-	var resource: DialogueResource = load(REACTION_PATH)
+	var resource: DialogueResource = load(reaction_dialogue_path)
 	if resource == null:
 		return
 	var line: DialogueLine = await DialogueManager.get_next_dialogue_line(resource, String(title))
