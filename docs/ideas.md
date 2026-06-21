@@ -10,6 +10,14 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 ## 🆕 Unsorted
 *Raw capture during sessions. No structure required.*
 
+### 🍎 Food / HEAL path — CODE TASKS (from decision 2026-06-21)
+*[[decisions/2026-06-21-food-heal-values]]. Values are decided + doc'd; these are the build consequences. Balance stays human-tuned — agents don't set values in code beyond wiring the decided ones.*
+- **Implement the HEAL verb.** `ItemDef.UseKind` has NO `HEAL` today (only NONE/FEED/EQUIP/THROW — the source note was wrong that it "reserves HEAL"). Add `HEAL` to the enum **or** a `heal_hearts` field on `ItemDef`, then wire `Inventory.use` → `Health.heal(hearts × 2)` (1 heart = 2 HP; `Health.heal` already exists). Clamp to Rowan's 10-heart pool. Whole hearts only.
+- **Set the decided heal values on the food items** once HEAL exists: berries 1 · dried_meat 2 · special treat 3 · hearty meal/feast 4 hearts.
+- **`[FLAG]` Dual-use dispatch (FEED Briar vs HEAL Rowan).** `berries`/`dried_meat` serve BOTH. The input/UI for choosing "eat (heal me)" vs "feed (Briar)" is **undesigned** — needs a design decision (a modifier key? a context menu? Briar-near = feed, else eat?) BEFORE building HEAL. Deliberate resource-tension hook (companion arc + horror).
+- **Medicine item set (future):** bandage = 5 hearts, rare restorative = full heal — same HEAL path, kept above food. Not built.
+- **World-place the berries** (the `berries`/`forest_berries` item + `ForageSpot` exist; berries aren't placed yet — pairs with the food economy).
+
 ### 🎯 Companions & flute-gate — CODE TASKS (from decision 2026-06-21)
 *[[decisions/2026-06-21-companions-and-flute-gate]]. Docs/canon are updated; these are the FEATURE-WORK consequences — each contradicts current code and is its own future `/goal`.*
 - **Bare fists deal NO damage to monsters.** Today `perform_attack()` swings a player-faction hitbox even with no weapon equipped → it hurts monsters. Make an unarmed swing harmless to monsters (whiff / no hitbox, or a no-damage feedback swing). Reuse the existing `equipped_weapon == &""` check.
@@ -76,7 +84,7 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - Dig-up loot variety: `DiggableSpot.dig_item` is a single id — a weighted table or per-NG+ swap (like `lore_text_recontext`) could make repeat digs less samey.
 - Inventory v1.1: shared "one modal at a time" guard — Journal + Inventory panels both sit at layer 60; v1 mitigation is force-close-on-foreign-pause, but a single modal-stack arbiter would be cleaner. From [[decisions/2026-06-13-inventory-system]].
 - Inventory touch parity hardening: the v1 "BAG" button opens the satchel, but slot interaction (feed/inspect) on touch isn't designed yet — needs a touch pass before the mobile demo.
-- Item effect extensibility: `use_kind` enum reserves HEAL / REDUCE_DREAD; first utility consumable (bandage / clean lantern oil) will exercise the non-FEED dispatch + the `consumed_on_use=false` reusable-tool path (whistle/lantern).
+- Item effect extensibility: a non-FEED `use_kind` (HEAL and/or REDUCE_DREAD) is **NOT yet in the enum** (only NONE/FEED_COMPANION/EQUIP/THROW — see the Food/HEAL block above + [[decisions/2026-06-21-food-heal-values]]); the first utility consumable (bandage / clean lantern oil) will exercise that future non-FEED dispatch + the `consumed_on_use=false` reusable-tool path (whistle/lantern).
 - Morality-flavored item *effects* (not just descriptions): the "kind herb soothes / ruthless prep poisons" idea from [[mechanics/inventory]] is still unbuilt — v1 only swaps description text.
 - Quirk journal UI: let the player pin one observed line per discovered quirk (companion-quirks.md diagnosis loop) — fold into the interface-horror/UI pass.
 - ✅ DONE 2026-06-20 — Plateau discovery cue: when generic soothe stalls at 60, the monster now briefly **turns toward its buried key** (no UI), via `EnemyBase._update_glance` + pure `should_glance_at_secret`. Tested in `test_monster_glance.gd`. (Complements the existing "it calms… but something is missing" stall feedback.)

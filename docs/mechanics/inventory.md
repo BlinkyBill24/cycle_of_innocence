@@ -30,7 +30,8 @@ related:
    - Many trigger revelations or new dialogue when examined or shown to the right person/companion.
 
 2. **Companion Care Items**
-   - Food (foraged berries, dried meat, special treats).
+   - Food (foraged berries, dried meat, special treats) — **DUAL-USE**: the same food
+     can **feed Briar** (bond) OR **heal Rowan** (hearts). See the HEAL path below.
    - Soothing items (herbs, tokens, a brush).
    - These are the most common "consumables" and directly feed the bond/corruption systems.
    - Some are companion-specific (a high-pitched whistle only Echo responds to well).
@@ -44,6 +45,26 @@ related:
    - Collectible fragments (child drawings, broken ritual tools, letters).
    - These don't take normal inventory space — they go into the Journal.
    - Collecting them feeds the revelation system and can unlock new dialogue branches or companion conversations.
+
+## Player healing (the HEAL path) — decided 2026-06-21
+
+Eating food restores a portion of Rowan's **10 hearts** (1 heart = 2 HP). Values are a
+**playtest starting point, human-tuned** — and provisional until enemy **damage-per-hit**
+is set ([[decisions/2026-06-21-food-heal-values]]):
+
+| Item | Hearts | | Item | Hearts |
+|---|---|---|---|---|
+| Wild berries | 1 | | Bandage / poultice | 5 *(future medicine set)* |
+| Dried meat | 2 | | Rare restorative | full (10) *(future)* |
+| Special treat | 3 | | | |
+| Hearty meal / feast | 4 | | | |
+
+- **Not built yet.** `ItemDef.UseKind` has no `HEAL` value today (only NONE/FEED/EQUIP/THROW)
+  — implementing it (add `HEAL` or a `heal_hearts` field → `Health.heal(hearts×2)`) is a
+  future task ([[ideas]]). Whole hearts only; healing is a **rationed** resource (no spam).
+- **`[FLAG]` dual-use dispatch unresolved:** the same `berries` / `dried_meat` feed Briar OR
+  heal Rowan — how the player picks "eat" vs "feed" (input/UI) is undesigned and must be
+  decided before the HEAL verb ships.
 
 ## Interaction with Other Systems
 
