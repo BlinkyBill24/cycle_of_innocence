@@ -12,10 +12,9 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 
 ### 🍎 Food / HEAL path — CODE TASKS (from decision 2026-06-21)
 *[[decisions/2026-06-21-food-heal-values]]. Values are decided + doc'd; these are the build consequences. Balance stays human-tuned — agents don't set values in code beyond wiring the decided ones.*
-- **Implement the HEAL verb.** `ItemDef.UseKind` has NO `HEAL` today (only NONE/FEED/EQUIP/THROW — the source note was wrong that it "reserves HEAL"). Add `HEAL` to the enum **or** a `heal_hearts` field on `ItemDef`, then wire `Inventory.use` → `Health.heal(hearts × 2)` (1 heart = 2 HP; `Health.heal` already exists). Clamp to Rowan's 10-heart pool. Whole hearts only.
-- **Set the decided heal values on the food items** once HEAL exists: berries 1 · dried_meat 2 · special treat 3 · hearty meal/feast 4 hearts.
-- **`[FLAG]` Dual-use dispatch (FEED Briar vs HEAL Rowan).** `berries`/`dried_meat` serve BOTH. The input/UI for choosing "eat (heal me)" vs "feed (Briar)" is **undesigned** — needs a design decision (a modifier key? a context menu? Briar-near = feed, else eat?) BEFORE building HEAL. Deliberate resource-tension hook (companion arc + horror).
-- **Medicine item set (future):** bandage = 5 hearts, rare restorative = full heal — same HEAL path, kept above food. Not built.
+- ~~**Implement the HEAL verb / set heal values / resolve dual-use dispatch.**~~ **DONE 2026-06-21** — `heal_hearts` on `ItemDef`, `Inventory.eat` → `Health.heal(hearts×2)`, values berries 1 · dried_meat 2 · honeycomb 3 · hearty_meal 4, and the eat-vs-feed dispatch resolved as **ask at point of use** (a small `Eat`/`Give to <companion>` choice on dual-use food). See [[decisions/2026-06-21-food-heal-values]] + `tests/test_food_healing.gd`, `tests/test_eat_vs_feed.gd`.
+- **Medicine item set (future):** bandage = 5 hearts, rare restorative = full heal — same HEAL path (reuses `heal_hearts`; the eat verb is already generic), kept above food. Not built.
+- **A feed item for Echo (future):** every feed item currently targets Briar; Echo has no care item yet.
 - **World-place the berries** (the `berries`/`forest_berries` item + `ForageSpot` exist; berries aren't placed yet — pairs with the food economy).
 
 ### 🎯 Companions & flute-gate — CODE TASKS (from decision 2026-06-21)

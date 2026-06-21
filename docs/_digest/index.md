@@ -30,5 +30,5 @@ _Regenerated 2026-06-21 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-21 — A "Kept" category for permanent items (+ flute icon)](../sessions/2026-06-21-kept-items-category.md)
 
 ## Ideas inbox
-- 136 captured items in [ideas.md](../ideas.md)
+- 135 captured items in [ideas.md](../ideas.md)
 

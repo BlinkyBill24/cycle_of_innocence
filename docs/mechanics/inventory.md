@@ -59,12 +59,12 @@ is set ([[decisions/2026-06-21-food-heal-values]]):
 | Special treat | 3 | | | |
 | Hearty meal / feast | 4 | | | |
 
-- **Not built yet.** `ItemDef.UseKind` has no `HEAL` value today (only NONE/FEED/EQUIP/THROW)
-  — implementing it (add `HEAL` or a `heal_hearts` field → `Health.heal(hearts×2)`) is a
-  future task ([[ideas]]). Whole hearts only; healing is a **rationed** resource (no spam).
-- **`[FLAG]` dual-use dispatch unresolved:** the same `berries` / `dried_meat` feed Briar OR
-  heal Rowan — how the player picks "eat" vs "feed" (input/UI) is undesigned and must be
-  decided before the HEAL verb ships.
+- **Built.** Food carries a `heal_hearts` field; eating heals Rowan `hearts×2` HP, clamped to
+  the cap, consuming one (`Inventory.eat`). Whole hearts only; healing is a **rationed**
+  resource (no spam). Values: berries 1, dried meat 2, honeycomb 3, hearty meal 4.
+- **Dual-use dispatch — resolved (ask at point of use):** the same `berries` / `dried_meat`
+  feed Briar OR heal Rowan. Tapping a dual-use food opens a small `Eat` / `Give to <companion>`
+  choice; single-purpose items act immediately. See [[decisions/2026-06-21-food-heal-values]].
 
 ## Interaction with Other Systems
 
