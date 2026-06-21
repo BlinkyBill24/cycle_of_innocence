@@ -58,10 +58,13 @@ var _paused: bool = false
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var health: Health = $Health
 @onready var hurtbox: Hurtbox = $Hurtbox
-## Diegetic "this creature is safe" light — ON only while Stilled (fully soothed,
-## on Rowan's side). Optional per scene (get_node_or_null) so a monster without it
-## still works. Visual only; follows the persisted `stilled` state, never a runtime flag.
+## Diegetic "this creature is safe" feedback — ON only while Stilled (fully soothed,
+## on Rowan's side). A warm Halo sprite (always visible, reads at a glance) + a subtle
+## PointLight2D (depth in the dusk). Both optional per scene (get_node_or_null) so a
+## monster without them still works. Visual only; follow the persisted `stilled` state.
 @onready var allied_glow: PointLight2D = get_node_or_null("AlliedGlow")
+@onready var allied_halo: Sprite2D = get_node_or_null("AlliedHalo")
+var _halo_tween: Tween
 @onready var lunge_hitbox: Hitbox = $LungeHitbox
 @onready var los_ray: RayCast2D = $LineOfSight
 
@@ -193,12 +196,22 @@ static func should_glance_at_secret(
 	return has_secret and not has_key and not is_stilled and recognition_v >= plateau
 
 
-## The allied glow follows the persisted `stilled` state — ON only for a fully
+## The allied feedback follows the persisted `stilled` state — ON only for a fully
 ## soothed (safe) creature, OFF for a hostile one. Visual indicator only; no state
-## of its own, so save/load restores it correctly via `stilled`.
+## of its own, so save/load restores it correctly via `stilled`. The halo gently
+## pulses so it reads at a glance (playtest: the bare light was too subtle).
 func _refresh_allied_glow() -> void:
 	if allied_glow:
 		allied_glow.enabled = stilled
+	if allied_halo:
+		allied_halo.visible = stilled
+		if _halo_tween and _halo_tween.is_valid():
+			_halo_tween.kill()
+		if stilled:
+			allied_halo.modulate.a = 0.85
+			_halo_tween = create_tween().set_loops()
+			_halo_tween.tween_property(allied_halo, "modulate:a", 0.45, 0.9)
+			_halo_tween.tween_property(allied_halo, "modulate:a", 0.85, 0.9)
 
 
 func _update_recognition_tint() -> void:

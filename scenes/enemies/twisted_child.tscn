@@ -18,6 +18,13 @@ script = ExtResource("1_enemy_base")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_body")
 
+[node name="AlliedHalo" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+texture = ExtResource("6_glow")
+modulate = Color(1, 0.86, 0.55, 0.8)
+scale = Vector2(0.55, 0.55)
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_frames")
 animation = &"idle"
