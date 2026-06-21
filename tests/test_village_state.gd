@@ -130,7 +130,10 @@ func test_villager_frames_assigned_on_instance_roots() -> void:
 						has_npc_id = true
 					"frames":
 						has_frames = true
-			if has_npc_id:
+			# Only a villager INSTANCE must carry frames on its root (export drops
+			# child overrides). A plain component that merely references an npc_id
+			# (e.g. NpcThrowReaction) is not a villager and needs no frames.
+			if has_npc_id and state.get_node_instance(i) != null:
 				assert_true(has_frames, "%s/%s sets frames on the instance root"
 						% [path.get_file(), state.get_node_name(i)])
 

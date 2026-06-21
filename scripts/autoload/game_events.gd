@@ -45,6 +45,9 @@ signal journal_entry_added(sign_id: StringName)  # observed-sign witnessed (Jour
 signal throwable_picked_up(object_id: StringName)
 signal throwable_thrown(object_id: StringName)
 signal throwable_landed(object_id: StringName)
+## A showcase NPC was struck by a thrown object and reacted (scripted, state-keyed,
+## never adaptive). reaction_title = which authored variant fired (calm/wary/afraid).
+signal npc_reacted_to_throw(npc_id: StringName, reaction_title: StringName)
 
 signal item_acquired(item_id: StringName, quantity: int)
 signal item_used(item_id: StringName)

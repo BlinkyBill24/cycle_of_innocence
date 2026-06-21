@@ -35,6 +35,7 @@ func _ready() -> void:
 	add_to_group("throwable")
 	_hitbox.faction = &"player"        # the shared thrown-hit path: a player Hitbox
 	_hitbox.damage = throw_damage
+	_hitbox.add_to_group("thrown")     # shared thrown-hit marker (NPC reactions key off this)
 	_hitbox.set_shapes_disabled(true)  # inert until thrown
 	_set_height(0.0)
 
