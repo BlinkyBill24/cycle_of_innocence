@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://briarpup00001"]
 
 [ext_resource type="Script" path="res://scripts/companions/companion_base.gd" id="1_companion"]
-[ext_resource type="SpriteFrames" path="res://assets/resources/companions/briar_pup_frames.tres" id="2_frames"]
+[ext_resource type="SpriteFrames" path="res://assets/resources/companions/briar_v2_frames.tres" id="2_frames"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_briar"]
 radius = 7.0
