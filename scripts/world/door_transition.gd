@@ -41,6 +41,7 @@ enum Mode { INTERACT, ENTER, PUSH }
 
 var _player_inside := false
 var _push_held := 0.0  # PUSH mode: accumulated lean-in time
+var _reject_cooldown := 0.0  # debounce for the locked-interact "thunk" feedback
 var _opened := false   # PUSH mode: latched once it gives (no re-trigger)
 var _label: Label
 ## The prompt lives on its own CanvasLayer (follow_viewport) so a dark interior's
@@ -78,6 +79,8 @@ func _on_body_exited(body: Node2D) -> void:
 ## open. A tap never opens it (deliberate friction). Live input is the "lean";
 ## tests drive _accumulate_push() directly.
 func _physics_process(delta: float) -> void:
+	if _reject_cooldown > 0.0:
+		_reject_cooldown -= delta
 	if _push_active() and _player_pushing():
 		_accumulate_push(delta)
 
@@ -129,6 +132,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func trigger() -> bool:
 	if is_locked():
 		_show_prompt(locked_reason)
+		_reject_feedback()
 		return false
 	_apply_unlock()  # first pass through an item gate records it + spends the key
 	var path := target_path()
@@ -205,3 +209,23 @@ func _show_prompt(text: String) -> void:
 func _hide_prompt() -> void:
 	if _label_layer:
 		_label_layer.visible = false
+
+
+## Acknowledge a blocked locked-interact: a "locked" thunk plus a short shake +
+## alarm-red flash of the reason label. Without this the label is silent and was
+## already on-screen from _on_body_entered, so pressing interact looked like a
+## dud ("no feedback"). Debounced so a mashed key doesn't stack tweens/sounds.
+func _reject_feedback() -> void:
+	if _reject_cooldown > 0.0:
+		return
+	_reject_cooldown = 0.4
+	Sfx.play(&"stinger_toy", -6.0)  # locked "thunk" — toy-creak stands in (no dedicated locked SFX yet)
+	if _label == null or not is_inside_tree():
+		return
+	var base_x := _label.position.x
+	_label.modulate = Color(1.0, 0.55, 0.5)  # brief alarm-red flash
+	var shake := create_tween()
+	shake.tween_property(_label, "position:x", base_x - 3.0, 0.04)
+	shake.tween_property(_label, "position:x", base_x + 3.0, 0.06)
+	shake.tween_property(_label, "position:x", base_x, 0.05)
+	create_tween().tween_property(_label, "modulate", Color(1, 1, 1, 1), 0.16)
