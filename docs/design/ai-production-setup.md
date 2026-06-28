@@ -21,7 +21,7 @@ The complete per-area AI/tooling stack to take *Cycle of Innocence* from current
 | SFX | **ChipTone** + **sfxr** (free) for UI/hits/pickups; layer in Godot audio buses | Complex organic horror SFX ("wet stone crumble") → ElevenLabs SFX $5/mo Pro |
 | Voice | **None — deliberate.** Text-only horror (Undertale/Inscryption precedent); text + ambience scarier than mediocre TTS | Trailer narration only, if ever |
 | Dialogue | **Dialogue Manager** (MIT, pure GDScript — replaced Yarn Spinner: C#-only addon breaks Web export in 4.4) + LLM-drafted dialogue using [[story/bible]] as context, human-reviewed, **pre-baked only** (no runtime LLM text) | — |
-| Code agents | **Claude Code + Cursor** (existing) + **godot-mcp** (FOSS MCP server: scene-tree reads, run-game, error capture) | — |
+| Code agents | **Claude Code + Cursor** (existing) + **godot-mcp** (FOSS MCP server: run-game + console-error capture; reads scene *files*, **not** the live runtime tree). Installed = `Coding-Solo/godot-mcp` v0.1.1. `[FLAG 2026-06-28]` This base server has **no live runtime-tree/autoload visibility** (can't show DreadManager/HollowingClock live state) and carries an **unpatched command-injection advisory** (issue #64 — localhost-only, untrusted-path vector; low risk in solo local use). | Add a runtime-visibility server → `Erodenn/godot-mcp-runtime` (free; injects bridge at runtime, **nothing stays in the project → no web-export cleanup**, best fit for the Web constraint) **or** `PrajnaAvidya/Godot-Peek-MCP` (free; more debug power — live tree, stack traces, perf monitors — but ships an addon you must export-exclude, and **Linux x86_64 only** — verify the binary on Mint first). Avoid `IvanMurzak/Godot-MCP` (needs C#/.NET → breaks Web export). See [[../research/done/Claude-Godot-MCP-Servers-Research-2026-06-28]]. |
 | In-game AI | **LimboAI** behavior trees + `NavigationAgent2D` pathfinding. **No runtime LLM calls** — offline mobile requirement, 300–1000ms latency, per-player API cost | — |
 | Testing | **GUT** unit tests + `godot --headless` (CI-able via GitHub Actions) | — |
 
@@ -32,7 +32,7 @@ The Michael Games **2D Action-Adventure RPG asset pack** (`michaelgames.itch.io/
 ## Installed in this repo (2026-06-10)
 - `addons/` — Dialogue Manager v3.10.4, LimboAI v1.6.0 (Godot 4.4 GDExtension build), GUT v9.6.0
 - `tests/` — smoke tests; run via `tools/run-tests.sh`
-- godot-mcp registered in Claude Code MCP config (scene-tree access for agents)
+- godot-mcp (`Coding-Solo/godot-mcp` v0.1.1) registered in Claude Code MCP config — run-game + scene-*file* reads + console-error capture. **No live runtime tree** (autoload/instanced-node state invisible); see the `[FLAG 2026-06-28]` runtime-server upgrade path in the stack table and [[../research/done/Claude-Godot-MCP-Servers-Research-2026-06-28]].
 - PixelLab API client `tools/pixellab_api.py` (user subscribed 2026-06-10, free tier; key at `~/.config/pixellab/api_key`, never committed; generation needs credit top-up)
 
 ## Workflow rules
