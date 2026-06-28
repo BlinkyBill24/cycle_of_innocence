@@ -22,6 +22,10 @@ const VESSEL_TINT := Color(0.78, 0.72, 0.82, 1.0)
 
 var _base_scale: Vector2 = Vector2.ONE
 var _shader_material: ShaderMaterial
+## Age's contribution to gait playback speed (heavier age = slower). The parent
+## PlayerController composes this with its sprint/spike factors via _refresh_anim_speed();
+## age_morph no longer writes speed_scale directly (would clobber sprint/spike).
+var age_speed_factor := 1.0
 
 
 func _ready() -> void:
@@ -93,7 +97,12 @@ func _apply_age_scale(age: PlayerData.AgeStage) -> void:
 				speed_scale = 0.95
 			PlayerData.AgeStage.ADULT:
 				speed_scale = 0.9
-		(visual_target as AnimatedSprite2D).speed_scale = speed_scale
+		age_speed_factor = speed_scale
+		var parent_node := get_parent()
+		if parent_node and parent_node.has_method("_refresh_anim_speed"):
+			parent_node._refresh_anim_speed()  # player composes age × spike × sprint
+		else:
+			(visual_target as AnimatedSprite2D).speed_scale = speed_scale  # standalone fallback
 
 
 func _apply_morality_visuals(morality_value: float) -> void:

@@ -10,6 +10,8 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 ## 🆕 Unsorted
 *Raw capture during sessions. No structure required.*
 
+- **Rowan sprint — PixelLab run art follow-up** (from [[sessions/2026-06-28-rowan-sprint]]): the sprint mechanic ships now reusing the **walk animation sped up** (`speed_scale` ×1.5). Polish upgrade when the PixelLab pipeline is active: draw a dedicated `run_*` set (distinct stride/lean) for child/teen/adult sheets and add it to `_update_locomotion_animation` (branch on `_is_sprinting`); wire teen/adult frames in `player.tscn` (currently null) while there. Also possible: sprinting raises dread/noise (monster aggro). Feel dials to playtest: `run_speed` 170, `SPRINT_MAX_SECONDS` 1.6, `SPRINT_REGEN_RATE` 0.5, `SPRINT_ANIM_SCALE` 1.5.
+
 ### 🍎 Food / HEAL path — CODE TASKS (from decision 2026-06-21)
 *[[decisions/2026-06-21-food-heal-values]]. Values are decided + doc'd; these are the build consequences. Balance stays human-tuned — agents don't set values in code beyond wiring the decided ones.*
 - ~~**Implement the HEAL verb / set heal values / resolve dual-use dispatch.**~~ **DONE 2026-06-21** — `heal_hearts` on `ItemDef`, `Inventory.eat` → `Health.heal(hearts×2)`, values berries 1 · dried_meat 2 · honeycomb 3 · hearty_meal 4, and the eat-vs-feed dispatch resolved as **ask at point of use** (a small `Eat`/`Give to <companion>` choice on dual-use food). See [[decisions/2026-06-21-food-heal-values]] + `tests/test_food_healing.gd`, `tests/test_eat_vs_feed.gd`.

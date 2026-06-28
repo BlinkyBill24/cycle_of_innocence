@@ -10,8 +10,16 @@ enum MovementState { EXPLORING, ATTACKING, HURT, CUTSCENE, DREAD_LOCK }
 enum AgeStage { CHILD, TEEN, ADULT }
 
 @export var move_speed: float = 110.0
+@export var run_speed: float = 170.0  # sprint speed (~1.55× walk); mirrors companion_base.run_speed
 @export var acceleration: float = 900.0
 @export var friction: float = 1200.0
+
+## Sprint: hold "sprint" for a short burst drawn from an invisible reserve; spending
+## it forces a recovery (drop back to walk) until the reserve refills. No stamina bar —
+## the limit is felt, not managed. Burst ≈ SPRINT_MAX_SECONDS, refill ≈ /SPRINT_REGEN_RATE.
+const SPRINT_MAX_SECONDS := 1.6   # longest single burst (reserve seconds)
+const SPRINT_REGEN_RATE := 0.5    # reserve-seconds recovered per real second when not sprinting
+const SPRINT_ANIM_SCALE := 1.5    # walk_* plays this much faster while sprinting (the "run" look)
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var age_morph: AgeMorphT = $AgeMorph
@@ -53,8 +61,11 @@ var _spike_timer := 0.0
 var _spike_cooldown := 0.0
 var _spike_lag_frames := 0
 var _spike_ate_press := false
-var _spike_prev_speed_scale := 1.0
 var _lag_buffer: Array[Vector2] = []
+
+var _sprint_charge := SPRINT_MAX_SECONDS  # invisible reserve, never drawn on screen
+var _sprint_locked := false               # forced recovery: refill to full before sprint allowed again
+var _is_sprinting := false
 
 const SOOTHE_RANGE := 80.0
 const SOOTHE_RATE := 30.0  # recognition per second (≈3.3s to Still)
@@ -116,6 +127,7 @@ func _physics_process(delta: float) -> void:
 	if _paused:
 		# A modal (satchel/dialogue/name entry) owns the world — hold still and read
 		# NO gameplay input, so menu navigation can't double as movement.
+		_set_sprinting(false)
 		velocity = Vector2.ZERO
 		move_and_slide()
 		if not _action_anim_lock:
@@ -124,6 +136,7 @@ func _physics_process(delta: float) -> void:
 	_input_grace = maxf(_input_grace - delta, 0.0)
 	_update_soothe_prompt()
 	if movement_state != MovementState.EXPLORING:
+		_set_sprinting(false)  # sprint is implicitly blocked outside exploration
 		_decelerate(delta)
 		move_and_slide()
 		if not _action_anim_lock:
@@ -131,6 +144,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	if _soothing:
+		_set_sprinting(false)
 		_update_soothe(delta)
 		_decelerate(delta)
 		move_and_slide()
@@ -141,9 +155,11 @@ func _physics_process(delta: float) -> void:
 	if _spike_timer > 0.0:
 		input_vector = _lagged_input(input_vector)
 
+	_update_sprint(delta, input_vector)
 	if input_vector != Vector2.ZERO:
 		_facing = input_vector.normalized()
-		velocity = velocity.move_toward(input_vector * move_speed, acceleration * delta)
+		var speed := run_speed if _is_sprinting else move_speed
+		velocity = velocity.move_toward(input_vector * speed, acceleration * delta)
 	else:
 		_decelerate(delta)
 
@@ -443,6 +459,50 @@ func _facing_suffix() -> String:
 		return "right" if _facing.x > 0.0 else "left"
 	return "down" if _facing.y > 0.0 else "up"
 
+# --- sprint (short burst + automatic recovery, no stamina bar) ---
+
+## Pure reserve transition (no node state → unit-testable, like directional_anim).
+## "locked" = forced recovery: once a burst is spent the reserve must refill to FULL
+## before sprint is allowed again. Returns the next {charge, locked, sprinting}.
+static func sprint_step(charge: float, locked: bool, wants: bool, delta: float) -> Dictionary:
+	if locked:
+		charge = minf(charge + SPRINT_REGEN_RATE * delta, SPRINT_MAX_SECONDS)
+		return {"charge": charge, "locked": charge < SPRINT_MAX_SECONDS, "sprinting": false}
+	if wants and charge > 0.0:
+		charge = maxf(charge - delta, 0.0)
+		return {"charge": charge, "locked": charge <= 0.0, "sprinting": true}
+	charge = minf(charge + SPRINT_REGEN_RATE * delta, SPRINT_MAX_SECONDS)
+	return {"charge": charge, "locked": false, "sprinting": false}
+
+
+## Per-frame wrapper: sprint only when held AND actually moving (holding the key while
+## idle neither drains the reserve nor sprints).
+func _update_sprint(delta: float, input_vector: Vector2) -> void:
+	var wants := Input.is_action_pressed("sprint") and input_vector != Vector2.ZERO
+	var r := sprint_step(_sprint_charge, _sprint_locked, wants, delta)
+	_sprint_charge = r["charge"]
+	_sprint_locked = r["locked"]
+	_set_sprinting(r["sprinting"])
+
+
+func _set_sprinting(on: bool) -> void:
+	if on == _is_sprinting:
+		return
+	_is_sprinting = on
+	_refresh_anim_speed()
+
+
+## Single owner of animated_sprite.speed_scale: composes age × dread-spike × sprint so
+## no subsystem clobbers another. age_morph (age), the interface spike, and sprint all
+## route their gait factor through here.
+func _refresh_anim_speed() -> void:
+	if not animated_sprite:
+		return
+	var age_f: float = age_morph.age_speed_factor if age_morph else 1.0
+	var spike_f := SPIKE_HITCH_FACTOR if _spike_timer > 0.0 else 1.0
+	var sprint_f := SPRINT_ANIM_SCALE if _is_sprinting else 1.0
+	animated_sprite.speed_scale = age_f * spike_f * sprint_f
+
 # --- interface horror spikes ---
 
 func _update_interface_spike(delta: float) -> void:
@@ -467,16 +527,13 @@ func start_interface_spike(pressure: float) -> void:
 	_spike_lag_frames = 1 + int(round(clampf(pressure, 0.0, 1.0) * 2.0))  # 1-3
 	_spike_ate_press = false
 	_lag_buffer.clear()
-	if animated_sprite:
-		_spike_prev_speed_scale = animated_sprite.speed_scale
-		animated_sprite.speed_scale = _spike_prev_speed_scale * SPIKE_HITCH_FACTOR
+	_refresh_anim_speed()  # _spike_timer > 0 now folds in the hitch factor
 
 
 func _end_spike() -> void:
 	_spike_timer = 0.0
 	_lag_buffer.clear()
-	if animated_sprite:
-		animated_sprite.speed_scale = _spike_prev_speed_scale
+	_refresh_anim_speed()  # _spike_timer == 0 now drops the hitch factor
 
 
 ## The hand hesitates — at most one attack press dies per spike.

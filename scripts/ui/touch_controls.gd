@@ -41,6 +41,15 @@ func _build_ui() -> void:
 	interact.position = Vector2(-170, -76)
 	root.add_child(interact)
 
+	# Hold-to-sprint (Android parity). TouchActionButton press/releases the action on
+	# touch down/up — the held sprint mapping for free.
+	var sprint := TouchActionButton.new()
+	sprint.action = &"sprint"
+	sprint.label_text = "RUN"
+	sprint.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	sprint.position = Vector2(-170, -150)
+	root.add_child(sprint)
+
 	# Satchel open button (touch parity). Opens the modal; the panel's own
 	# SlotButtons handle feed/inspect on touch from there. A plain Control button
 	# (not action injection) so it can't be reached by any input-degradation path.
