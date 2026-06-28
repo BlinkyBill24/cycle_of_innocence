@@ -28,6 +28,7 @@ const STREAMS := {
 	&"lullaby": preload("res://assets/audio/stems/lullaby_motif.ogg"),
 	&"flute": preload("res://assets/audio/sfx/flute.wav"),  # diegetic one-shot Rowan plays to soothe (placeholder)
 	&"eat": preload("res://assets/audio/sfx/eat.wav"),  # short munch on eating food (placeholder)
+	&"door_locked": preload("res://assets/audio/sfx/door_locked.wav"),  # locked-door rattle + bolt thunk (ElevenLabs)
 }
 const POOL_SIZE := 8
 

@@ -21,13 +21,13 @@ _Regenerated 2026-06-28 by `tools/digest.py`. Do not hand-edit._
 
 ## Recent sessions
 - [2026-06-28 — Fixes for the two diagnosed feedback gaps](../sessions/2026-06-28-tell-and-door-feedback-fixes.md)
+- [2026-06-28 — Dedicated locked-door SFX](../sessions/2026-06-28-locked-door-sfx.md)
 - [2026-06-28 — Librarian pass: Godot MCP servers research](../sessions/2026-06-28-librarian-godot-mcp-research.md)
 - [2026-06-28 — First live-runtime diagnostics with godot-mcp-runtime](../sessions/2026-06-28-godot-runtime-diagnostics.md)
 - [2026-06-28 — Briar puppy art: preserved drafts + style decision](../sessions/2026-06-28-briar-puppy-versions.md)
 - [2026-06-28 — Adopt godot-mcp-runtime (runtime-visibility MCP server)](../sessions/2026-06-28-adopt-godot-mcp-runtime.md)
 - [2026-06-21 — A loose object in each play zone](../sessions/2026-06-21-throwables-per-zone.md)
 - [2026-06-21 — Scaled the throw-reaction to the village](../sessions/2026-06-21-throw-reaction-scaled.md)
-- [2026-06-21 — Push-to-open doors (goal item 2)](../sessions/2026-06-21-push-to-open-door.md)
 
 ## Ideas inbox
 - 138 captured items in [ideas.md](../ideas.md)

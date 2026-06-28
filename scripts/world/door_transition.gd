@@ -219,7 +219,7 @@ func _reject_feedback() -> void:
 	if _reject_cooldown > 0.0:
 		return
 	_reject_cooldown = 0.4
-	Sfx.play(&"stinger_toy", -6.0)  # locked "thunk" — toy-creak stands in (no dedicated locked SFX yet)
+	Sfx.play(&"door_locked", -3.0)  # dedicated locked-door rattle + bolt thunk
 	if _label == null or not is_inside_tree():
 		return
 	var base_x := _label.position.x

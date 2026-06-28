@@ -45,6 +45,8 @@ SFX = {
     "monster_attack": (1.5, 0.6, "a sudden monstrous shriek and lunge, aggressive guttural creature attack"),
     "monster_creep":  (4.0, 0.45, "eerie unsettling creature noises, low distorted groans and wet clicking in the dark"),
     "monster_hurt":   (1.5, 0.6, "a small twisted creature wailing in pain, a distorted pained cry"),
+    # --- batch 3: world feedback ---
+    "door_locked":    (1.4, 0.6, "a locked wooden door: the iron handle rattles and a heavy bolt thunks, the door shudders against the frame but does not open"),
 }
 
 
@@ -60,6 +62,25 @@ def downmix_mono(pcm: bytes) -> bytes:
     if sys.byteorder == "big":
         mono.byteswap()
     return mono.tobytes()
+
+
+def normalize_peak(pcm_mono: bytes, target: float = 0.8) -> bytes:
+    """Peak-normalize mono s16le to `target` of full scale. ElevenLabs returns
+    wildly inconsistent levels (some clips peak ~18%, hence the old per-key dB
+    trims); normalizing here gives every SFX a consistent loudness at the source."""
+    samples = array.array("h")
+    samples.frombytes(pcm_mono)
+    peak = max((abs(s) for s in samples), default=0)
+    if peak == 0:
+        return pcm_mono
+    gain = (target * 32767.0) / peak
+    if gain <= 1.001:  # already at/above target — don't attenuate or amplify noise
+        return pcm_mono
+    for i in range(len(samples)):
+        samples[i] = max(-32768, min(32767, int(samples[i] * gain)))
+    if sys.byteorder == "big":
+        samples.byteswap()
+    return samples.tobytes()
 
 
 def generate(name: str, secs: float, influence: float, text: str) -> bool:
@@ -80,7 +101,7 @@ def generate(name: str, secs: float, influence: float, text: str) -> bool:
         if e.code in (401, 402, 429):  # auth / quota / rate -> stop the batch
             return False
         return True  # other error: skip this one, keep going
-    mono = downmix_mono(pcm)
+    mono = normalize_peak(downmix_mono(pcm))
     dest = OUT / f"{name}.wav"
     with wave.open(str(dest), "wb") as w:
         w.setnchannels(1)
