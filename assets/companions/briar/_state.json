@@ -1,0 +1,12 @@
+{
+ "corrupted": {
+  "character_id": "972cad22-2cb5-42d4-87cd-7032e576a1a3",
+  "create_job": "0bc855da-a1e3-42a4-be09-f974316344af",
+  "description": "corrupted Belgian Malinois puppy, bell collar"
+ },
+ "adult": {
+  "character_id": "8c9a0c79-5dbf-44cd-94c3-e679df66c66f",
+  "create_job": "fe5cbe1d-ccb6-4d50-a3e4-bcf245fd3988",
+  "description": "adult Belgian Malinois, bell collar"
+ }
+}

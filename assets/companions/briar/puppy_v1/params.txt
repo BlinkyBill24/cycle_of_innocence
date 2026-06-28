@@ -1,0 +1,18 @@
+{
+  "description": "small chunky Belgian Malinois puppy, fawn-tan coat, black mask, large upright ears, small bell on a collar",
+  "image_size": {
+    "width": 64,
+    "height": 64
+  },
+  "method": "create_from_concept",
+  "view": "low top-down",
+  "template_id": "dog",
+  "no_background": true,
+  "style_description": "single isolated character sprite, fully transparent empty background, no backdrop, no ground tile, no box, no frame, no platform",
+  "concept_image": "assets/companions/briar/puppy_v1/_concept.png",
+  "reference_image": "assets/companions/briar/puppy_v1/_style_ref.png",
+  "character_id": "f1d39b8b-2222-4995-971a-ab50d4ea88a2",
+  "sheet_method": "image-to-pixelart degraded the source; sheet uses clean key+downscale of the 4 original views",
+  "anim_character_method": "create-character-pro create_from_concept (create-character-with-4-directions hung)",
+  "endpoint": "POST https://api.pixellab.ai/v2/create-character-pro"
+}

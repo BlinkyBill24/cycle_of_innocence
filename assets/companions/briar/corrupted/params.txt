@@ -1,0 +1,16 @@
+{
+  "description": "corrupted Belgian Malinois puppy, bell collar",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "method": "create_from_concept",
+  "view": "low top-down",
+  "template_id": "dog",
+  "no_background": true,
+  "style_description": "single isolated character sprite, fully transparent empty background, no backdrop, no ground tile, no box, no kennel, no frame, no platform, nothing behind the character",
+  "concept_image": "assets/companions/briar/corrupted/_concept.png",
+  "reference_image": "assets/companions/briar/_briar_style_ref.png",
+  "character_id": "972cad22-2cb5-42d4-87cd-7032e576a1a3",
+  "endpoint": "POST https://api.pixellab.ai/v2/create-character-pro"
+}
