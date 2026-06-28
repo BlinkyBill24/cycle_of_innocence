@@ -212,7 +212,7 @@ shape = SubResource("door_block")
 position = Vector2(35, 128)
 
 [node name="BuriedKey" parent="." instance=ExtResource("6_diggable")]
-position = Vector2(40, 116)
+position = Vector2(-40, 50)
 spot_id = &"hollow_buried_key"
 lore_text = "Fresh-turned earth — and a key too small for any grown hand."
 lore_sign_id = &"hollow_buried_key"
