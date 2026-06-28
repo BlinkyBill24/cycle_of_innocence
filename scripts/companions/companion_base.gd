@@ -352,7 +352,7 @@ func _show_exclaim() -> void:
 	if _exclaim == null:
 		_exclaim = Sprite2D.new()
 		_exclaim.texture = EXCLAIM_TEX
-		_exclaim.position = Vector2(0, -22)
+		_exclaim.position = Vector2(0, -24)
 		_exclaim.scale = Vector2(2, 2)
 		add_child(_exclaim)
 	_exclaim.visible = true

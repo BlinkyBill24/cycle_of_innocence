@@ -20,6 +20,7 @@ _Regenerated 2026-06-28 by `tools/digest.py`. Do not hand-edit._
 - _(none yet)_
 
 ## Recent sessions
+- [2026-06-28 — Fixes for the two diagnosed feedback gaps](../sessions/2026-06-28-tell-and-door-feedback-fixes.md)
 - [2026-06-28 — Librarian pass: Godot MCP servers research](../sessions/2026-06-28-librarian-godot-mcp-research.md)
 - [2026-06-28 — First live-runtime diagnostics with godot-mcp-runtime](../sessions/2026-06-28-godot-runtime-diagnostics.md)
 - [2026-06-28 — Adopt godot-mcp-runtime (runtime-visibility MCP server)](../sessions/2026-06-28-adopt-godot-mcp-runtime.md)
@@ -27,7 +28,6 @@ _Regenerated 2026-06-28 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-21 — Scaled the throw-reaction to the village](../sessions/2026-06-21-throw-reaction-scaled.md)
 - [2026-06-21 — Push-to-open doors (goal item 2)](../sessions/2026-06-21-push-to-open-door.md)
 - [2026-06-21 — "Found: <item>" pickup toast](../sessions/2026-06-21-pickup-toast.md)
-- [2026-06-21 — Pick-up-throw (goal item 1)](../sessions/2026-06-21-pickup-throw.md)
 
 ## Ideas inbox
 - 138 captured items in [ideas.md](../ideas.md)
