@@ -1,0 +1,16 @@
+{
+  "description": "adult Belgian Malinois, bell collar",
+  "image_size": {
+    "width": 32,
+    "height": 32
+  },
+  "method": "create_from_concept",
+  "view": "low top-down",
+  "template_id": "dog",
+  "no_background": true,
+  "style_description": "single isolated character sprite, fully transparent empty background, no backdrop, no ground tile, no box, no kennel, no frame, no platform, nothing behind the character",
+  "concept_image": "assets/companions/briar/adult/_concept.png",
+  "reference_image": "assets/companions/briar/_briar_style_ref.png",
+  "character_id": "8c9a0c79-5dbf-44cd-94c3-e679df66c66f",
+  "endpoint": "POST https://api.pixellab.ai/v2/create-character-pro"
+}

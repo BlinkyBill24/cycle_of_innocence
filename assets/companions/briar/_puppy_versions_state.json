@@ -1,0 +1,28 @@
+{
+ "v2": {
+  "character_id": "1b8460f3-a5b9-44f4-a58e-7aabec7b68ff",
+  "create_job": "5e5f2844-778a-4dea-a3d9-38351942dd0f",
+  "anim": {
+   "idle_south_north_east_west": "queued",
+   "walk_south_north_east_west": "queued",
+   "run_south_north_east_west": "queued",
+   "dig_south_east": "queued",
+   "bark_south_east": "queued",
+   "seek_south_north_east_west": "queued",
+   "growl_south_north_east_west": "queued"
+  }
+ },
+ "v1": {
+  "character_id": "f1d39b8b-2222-4995-971a-ab50d4ea88a2",
+  "create_job": "b665eee9-039e-4882-bea0-4b08fe672c40",
+  "anim": {
+   "idle_south_north_east_west": "queued",
+   "walk_south_north_east_west": "queued",
+   "run_south_north_east_west": "queued",
+   "dig_south_east": "queued",
+   "bark_south_east": "queued",
+   "seek_south_north_east_west": "queued",
+   "growl_south_north_east_west": "queued"
+  }
+ }
+}
