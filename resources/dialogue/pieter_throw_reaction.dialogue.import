@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://c05p33dqxmcas"
+path="res://.godot/imported/pieter_throw_reaction.dialogue-28711be139ec1606b39fa9a61970af5b.tres"
+
+[deps]
+
+source_file="res://resources/dialogue/pieter_throw_reaction.dialogue"
+dest_files=["res://.godot/imported/pieter_throw_reaction.dialogue-28711be139ec1606b39fa9a61970af5b.tres"]
+
+[params]
+
+defaults=true

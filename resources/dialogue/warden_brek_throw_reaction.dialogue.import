@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dg3kv3cdrdvj6"
+path="res://.godot/imported/warden_brek_throw_reaction.dialogue-ea723d3bc4873bd6cd76f6a31f109544.tres"
+
+[deps]
+
+source_file="res://resources/dialogue/warden_brek_throw_reaction.dialogue"
+dest_files=["res://.godot/imported/warden_brek_throw_reaction.dialogue-ea723d3bc4873bd6cd76f6a31f109544.tres"]
+
+[params]
+
+defaults=true

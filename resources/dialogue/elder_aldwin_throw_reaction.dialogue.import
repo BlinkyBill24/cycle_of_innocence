@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://drvwk7m7q2w3y"
+path="res://.godot/imported/elder_aldwin_throw_reaction.dialogue-fa4ea89b09951a7ca565c7d8480f067a.tres"
+
+[deps]
+
+source_file="res://resources/dialogue/elder_aldwin_throw_reaction.dialogue"
+dest_files=["res://.godot/imported/elder_aldwin_throw_reaction.dialogue-fa4ea89b09951a7ca565c7d8480f067a.tres"]
+
+[params]
+
+defaults=true

@@ -99,7 +99,7 @@ recall_companion={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://resources/dialogue/escape_food.dialogue", "res://resources/dialogue/hollow_house_book.dialogue")
+locale/translations_pot_files=PackedStringArray("res://resources/dialogue/escape_food.dialogue", "res://resources/dialogue/hollow_house_book.dialogue", "res://resources/dialogue/marta_throw_reaction.dialogue", "res://resources/dialogue/warden_brek_throw_reaction.dialogue", "res://resources/dialogue/warden_oslo_throw_reaction.dialogue", "res://resources/dialogue/elder_aldwin_throw_reaction.dialogue", "res://resources/dialogue/pieter_throw_reaction.dialogue", "res://resources/dialogue/lena_throw_reaction.dialogue")
 
 [layer_names]
 

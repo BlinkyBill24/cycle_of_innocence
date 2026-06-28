@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dim3jegcoibna"
+path="res://.godot/imported/hollow_house_book.dialogue-93f2f7c7aa17f9fa43cd2292fbc77343.tres"
+
+[deps]
+
+source_file="res://resources/dialogue/hollow_house_book.dialogue"
+dest_files=["res://.godot/imported/hollow_house_book.dialogue-93f2f7c7aa17f9fa43cd2292fbc77343.tres"]
+
+[params]
+
+defaults=true
