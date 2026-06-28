@@ -12,7 +12,9 @@ extends Node
 ## wiring. Re-skins on every ZoneManager.zone_changed (covers boot + transitions).
 
 const SETTING := "debug/placeholder_mode"  # ProjectSettings override (optional)
-const DEFAULT_ENABLED := true              # default ON for the test build
+const DEFAULT_ENABLED := false             # default OFF: show the real art. Set the
+                                           # `debug/placeholder_mode` project setting
+                                           # true to re-run the navigation playtest.
 
 var enabled: bool = DEFAULT_ENABLED
 
