@@ -8,3 +8,4 @@ assets/sprites/interiors/_src/
 # Claude Code per-user local settings
 .claude/settings.local.json
 tools/__pycache__/
+.mcp/
