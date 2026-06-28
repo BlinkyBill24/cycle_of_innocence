@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://cew7bjvrj2vnx"
+path="res://.godot/imported/warden_oslo_throw_reaction.dialogue-914ebb53c48d83adb69c5fd02a886d4b.tres"
+
+[deps]
+
+source_file="res://resources/dialogue/warden_oslo_throw_reaction.dialogue"
+dest_files=["res://.godot/imported/warden_oslo_throw_reaction.dialogue-914ebb53c48d83adb69c5fd02a886d4b.tres"]
+
+[params]
+
+defaults=true

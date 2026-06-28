@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://c3b3iot536h5u"
+path="res://.godot/imported/lena_throw_reaction.dialogue-9b618a28778daa984f3ab629e10fdd79.tres"
+
+[deps]
+
+source_file="res://resources/dialogue/lena_throw_reaction.dialogue"
+dest_files=["res://.godot/imported/lena_throw_reaction.dialogue-9b618a28778daa984f3ab629e10fdd79.tres"]
+
+[params]
+
+defaults=true
