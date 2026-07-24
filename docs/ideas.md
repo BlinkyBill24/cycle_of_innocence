@@ -10,6 +10,9 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 ## 🆕 Unsorted
 *Raw capture during sessions. No structure required.*
 
+- **Content Studio Loop** (from [[research/done/2026-07-24-one-person-ai-game-studio-claims-and-sorceress]]): for each small bite — brief → code against existing systems → generate only missing assets → godot-mcp smoke + GUT → human dread/bond gate. Process only; not a new engine. Smoke half is [[design/agentic-playtest-smoke]].
+- ~~**Agentic play-path smoke (Phase 1)**~~ **DONE 2026-07-24** — `bash tools/playtest_smoke.sh` + `tests/test_playtest_smoke_path.gd` + [[design/agentic-playtest-smoke]] (GUT wiring, headless boots, live MCP run_script key path + screenshots).
+- **Sorceress.games asset bake-off (Phase 2)** — optional Asset Studio rail only (Auto-Sprite / True Pixel / Pixel Snap / Tileset Forge). Score vs Imagine+pixelize and PixelLab on Briar stand-in poses (cower, dusk_press, head_bump, lie_down). **WizardGenie rejected** for production (Godot locked). Do not add to `ai-production-setup` until bake-off wins. Site: https://sorceress.games/
 - **Rowan sprint — PixelLab run art follow-up** (from [[sessions/2026-06-28-rowan-sprint]]): the sprint mechanic ships now reusing the **walk animation sped up** (`speed_scale` ×1.5). Polish upgrade when the PixelLab pipeline is active: draw a dedicated `run_*` set (distinct stride/lean) for child/teen/adult sheets and add it to `_update_locomotion_animation` (branch on `_is_sprinting`); wire teen/adult frames in `player.tscn` (currently null) while there. Also possible: sprinting raises dread/noise (monster aggro). Feel dials to playtest: `run_speed` 170, `SPRINT_MAX_SECONDS` 1.6, `SPRINT_REGEN_RATE` 0.5, `SPRINT_ANIM_SCALE` 1.5.
 
 ### 🍎 Food / HEAL path — CODE TASKS (from decision 2026-06-21)

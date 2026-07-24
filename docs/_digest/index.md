@@ -4,7 +4,7 @@ tags: [digest, auto]
 ---
 
 # Digest
-_Regenerated 2026-06-28 by `tools/digest.py`. Do not hand-edit._
+_Regenerated 2026-07-24 by `tools/digest.py`. Do not hand-edit._
 
 ## Recent decisions
 - [Food Heal Values (Player Self-Healing)](../decisions/2026-06-21-food-heal-values.md)
@@ -20,6 +20,7 @@ _Regenerated 2026-06-28 by `tools/digest.py`. Do not hand-edit._
 - _(none yet)_
 
 ## Recent sessions
+- [Session 2026-07-24 — agentic playtest smoke](../sessions/2026-07-24-agentic-playtest-smoke.md)
 - [2026-06-28 — First-pass wiring of the V2 Briar art](../sessions/2026-06-28-wire-briar-v2-art.md)
 - [2026-06-28 — Fixes for the two diagnosed feedback gaps](../sessions/2026-06-28-tell-and-door-feedback-fixes.md)
 - [2026-06-28 — Sprint/run for Rowan](../sessions/2026-06-28-rowan-sprint.md)
@@ -27,8 +28,7 @@ _Regenerated 2026-06-28 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-28 — Dedicated locked-door SFX](../sessions/2026-06-28-locked-door-sfx.md)
 - [2026-06-28 — Librarian pass: Godot MCP servers research](../sessions/2026-06-28-librarian-godot-mcp-research.md)
 - [2026-06-28 — Make the hollow-house key a real find](../sessions/2026-06-28-hollow-key-real-find.md)
-- [2026-06-28 — First live-runtime diagnostics with godot-mcp-runtime](../sessions/2026-06-28-godot-runtime-diagnostics.md)
 
 ## Ideas inbox
-- 139 captured items in [ideas.md](../ideas.md)
+- 142 captured items in [ideas.md](../ideas.md)
 
