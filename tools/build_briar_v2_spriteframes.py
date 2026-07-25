@@ -113,6 +113,19 @@ def main() -> None:
     # tiny pad so poses don't read smaller than idle
     pose_fit = max(pose_fit, 1)
 
+    def hard_alpha(cell: Image.Image, cut: int = 100) -> Image.Image:
+        """Crisp pixel edges: drop soft AA fringe so poses read at game zoom."""
+        px = cell.load()
+        w, h = cell.size
+        for y in range(h):
+            for x in range(w):
+                r, g, b, a = px[x, y]
+                if a < cut or (r < 28 and g < 28 and b < 28 and a < 220):
+                    px[x, y] = (0, 0, 0, 0)
+                else:
+                    px[x, y] = (r, g, b, 255)
+        return cell
+
     def process_pose(p: Path) -> Image.Image:
         """Per-frame content fit to idle dog footprint, bottom-centered."""
         im = Image.open(p).convert("RGBA")
@@ -121,14 +134,17 @@ def main() -> None:
             return Image.new("RGBA", (CELL, CELL), (0, 0, 0, 0))
         crop = im.crop(bb)
         cw, ch = crop.size
-        sc = pose_fit / max(cw, ch)
+        # +2px vs pure idle footprint: poses need a touch more mass to read as
+        # distinct silhouettes at 48px (still feet-aligned to loco).
+        fit = min(CELL - 4, pose_fit + 2)
+        sc = fit / max(cw, ch)
         pw, ph = max(1, round(cw * sc)), max(1, round(ch * sc))
         crop = crop.resize((pw, ph), Image.NEAREST)
         cell = Image.new("RGBA", (CELL, CELL), (0, 0, 0, 0))
         ox = (CELL - pw) // 2
         oy = CELL - ph - FEET_PAD
         cell.alpha_composite(crop, (ox, max(0, oy)))
-        return cell
+        return hard_alpha(cell)
 
     def process(p: Path, act: str) -> Image.Image:
         if act in POSE_ACTS:

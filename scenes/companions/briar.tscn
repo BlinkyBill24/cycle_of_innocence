@@ -16,6 +16,7 @@ companion_id = &"briar"
 shape = SubResource("CircleShape2D_briar")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 sprite_frames = ExtResource("2_frames")
 animation = &"sit"
 autoplay = "sit"
