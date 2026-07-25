@@ -1,33 +1,23 @@
-[gd_scene load_steps=63 format=3 uid="uid://envpq1ay0667"]
+[gd_scene load_steps=45 format=3 uid="uid://envpq1ay0667"]
 
 [ext_resource type="Script" uid="uid://dw5pp4xyg1cpx" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
-[ext_resource type="TileSet" uid="uid://6k1vnwks463q" path="res://assets/resources/tiles/ground_tileset.tres" id="2_tileset"]
 [ext_resource type="PackedScene" uid="uid://cfpo0lhe11a3y" path="res://scenes/player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" uid="uid://briarpup00001" path="res://scenes/companions/briar.tscn" id="4_briar"]
-[ext_resource type="PackedScene" uid="uid://covsxjksurfq3" path="res://scenes/enemies/twisted_child.tscn" id="5_twisted_child"]
 [ext_resource type="PackedScene" uid="uid://b70vr0nx7dism" path="res://scenes/world/diggable_spot.tscn" id="6_diggable"]
 [ext_resource type="PackedScene" uid="uid://dn8iabetyanme" path="res://scenes/effects/dread_overlay.tscn" id="7_dread_overlay"]
 [ext_resource type="Script" uid="uid://cf12kgjkd6ugf" path="res://scripts/debug/progression_test.gd" id="8_progression_test"]
-[ext_resource type="Script" uid="uid://c2p3d3lhol1q8" path="res://scripts/world/dread_zone.gd" id="9_dread_zone"]
 [ext_resource type="Script" uid="uid://bxburnnul5hg7" path="res://scripts/world/zone_transition.gd" id="10_transition"]
 [ext_resource type="Script" uid="uid://dpmno5ym2jf0v" path="res://scripts/world/story_dialogue.gd" id="11_story_dialogue"]
 [ext_resource type="Script" uid="uid://btmdvj33b1m2y" path="res://scripts/world/dread_beat.gd" id="12_dread_beat"]
 [ext_resource type="Texture2D" uid="uid://c6qn8evpngymo" path="res://assets/sprites/enemies/twisted_child_32.png" id="13_monster_tex"]
 [ext_resource type="AudioStream" uid="uid://dow0ghby57x1n" path="res://assets/audio/sfx/toy_creak_stinger.wav" id="14_stinger"]
-[ext_resource type="Texture2D" uid="uid://dfcc5kar4xprx" path="res://assets/sprites/props/candidates/slide_v2.png" id="15_7f4f8"]
 [ext_resource type="Script" uid="uid://ctap15jdarwf1" path="res://scripts/ui/hud.gd" id="16_hud"]
 [ext_resource type="Script" uid="uid://cnh1w3wphurkn" path="res://scripts/ui/touch_controls.gd" id="17_touch"]
-[ext_resource type="Texture2D" uid="uid://blyvh5tlw8rsl" path="res://assets/sprites/props/candidates/totem_rabbit_v2.png" id="18_7f4f8"]
 [ext_resource type="Script" uid="uid://i2hnxthuckaf" path="res://scripts/world/hideout.gd" id="18_hideout"]
 [ext_resource type="Script" uid="uid://c142agwwdc5rg" path="res://scripts/world/campfire_light.gd" id="19_campfire"]
 [ext_resource type="Texture2D" uid="uid://c6eknu52ocg5o" path="res://assets/sprites/light/glow_radial.png" id="20_glow"]
 [ext_resource type="Script" uid="uid://m1xk1ovqods0" path="res://scripts/ui/name_entry.gd" id="21_name_entry"]
-[ext_resource type="Texture2D" uid="uid://cepavmf2fugne" path="res://assets/sprites/props/swing_set.png" id="22_swing"]
-[ext_resource type="Texture2D" uid="uid://c7fcqo4d11j8s" path="res://assets/sprites/props/roundabout.png" id="24_roundabout"]
 [ext_resource type="Texture2D" uid="uid://c8ug2nbm2wgey" path="res://assets/sprites/props/totem_bear.png" id="25_totem_bear"]
-[ext_resource type="Texture2D" uid="uid://wdklq47hfray" path="res://assets/sprites/props/dead_tree_a.png" id="27_tree_a"]
-[ext_resource type="Texture2D" uid="uid://ceucauocq5iit" path="res://assets/sprites/props/dead_tree_b.png" id="28_tree_b"]
-[ext_resource type="Texture2D" uid="uid://b1axllr1svigx" path="res://assets/sprites/props/toy_duck.png" id="29_duck"]
 [ext_resource type="Texture2D" uid="uid://di6gslejp5iec" path="res://assets/sprites/village/candidates/harmony_board_v2.png" id="29_sy06x"]
 [ext_resource type="PackedScene" uid="uid://dppepvssnp72s" path="res://scenes/npcs/villager.tscn" id="30_villager"]
 [ext_resource type="SpriteFrames" uid="uid://bnxtlraieoky7" path="res://assets/resources/npcs/villager_warden_frames.tres" id="31_warden_frames"]
@@ -36,11 +26,11 @@
 [ext_resource type="Texture2D" uid="uid://bmelyv3mnwsiu" path="res://assets/sprites/painted/playground_painted.png" id="34_backdrop"]
 [ext_resource type="Script" uid="uid://cxs6e70fumff8" path="res://scripts/world/forage_spot.gd" id="40_forage"]
 [ext_resource type="Script" uid="uid://w3of1w7fmuph" path="res://scripts/world/surface_zone.gd" id="42_surface"]
-[ext_resource type="SpriteFrames" uid="uid://dvlrvc2nrpfof" path="res://assets/resources/fx/campfire_frames.tres" id="43_campfire_fx"]
-[ext_resource type="SpriteFrames" uid="uid://bwdxmmoo3tcfy" path="res://assets/resources/fx/fog_frames.tres" id="44_fog_fx"]
-[ext_resource type="AudioStream" path="res://assets/audio/sfx/campfire_crackle.wav" id="45_crackle"]
-[ext_resource type="PackedScene" uid="uid://throwobj000001" path="res://scenes/world/throwable_object.tscn" id="46_throwable"]
-[ext_resource type="Script" path="res://scripts/npcs/npc_throw_reaction.gd" id="47_react"]
+[ext_resource type="SpriteFrames" path="res://assets/resources/fx/campfire_frames.tres" id="43_campfire_fx"]
+[ext_resource type="SpriteFrames" path="res://assets/resources/fx/fog_frames.tres" id="44_fog_fx"]
+[ext_resource type="AudioStream" uid="uid://ctcchi2bkn2s1" path="res://assets/audio/sfx/campfire_crackle.wav" id="45_crackle"]
+[ext_resource type="PackedScene" uid="uid://lqtyq7gkt3xs" path="res://scenes/world/throwable_object.tscn" id="46_throwable"]
+[ext_resource type="Script" uid="uid://b63s7p65ibi3i" path="res://scripts/npcs/npc_throw_reaction.gd" id="47_react"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -48,49 +38,14 @@ size = Vector2(1472, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
 size = Vector2(32, 896)
 
-[sub_resource type="OccluderPolygon2D" id="Occluder_h"]
-polygon = PackedVector2Array(-736, -16, 736, -16, 736, 16, -736, 16)
-
-[sub_resource type="OccluderPolygon2D" id="Occluder_v"]
-polygon = PackedVector2Array(-16, -448, 16, -448, 16, 448, -16, 448)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fringes"]
-size = Vector2(640, 832)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_deep"]
-size = Vector2(280, 832)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hideout"]
 size = Vector2(180, 140)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fire"]
 radius = 8.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_prop_wide"]
-size = Vector2(66, 12)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4qd4"]
-size = Vector2(32, 15.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1uty"]
-size = Vector2(20.5, 11)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_prop_mid"]
-size = Vector2(40, 16)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_totem"]
-radius = 9.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7f4f8"]
-size = Vector2(46, 10)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sy06x"]
-size = Vector2(25, 10)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dwe4s"]
-size = Vector2(49, 9)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_mjhmx"]
+[sub_resource type="CircleShape2D" id="react_shape"]
+radius = 14.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_whisper"]
 radius = 56.0
@@ -116,9 +71,6 @@ size = Vector2(230, 150)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wood"]
 size = Vector2(96, 84)
-
-[sub_resource type="CircleShape2D" id="react_shape"]
-radius = 14.0
 
 [node name="PlaygroundFringes" type="Node2D"]
 script = ExtResource("1_zone")
@@ -219,6 +171,11 @@ reaction_dialogue_path = "res://resources/dialogue/warden_oslo_throw_reaction.di
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/WardenOslo/ThrowReaction"]
 shape = SubResource("react_shape")
 
+[node name="CultSymbol" type="Sprite2D" parent="World"]
+modulate = Color(0.62, 0.58, 0.66, 1)
+position = Vector2(60, 60)
+texture = ExtResource("25_totem_bear")
+
 [node name="DiggableSpotPlayground" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(-368, -200)
 lore_text = "A stuffed rabbit, one button eye gone. Stitched onto its foot, a small cloth tag: \"Mara — Harmony 71.\""
@@ -260,11 +217,6 @@ dread_on_hear = 8.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SandboxWhisper"]
 shape = SubResource("CircleShape2D_whisper")
-
-[node name="CultSymbol" type="Sprite2D" parent="World"]
-position = Vector2(60, 60)
-modulate = Color(0.62, 0.58, 0.66, 1)
-texture = ExtResource("25_totem_bear")
 
 [node name="CultSymbolIllegible" type="Area2D" parent="." groups=["recontext_not_symbol_literacy"]]
 position = Vector2(60, 60)

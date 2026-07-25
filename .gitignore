@@ -13,3 +13,6 @@ tools/__pycache__/
 # godot-mcp-runtime inject (must never ship)
 mcp_bridge.gd
 mcp_bridge.gd.uid
+
+# Claude Code auto session activity log (local only)
+.claude/session-log.md
