@@ -7,6 +7,12 @@ var hitbox: Hitbox
 
 
 func before_each() -> void:
+	# Flute-gate combat half: player→enemy damage needs flute + a weapon (or
+	# a thrown tool). These fixtures model an armed post-flute swing.
+	PlayerData.reset_to_defaults()
+	PlayerData.set_story_flag(&"flute_found")
+	PlayerData.equipped_weapon = &"sturdy_stick"
+
 	health = Health.new()
 	health.max_hp = 5
 	health.invuln_seconds = 0.0
@@ -77,7 +83,7 @@ func test_player_attack_still_damages_an_enemy() -> void:
 	# regression: hitbox defaults to player faction, hurtbox to enemy
 	hitbox.activate(1.0)
 	await _let_physics_settle()
-	assert_eq(health.hp, 3, "Rowan still hurts enemies")
+	assert_eq(health.hp, 3, "Rowan still hurts enemies (post-flute + armed)")
 
 
 func test_enemy_attack_still_damages_the_player() -> void:

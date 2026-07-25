@@ -59,6 +59,8 @@ func test_landing_emits_the_land_event() -> void:
 
 
 func test_thrown_object_hits_a_monster_via_the_shared_hitpath() -> void:
+	# Flute-gate: thrown tools only wound monsters after the flute (flee-only before).
+	PlayerData.set_story_flag(&"flute_found")
 	# an enemy-faction Hurtbox + Health sitting on the flight line
 	var health := Health.new()
 	health.max_hp = 5

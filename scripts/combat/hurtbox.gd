@@ -27,6 +27,11 @@ func _on_area_entered(area: Area2D) -> void:
 		return
 	if not Faction.hostile(hitbox.faction, faction):
 		return
+	# Flute-gate combat half (decision 2026-06-21): player sources only hurt
+	# monsters when allowed (post-flute; bare melee never; thrown tools OK).
+	if hitbox.faction == Faction.PLAYER and faction == Faction.ENEMY \
+			and not PlayerController.can_player_hitbox_hurt_monsters(hitbox):
+		return
 	if health == null or not health.take_damage(hitbox.damage, hitbox.global_position):
 		return
 	hit_received.emit(hitbox)
