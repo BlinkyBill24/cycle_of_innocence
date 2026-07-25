@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://envpq1ay0667"]
+[gd_scene load_steps=58 format=3 uid="uid://envpq1ay0667"]
 
 [ext_resource type="Script" uid="uid://dw5pp4xyg1cpx" path="res://scripts/world/playground_fringes.gd" id="1_zone"]
 [ext_resource type="PackedScene" uid="uid://cfpo0lhe11a3y" path="res://scenes/player/player.tscn" id="3_player"]
@@ -31,6 +31,12 @@
 [ext_resource type="AudioStream" uid="uid://ctcchi2bkn2s1" path="res://assets/audio/sfx/campfire_crackle.wav" id="45_crackle"]
 [ext_resource type="PackedScene" uid="uid://lqtyq7gkt3xs" path="res://scenes/world/throwable_object.tscn" id="46_throwable"]
 [ext_resource type="Script" uid="uid://b63s7p65ibi3i" path="res://scripts/npcs/npc_throw_reaction.gd" id="47_react"]
+[ext_resource type="Texture2D" uid="uid://cepavmf2fugne" path="res://assets/sprites/props/swing_set.png" id="50_swing"]
+[ext_resource type="Texture2D" uid="uid://dpw6reivtjjjn" path="res://assets/sprites/props/slide.png" id="51_slide"]
+[ext_resource type="Texture2D" uid="uid://c7fcqo4d11j8s" path="res://assets/sprites/props/roundabout.png" id="52_roundabout"]
+[ext_resource type="Texture2D" uid="uid://wdklq47hfray" path="res://assets/sprites/props/dead_tree_a.png" id="53_tree_a"]
+[ext_resource type="Texture2D" uid="uid://ceucauocq5iit" path="res://assets/sprites/props/dead_tree_b.png" id="54_tree_b"]
+[ext_resource type="Texture2D" uid="uid://b1axllr1svigx" path="res://assets/sprites/props/toy_duck.png" id="55_duck"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(1472, 32)
@@ -61,6 +67,9 @@ radius = 12.0
 
 [sub_resource type="RectangleShape2D" id="solid_lottery"]
 size = Vector2(36, 12)
+
+[sub_resource type="CircleShape2D" id="solid_tree"]
+radius = 14.0
 
 [sub_resource type="CircleShape2D" id="react_shape"]
 radius = 14.0
@@ -174,6 +183,124 @@ position = Vector2(-335, -155)
 position = Vector2(-250, -150)
 object_id = &"playground_rock"
 
+[node name="PropRoundabout" type="StaticBody2D" parent="World"]
+position = Vector2(0, 50)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/PropRoundabout"]
+texture_filter = 1
+offset = Vector2(0, -16)
+texture = ExtResource("52_roundabout")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropRoundabout"]
+shape = SubResource("solid_roundabout")
+
+[node name="PropSlide" type="StaticBody2D" parent="World"]
+position = Vector2(25, -40)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/PropSlide"]
+texture_filter = 1
+offset = Vector2(0, -34)
+texture = ExtResource("51_slide")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropSlide"]
+shape = SubResource("solid_slide")
+
+[node name="PropSwingLeft" type="StaticBody2D" parent="World"]
+position = Vector2(-300, 65)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/PropSwingLeft"]
+texture_filter = 1
+offset = Vector2(0, -40)
+texture = ExtResource("50_swing")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropSwingLeft"]
+shape = SubResource("solid_swing")
+
+[node name="PropSwingSouth" type="StaticBody2D" parent="World"]
+position = Vector2(-280, 200)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/PropSwingSouth"]
+texture_filter = 1
+offset = Vector2(0, -40)
+texture = ExtResource("50_swing")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropSwingSouth"]
+shape = SubResource("solid_swing")
+
+[node name="PropTreeNE" type="StaticBody2D" parent="World"]
+position = Vector2(255, -110)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/PropTreeNE"]
+texture_filter = 1
+offset = Vector2(0, -38)
+texture = ExtResource("54_tree_b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropTreeNE"]
+shape = SubResource("solid_frame")
+
+[node name="PropTreeNW" type="StaticBody2D" parent="World"]
+position = Vector2(-480, -220)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/PropTreeNW"]
+texture_filter = 1
+offset = Vector2(0, -42)
+texture = ExtResource("53_tree_a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropTreeNW"]
+shape = SubResource("solid_tree")
+
+[node name="PropTreeSE" type="StaticBody2D" parent="World"]
+position = Vector2(430, 200)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/PropTreeSE"]
+texture_filter = 1
+offset = Vector2(0, -36)
+texture = ExtResource("54_tree_b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropTreeSE"]
+shape = SubResource("solid_tree")
+
+[node name="PropToyDuck" type="StaticBody2D" parent="World"]
+position = Vector2(310, 230)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/PropToyDuck"]
+texture_filter = 1
+offset = Vector2(0, -14)
+texture = ExtResource("55_duck")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropToyDuck"]
+shape = SubResource("solid_totem")
+
+[node name="PropCultTotem" type="StaticBody2D" parent="World"]
+position = Vector2(60, 72)
+collision_layer = 1
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/PropCultTotem"]
+modulate = Color(0.62, 0.58, 0.66, 1)
+texture_filter = 1
+offset = Vector2(0, -28)
+texture = ExtResource("25_totem_bear")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PropCultTotem"]
+shape = SubResource("solid_totem")
+
 [node name="WardenOslo" parent="World" instance=ExtResource("30_villager")]
 position = Vector2(-600, 60)
 npc_id = &"warden_oslo"
@@ -190,11 +317,6 @@ reaction_dialogue_path = "res://resources/dialogue/warden_oslo_throw_reaction.di
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/WardenOslo/ThrowReaction"]
 shape = SubResource("react_shape")
-
-[node name="CultSymbol" type="Sprite2D" parent="World"]
-modulate = Color(0.62, 0.58, 0.66, 1)
-position = Vector2(60, 60)
-texture = ExtResource("25_totem_bear")
 
 [node name="DiggableSpotPlayground" parent="." instance=ExtResource("6_diggable")]
 position = Vector2(-368, -200)
@@ -448,26 +570,6 @@ shape = SubResource("RectangleShape2D_wood")
 [node name="WorldSolids" type="StaticBody2D" parent="."]
 collision_layer = 1
 collision_mask = 0
-
-[node name="Roundabout" type="CollisionShape2D" parent="WorldSolids"]
-position = Vector2(0, 50)
-shape = SubResource("solid_roundabout")
-
-[node name="Slide" type="CollisionShape2D" parent="WorldSolids"]
-position = Vector2(25, -40)
-shape = SubResource("solid_slide")
-
-[node name="SwingLeft" type="CollisionShape2D" parent="WorldSolids"]
-position = Vector2(-300, 65)
-shape = SubResource("solid_swing")
-
-[node name="FrameRight" type="CollisionShape2D" parent="WorldSolids"]
-position = Vector2(255, -110)
-shape = SubResource("solid_frame")
-
-[node name="CultTotem" type="CollisionShape2D" parent="WorldSolids"]
-position = Vector2(60, 72)
-shape = SubResource("solid_totem")
 
 [node name="LotteryPost" type="CollisionShape2D" parent="WorldSolids"]
 position = Vector2(-150, -145)

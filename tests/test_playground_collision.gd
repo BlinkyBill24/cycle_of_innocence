@@ -14,14 +14,26 @@ func test_playground_world_solids_exist() -> void:
 	add_child_autofree(zone)
 	await wait_physics_frames(1)
 	var solids := zone.get_node_or_null("WorldSolids") as StaticBody2D
-	assert_not_null(solids, "WorldSolids StaticBody2D authors prop footprints")
+	assert_not_null(solids, "WorldSolids keeps residual footprints (lottery)")
 	assert_eq(solids.collision_layer, 1, "solids live on world layer 1")
 	assert_eq(solids.collision_mask, 0, "solids do not scan other layers")
-	var shapes := 0
-	for c in solids.get_children():
-		if c is CollisionShape2D and (c as CollisionShape2D).shape != null:
-			shapes += 1
-	assert_gt(shapes, 4, "several prop footprints (swing/slide/roundabout/etc.)")
+
+
+func test_playground_t1_props_on_ground_plate() -> void:
+	## T1 hybrid: ground-only paint + y-sorted prop StaticBody2D with sprites.
+	var zone: Node2D = load("res://scenes/zones/playground_fringes.tscn").instantiate()
+	add_child_autofree(zone)
+	await wait_physics_frames(1)
+	var world := zone.get_node("World") as Node2D
+	assert_true(world.y_sort_enabled, "World y-sorts props")
+	for n: String in [
+		"PropRoundabout", "PropSlide", "PropSwingLeft", "PropSwingSouth",
+		"PropCultTotem", "PropTreeNW", "PropTreeSE", "PropToyDuck", "PropTreeNE",
+	]:
+		var body := world.get_node_or_null(n) as StaticBody2D
+		assert_not_null(body, "%s solid prop" % n)
+		assert_eq(body.collision_layer, 1)
+		assert_not_null((body.get_node("Sprite2D") as Sprite2D).texture, "%s has art" % n)
 
 
 func test_campfire_and_borders_are_solid() -> void:
