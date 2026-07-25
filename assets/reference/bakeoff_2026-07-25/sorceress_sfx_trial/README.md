@@ -39,8 +39,15 @@ Listen **current .wav** then **Sorceress .mp3** at game volume.
 | Length / attack |  |  |  |
 | Prefer for *new* SFX |  |  |  |
 
-**Recommendation until you score:** keep existing bank; use Sorceress as **optional source for new cues** only if you prefer them after listening. Do not mass-replace ElevenLabs files blind.
+## Human scores (2026-07-25)
+
+| Cue | Human call |
+|-----|------------|
+| `stinger_toy` | **Sorceress better than current** — prefer for next bank swap |
+| door / dig | not called out; leave current until re-listen |
+
+**Follow-up (not this merge):** convert `stinger_toy_sorceress.mp3` → mono 16-bit WAV, replace `toy_creak_stinger.wav` / keep `Sfx.gd` key `stinger_toy`.
 
 ## Stack status
 
-ElevenLabs **not removed**. ChipTone/sfxr still fine for simple UI.
+ElevenLabs **not removed**. ChipTone/sfxr still fine for simple UI. Sorceress SFX approved as **source for at least stinger** after convert.

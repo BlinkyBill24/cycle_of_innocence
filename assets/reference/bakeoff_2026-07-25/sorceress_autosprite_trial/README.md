@@ -45,8 +45,14 @@ Balance after run ≈ 954 (from API response).
 **Agent recommendation:** **Keep PixelLab** for multi-dir locomotion grids.  
 AutoSprite is a **real optional path** for cinematic / HD companion anims or prototypes, not a drop-in for 48px Briar loco.
 
-**Human gate:** watch `walk_south_greenscreen.mp4` and glance `walk_frame0_48_x4.png` at game scale.
+## Human scores (2026-07-25)
+
+| Call | Note |
+|------|------|
+| Walk animation | **Not bad for a first try** — motion path useful |
+| Character look | **PixelLab dog still better** (identity/sheet fit) — assumed fixable with better still/refs later |
+| Stack | **Keep PixelLab** for now; AutoSprite stays optional experiment |
 
 ## Stack status
 
-PixelLab **not replaced**. Imagine stays for pose stand-ins. AutoSprite = trial tooling only until a decision says otherwise.
+PixelLab **not replaced**. Imagine stays for pose stand-ins. AutoSprite = optional path (motion OK; identity polish later).
