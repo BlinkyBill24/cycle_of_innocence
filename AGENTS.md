@@ -63,6 +63,31 @@ This applies on **all** surfaces alike: Claude Code, the **claude.ai web Project
 
 All tools read this AGENTS.md: natively (Codex, Cursor, Grok) or via the `@AGENTS.md` import in `CLAUDE.md` (Claude Code).
 
+### Game-dev role skills + swarm (same brain, different job)
+
+Specialized **job contracts** (not separate AIs): mission, read-first, may-edit, must-not, done-when. Shared rules: `docs/agents/shared-contract.md`. **How to call them:** `docs/agents/how-to-use.md`. Swarm rules: `docs/agents/swarm.md`. Index: `docs/agents/README.md`. Skills: `.claude/skills/<name>/SKILL.md`. Workflows: `.grok/workflows/*.rhai`.
+
+| Slash / workflow | Lane |
+|---|---|
+| `/project-manager` | Coordinator — plan, order roles, gates (no craft) |
+| `/workflow content-studio` | Full swarm for a known mission (human approve + F5) |
+| `/workflow project-swarm` | PM picks next bite, then full swarm |
+| `/level-design` | Zones, collision, transitions, graybox |
+| `/creative-art` | Still art, Imagine, engine-ready sprites |
+| `/programming` | Vertical features + GUT tests |
+| `/animation` | Motion cycles, SpriteFrames at game scale |
+| `/story-writer` | Canon + dialogue with flags/hooks |
+| `/dread-director` | One horror beat |
+| `/companion-designer` | Briar/Echo authored assists & bond |
+| `/combat-designer` | Attack/mercy verbs, flute-gate, fists |
+| `/audio` | SFX keys + event wiring |
+| `/playtest-qa` | Smoke/MCP evidence (not feel) |
+| `/librarian` | Research → decision/reject (R7) |
+| `/reviewer` | Risk review (prefer Codex second opinion) |
+| `/reflect` | End-of-session ritual (existing) |
+
+Invoke with the slash command or by saying the role name. Stay in lane; hand off when the work leaves the role. Swarm implementers run **sequentially** (one writer at a time); humans still own feel/merge/Sync.
+
 ## Vertical slice definition (Phase 0/1 exit criteria)
 
 - Child Rowan (age visuals stub) + Briar pup (follow + one contextual assist: dig or bark).
