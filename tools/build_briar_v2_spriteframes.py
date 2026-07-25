@@ -27,6 +27,10 @@ SHEET_RES = "res://assets/sprites/companions/briar_v2_pup.png"
 CELL = 48           # match the existing briar cell size
 DOG_FIT = 42        # target dog footprint within the cell (px), preserves aspect
 ALPHA_MIN = 12      # ignore near-transparent edge pixels when finding content
+# Pose drafts (Imagine bake-off) sit on different canvases than PixelLab locomotion.
+# Never fold them into the *global* bbox or walk/idle shrink and poses balloon.
+POSE_ACTS = frozenset({"cower", "dusk_press", "head_bump", "lie_down"})
+FEET_PAD = 2        # bottom padding so feet share a common ground line in the cell
 
 # code anim name -> (v2 action, v2 direction, loop, fps). dir: south=down north=up
 # east=right west=left. seek->stare, run->trot. dig/bark are single (south pose).
@@ -41,13 +45,12 @@ for code_act, v2_act, fps in [("idle", "idle", 5), ("walk", "walk", 8),
 MAP.append(("dig", "dig", "south", True, 8, 5))
 MAP.append(("bark", "bark", "south", True, 8, 5))
 MAP.append(("sit", "idle", "south", True, 5, 1))  # stand-in: first idle pose
-# poses the old briar sheet had but V2 didn't draft — single-frame stand-ins so
-# the wiring is a true drop-in (behaviours/tests still find the animation names).
-# Replace with dedicated art in the manual polish pass.
-MAP.append(("cower", "idle", "south", True, 5, 1))
-MAP.append(("dusk_press", "idle", "south", True, 5, 1))
-MAP.append(("head_bump", "idle", "north", True, 5, 1))
-MAP.append(("lie_down", "idle", "south", True, 5, 1))
+# Bake-off 2026-07-25 Arm A (Grok Imagine) drafts — dedicated single-frame poses.
+# Scaled to match locomotion footprint (see process_pose); human polish still owed.
+MAP.append(("cower", "cower", "south", True, 5, 1))
+MAP.append(("dusk_press", "dusk_press", "south", True, 5, 1))
+MAP.append(("head_bump", "head_bump", "south", True, 5, 1))
+MAP.append(("lie_down", "lie_down", "south", True, 5, 1))
 
 
 def frame_paths(act: str, direction: str, count: int) -> list[Path]:
@@ -71,27 +74,66 @@ def union(b1, b2):
 
 
 def main() -> None:
-    # 1) global bbox across every used frame
     used = []
     for name, act, direction, loop, fps, n in MAP:
         used.append((name, act, direction, loop, fps, frame_paths(act, direction, n)))
+
+    # 1) global bbox from LOCOMOTION / pixel-lab frames only (not Imagine poses)
     gb = None
-    for _, _, _, _, _, paths in used:
+    for name, act, direction, loop, fps, paths in used:
+        if act in POSE_ACTS:
+            continue
         for p in paths:
             gb = union(gb, content_bbox(Image.open(p).convert("RGBA")))
+    if gb is None:
+        raise SystemExit("no locomotion frames found for global bbox")
     bx0, by0, bx1, by1 = gb
     bw, bh = bx1 - bx0, by1 - by0
     scale = DOG_FIT / max(bw, bh)
     sw, sh = max(1, round(bw * scale)), max(1, round(bh * scale))
     off_x = (CELL - sw) // 2
-    off_y = (CELL - sh) // 2
+    # bottom-align loco too so stand→pose transitions don't hop vertically
+    off_y = CELL - sh - FEET_PAD
 
-    def process(p: Path) -> Image.Image:
+    def process_loco(p: Path) -> Image.Image:
         crop = Image.open(p).convert("RGBA").crop((bx0, by0, bx1, by1))
         crop = crop.resize((sw, sh), Image.NEAREST)
         cell = Image.new("RGBA", (CELL, CELL), (0, 0, 0, 0))
-        cell.alpha_composite(crop, (off_x, off_y))
+        cell.alpha_composite(crop, (off_x, max(0, off_y)))
         return cell
+
+    # Reference dog size = actual opaque footprint of idle south after loco pack
+    # (DOG_FIT is the crop box; the pup is smaller inside it).
+    idle_ref = process_loco(frame_paths("idle", "south", 1)[0])
+    ref_bb = content_bbox(idle_ref)
+    if ref_bb is None:
+        pose_fit = DOG_FIT
+    else:
+        pose_fit = max(ref_bb[2] - ref_bb[0], ref_bb[3] - ref_bb[1])
+    # tiny pad so poses don't read smaller than idle
+    pose_fit = max(pose_fit, 1)
+
+    def process_pose(p: Path) -> Image.Image:
+        """Per-frame content fit to idle dog footprint, bottom-centered."""
+        im = Image.open(p).convert("RGBA")
+        bb = content_bbox(im)
+        if bb is None:
+            return Image.new("RGBA", (CELL, CELL), (0, 0, 0, 0))
+        crop = im.crop(bb)
+        cw, ch = crop.size
+        sc = pose_fit / max(cw, ch)
+        pw, ph = max(1, round(cw * sc)), max(1, round(ch * sc))
+        crop = crop.resize((pw, ph), Image.NEAREST)
+        cell = Image.new("RGBA", (CELL, CELL), (0, 0, 0, 0))
+        ox = (CELL - pw) // 2
+        oy = CELL - ph - FEET_PAD
+        cell.alpha_composite(crop, (ox, max(0, oy)))
+        return cell
+
+    def process(p: Path, act: str) -> Image.Image:
+        if act in POSE_ACTS:
+            return process_pose(p)
+        return process_loco(p)
 
     # 2) pack one row per animation, 5 cols
     cols = max(len(p) for *_, p in used)
@@ -99,7 +141,7 @@ def main() -> None:
     sheet = Image.new("RGBA", (cols * CELL, rows * CELL), (0, 0, 0, 0))
     for r, (name, act, direction, loop, fps, paths) in enumerate(used):
         for c, p in enumerate(paths):
-            sheet.alpha_composite(process(p), (c * CELL, r * CELL))
+            sheet.alpha_composite(process(p, act), (c * CELL, r * CELL))
     SHEET_PNG.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(SHEET_PNG)
 
@@ -130,7 +172,8 @@ def main() -> None:
         + "\n".join(atlases)
         + "\n[resource]\nanimations = [" + ", ".join(anims) + "]\n",
         encoding="utf-8")
-    print(f"global bbox={gb} dog {bw}x{bh} -> {sw}x{sh} in {CELL}px cell")
+    print(f"loco bbox={gb} dog {bw}x{bh} -> {sw}x{sh} in {CELL}px cell "
+          f"(poses: per-frame fit={pose_fit}px to match idle, feet-aligned)")
     print(f"wrote {SHEET_PNG} ({cols*CELL}x{rows*CELL}) and {TRES} ({len(used)} anims)")
 
 
