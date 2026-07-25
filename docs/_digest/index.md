@@ -24,10 +24,10 @@ _Regenerated 2026-07-25 by `tools/digest.py`. Do not hand-edit._
 - [Session 2026-07-25 — Sorceress SFX + AutoSprite trials](../sessions/2026-07-25-sorceress-sfx-autosprite-trials.md)
 - [Session 2026-07-25 — Sorceress API probe](../sessions/2026-07-25-sorceress-api-probe.md)
 - [Session 2026-07-25 — Slice playtest (Bite 4)](../sessions/2026-07-25-slice-playtest-bite4.md)
+- [Session 2026-07-25 — Reflect close](../sessions/2026-07-25-reflect-close.md)
 - [Session 2026-07-25 — Place berries](../sessions/2026-07-25-place-berries.md)
 - [Session 2026-07-25 — Godot hygiene dirty-tree cleanup](../sessions/2026-07-25-godot-hygiene-dirty-tree.md)
 - [Session 2026-07-25 — Game-dev role skills roster](../sessions/2026-07-25-game-dev-role-skills.md)
-- [Session 2026-07-25 — Flute-gate combat half](../sessions/2026-07-25-flute-gate-combat.md)
 
 ## Ideas inbox
 - 142 captured items in [ideas.md](../ideas.md)
