@@ -46,7 +46,7 @@ Listen **current .wav** then **Sorceress .mp3** at game volume.
 | `stinger_toy` | **Sorceress better than current** — prefer for next bank swap |
 | door / dig | not called out; leave current until re-listen |
 
-**Follow-up (not this merge):** convert `stinger_toy_sorceress.mp3` → mono 16-bit WAV, replace `toy_creak_stinger.wav` / keep `Sfx.gd` key `stinger_toy`.
+**DONE 2026-07-25:** `stinger_toy_sorceress.mp3` → mono 16-bit 44.1 kHz peak-normalized WAV replaced `assets/audio/sfx/toy_creak_stinger.wav`. `Sfx.gd` key `stinger_toy` unchanged.
 
 ## Stack status
 
