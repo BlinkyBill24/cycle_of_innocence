@@ -20,6 +20,7 @@ _Regenerated 2026-07-25 by `tools/digest.py`. Do not hand-edit._
 - _(none yet)_
 
 ## Recent sessions
+- [Session 2026-07-25 — Godot hygiene dirty-tree cleanup](../sessions/2026-07-25-godot-hygiene-dirty-tree.md)
 - [Session 2026-07-25 — Briar pose bake-off](../sessions/2026-07-25-briar-pose-bakeoff.md)
 - [Session 2026-07-24 — one-person studio + Sorceress research](../sessions/2026-07-24-one-person-studio-sorceress-research.md)
 - [Session 2026-07-24 — agentic playtest smoke](../sessions/2026-07-24-agentic-playtest-smoke.md)
@@ -27,7 +28,6 @@ _Regenerated 2026-07-25 by `tools/digest.py`. Do not hand-edit._
 - [2026-06-28 — Fixes for the two diagnosed feedback gaps](../sessions/2026-06-28-tell-and-door-feedback-fixes.md)
 - [2026-06-28 — Sprint/run for Rowan](../sessions/2026-06-28-rowan-sprint.md)
 - [2026-06-28 — Smooth/readable UI text (stretch mode)](../sessions/2026-06-28-readable-ui-text.md)
-- [2026-06-28 — Dedicated locked-door SFX](../sessions/2026-06-28-locked-door-sfx.md)
 
 ## Ideas inbox
 - 142 captured items in [ideas.md](../ideas.md)
