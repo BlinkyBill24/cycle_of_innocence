@@ -9,3 +9,7 @@ assets/sprites/interiors/_src/
 .claude/settings.local.json
 tools/__pycache__/
 .mcp/
+
+# godot-mcp-runtime inject (must never ship)
+mcp_bridge.gd
+mcp_bridge.gd.uid
