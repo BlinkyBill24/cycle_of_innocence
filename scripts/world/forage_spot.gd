@@ -24,6 +24,7 @@ func _ready() -> void:
 	monitoring = true
 	collision_mask = 2  # player body layer (matches ZoneTransition)
 	body_entered.connect(_on_body_entered)
+	_apply_icon_visual()
 	if _already_taken():
 		_mark_taken()
 
@@ -41,12 +42,35 @@ func _already_taken() -> bool:
 	return def != null and def.grants_flag != &"" and PlayerData.has_story_flag(def.grants_flag)
 
 
+## Prefer the item's 32×32 icon over a colored polygon so food/tools read as
+## "things on the ground" (berries were easy to miss as a diamond only).
+func _apply_icon_visual() -> void:
+	var def := ItemRegistry.get_def(item_id)
+	if def == null or def.icon == null:
+		return
+	var marker := get_node_or_null("Marker") as CanvasItem
+	if marker:
+		marker.visible = false
+	var icon := get_node_or_null("Icon") as Sprite2D
+	if icon == null:
+		icon = Sprite2D.new()
+		icon.name = "Icon"
+		icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		icon.centered = true
+		add_child(icon)
+	icon.texture = def.icon
+	icon.visible = true
+
+
 func _mark_taken() -> void:
 	granted = true
 	monitoring = false
 	var marker := get_node_or_null("Marker") as CanvasItem
 	if marker:
 		marker.visible = false
+	var icon := get_node_or_null("Icon") as CanvasItem
+	if icon:
+		icon.visible = false
 
 
 func _on_body_entered(body: Node2D) -> void:
