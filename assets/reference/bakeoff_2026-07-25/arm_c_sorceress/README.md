@@ -1,7 +1,8 @@
-# Arm C — Sorceress.games (human trial recipe)
+# Arm C — Sorceress.games (human trial recipe + API probe)
 
-**Not run in the 2026-07-25 agent bake-off** (needs browser login + credits at
-https://sorceress.games/). Use this when you want to complete the scorecard.
+**Bake-off day:** browser path not run.  
+**API probe 2026-07-25:** key + `tools/sorceress_api.py` **auth OK**; image gen **blocked on 0 credits**.  
+See [[API_PROBE]] for paths, commands, and re-run steps.
 
 ## Goal
 
@@ -37,20 +38,21 @@ lie_down_raw.png
 
 6. Optional: run the same 48px cell fit as Arms A/B (or ask an agent to pixelize).
 
-## Score (fill 0–5)
+## Score (API probe `cower` only — fill full set later)
 
-| Criterion | Score | Notes |
+| Criterion | Score (API cower) | Notes |
 |---|---|---|
-| On-model to Briar V2 |  |  |
-| 32/48px clarity |  |  |
-| Pose distinctness |  |  |
-| 4-dir readiness |  |  |
-| Palette / style vs V2 |  |  |
-| Time-to-import |  |  |
-| Commercial clarity |  |  |
-| Human edit burden |  |  |
+| On-model to Briar V2 | 2 | Side-view cute pup; not Malinois V2 top-down |
+| 32/48px clarity | 1 | 960px faux-pixel; 48 nearest mush |
+| Pose distinctness | 2 | More lie/rest than scared cower |
+| 4-dir readiness | 1 | Single side-ish frame |
+| Palette / style vs V2 | 2 | Magenta OK; collar/breed off |
+| Time-to-import | 4 | API ~20s after credits |
+| Commercial clarity | 3 | Tool API works |
+| Human edit burden | 4 | Needs heavy rework for sheet |
 
-Compare to decision [[decisions/2026-07-25-briar-pose-bakeoff]].
+Full write-up: [[API_PROBE]]. Compare to decision [[decisions/2026-07-25-briar-pose-bakeoff]].  
+**Recommendation:** keep Arm A interim; **no stack adopt**.
 
 ## Hard rules for CoI
 

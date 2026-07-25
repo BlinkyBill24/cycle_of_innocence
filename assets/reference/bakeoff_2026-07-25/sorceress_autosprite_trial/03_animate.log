@@ -1,0 +1,40 @@
+POST tools/autosprite_animate …
+{
+  "ok": true,
+  "tool": "autosprite_animate",
+  "creditsCharged": 0,
+  "error": null,
+  "message": null
+}
+polling job 59c1aa76-e6ca-4e22-924a-71c5b6e2a539 …
+  job 59c1aa76… status=processing
+  job 59c1aa76… status=processing
+  job 59c1aa76… status=processing
+  job 59c1aa76… status=processing
+  job 59c1aa76… status=processing
+  job 59c1aa76… status=processing
+  job 59c1aa76… status=processing
+  job 59c1aa76… status=processing
+  job 59c1aa76… status=processing
+job 59c1aa76-e6ca-4e22-924a-71c5b6e2a539 status=succeeded
+{
+  "ok": true,
+  "jobId": "59c1aa76-e6ca-4e22-924a-71c5b6e2a539",
+  "tool": "autosprite_animate",
+  "status": "succeeded",
+  "video": {
+    "url": "https://wizardgenie-media.s3.us-west-004.backblazeb2.com/autosprite-v3-videos/7d6a4de2-f0af-48bf-a191-bb905ef47e85/59c1aa76-e6ca-4e22-924a-71c5b6e2a539/animation.mp4",
+    "assetId": "1449c752-3b35-4b5c-a8ba-86c46ab5edd1",
+    "label": "walk_south"
+  },
+  "videoUrl": "https://wizardgenie-media.s3.us-west-004.backblazeb2.com/autosprite-v3-videos/7d6a4de2-f0af-48bf-a191-bb905ef47e85/59c1aa76-e6ca-4e22-924a-71c5b6e2a539/animation.mp4",
+  "assetId": "1449c752-3b35-4b5c-a8ba-86c46ab5edd1",
+  "url": "https://wizardgenie-media.s3.us-west-004.backblazeb2.com/autosprite-v3-videos/7d6a4de2-f0af-48bf-a191-bb905ef47e85/59c1aa76-e6ca-4e22-924a-71c5b6e2a539/animation.mp4",
+  "model": "grok-imagine-video-1-5-preview",
+  "creditsCharged": 12,
+  "balance": 958,
+  "next": "DEFAULT NEXT: POST /api/v1/tools/autosprite_key with { \"assetId\": \"1449c752-3b35-4b5c-a8ba-86c46ab5edd1\" } then poll \u2192 use spriteSheetUrl (true RGBA sheet, native frame size up to 1024). Do NOT DIY-chroma the MP4 and do NOT treat website checkerboard preview as part of the file. Skip Corridor Key only if the user asked for DIY chroma."
+}
+MEDIA=https://wizardgenie-media.s3.us-west-004.backblazeb2.com/autosprite-v3-videos/7d6a4de2-f0af-48bf-a191-bb905ef47e85/59c1aa76-e6ca-4e22-924a-71c5b6e2a539/animation.mp4
+MEDIA=https://wizardgenie-media.s3.us-west-004.backblazeb2.com/autosprite-v3-videos/7d6a4de2-f0af-48bf-a191-bb905ef47e85/59c1aa76-e6ca-4e22-924a-71c5b6e2a539/animation.mp4
+MEDIA=https://wizardgenie-media.s3.us-west-004.backblazeb2.com/autosprite-v3-videos/7d6a4de2-f0af-48bf-a191-bb905ef47e85/59c1aa76-e6ca-4e22-924a-71c5b6e2a539/animation.mp4

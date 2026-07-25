@@ -1,0 +1,40 @@
+POST tools/autosprite_key …
+{
+  "ok": true,
+  "tool": "autosprite_key",
+  "creditsCharged": 0,
+  "error": null,
+  "message": null
+}
+polling job b2430216-aa20-4543-8775-efe81c9f13d4 …
+  job b2430216… status=processing progress={'phase': 'keying', 'frameIndex': 0, 'frameCount': 11}
+  job b2430216… status=processing progress={'phase': 'keying', 'frameIndex': 2, 'frameCount': 11}
+  job b2430216… status=processing progress={'phase': 'keying', 'frameIndex': 4, 'frameCount': 11}
+  job b2430216… status=processing progress={'phase': 'keying', 'frameIndex': 6, 'frameCount': 11}
+  job b2430216… status=processing progress={'phase': 'keying', 'frameIndex': 8, 'frameCount': 11}
+  job b2430216… status=processing progress={'phase': 'keying', 'frameIndex': 10, 'frameCount': 11}
+job b2430216-aa20-4543-8775-efe81c9f13d4 status=succeeded
+{
+  "ok": true,
+  "jobId": "b2430216-aa20-4543-8775-efe81c9f13d4",
+  "tool": "autosprite_key",
+  "status": "succeeded",
+  "spriteSheet": {
+    "url": "https://wizardgenie-media.s3.us-west-004.backblazeb2.com/autosprite-v3-keyed/7d6a4de2-f0af-48bf-a191-bb905ef47e85/b2430216-aa20-4543-8775-efe81c9f13d4-hd/keyed_sheet.png",
+    "cols": 8,
+    "rows": 2,
+    "frameW": 960,
+    "frameH": 960,
+    "frameCount": 11,
+    "fps": 3.75
+  },
+  "spriteSheetUrl": "https://wizardgenie-media.s3.us-west-004.backblazeb2.com/autosprite-v3-keyed/7d6a4de2-f0af-48bf-a191-bb905ef47e85/b2430216-aa20-4543-8775-efe81c9f13d4-hd/keyed_sheet.png",
+  "thumbnailUrl": "https://wizardgenie-media.s3.us-west-004.backblazeb2.com/autosprite-v3-keyed/7d6a4de2-f0af-48bf-a191-bb905ef47e85/b2430216-aa20-4543-8775-efe81c9f13d4-thumb/thumb.png",
+  "assetId": "1449c752-3b35-4b5c-a8ba-86c46ab5edd1",
+  "keyColor": "#18b828",
+  "url": "https://wizardgenie-media.s3.us-west-004.backblazeb2.com/autosprite-v3-keyed/7d6a4de2-f0af-48bf-a191-bb905ef47e85/b2430216-aa20-4543-8775-efe81c9f13d4-hd/keyed_sheet.png",
+  "creditsCharged": 4,
+  "balance": 954,
+  "next": "Use spriteSheetUrl in the game (true RGBA). Draw at spriteSheet.frameW\u00d7frameH \u2014 do not CSS-upscale a tiny canvas. Ignore website checkerboard preview; it is not in this file."
+}
+wrote assets/reference/bakeoff_2026-07-25/sorceress_autosprite_trial/walk_south_sheet.png (3452149 bytes)

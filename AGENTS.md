@@ -38,6 +38,7 @@ This applies on **all** surfaces alike: Claude Code, the **claude.ai web Project
 - Autoloads (current): `GameEvents`, `PlayerData`, `DialogueManager` (addon), `DreadManager`, `ZoneManager`, `WorldState`, `HollowingClock`, `VillageState`, `Journal`, `SaveManager`, `Sfx`, `AdaptiveAudio`; (planned): `CompanionManager`, `InputManager`.
 - **PixelLab API** available for character/animation generation: key at `~/.config/pixellab/api_key` (NEVER in repo), client `tools/pixellab_api.py` (generate/rotate; free tier needs credits for generation). Decision: docs/decisions/2026-06-10-sprite-tool-pixellab.md.
 - **ElevenLabs API** for SFX (text-to-sound-effects): key at `~/.config/elevenlabs/api_key` (NEVER in repo; **free tier**, credits reset monthly — pause generation when exhausted), client `tools/gen_elevenlabs_sfx.py` (requests PCM → downmixes to mono 16-bit WAV via stdlib `wave`, no ffmpeg). Real SFX replace the `gen_placeholder_sfx.py` placeholders in `assets/audio/sfx/` (keep filenames → `Sfx.gd` keys intact).
+- **Sorceress Tool API** (optional probe only — **not** production art stack until a decision says otherwise): key at `~/.config/sorceress/api_key` or `SORCERESS_API_KEY` (NEVER in repo), client `tools/sorceress_api.py` (`ping` / `tools` / `image`). Bake-off Arm C notes: `assets/reference/bakeoff_2026-07-25/arm_c_sorceress/`. Decision: `docs/decisions/2026-07-25-briar-pose-bakeoff.md`.
 - AI production stack: FOSS-first; see `docs/design/ai-production-setup.md`.
 
 ## Critical rules (R1–R7)

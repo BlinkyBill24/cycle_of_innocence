@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "data": {
+    "assetId": "c7af3fb4-4015-47a2-b5d8-ec6f3c182fde",
+    "workspaceId": "3ce5426e-d923-4668-9485-58d8a73e1a6f",
+    "name": "BriarV2_probe",
+    "mediaUrl": "https://wizardgenie-media.s3.us-west-004.backblazeb2.com/autosprite-v3-api/7d6a4de2-f0af-48bf-a191-bb905ef47e85/c7af3fb4-4015-47a2-b5d8-ec6f3c182fde/character.png",
+    "status": "ready",
+    "createdAt": "2026-07-25T15:22:53.496783+00:00",
+    "next": {
+      "animate": "POST /api/v1/tools/autosprite_animate with characterAssetId + animations[]",
+      "thenKey": "After each animate job succeeds, POST /api/v1/tools/autosprite_key with { assetId } (Corridor Key) \u2014 DEFAULT for game-ready sprites.",
+      "ui": "Open /autosprite-v3 \u2014 this character is in your gallery."
+    },
+    "greenscreenTip": "Keep a solid pure-green background and avoid green clothing/hair so autosprite_key (Corridor Key) stays clean."
+  },
+  "tool": "autosprite_create_character",
+  "creditsCharged": 0
+}
+CHARACTER_ASSET_ID=c7af3fb4-4015-47a2-b5d8-ec6f3c182fde

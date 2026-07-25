@@ -20,14 +20,14 @@ _Regenerated 2026-07-25 by `tools/digest.py`. Do not hand-edit._
 - _(none yet)_
 
 ## Recent sessions
+- [Session 2026-07-25 — Sorceress SFX + AutoSprite trials](../sessions/2026-07-25-sorceress-sfx-autosprite-trials.md)
+- [Session 2026-07-25 — Sorceress API probe](../sessions/2026-07-25-sorceress-api-probe.md)
 - [Session 2026-07-25 — Godot hygiene dirty-tree cleanup](../sessions/2026-07-25-godot-hygiene-dirty-tree.md)
 - [Session 2026-07-25 — Game-dev role skills roster](../sessions/2026-07-25-game-dev-role-skills.md)
 - [Session 2026-07-25 — Briar pose bake-off](../sessions/2026-07-25-briar-pose-bakeoff.md)
 - [Session 2026-07-24 — one-person studio + Sorceress research](../sessions/2026-07-24-one-person-studio-sorceress-research.md)
 - [Session 2026-07-24 — agentic playtest smoke](../sessions/2026-07-24-agentic-playtest-smoke.md)
 - [2026-06-28 — First-pass wiring of the V2 Briar art](../sessions/2026-06-28-wire-briar-v2-art.md)
-- [2026-06-28 — Fixes for the two diagnosed feedback gaps](../sessions/2026-06-28-tell-and-door-feedback-fixes.md)
-- [2026-06-28 — Sprint/run for Rowan](../sessions/2026-06-28-rowan-sprint.md)
 
 ## Ideas inbox
 - 142 captured items in [ideas.md](../ideas.md)

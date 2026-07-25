@@ -1,0 +1,18 @@
+POST tools/image_generate …
+{
+  "ok": true,
+  "tool": "image_generate",
+  "creditsCharged": 0,
+  "error": null,
+  "message": null
+}
+polling job 498d0584-7873-4350-b80d-e9b95dcba43b …
+  job 498d0584… status=processing
+  job 498d0584… status=processing
+  job 498d0584… status=processing
+  job 498d0584… status=processing
+  job 498d0584… status=processing
+  job 498d0584… status=processing
+job 498d0584-7873-4350-b80d-e9b95dcba43b status=succeeded
+wrote assets/reference/bakeoff_2026-07-25/sorceress_autosprite_trial/briar_green_char.png (118327 bytes)
+IMAGE_URL=https://wizardgenie-media.s3.us-west-004.backblazeb2.com/generations/7d6a4de2-f0af-48bf-a191-bb905ef47e85/54485103-c3ed-4991-a5b7-25532dc12801/grok-imagine-1.png
