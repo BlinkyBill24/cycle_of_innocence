@@ -27,35 +27,47 @@ python3 tools/sorceress_api.py image "…" --model grok-imagine --aspect 1:1 --o
 - `POST /tools/<id>` — invoke  
 - `GET /jobs/<id>` — async poll  
 
-## Results (this probe)
+## Results
 
 | Check | Result |
 |-------|--------|
 | Key file present + mode 600 | OK |
-| `ping` (auth) | **OK** — `pong: true`, creditsCharged 0 |
-| `tools` list | **OK** — includes `image_generate`, AutoSprite suite, SFX, etc. |
-| `image_generate` (grok-imagine, Briar cower prompt) | **BLOCKED** — HTTP **402** `Insufficient credits`, `balance: 0` |
-| `cower_raw.png` written | **No** (no charge, no asset) |
-| Score vs Arm A | **Deferred** until credits > 0 |
+| `ping` (auth) | **OK** |
+| `tools` list | **OK** |
+| First gen attempt | **402** balance 0 (before credits) |
+| Second gen (credits topped) | **OK** job `e31c3d2c-…` **succeeded** |
+| Output | `cower_raw.png` (960×960 JPEG-as-png, ~144 KB) + `cower_48.png` nearest shrink + `compare_cower_A_vs_C_x4.png` |
+| Model used | `grok-imagine`, aspect `1:1` |
 
-## Human next steps
+## Scorecard — one pose (`cower`) vs Arm A (0–5)
 
-1. Top up / grant credits on https://sorceress.games/ (account billing).  
-2. Re-run:
+| Criterion | A Imagine (shipped interim) | C Sorceress API (this probe) |
+|-----------|----------------------------|------------------------------|
+| On-model to Briar V2 (Malinois pup, top-down) | **4** | **2** (cute side-view bulldog-ish; pink collar; not V2 sheet) |
+| 32/48px clarity | **3** | **1** (high-res faux-pixel; nearest 48 mush) |
+| Pose distinctness (scared cower) | **5** | **2** (reads as relaxed lie / cute rest more than fear) |
+| 4-dir readiness | 2 | 1 |
+| Palette / style vs V2 sheet | 3 | 2 |
+| Time-to-import (API path) | 4 | **4** (after credits: ~20s job) |
+| Commercial / pipeline clarity | 3 | 3 (Tool API works; AutoSprite not used) |
+| Human edit burden | 3 | **4** (would need re-prompt + True Pixel + scale) |
+| **Subtotal (same 8 axes)** | **27** | **19** |
 
-```bash
-python3 tools/sorceress_api.py image "$(cat <<'P'
-retro pixel art top-down SNES Zelda style horror-tinged, small fawn-tan Malinois-style puppy
-with black muzzle mask, upright ears, collar bell, COWER pose low tucked scared looking south,
-solid magenta #FF00FF background, limited palette, crisp pixels no AA, game sprite
-P
-)" --model grok-imagine --aspect 1:1 \
-  --out assets/reference/bakeoff_2026-07-25/arm_c_sorceress/cower_raw.png
+**Agent recommendation:** Arm A still wins this job. **Do not adopt Sorceress as production stack** from this single call. API integration is proven; art quality for *this* prompt/model did not beat Imagine stand-ins.
+
+**Human gate:** open the compare strip and `cower_raw` at game zoom — override scores if you disagree.
+
+## Artifacts
+
 ```
-
-3. Fill scorecard in `README.md` vs Arm A `../arm_a_imagine/cower_48.png`.  
-4. Only then consider a **new decision** if C beats A on pose clarity *and* stays importable — stack stays Imagine+PixelLab until that decision.
+cower_raw.png              # API download (large)
+cower_raw_true.png         # RGBA re-save
+cower_48.png               # naive 48×48 nearest (preview only)
+cower_48_x4.png
+compare_cower_A_vs_C_x4.png  # left A · right C
+```
 
 ## Stack status
 
-**Unchanged:** Sorceress is **not** production stack. Client is an optional probe tool only.
+**Unchanged:** Sorceress is **not** production stack. Client remains optional probe tooling.  
+Revisit only if a later run (ref images + True Pixel / AutoSprite + top-down lock) beats Arm A **and** Arm B style lock on the same anchors.

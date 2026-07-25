@@ -38,20 +38,21 @@ lie_down_raw.png
 
 6. Optional: run the same 48px cell fit as Arms A/B (or ask an agent to pixelize).
 
-## Score (fill 0–5)
+## Score (API probe `cower` only — fill full set later)
 
-| Criterion | Score | Notes |
+| Criterion | Score (API cower) | Notes |
 |---|---|---|
-| On-model to Briar V2 |  |  |
-| 32/48px clarity |  |  |
-| Pose distinctness |  |  |
-| 4-dir readiness |  |  |
-| Palette / style vs V2 |  |  |
-| Time-to-import |  |  |
-| Commercial clarity |  |  |
-| Human edit burden |  |  |
+| On-model to Briar V2 | 2 | Side-view cute pup; not Malinois V2 top-down |
+| 32/48px clarity | 1 | 960px faux-pixel; 48 nearest mush |
+| Pose distinctness | 2 | More lie/rest than scared cower |
+| 4-dir readiness | 1 | Single side-ish frame |
+| Palette / style vs V2 | 2 | Magenta OK; collar/breed off |
+| Time-to-import | 4 | API ~20s after credits |
+| Commercial clarity | 3 | Tool API works |
+| Human edit burden | 4 | Needs heavy rework for sheet |
 
-Compare to decision [[decisions/2026-07-25-briar-pose-bakeoff]].
+Full write-up: [[API_PROBE]]. Compare to decision [[decisions/2026-07-25-briar-pose-bakeoff]].  
+**Recommendation:** keep Arm A interim; **no stack adopt**.
 
 ## Hard rules for CoI
 

@@ -16,13 +16,12 @@ Mission: prove Sorceress Tool API with key on disk; one Briar pose vs Arm A
 ## What I did
 *(newest first)*
 
-- `image_generate` (grok-imagine, cower prompt) → **402 Insufficient credits,
-  balance: 0** — no asset written; score deferred.
-- Built `tools/sorceress_api.py` (key from `~/.config/sorceress/api_key` or
-  `SORCERESS_API_KEY`; ping / tools / image / job poll).
-- Confirmed key present (mode 600). `ping` + `tools` catalog **OK**.
-- Documented probe in `arm_c_sorceress/API_PROBE.md`; README pointer.
-- Stack decision **unchanged** (no new adopt decision).
+- **Credits topped:** re-ran `image_generate` (grok-imagine, cower) → job
+  succeeded; wrote `cower_raw.png` + 48px previews + A-vs-C compare strip.
+- Scored probe: Arm A still preferred for on-model + game-scale cower; C is
+  cute high-res side pup, weak at 48px. **No stack adopt.**
+- First gen attempt earlier: **402** balance 0.
+- Built `tools/sorceress_api.py`; `ping` + catalog OK; docs in `API_PROBE.md`.
 
 ## Decisions made
 
