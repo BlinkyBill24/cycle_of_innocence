@@ -1,7 +1,8 @@
-# Arm C — Sorceress.games (human trial recipe)
+# Arm C — Sorceress.games (human trial recipe + API probe)
 
-**Not run in the 2026-07-25 agent bake-off** (needs browser login + credits at
-https://sorceress.games/). Use this when you want to complete the scorecard.
+**Bake-off day:** browser path not run.  
+**API probe 2026-07-25:** key + `tools/sorceress_api.py` **auth OK**; image gen **blocked on 0 credits**.  
+See [[API_PROBE]] for paths, commands, and re-run steps.
 
 ## Goal
 
