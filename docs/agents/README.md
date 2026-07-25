@@ -8,11 +8,21 @@ tags: [agents, skills, index]
 Specialized **job contracts** for AI tools on Cycle of Innocence. Same model, same brain
 ([[shared-contract]]), different mission / file rights / proof.
 
-Skills live under `.claude/skills/<name>/SKILL.md` (Claude Code hub + Grok both load these).
+**Start here to call them:** [[how-to-use]]  
+**Swarm (option C) rules:** [[swarm]]
+
+Skills live under `.claude/skills/<name>/SKILL.md` (Claude Code hub + Grok both load these).  
+Workflows live under `.grok/workflows/*.rhai` (Grok multi-agent runs; dashboard `/workflows`).
 
 ## Shared rules
 
 → [[shared-contract]] (always) + root `AGENTS.md` (R1–R7).
+
+## Coordinator
+
+| Slash / skill | Mission (one line) |
+|---------------|--------------------|
+| `/project-manager` | Plan one bite, order roles, enforce gates — no craft |
 
 ## Core five
 
@@ -35,28 +45,29 @@ Skills live under `.claude/skills/<name>/SKILL.md` (Claude Code hub + Grok both 
 | `/playtest-qa` | Prove boot + critical path (evidence, not feel) |
 | `/librarian` | Research inbox → decision/reject; no silent canon |
 | `/reviewer` | Second-opinion risk review (prefer Codex rescue) |
+| `/reflect` | End-of-session ritual |
 
-## How to use
+## Swarm workflows (option C)
 
-1. Branch first (R1) if work will edit files.
-2. Invoke the role (`/level-design`, or say “act as level design”).
-3. Agent loads shared contract + that skill’s card, then only that lane.
-4. Close with journal (R5); big sessions end with `/reflect`.
+| Workflow | When |
+|----------|------|
+| `content-studio` | You know the mission; auto crew + human gates |
+| `project-swarm` | PM picks next bite from STATE/ideas, then builds |
 
-## Content Studio Loop (multi-role)
+Call: `/workflow content-studio` or `/workflow project-swarm` (see [[how-to-use]]).
 
-For a small content bite (from the one-person-studio research):
+## Quick decision tree
 
-1. `/story-writer` — brief + flag  
-2. `/programming` — code against existing systems  
-3. `/creative-art` or `/animation` — only missing assets  
-4. `/playtest-qa` — smoke + optional MCP walk  
-5. Human — dread / bond / readability gate  
-6. `/reflect` when the session ends  
+```text
+Need one craft job?          → /role-name
+Need a plan + order?         → /project-manager
+Know mission, want auto crew → /workflow content-studio
+Don't know next work?        → /workflow project-swarm
+Session over?                → /reflect
+```
 
 ## Related
 
 - [[design/agentic-playtest-smoke]]
 - [[design/ai-production-setup]]
 - [[art/imagine-prompts]]
-- [[art/grok-reference-workflow]]

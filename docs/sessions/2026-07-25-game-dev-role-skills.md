@@ -16,19 +16,24 @@ while sharing one brain (`AGENTS.md` + `docs/agents/shared-contract.md`).
 ## What I did
 *(newest first)*
 
+- **Option C swarm:** `/project-manager` skill + workflows `content-studio` and
+  `project-swarm` (smoke-validated). Docs: `how-to-use.md`, `swarm.md`.
 - Linked roster from `AGENTS.md` (Tool roles → game-dev role skills table).
-- Wrote 12 skills under `.claude/skills/*/SKILL.md` (Claude + Grok both load).
-- Added `docs/agents/README.md` (index + Content Studio Loop) and
-  `docs/agents/shared-contract.md` (R1–R7, bans, proof, role-card shape).
+- Wrote 12 role skills + PM under `.claude/skills/*/SKILL.md` (Claude + Grok both load).
+- Added `docs/agents/README.md`, `shared-contract.md` (R1–R7, bans, proof).
 
-### Core five
+### Coordinator + core five
 
-`level-design`, `creative-art`, `programming`, `animation`, `story-writer`
+`project-manager` · `level-design`, `creative-art`, `programming`, `animation`, `story-writer`
 
 ### Support seven
 
 `dread-director`, `companion-designer`, `combat-designer`, `audio`,
 `playtest-qa`, `librarian`, `reviewer`
+
+### Workflows
+
+`.grok/workflows/content-studio.rhai` · `.grok/workflows/project-swarm.rhai`
 
 ## Decisions made
 
