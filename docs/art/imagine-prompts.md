@@ -444,3 +444,29 @@ door (paneled + threshold). Floor tileset `b54fb251` (warm horizontal planks + w
 variant) → `floor_plank.png`. Wired into `cottage_ground` (treasure chest in the
 bottom-right corner per ALttP; rug moved to a non-y-sorted `FloorDecals` layer so it
 sits *under* furniture — fixes a y-sort bug where the rug covered the table).
+
+## Briar stand-in pose bake-off (2026-07-25)
+
+**Decision:** [[decisions/2026-07-25-briar-pose-bakeoff]]. Arm A shipped as interim.
+
+**Anchors:** `assets/reference/bakeoff_2026-07-25/anchors/briar_v2_style_ref.png` +
+`briar_v2_idle_south_f0.png` (V2 puppy).
+
+**Arm A — Grok `image_edit` (same look-block for all four; pose sentence changes):**
+
+```
+Same Belgian Malinois puppy as the reference: fawn-tan coat, black mask, large upright ears, collar bell. Change only the pose: [POSE]. Single isolated game character sprite, solid flat magenta #FF00FF background, crisp retro SNES pixel-art style, limited earthy brown palette, no ground, no shadow, no text.
+```
+
+| Pose id | POSE clause |
+|---|---|
+| cower | the puppy cowers in fear, body low and hunched, head tucked slightly, tail tucked, looking south toward the camera in low top-down 3/4 view |
+| dusk_press | dusk press — the puppy presses affectionately against something off-frame to the side (leaning body contact), soft protective nuzzle, calm loyal body language, low top-down 3/4 view facing south-east |
+| head_bump | gentle head-bump — puppy steps forward and bumps forehead affectionately toward the viewer (south-facing low top-down), ears forward, happy soft eyes, playful contact pose |
+| lie_down | lie down resting — puppy lying on belly with chin near paws, relaxed calm, low top-down 3/4 south view |
+
+Post: crop → fit 48px cell → (ship path) paste into `puppy_v2/anim/<pose>/south/frame_00.png` → `tools/build_briar_v2_spriteframes.py`.
+
+**Arm B — PixelLab bitforge (64×64, low top-down, style+init):** style lock good, pose change failed (see decision scorecard).
+
+**Arm C — Sorceress:** human recipe only; see `assets/reference/bakeoff_2026-07-25/arm_c_sorceress/README.md`.

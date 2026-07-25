@@ -44,10 +44,12 @@ MAP.append(("sit", "idle", "south", True, 5, 1))  # stand-in: first idle pose
 # poses the old briar sheet had but V2 didn't draft — single-frame stand-ins so
 # the wiring is a true drop-in (behaviours/tests still find the animation names).
 # Replace with dedicated art in the manual polish pass.
-MAP.append(("cower", "idle", "south", True, 5, 1))
-MAP.append(("dusk_press", "idle", "south", True, 5, 1))
-MAP.append(("head_bump", "idle", "north", True, 5, 1))
-MAP.append(("lie_down", "idle", "south", True, 5, 1))
+# Bake-off 2026-07-25 Arm A (Grok Imagine) drafts — dedicated single-frame poses.
+# Human polish still owed; better than idle stand-ins for readable quirks/fear.
+MAP.append(("cower", "cower", "south", True, 5, 1))
+MAP.append(("dusk_press", "dusk_press", "south", True, 5, 1))
+MAP.append(("head_bump", "head_bump", "south", True, 5, 1))
+MAP.append(("lie_down", "lie_down", "south", True, 5, 1))
 
 
 def frame_paths(act: str, direction: str, count: int) -> list[Path]:
