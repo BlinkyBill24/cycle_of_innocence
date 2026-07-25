@@ -318,7 +318,7 @@ color = Color(0.78, 0.55, 0.35, 0.9)
 polygon = PackedVector2Array(0, -7, 6, 0, 0, 7, -6, 0)
 
 [node name="BerryForage" type="Area2D" parent="."]
-position = Vector2(260, 120)
+position = Vector2(-80, 80)
 collision_mask = 2
 script = ExtResource("40_forage")
 item_id = &"forest_berries"

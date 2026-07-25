@@ -49,10 +49,41 @@ func test_playground_places_berries_and_weapons() -> void:
 	var zone: Node2D = load("res://scenes/zones/playground_fringes.tscn").instantiate()
 	add_child_autofree(zone)
 	await wait_physics_frames(1)
-	var placed := {}
+	var placed: Dictionary = {}
+	var berry_qty := 0
 	for node in get_tree().get_nodes_in_group("forage_spot"):
 		var spot := node as ForageSpot
 		if spot:
 			placed[spot.item_id] = true
+			if spot.item_id == &"forest_berries":
+				berry_qty = spot.quantity
 	for expected: StringName in [&"forest_berries", &"sturdy_stick", &"slingshot", &"sling_stones"]:
 		assert_true(placed.has(expected), "%s is placed in the world to be found" % expected)
+	assert_eq(berry_qty, 2, "playground berry patch grants a handful (qty 2)")
+
+
+func test_fringes_woods_place_berries() -> void:
+	var zone: Node2D = load("res://scenes/zones/fringes.tscn").instantiate()
+	add_child_autofree(zone)
+	await wait_physics_frames(1)
+	var found := false
+	for node in get_tree().get_nodes_in_group("forage_spot"):
+		var spot := node as ForageSpot
+		if spot and spot.item_id == &"forest_berries":
+			found = true
+			assert_eq(spot.quantity, 2, "woods berries are a handful")
+	assert_true(found, "forest_berries are findable in the fringes woods zone")
+
+
+func test_forage_shows_item_icon_when_available() -> void:
+	PlayerData.reset_to_defaults()
+	var spot := ForageSpot.new()
+	spot.item_id = &"forest_berries"
+	add_child_autofree(spot)
+	await wait_physics_frames(1)
+	var icon := spot.get_node_or_null("Icon") as Sprite2D
+	assert_not_null(icon, "forage builds an Icon sprite from the item def")
+	assert_not_null(icon.texture, "forest_berries icon texture is wired")
+	assert_true(icon.visible, "icon is visible before pickup")
+	spot.grant()
+	assert_false(icon.visible, "icon hides after forage")

@@ -20,7 +20,7 @@ Raw capture → triage → promote to decisions/features. Never delete, only mov
 - ~~**Implement the HEAL verb / set heal values / resolve dual-use dispatch.**~~ **DONE 2026-06-21** — `heal_hearts` on `ItemDef`, `Inventory.eat` → `Health.heal(hearts×2)`, values berries 1 · dried_meat 2 · honeycomb 3 · hearty_meal 4, and the eat-vs-feed dispatch resolved as **ask at point of use** (a small `Eat`/`Give to <companion>` choice on dual-use food). See [[decisions/2026-06-21-food-heal-values]] + `tests/test_food_healing.gd`, `tests/test_eat_vs_feed.gd`.
 - **Medicine item set (future):** bandage = 5 hearts, rare restorative = full heal — same HEAL path (reuses `heal_hearts`; the eat verb is already generic), kept above food. Not built.
 - **A feed item for Echo (future):** every feed item currently targets Briar; Echo has no care item yet.
-- **World-place the berries** (the `berries`/`forest_berries` item + `ForageSpot` exist; berries aren't placed yet — pairs with the food economy).
+- ~~**World-place the berries**~~ **DONE 2026-07-25** — playground_fringes `BerryForage` (qty 2) + fringes woods patch; ForageSpot shows ItemDef icon so berries/tools read on the ground.
 
 ### 🎯 Companions & flute-gate — CODE TASKS (from decision 2026-06-21)
 *[[decisions/2026-06-21-companions-and-flute-gate]]. Docs/canon are updated; these are the FEATURE-WORK consequences — each contradicts current code and is its own future `/goal`.*
