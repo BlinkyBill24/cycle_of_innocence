@@ -20,6 +20,7 @@ _Regenerated 2026-07-25 by `tools/digest.py`. Do not hand-edit._
 - _(none yet)_
 
 ## Recent sessions
+- [Session 2026-07-25 — Stinger Sorceress bank swap](../sessions/2026-07-25-stinger-toy-sorceress.md)
 - [Session 2026-07-25 — Sorceress SFX + AutoSprite trials](../sessions/2026-07-25-sorceress-sfx-autosprite-trials.md)
 - [Session 2026-07-25 — Sorceress API probe](../sessions/2026-07-25-sorceress-api-probe.md)
 - [Session 2026-07-25 — Godot hygiene dirty-tree cleanup](../sessions/2026-07-25-godot-hygiene-dirty-tree.md)
@@ -27,7 +28,6 @@ _Regenerated 2026-07-25 by `tools/digest.py`. Do not hand-edit._
 - [Session 2026-07-25 — Flute-gate combat half](../sessions/2026-07-25-flute-gate-combat.md)
 - [Session 2026-07-25 — Briar pose bake-off](../sessions/2026-07-25-briar-pose-bakeoff.md)
 - [Session 2026-07-24 — one-person studio + Sorceress research](../sessions/2026-07-24-one-person-studio-sorceress-research.md)
-- [Session 2026-07-24 — agentic playtest smoke](../sessions/2026-07-24-agentic-playtest-smoke.md)
 
 ## Ideas inbox
 - 142 captured items in [ideas.md](../ideas.md)
