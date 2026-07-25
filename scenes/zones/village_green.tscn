@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bq5l6scrtss13"]
+[gd_scene load_steps=25 format=3 uid="uid://bq5l6scrtss13"]
 
 [ext_resource type="Script" uid="uid://djr7o5g0hpu7q" path="res://scripts/world/village_green.gd" id="1_zone"]
 [ext_resource type="PackedScene" uid="uid://cfpo0lhe11a3y" path="res://scenes/player/player.tscn" id="3_player"]
@@ -30,19 +30,31 @@ size = Vector2(1240, 48)
 size = Vector2(48, 780)
 
 [sub_resource type="RectangleShape2D" id="bld_marta"]
-size = Vector2(240, 150)
+size = Vector2(200, 140)
 
 [sub_resource type="RectangleShape2D" id="bld_church"]
-size = Vector2(210, 190)
+size = Vector2(170, 200)
 
 [sub_resource type="RectangleShape2D" id="bld_smith"]
-size = Vector2(220, 130)
+size = Vector2(180, 72)
 
 [sub_resource type="RectangleShape2D" id="bld_cot_l"]
-size = Vector2(180, 120)
+size = Vector2(150, 100)
 
 [sub_resource type="RectangleShape2D" id="bld_cot_r"]
-size = Vector2(180, 120)
+size = Vector2(150, 100)
+
+[sub_resource type="CircleShape2D" id="solid_well"]
+radius = 16.0
+
+[sub_resource type="RectangleShape2D" id="solid_bench"]
+size = Vector2(48, 16)
+
+[sub_resource type="CircleShape2D" id="solid_tree"]
+radius = 28.0
+
+[sub_resource type="RectangleShape2D" id="solid_market"]
+size = Vector2(40, 28)
 
 [sub_resource type="CircleShape2D" id="listen"]
 radius = 64.0
@@ -84,24 +96,56 @@ position = Vector2(616, 0)
 shape = SubResource("wall_v")
 
 [node name="BldMarta" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-10, -290)
+position = Vector2(-10, -300)
 shape = SubResource("bld_marta")
 
 [node name="BldChurch" type="CollisionShape2D" parent="Borders"]
-position = Vector2(340, -250)
+position = Vector2(360, -260)
 shape = SubResource("bld_church")
 
 [node name="BldSmith" type="CollisionShape2D" parent="Borders"]
-position = Vector2(0, 20)
+position = Vector2(0, 0)
 shape = SubResource("bld_smith")
 
 [node name="BldCotL" type="CollisionShape2D" parent="Borders"]
-position = Vector2(-350, 270)
+position = Vector2(-280, 100)
 shape = SubResource("bld_cot_l")
 
 [node name="BldCotR" type="CollisionShape2D" parent="Borders"]
-position = Vector2(360, 270)
+position = Vector2(360, 275)
 shape = SubResource("bld_cot_r")
+
+[node name="WorldSolids" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Well" type="CollisionShape2D" parent="WorldSolids"]
+position = Vector2(-200, -20)
+shape = SubResource("solid_well")
+
+[node name="GreenBench" type="CollisionShape2D" parent="WorldSolids"]
+position = Vector2(120, 148)
+shape = SubResource("solid_bench")
+
+[node name="MarketCrate" type="CollisionShape2D" parent="WorldSolids"]
+position = Vector2(250, 100)
+shape = SubResource("solid_market")
+
+[node name="TreeNW" type="CollisionShape2D" parent="WorldSolids"]
+position = Vector2(-480, -280)
+shape = SubResource("solid_tree")
+
+[node name="TreeNE" type="CollisionShape2D" parent="WorldSolids"]
+position = Vector2(500, -300)
+shape = SubResource("solid_tree")
+
+[node name="TreeSE" type="CollisionShape2D" parent="WorldSolids"]
+position = Vector2(500, 200)
+shape = SubResource("solid_tree")
+
+[node name="TreeSW" type="CollisionShape2D" parent="WorldSolids"]
+position = Vector2(-500, 280)
+shape = SubResource("solid_tree")
 
 [node name="MarkerFieldWest" type="Node2D" parent="." groups=["marker_field_west"]]
 position = Vector2(-540, 40)

@@ -20,6 +20,7 @@ _Regenerated 2026-07-25 by `tools/digest.py`. Do not hand-edit._
 - _(none yet)_
 
 ## Recent sessions
+- [Session 2026-07-25 — Village collision nudge](../sessions/2026-07-25-village-collision-nudge.md)
 - [Session 2026-07-25 — Stinger Sorceress bank swap](../sessions/2026-07-25-stinger-toy-sorceress.md)
 - [Session 2026-07-25 — Sorceress SFX + AutoSprite trials](../sessions/2026-07-25-sorceress-sfx-autosprite-trials.md)
 - [Session 2026-07-25 — Sorceress API probe](../sessions/2026-07-25-sorceress-api-probe.md)
@@ -27,7 +28,6 @@ _Regenerated 2026-07-25 by `tools/digest.py`. Do not hand-edit._
 - [Session 2026-07-25 — Reflect close](../sessions/2026-07-25-reflect-close.md)
 - [Session 2026-07-25 — Playground solid props](../sessions/2026-07-25-playground-collision.md)
 - [Session 2026-07-25 — Place berries](../sessions/2026-07-25-place-berries.md)
-- [Session 2026-07-25 — Godot hygiene dirty-tree cleanup](../sessions/2026-07-25-godot-hygiene-dirty-tree.md)
 
 ## Ideas inbox
 - 142 captured items in [ideas.md](../ideas.md)
