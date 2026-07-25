@@ -75,7 +75,8 @@ const BRIAR_CALM_MIN_BOND := 25.0
 const BRIAR_CALM_RANGE := 90.0
 const DOMINATE_RATE_FACTOR := 1.4  # fear is faster than trust — by design
 ## The flute is the single gate to ALL monster interaction (decision 2026-06-21):
-## no soothing until Rowan has found it. Persisted story flag, set on pickup.
+## no soothing until Rowan has found it; combat half also needs a real weapon.
+## Persisted story flag, set on pickup.
 const FLUTE_UNLOCK_FLAG := &"flute_found"
 const PICKUP_RANGE := 40.0  # how close Rowan must be to lift a loose object
 var _carried: ThrowableObject = null  # the loose object currently held, if any
@@ -305,6 +306,34 @@ func _unspareable_monster_near() -> bool:
 ## True once Rowan has found the flute — the persistent gate to all soothing.
 func _soothe_unlocked() -> bool:
 	return PlayerData.has_story_flag(FLUTE_UNLOCK_FLAG)
+
+
+## Flute found (pure/static — combat + soothe share this flag).
+static func monsters_combat_unlocked() -> bool:
+	return PlayerData.has_story_flag(FLUTE_UNLOCK_FLAG)
+
+
+## Melee/ranged attack may wound monsters only with a real equipped weapon AND
+## the flute (decision 2026-06-21). Bare fists never hurt monsters.
+static func can_armed_attack_hurt_monsters() -> bool:
+	return PlayerData.equipped_weapon != &"" and monsters_combat_unlocked()
+
+
+## Player-faction hitboxes vs enemy hurtboxes (decision 2026-06-21 combat half):
+## pre-flute = flee only (no damage from any player source). Post-flute bare
+## melee is still a whiff; equipped weapons and thrown tools (rocks / sling
+## shots in group "thrown") can hurt monsters.
+static func can_player_hitbox_hurt_monsters(hitbox: Hitbox) -> bool:
+	if hitbox == null:
+		return false
+	if not monsters_combat_unlocked():
+		return false
+	if PlayerData.equipped_weapon != &"":
+		return true
+	# Unarmed: only thrown tools, not the body melee AttackHitbox.
+	if hitbox is ThrownProjectile or hitbox.is_in_group("thrown"):
+		return true
+	return false
 
 
 func _update_soothe_prompt() -> void:
@@ -601,7 +630,9 @@ func perform_attack() -> void:
 	play_action_animation("attack")
 	Sfx.play(&"swing", -6.0, 0.06, attack_pitch(weapon_def))  # hands vs stick read by pitch
 	await get_tree().create_timer(ATTACK_WINDUP).timeout
-	if my_attack == _attack_id and movement_state == MovementState.ATTACKING:
+	# Whiff when bare-fisted or pre-flute: anim + SFX still play (feedback), no live hitbox.
+	if my_attack == _attack_id and movement_state == MovementState.ATTACKING \
+			and can_armed_attack_hurt_monsters():
 		attack_hitbox.activate(ATTACK_WINDOW)
 	await get_tree().create_timer(ATTACK_WINDOW + 0.07).timeout
 	# only the coroutine that still owns the attack may end it (Codex gate #3)
@@ -610,7 +641,8 @@ func perform_attack() -> void:
 
 
 ## Slingshot attack: spend one stone and loose a projectile in the facing
-## direction. Blocked (a soft click, no shot) when out of ammo.
+## direction. Blocked (a soft click, no shot) when out of ammo. Pre-flute the
+## stone still flies but deals 0 to monsters (Hurtbox gate + damage 0).
 func _perform_throw(def: ItemDef) -> void:
 	if not consume_throw_ammo(def.ammo_id):
 		Sfx.play(&"swing", -16.0)  # dry click — the sling is empty
@@ -618,7 +650,8 @@ func _perform_throw(def: ItemDef) -> void:
 	play_action_animation("attack")
 	Sfx.play(&"swing", -6.0, 0.06, attack_pitch(def))  # zippier than a melee swing
 	var proj: ThrownProjectile = PROJECTILE_SCENE.instantiate()
-	proj.setup(_facing, 1)  # parity with the melee hitbox; gear stat-weight is the equipment pass
+	var dmg := 1 if can_armed_attack_hurt_monsters() else 0
+	proj.setup(_facing, dmg)  # gear stat-weight is the equipment pass
 	proj.global_position = global_position + _facing * THROW_REACH
 	# into the zone's world container so it y-sorts/lives with everyone else
 	var world := get_parent()

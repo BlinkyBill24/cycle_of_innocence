@@ -24,10 +24,10 @@ _Regenerated 2026-07-25 by `tools/digest.py`. Do not hand-edit._
 - [Session 2026-07-25 — Sorceress API probe](../sessions/2026-07-25-sorceress-api-probe.md)
 - [Session 2026-07-25 — Godot hygiene dirty-tree cleanup](../sessions/2026-07-25-godot-hygiene-dirty-tree.md)
 - [Session 2026-07-25 — Game-dev role skills roster](../sessions/2026-07-25-game-dev-role-skills.md)
+- [Session 2026-07-25 — Flute-gate combat half](../sessions/2026-07-25-flute-gate-combat.md)
 - [Session 2026-07-25 — Briar pose bake-off](../sessions/2026-07-25-briar-pose-bakeoff.md)
 - [Session 2026-07-24 — one-person studio + Sorceress research](../sessions/2026-07-24-one-person-studio-sorceress-research.md)
 - [Session 2026-07-24 — agentic playtest smoke](../sessions/2026-07-24-agentic-playtest-smoke.md)
-- [2026-06-28 — First-pass wiring of the V2 Briar art](../sessions/2026-06-28-wire-briar-v2-art.md)
 
 ## Ideas inbox
 - 142 captured items in [ideas.md](../ideas.md)
