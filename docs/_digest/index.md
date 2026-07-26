@@ -4,7 +4,7 @@ tags: [digest, auto]
 ---
 
 # Digest
-_Regenerated 2026-07-25 by `tools/digest.py`. Do not hand-edit._
+_Regenerated 2026-07-26 by `tools/digest.py`. Do not hand-edit._
 
 ## Recent decisions
 - [Briar stand-in pose bake-off (Imagine vs PixelLab vs Sorceress)](../decisions/2026-07-25-briar-pose-bakeoff.md)
@@ -20,6 +20,7 @@ _Regenerated 2026-07-25 by `tools/digest.py`. Do not hand-edit._
 - _(none yet)_
 
 ## Recent sessions
+- [Session 2026-07-26 — Playground tileset redesign](../sessions/2026-07-26-playground-tileset-redesign.md)
 - [Session 2026-07-25 — Village collision nudge](../sessions/2026-07-25-village-collision-nudge.md)
 - [Session 2026-07-25 — Stinger Sorceress bank swap](../sessions/2026-07-25-stinger-toy-sorceress.md)
 - [Session 2026-07-25 — Sorceress SFX + AutoSprite trials](../sessions/2026-07-25-sorceress-sfx-autosprite-trials.md)
@@ -27,7 +28,6 @@ _Regenerated 2026-07-25 by `tools/digest.py`. Do not hand-edit._
 - [Session 2026-07-25 — Slice playtest (Bite 4)](../sessions/2026-07-25-slice-playtest-bite4.md)
 - [Session 2026-07-25 — Reflect close](../sessions/2026-07-25-reflect-close.md)
 - [Session 2026-07-25 — T1 ground-only + matched props](../sessions/2026-07-25-playground-t1-ground-props.md)
-- [Session 2026-07-25 — Playground solid props](../sessions/2026-07-25-playground-collision.md)
 
 ## Ideas inbox
 - 142 captured items in [ideas.md](../ideas.md)
