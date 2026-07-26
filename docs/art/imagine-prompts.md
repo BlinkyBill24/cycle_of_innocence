@@ -470,3 +470,65 @@ Post: crop → fit 48px cell → (ship path) paste into `puppy_v2/anim/<pose>/so
 **Arm B — PixelLab bitforge (64×64, low top-down, style+init):** style lock good, pose change failed (see decision scorecard).
 
 **Arm C — Sorceress:** human recipe only; see `assets/reference/bakeoff_2026-07-25/arm_c_sorceress/README.md`.
+
+## Playground ground tileset redesign (2026-07-26 — T2)
+
+**Mission:** [[agents/missions/2026-07-26-playground-tileset-redesign]]. Branch `feature/playground-tileset-redesign`.
+Primary production: PixelLab `create-tileset` via `tools/pixellab_tilesets.py` (`playground_v2`, view=`low top-down`, `transition_size=0.0`).
+Imagine used only for **look-target** seamless fills (not production Wang atlas).
+
+### PixelLab playground_v2 (queued + downloaded)
+
+- `tileset_id`: `5b3b1d1d-85f3-43f5-a061-068646a01e99`
+- Lower: flat top-down pixel grass texture only, dry village playground lawn at warm dusk, muted olive-green short blades, even density, no flowers no rocks no props, anonymous seamless ground fill, soft golden evening light, completely level surface
+- Upper: flat top-down packed earth path texture only, trampled dusty tan-brown dirt flush with surrounding grass height, faint scuffs not footprints, no curb no stones no elevation no shadow under path, level worn trail
+- Transition: grass blades thinning into packed dirt on a completely flat plane, soft worn edge, path and grass same height, no cliff no step no raised border
+- Outputs: `assets/reference/pixellab_tilesets/playground_v2_tileset_32.png` + `playground_v2_tileset_preview.png` + seam 2×2 PNGs; copies under `assets/reference/tileset_redesign_2026-07-26/`
+
+### Grok Imagine look targets (true top-down seamless)
+
+**Grass (look only):**
+```
+True top-down plan view seamless ground texture only for a retro pixel art RPG, flat anonymous dry village grass at warm dusk. Even short muted olive-green blades, soft golden evening light, no flowers, no rocks, no props, no paths, no elevation, no shadows under edges, completely level surface. SNES Zelda pixel style, limited 20-color warm dusk palette, crisp pixels, no anti-aliasing, seamless tileable fill that can repeat without a unique motif grid. Square texture sample.
+```
+Save: `assets/reference/tileset_redesign_2026-07-26/imagine_look_grass_seamless.jpg` (+ `_256.png` preview)
+
+**Dirt / packed path (look only):**
+```
+True top-down plan view seamless packed earth path texture only for a retro pixel art RPG, flat trampled dusty tan-brown dirt flush level with ground, faint scuffs not clear footprints, no curb, no stones, no elevation, no shadow under path, no grass patches, no props. SNES Zelda pixel style, limited 16-color warm dusk dirt palette, crisp pixels, no anti-aliasing, seamless anonymous tileable fill. Square texture sample.
+```
+Save: `assets/reference/tileset_redesign_2026-07-26/imagine_look_dirt_seamless.jpg` (+ `_256.png` preview)
+
+### Compare sheet (PIL composite)
+
+- `assets/reference/tileset_redesign_2026-07-26/compare_old_v2_paint.png` (+ `_x4` / 2× NEAREST upscale)
+- Panels: old atlas | playground_v2 atlas | T1 painted crop; row 2: grass/dirt seam checks
+
+**Human pick still required before** `tools/gen_zone_tileset_tres.py` / level-design wires production.
+
+## Playground ground quality bar (2026-07-26 — after T1 wins vs Wang v2)
+
+Human: T1 painted plate still best. Quality targets from Downloads:
+- `sorceress-240b9319-1785009477112.png` — Sorceress village kit (2D painted modular ground band = real bar)
+- `e8a716a5-12df-43f1-90f6-dcccf98baae0.jpeg` — lush 3D nature kit (**wrong medium** for CoI; density inspiration only)
+
+Imported under `assets/reference/tileset_redesign_2026-07-26/ref_*`.
+
+### T1+ ground upgrade (image_edit, T1 + Sorceress ground band)
+```
+Upgrade this top-down playground ground painting to match the richness of classic 2D RPG village tilesets: denser short grass with soft clumps and subtle variation, warmer dusk olive and golden grass, more readable packed-earth path with gentle scuffs and soft edges flush with the grass (no raised curb, no stone sidewalk), richer mud patches, sparse tiny wildflowers only as quiet accents. Keep the exact same layout and camera: sandbox rectangle, winding dirt path, warm playground left and cold dark forest fringe right, ground surface only — no playground equipment, no characters, no buildings. True top-down plan view, retro SNES pixel-art game background, limited palette, crisp pixels, no anti-aliasing mush, atmospheric quiet horror of an empty village playground after dusk.
+```
+Refs: playground_painted.png + ref_sorceress_ground_band.png  
+Out: `tileset_redesign_2026-07-26/t1_plus_ground_upgrade.jpg`
+
+### Imagine modular ground strip
+(see session assets `imagine_modular_ground_strip.jpg` — labeled cells; concept only)
+
+### Sorceress Seedream 5 Pro ground strip (API image_generate)
+Prompt: Retro SNES pixel art top-down ground … dense soft grass clumps … flat flush …  
+Out: `tileset_redesign_2026-07-26/sorceress_seedream_ground_strip.png`
+
+### Restyle Sorceress ground band → dusk CoI
+Out: `tileset_redesign_2026-07-26/sorceress_ground_restyle_dusk.jpg`
+
+Compare: `compare_quality_bar_full.png`

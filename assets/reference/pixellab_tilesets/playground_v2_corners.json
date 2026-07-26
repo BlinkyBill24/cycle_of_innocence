@@ -1,0 +1,98 @@
+{
+ "13": {
+  "NW": "upper",
+  "NE": "upper",
+  "SW": "lower",
+  "SE": "upper"
+ },
+ "10": {
+  "NW": "upper",
+  "NE": "lower",
+  "SW": "upper",
+  "SE": "lower"
+ },
+ "4": {
+  "NW": "lower",
+  "NE": "upper",
+  "SW": "lower",
+  "SE": "lower"
+ },
+ "12": {
+  "NW": "upper",
+  "NE": "upper",
+  "SW": "lower",
+  "SE": "lower"
+ },
+ "6": {
+  "NW": "lower",
+  "NE": "upper",
+  "SW": "upper",
+  "SE": "lower"
+ },
+ "8": {
+  "NW": "upper",
+  "NE": "lower",
+  "SW": "lower",
+  "SE": "lower"
+ },
+ "0": {
+  "NW": "lower",
+  "NE": "lower",
+  "SW": "lower",
+  "SE": "lower"
+ },
+ "1": {
+  "NW": "lower",
+  "NE": "lower",
+  "SW": "lower",
+  "SE": "upper"
+ },
+ "11": {
+  "NW": "upper",
+  "NE": "lower",
+  "SW": "upper",
+  "SE": "upper"
+ },
+ "3": {
+  "NW": "lower",
+  "NE": "lower",
+  "SW": "upper",
+  "SE": "upper"
+ },
+ "2": {
+  "NW": "lower",
+  "NE": "lower",
+  "SW": "upper",
+  "SE": "lower"
+ },
+ "5": {
+  "NW": "lower",
+  "NE": "upper",
+  "SW": "lower",
+  "SE": "upper"
+ },
+ "15": {
+  "NW": "upper",
+  "NE": "upper",
+  "SW": "upper",
+  "SE": "upper"
+ },
+ "14": {
+  "NW": "upper",
+  "NE": "upper",
+  "SW": "upper",
+  "SE": "lower"
+ },
+ "9": {
+  "NW": "upper",
+  "NE": "lower",
+  "SW": "lower",
+  "SE": "upper"
+ },
+ "7": {
+  "NW": "lower",
+  "NE": "upper",
+  "SW": "upper",
+  "SE": "upper"
+ }
+}

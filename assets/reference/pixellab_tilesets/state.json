@@ -61,5 +61,16 @@
    "tileset_id": "864b610b-7ccb-42d8-9665-b80d5fb3f304",
    "status": "processing"
   }
+ },
+ "playground_v2": {
+  "tileset_id": "5b3b1d1d-85f3-43f5-a061-068646a01e99",
+  "view": "low top-down",
+  "transition_size": 0.0,
+  "raw": {
+   "usage": null,
+   "background_job_id": "042ce101-20ca-4ef5-8a3d-d73a9915985b",
+   "tileset_id": "5b3b1d1d-85f3-43f5-a061-068646a01e99",
+   "status": "processing"
+  }
  }
 }
