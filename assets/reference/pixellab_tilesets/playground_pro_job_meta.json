@@ -1,0 +1,15 @@
+{
+  "tileset_id": "7e0c6c6e-30cf-4154-a5d6-10fe3d33bc66",
+  "status": null,
+  "tile_count": 16,
+  "keys_sample": [
+    "id",
+    "name",
+    "image",
+    "corners",
+    "pattern_4x4",
+    "original_position",
+    "description",
+    "connections"
+  ]
+}
