@@ -111,3 +111,11 @@ Quality bar (user Downloads, now in `assets/reference/tileset_redesign_2026-07-2
 - Lush 3D nature JPEG — detail density only; **not** CoI style
 
 Next creative path: **T1+ denser paint** and/or **modular high-detail ground tiles** (Imagine + Sorceress Seedream), not more flat Wang 16-tile sets for the hero playground plate.
+
+
+## Locked direction (human 2026-07-26)
+
+- **No** slicing `t1_plus` / painted plates into fake tiles.
+- Keep continuous paint; chase beauty on the plate.
+- Fix **prop match** (palette + optional restyle candidates), not tile-cutting.
+- Production plate on this branch = T1+ install.

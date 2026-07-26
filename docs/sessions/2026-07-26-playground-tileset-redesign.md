@@ -87,3 +87,12 @@ python3 tools/pixellab_tilesets.py queue --only playground_v2 --force
   - `sorceress_ground_restyle_dusk.jpg` — modular dusk restyle of Sorceress ground
   - `compare_quality_bar_full.png`
 - Conclusion: stop fighting with flat Wang fills for playground hero ground; chase **painted modular / high-density ground-only plate** quality like the Sorceress kit middle band. 3D lush kit is inspiration only (wrong style).
+
+## Design lock (human, same day)
+
+- **Do not cut painted plate into tiles** — full paint stays continuous and beautiful.
+- Real remaining pain = **props vs ground mismatch**, not "more Wang tiles."
+- Shipped on branch: T1+ plate as production `playground_painted.png`;
+  adaptive palette_lock; decision
+  `docs/decisions/2026-07-26-playground-paint-not-fake-tiles.md`.
+- Imagine prop restyles kept as candidates only (silhouettes changed — human pick).

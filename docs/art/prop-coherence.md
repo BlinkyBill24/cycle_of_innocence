@@ -37,7 +37,7 @@ spaces, not modular kitbash* — that is the replay-value stake.
 
 1. **Palette hard-lock**: extract each zone backdrop's 48-color palette;
    force-quantize every prop to it — shipped implementation:
-   `tools/palette_lock.py` (nearest-RGB, alpha preserved, `--dry-run`).
+   `tools/palette_lock.py` (nearest-RGB, alpha preserved, `--dry-run`; for full painted plates with many colors use `--max-colors 48` adaptive extract — 2026-07-26).
    Upgrades the Terranigma-pass desaturation fix into a guarantee. Biggest
    visual win per minute. **Authored saturation exemptions**: props whose
    wrongness IS the design stay unlocked — currently only `toy_duck.png`

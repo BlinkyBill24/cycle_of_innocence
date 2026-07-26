@@ -24,13 +24,25 @@ from pathlib import Path
 from PIL import Image
 
 
-def backdrop_palette(path: Path) -> list[tuple[int, int, int]]:
+def backdrop_palette(path: Path, max_colors: int = 48) -> list[tuple[int, int, int]]:
+    """Extract a hard palette from a zone plate.
+
+    Painted AI plates often have tens of thousands of colors. We adaptive-quantize
+    to ``max_colors`` so props can lock to a usable set (prop-coherence rule 1).
+    True 48-color pixel plates pass through almost unchanged.
+    """
     im = Image.open(path).convert("RGBA")
-    colors = {p[:3] for p in im.getdata() if p[3] > 0}
-    if len(colors) > 64:
-        print(f"WARN: backdrop has {len(colors)} colors — expected a "
-              "quantized (~48 color) backdrop; is this the right file?",
-              file=sys.stderr)
+    alpha = im.split()[3]
+    rgb = im.convert("RGB")
+    raw_colors = {p for p, a in zip(rgb.getdata(), alpha.getdata()) if a > 8}
+    if len(raw_colors) <= max_colors:
+        return sorted(raw_colors)
+    q_rgb = rgb.quantize(colors=max_colors, method=Image.Quantize.MEDIANCUT).convert("RGB")
+    colors = {p for p, a in zip(q_rgb.getdata(), alpha.getdata()) if a > 8}
+    print(
+        f"  (backdrop had {len(raw_colors)} colors → adaptive {len(colors)} for lock)",
+        file=sys.stderr,
+    )
     return sorted(colors)
 
 
@@ -80,9 +92,11 @@ def main() -> None:
     ap.add_argument("props", nargs="+", type=Path, help="prop PNGs to lock")
     ap.add_argument("--dry-run", action="store_true",
                     help="report changes without writing")
+    ap.add_argument("--max-colors", type=int, default=48,
+                    help="adaptive palette size when backdrop is a full paint (default 48)")
     args = ap.parse_args()
 
-    palette = backdrop_palette(args.backdrop)
+    palette = backdrop_palette(args.backdrop, max_colors=args.max_colors)
     print(f"Palette: {len(palette)} colors from {args.backdrop.name}")
     for prop in args.props:
         if prop.resolve() == args.backdrop.resolve():

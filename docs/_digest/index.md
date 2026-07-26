@@ -7,6 +7,7 @@ tags: [digest, auto]
 _Regenerated 2026-07-26 by `tools/digest.py`. Do not hand-edit._
 
 ## Recent decisions
+- [Decision: Playground ground stays a continuous painted plate](../decisions/2026-07-26-playground-paint-not-fake-tiles.md)
 - [Briar stand-in pose bake-off (Imagine vs PixelLab vs Sorceress)](../decisions/2026-07-25-briar-pose-bakeoff.md)
 - [Food Heal Values (Player Self-Healing)](../decisions/2026-06-21-food-heal-values.md)
 - [Companions, the Flute Gate & Monster-Interaction Rules](../decisions/2026-06-21-companions-and-flute-gate.md)
@@ -14,7 +15,6 @@ _Regenerated 2026-07-26 by `tools/digest.py`. Do not hand-edit._
 - [Decision — Hollow House inner gate goes key-item (hybrid)](../decisions/2026-06-19-hollow-house-key-gate-hybrid.md)
 - [Decision — Interior art + dressing pass](../decisions/2026-06-14-interior-art-pass.md)
 - [Next Phase — Hollow House Slice → Playtest → Art](../decisions/2026-06-13-next-phase-hollow-house-slice.md)
-- [Inventory System (Vertical Slice)](../decisions/2026-06-13-inventory-system.md)
 
 ## Features
 - _(none yet)_
