@@ -76,3 +76,14 @@ python3 tools/pixellab_tilesets.py queue --only playground_v2 --force
 - [[sessions/2026-07-25-playground-t1-ground-props]]
 - [[art/prop-coherence]]
 - [[art/imagine-prompts]]
+
+## Human gate update
+
+- **T1 still wins** vs playground_v2 Wang tiles.
+- Quality bar refs imported from Downloads (Sorceress village kit + lush 3D kit).
+- New candidates (not shipped to production):
+  - `t1_plus_ground_upgrade.jpg` — denser T1 layout
+  - `sorceress_seedream_ground_strip.png` — Seedream continuous grass/path
+  - `sorceress_ground_restyle_dusk.jpg` — modular dusk restyle of Sorceress ground
+  - `compare_quality_bar_full.png`
+- Conclusion: stop fighting with flat Wang fills for playground hero ground; chase **painted modular / high-density ground-only plate** quality like the Sorceress kit middle band. 3D lush kit is inspiration only (wrong style).

@@ -3,7 +3,7 @@ name: "Mission — Playground tileset redesign (T2)"
 date: "2026-07-26"
 tags: [agents, mission, art, tileset]
 branch: "feature/playground-tileset-redesign"
-status: active
+status: active  # human: T1 still wins; chase Sorceress-kit density
 ---
 
 # Mission: Redesign playground ground tiles (not another big paint)
@@ -100,3 +100,14 @@ Tools: PixelLab create-tileset (primary), Grok Imagine look-targets, Sorceress o
 Deliver: playground_v2 atlas + previews + seam checks + compare sheet + prompt log + journal
 Stop: human pick before level-design wires production
 ```
+
+
+## Update 2026-07-26 (human feedback)
+
+**T1 still looks best.** PixelLab `playground_v2` rejected for feel.
+
+Quality bar (user Downloads, now in `assets/reference/tileset_redesign_2026-07-26/`):
+- Sorceress village kit PNG — modular 2D ground band = target density
+- Lush 3D nature JPEG — detail density only; **not** CoI style
+
+Next creative path: **T1+ denser paint** and/or **modular high-detail ground tiles** (Imagine + Sorceress Seedream), not more flat Wang 16-tile sets for the hero playground plate.

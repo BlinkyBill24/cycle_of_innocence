@@ -505,3 +505,30 @@ Save: `assets/reference/tileset_redesign_2026-07-26/imagine_look_dirt_seamless.j
 - Panels: old atlas | playground_v2 atlas | T1 painted crop; row 2: grass/dirt seam checks
 
 **Human pick still required before** `tools/gen_zone_tileset_tres.py` / level-design wires production.
+
+## Playground ground quality bar (2026-07-26 — after T1 wins vs Wang v2)
+
+Human: T1 painted plate still best. Quality targets from Downloads:
+- `sorceress-240b9319-1785009477112.png` — Sorceress village kit (2D painted modular ground band = real bar)
+- `e8a716a5-12df-43f1-90f6-dcccf98baae0.jpeg` — lush 3D nature kit (**wrong medium** for CoI; density inspiration only)
+
+Imported under `assets/reference/tileset_redesign_2026-07-26/ref_*`.
+
+### T1+ ground upgrade (image_edit, T1 + Sorceress ground band)
+```
+Upgrade this top-down playground ground painting to match the richness of classic 2D RPG village tilesets: denser short grass with soft clumps and subtle variation, warmer dusk olive and golden grass, more readable packed-earth path with gentle scuffs and soft edges flush with the grass (no raised curb, no stone sidewalk), richer mud patches, sparse tiny wildflowers only as quiet accents. Keep the exact same layout and camera: sandbox rectangle, winding dirt path, warm playground left and cold dark forest fringe right, ground surface only — no playground equipment, no characters, no buildings. True top-down plan view, retro SNES pixel-art game background, limited palette, crisp pixels, no anti-aliasing mush, atmospheric quiet horror of an empty village playground after dusk.
+```
+Refs: playground_painted.png + ref_sorceress_ground_band.png  
+Out: `tileset_redesign_2026-07-26/t1_plus_ground_upgrade.jpg`
+
+### Imagine modular ground strip
+(see session assets `imagine_modular_ground_strip.jpg` — labeled cells; concept only)
+
+### Sorceress Seedream 5 Pro ground strip (API image_generate)
+Prompt: Retro SNES pixel art top-down ground … dense soft grass clumps … flat flush …  
+Out: `tileset_redesign_2026-07-26/sorceress_seedream_ground_strip.png`
+
+### Restyle Sorceress ground band → dusk CoI
+Out: `tileset_redesign_2026-07-26/sorceress_ground_restyle_dusk.jpg`
+
+Compare: `compare_quality_bar_full.png`
